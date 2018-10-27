@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport  content="width=device-width, initial-scale=1">
+<title>library.js &bull; Specification page</title>
+<link rel=icon       href=https://centerkey.com/graphics/bookmark.png>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.3/css/all.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet href=https://centerkey.com/css/reset.css>
+</head>
+<body>
+
+<header>
+   <h1>library.js</h1>
+   <h2>Specifications Page</h2>
+   <a id=fork-me href=https://github.com/center-key/web-ignition>
+      Fork me on GitHub
+   </a>
+</header>
+
+<main>
+
+   <section>
+      <h2>Specifications</h2>
+      <p id=roll-in-icons>
+         <i data-icon=magic></i>
+         <i data-icon=flag></i>
+         <i data-icon=paw></i>
+         <i data-brand=apple></i>
+         <i data-icon=coffee></i>
+         <i data-icon=diamond></i>
+         <i data-icon=bolt></i>
+         <i data-brand=github-alt></i>
+      </p>
+      <p>
+         <button>Click me to disable</button>
+         <button class=no-disable>Keep clickin'</button>
+         <button data-href=https://www.google.com class=external-site>Jump to Google</button>
+         <button data-href-popup=https://www.google.com data-width=500>Google popup</button>
+      </p>
+      <form><button type=submit>Form submit</button></form>
+      <div>
+         <pre><code id=account-info></code></pre>
+      </div>
+      <div>
+         <code id=account-info-string></code>
+      </div>
+      <br>
+      <p class=display-addr data-name=sales data-domain=ibm.com></p>
+      <hr>
+      <div>
+         <div class=reveal-button>More...</div>
+         <div class=reveal-target>
+            <p>Surprise!</p><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p>
+         </div>
+      </div>
+      <hr>
+      <div>
+         <div class=reveal-button>More 2...</div>
+         <div class=reveal-target><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p></div>
+      </div>
+      <hr>
+      <div>
+         <div class=reveal-button data-reveal=more>More...</div>
+         <p>There is more that meets the eye.</p>
+         <div class=reveal-target data-reveal=more><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p></div>
+      </div>
+      <hr>
+      <p>thumbs-o-up: <i data-icon=thumbs-o-up></i></p>
+      <p>Hover over me<span class=bubble-help>Help!</span></p>
+      <p>On a Mac:    <code id=is-a-mac></code></p>
+      <p>Running iOS: <code id=is-ios></code></p>
+      <aside>
+         <img src=https://centerkey.com/mac/java/graphics/installer-screenshot.png
+            data-popup-image=https://centerkey.com/mac/java/graphics/installer-screenshot.png alt=thumbnail>
+      </aside>
+      <span>
+         <img src=https://dnajs.org/graphics/dnajs-logo.png class=popup-image alt=thumbnail>
+      </span>
+   </section>
+
+   <section style="width: 40%;">
+      <h2>A video</h2>
+      <figure class=video-container>
+         <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
+      </figure>
+      <h2>A video link</h2>
+      <figure class=video-container-link>
+         <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
+      </figure>
+   </section>
+
+</main>
+
+<footer>
+   <div id=social-buttons></div>
+   <div>Copyright &copy; 2151 Enterprise</div>
+</footer>
+
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
+<script src=library.js></script>
+<script>
+   library.ui.autoDisableButtons();
+   var account = { active: true, codes: [48348, 28923, 39080], city: 'London' };
+   $('#account-info').html(library.json.prettyPrint(account));
+   $('#account-info-string').text(library.json.printable(account));
+   library.animate.rollIn($('#roll-in-icons'));
+   $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
+   $('#is-ios').text(dna.browser.iOS() ? 'YES' : 'no');
+</script>
+</body>
+</html>

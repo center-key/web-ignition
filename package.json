@@ -1,0 +1,48 @@
+{
+   "name": "web-ignition",
+   "description": "Start a fire",
+   "version": "0.0.1",
+   "license": "MIT",
+   "repository": "github:center-key/web-ignition",
+   "homepage": "https://github.com/center-key/web-ignition",
+   "bugs": "https://github.com/center-key/web-ignition/issues",
+   "keywords": [
+      "html",
+      "javascript",
+      "web"
+   ],
+   "jshintConfig": {
+      "esversion": 6,
+      "strict": "implied",
+      "undef": true,
+      "unused": true,
+      "browser": true,
+      "jquery": true,
+      "node": true,
+      "globals": {
+         "dna": false
+      }
+   },
+   "scripts": {
+      "pretest": "jshint *.js js/*.js && gulp validate-spec",
+      "test": "gulp build-js"
+   },
+   "dependencies": {
+      "dna.js": "~1.4",
+      "fetch-json": "~2.1",
+      "jquery": "~3.3"
+   },
+   "devDependencies": {
+      "@babel/core": "~7.1",
+      "@babel/preset-env": "~7.1",
+      "del": "~3.0",
+      "gulp": "~4.0",
+      "gulp-babel": "~8.0",
+      "gulp-babel-minify": "~0.5",
+      "gulp-header": "~2.0",
+      "gulp-htmlhint": "~2.2",
+      "gulp-rename": "^1.4.0",
+      "gulp-size": "~3.0",
+      "gulp-w3c-html-validator": "~1.4"
+   }
+}
