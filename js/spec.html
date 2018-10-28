@@ -14,9 +14,7 @@
 <header>
    <h1>library.js</h1>
    <h2>Specifications Page</h2>
-   <a id=fork-me href=https://github.com/center-key/web-ignition>
-      Fork me on GitHub
-   </a>
+   <a id=fork-me href=https://github.com/center-key/web-ignition>Fork me on GitHub</a>
 </header>
 
 <main>
@@ -103,7 +101,7 @@
 <script src=library.js></script>
 <script>
    library.ui.autoDisableButtons();
-   var account = { active: true, codes: [48348, 28923, 39080], city: 'London' };
+   const account = { active: true, codes: [48348, 28923, 39080], city: 'London' };
    $('#account-info').html(library.json.prettyPrint(account));
    $('#account-info-string').text(library.json.printable(account));
    library.animate.rollIn($('#roll-in-icons'));

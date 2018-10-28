@@ -4,7 +4,8 @@
 // MIT License                          //
 //////////////////////////////////////////
 
-var library = {
+const library = {
+   version: '[VERSION]',
    initialize: function() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -33,8 +34,8 @@ var library = {
 library.ui = {
    id: function(value) {
       // Usage:
-      //    var userElem = $('.user').id('J777');
-      //    var userId = userElem.id();
+      //    const userElem = $('.user').id('J777');
+      //    const userId = userElem.id();
       return value === undefined ? this.attr('id') : this.attr({ id: value });
       },
    enable: function(value) {
@@ -74,36 +75,36 @@ library.ui = {
       // Usage:
       //    <p class=display-addr data-name=sales data-domain=ibm.com></p>
       function display(i, elem) {
-         var data = $(elem).data();
+         const data = $(elem).data();
          $(elem).html(data.name + '<span>' + String.fromCharCode(64) + data.domain + '</span>');
          }
       return $('.display-addr').each(display);
       },
    popup: function(url, options) {
-      var settings = $.extend({ width: 600, height: 400 }, options);
-      var dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
+      const settings = $.extend({ width: 600, height: 400 }, options);
+      const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
    popupClick: function(event) {
       // Usage (see popup() for default width and height):
       //    <button data-href-popup=../support data-width=300>Help</button>
-      var data = $(event.target).data();
+      const data = $(event.target).data();
       library.ui.popup(data.hrefPopup, data);
       },
    revealSection: function(event) {
       // Usage (data-reveal optional):
       //    <div class=reveal-button data-reveal=more>More...</div>
       //    <div class=reveal-target data-reveal=more>Surprise!</div>
-      var button = $(event.target).closest('.reveal-button');
-      var findTarget = '.reveal-target[data-reveal=' + button.data().reveal + ']';
-      var target = button.data().reveal ? $(findTarget) : button.next();
+      const button = $(event.target).closest('.reveal-button');
+      const findTarget = '.reveal-target[data-reveal=' + button.data().reveal + ']';
+      const target = button.data().reveal ? $(findTarget) : button.next();
       dna.ui.slideFadeOut(button);
       dna.ui.slideFadeIn(target);
       },
    keepOnScreen: function(elem, padding) {  //must be position: absolute with top/left
-      var gap = elem.offset().left;
-      var moveR = Math.max(-gap, -padding) + padding;
-      var moveL = Math.max(gap + elem.width() - $(window).width(), -padding) + padding;
+      const gap = elem.offset().left;
+      const moveR = Math.max(-gap, -padding) + padding;
+      const moveL = Math.max(gap + elem.width() - $(window).width(), -padding) + padding;
       return elem.css({ left: '+=' + (moveR - moveL) + 'px' });
       },
    autoDisableButtons: function() {
@@ -127,7 +128,7 @@ library.ui = {
             elem.attr({ src: event.target.src }) :
             elem.css({ backgroundImage: 'url(' + event.target.src + ')' });
          }
-      var img = new window.Image();
+      const img = new window.Image();
       img.onload = handleImg;
       img.src = url;
       return elem;
@@ -138,7 +139,7 @@ library.ui = {
       // </figure>
       function makeVideoClickable(i, elem) {
          elem = $(elem);
-         var url = elem.find('iframe').attr('src');
+         const url = elem.find('iframe').attr('src');
          elem.attr('data-href', url.replace('//www.youtube.com/embed', '//youtu.be'));
          }
       $('figure.video-container-link').each(makeVideoClickable);
@@ -169,7 +170,7 @@ library.util = {
       return string.replace(/\s/g, '');
       },
    details: function(thing) {
-      var msg = typeof thing + ' --> ';
+      let msg = typeof thing + ' --> ';
       function addProp(property) { msg += property + ':' + thing[property] + ' '; }
       function jQueryDetials(elem) {
          return elem.length === 0 ? '' : ' [#1' +
@@ -202,7 +203,7 @@ library.storage = {
       },
    dbRead: function(key) {
       // Usage:
-      //    var profile = library.storage.dbSave('profile');
+      //    const profile = library.storage.dbSave('profile');
       return library.util.toObj(window.localStorage[key]);
       },
    sessionSave: function(key, obj) {
@@ -213,7 +214,7 @@ library.storage = {
       },
    sessionRead: function(key) {
       // Usage:
-      //    var editorSettings = library.storage.sessionSave('editor-settings');
+      //    const editorSettings = library.storage.sessionSave('editor-settings');
       return library.util.toObj(window.sessionStorage[key]);
       }
    };
@@ -228,15 +229,15 @@ library.popupImage = {
    // Usage (data-popup-image and data-popup-width are optional):
    //    <img src=thumb.png data-popup-image=full.jpg data-popup-width=300 alt=thumbnail>
    show: function(event) {
-      var defaultPopupWidth = 800;
-      var thumbnail = $(event.target).addClass('popup-image');
+      const defaultPopupWidth = 800;
+      const thumbnail = $(event.target).addClass('popup-image');
       thumbnail.parent().css({ position: 'relative' });
       thumbnail.next('.popup-image-layer').remove();
       function close() { thumbnail.next().fadeOut(); }
-      var width = thumbnail.data().popupWidth || defaultPopupWidth;
-      var maxWidth = Math.min(width, $(window).width() - 30) + 'px';
-      var imageSrc = thumbnail.data().popupImage || thumbnail.attr('src');
-      var popup = $('<div>').addClass('popup-image-layer').click(close)
+      const width = thumbnail.data().popupWidth || defaultPopupWidth;
+      const maxWidth = Math.min(width, $(window).width() - 30) + 'px';
+      const imageSrc = thumbnail.data().popupImage || thumbnail.attr('src');
+      const popup = $('<div>').addClass('popup-image-layer').click(close)
          .append(library.ui.makeIcons($('<i data-icon=times>')))
          .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
       popup.insertAfter(thumbnail);
@@ -248,10 +249,10 @@ library.animate = {
    // Usage:
    //    library.animate.rollIn($('.diagram'));
    rollIn: function(holderOrElems) {
-      var elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
-      var startDelay = 300;
-      var fadeDelay = 1500;
-      var fadeIn = { opacity: 1, transition: 'opacity 5s' };
+      let elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
+      const startDelay = 300;
+      const fadeDelay = 1500;
+      const fadeIn = { opacity: 1, transition: 'opacity 5s' };
       function roll() {
          elems.first().css(fadeIn).delay(fadeDelay).queue(roll);
          elems = elems.slice(1);
@@ -265,11 +266,11 @@ library.bubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
    setup: function() {
-      var wrapper;
-      var wrapperHtml = '<span class=bubble-wrap></span>';
-      var pointerHtml = '<span class=pointer>&#9660;</span>';
+      let wrapper;
+      const wrapperHtml = '<span class=bubble-wrap></span>';
+      const pointerHtml = '<span class=pointer>&#9660;</span>';
       function hi(event) {
-         var hover = $(event.target)
+         const hover = $(event.target)
             .closest('.bubble-help-hover');
          wrapper = hover.find('.bubble-wrap');
          if (wrapper.length === 0)
@@ -288,7 +289,7 @@ library.bubbleHelp = {
 
 library.form = {
    setup: function() {
-      var attributes = { method: 'post', action: 'perfect.php' };
+      const attributes = { method: 'post', action: 'perfect.php' };
       $('form.perfect:not([action])').attr(attributes);  //bots are lazy
       }
    };
@@ -296,17 +297,17 @@ library.form = {
 library.json = {
    prettyPrint: function(obj) {
       function replacer(match, pIndent, pKey, pVal, pEnd) {
-         var key = '<span class=json-key>';
-         var val = '<span class=json-value>';
-         var str = '<span class=json-string>';
-         var r = pIndent || '';
+         const key = '<span class=json-key>';
+         const val = '<span class=json-value>';
+         const str = '<span class=json-string>';
+         let r = pIndent || '';
          if (pKey)
             r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
          if (pVal)
             r = r + (pVal[0] === '"' ? str : val) + pVal + '</span>';
          return r + (pEnd || '');
          }
-      var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+      const jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
       return JSON.stringify(obj, null, 3)
          .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
          .replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -337,17 +338,17 @@ library.social = {
       { icon: 'reddit',      title: 'Reddit',   x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' }
       ],
    share: function(elem) {
-      var button = library.social.buttons[elem.index()];
+      const button = library.social.buttons[elem.index()];
       function insert(str, find, value) { return str.replace(find, encodeURIComponent(value)); }
-      var link = insert(button.link, '${url}', window.location.href);
-      link = insert(link, '${title}', window.document.title);
+      const linkTemp = insert(button.link, '${url}',   window.location.href);
+      const link =     insert(linkTemp,    '${title}', window.document.title);
       library.ui.popup(link, { width: button.x, height: button.y });
       },
    setup: function() {
       function initializeSocialButtons() {
-         var container = $('#social-buttons');
-         var html = '<span>';
-         var iconHtml = ['<i data-brand=', ' data-click=library.social.share></i>'];  //click by dna.js
+         const container = $('#social-buttons');
+         const iconHtml = ['<i data-brand=', ' data-click=library.social.share></i>'];  //click by dna.js
+         let html = '<span>';
          function addHtml(button) { html += iconHtml[0] + button.icon + iconHtml[1]; }
          if (container.length)
             library.social.buttons.forEach(addHtml);
@@ -362,7 +363,7 @@ library.gTags = {
    // Usage:
    //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.gTags.setup></script>
    setup: function(scriptTag) {
-      var trackingID = $(scriptTag).attr('src').split('=')[1];
+      const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
       gtag('js', new Date());

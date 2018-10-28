@@ -9,6 +9,7 @@ const header =        require('gulp-header');
 const htmlHint =      require('gulp-htmlhint');
 const htmlValidator = require('gulp-w3c-html-validator');
 const rename =        require('gulp-rename');
+const replace =       require('gulp-replace');
 const size =          require('gulp-size');
 
 // Setup
@@ -31,8 +32,10 @@ const task = {
    buildJs: function() {
       const transpileES6 = ['@babel/env', { modules: false }];
       return gulp.src('js/library.js')
+         .pipe(replace('[VERSION]', pkg.version))
          .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
          .pipe(rename('library.min.js'))
+         .pipe(replace(/$/, '\n'))
          .pipe(header('//! library.js ~~ ' + banner + '\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
