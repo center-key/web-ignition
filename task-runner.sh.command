@@ -75,6 +75,23 @@ runSpecs() {
    echo
    }
 
+publishWebFiles() {
+   cd $projectHome
+   publishWebRoot=$(grep ^DocumentRoot /private/etc/apache2/httpd.conf | awk -F\" '{ print $2 }')
+   publishSite=$publishWebRoot/centerkey.com
+   publishFolder=$publishSite/web-ignition
+   publish() {
+      echo "Publishing:"
+      echo $publishFolder
+      mkdir -p $publishFolder
+      cdnUrl=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js
+      sed "s#src=library.js#src=$cdnUrl#g" js/spec.html > $publishFolder/spec.html
+      ls -o $publishFolder
+      echo
+      }
+   test -w $publishSite && publish
+   }
+
 openWebPage() {
    cd $projectHome
    echo "Opening:"
@@ -88,4 +105,5 @@ openWebPage() {
 setupTools
 releaseInstructions
 runSpecs
+publishWebFiles
 openWebPage
