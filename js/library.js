@@ -1,5 +1,5 @@
 //////////////////////////////////////////
-// library.js                           //
+// web-ignition - library.js            //
 // Generic functions and web page setup //
 // MIT License                          //
 //////////////////////////////////////////

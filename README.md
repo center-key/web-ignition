@@ -3,10 +3,11 @@
 
 _Start a fire_
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/web-ignition/blob/master/LICENSE.txt)
+[![License:MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/web-ignition/blob/master/LICENSE.txt)
 [![npm](https://img.shields.io/npm/v/web-ignition.svg)](https://www.npmjs.com/package/web-ignition)
-[![Known Vulnerabilities](https://snyk.io/test/github/center-key/web-ignition/badge.svg)](https://snyk.io/test/github/center-key/web-ignition)
-[![Build Status](https://travis-ci.org/center-key/web-ignition.svg)](https://travis-ci.org/center-key/web-ignition)
+[![Vulnerabilities](https://snyk.io/test/github/center-key/web-ignition/badge.svg)](https://snyk.io/test/github/center-key/web-ignition)
+[![Build](https://travis-ci.org/center-key/web-ignition.svg)](https://travis-ci.org/center-key/web-ignition)
+[![Hits](https://data.jsdelivr.com/v1/package/npm/web-ignition/badge)](https://www.jsdelivr.com/package/npm/web-ignition)
 
 KISS!
 
