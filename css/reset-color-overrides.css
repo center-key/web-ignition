@@ -1,0 +1,24 @@
+/**************************************************************************************************/
+
+/****************************************/
+/* Color Overrides                      */
+/* web-ignition - reset.css             */
+/* Copy into your CSS and adjust colors */
+/****************************************/
+
+/* Link color */
+a { border-color: steelblue; }
+a:hover { background-color: steelblue; outline-color: steelblue; }
+
+/* Flat button color */
+button { background-color: cornflowerblue; }
+button:hover { background-color: royalblue; }
+
+/* Reveal action color */
+.reveal-button { color: darkseagreen; }
+.reveal-button:hover { background-color: darkseagreen; }
+
+/* PERFECT style colors */
+form.perfect { border-color: seagreen; }                                    /* outer color */
+form.perfect h2 { background-color: seagreen; }                             /* outer color */
+form.perfect input, form.perfect textarea { background-color: mintcream; }  /* input fields */

@@ -2,25 +2,36 @@
 // Gulp tasks
 
 // Imports
-const babel =         require('gulp-babel');
-const del =           require('del');
-const gulp =          require('gulp');
-const header =        require('gulp-header');
-const htmlHint =      require('gulp-htmlhint');
-const htmlValidator = require('gulp-w3c-html-validator');
-const rename =        require('gulp-rename');
-const replace =       require('gulp-replace');
-const size =          require('gulp-size');
+const babel =           require('gulp-babel');
+const del =             require('del');
+const css =             require('gulp-postcss');
+const cssFontMagician = require('postcss-font-magician');
+const cssNano =         require('cssnano');
+const cssPresetEnv =    require('postcss-preset-env');
+const gap =             require('gulp-append-prepend');
+const gulp =            require('gulp');
+const header =          require('gulp-header');
+const htmlHint =        require('gulp-htmlhint');
+const htmlValidator =   require('gulp-w3c-html-validator');
+const less =            require('gulp-less');
+const rename =          require('gulp-rename');
+const replace =         require('gulp-replace');
+const size =            require('gulp-size');
 
 // Setup
 const pkg = require('./package.json');
 const banner = `${pkg.name} v${pkg.version} ~~ ${pkg.homepage} ~~ ${pkg.license} License`;
 const htmlHintConfig = { 'attr-value-double-quotes': false };
+const cssPlugins = [
+   cssFontMagician({ protocol: 'https:' }),
+   cssPresetEnv(),
+   cssNano({ autoprefixer: false })
+   ];
 
 // Tasks
 const task = {
-   validateSpecPage: function() {
-      return gulp.src('js/spec.html')
+   validateSpecPages: function() {
+      return gulp.src(['css/spec.html', 'css/spec.html'])
          .pipe(htmlHint(htmlHintConfig))
          .pipe(htmlHint.reporter())
          .pipe(htmlValidator())
@@ -29,20 +40,32 @@ const task = {
    cleanTarget: function() {
       return del('dist');
       },
+   buildCss: function() {
+      return gulp.src('css/reset.less')
+         .pipe(less())
+         .pipe(css(cssPlugins))
+         .pipe(rename({ extname: '.min.css' }))
+         .pipe(header('/*! reset.css ~~ ' + banner + ' */\n'))
+         .pipe(gap.appendFile('css/reset-color-overrides.css'))
+         .pipe(gap.appendText('\n'))
+         .pipe(size({ showFiles: true }))
+         .pipe(gulp.dest('dist'));
+      },
    buildJs: function() {
       const transpileES6 = ['@babel/env', { modules: false }];
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
          .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
-         .pipe(rename('library.min.js'))
-         .pipe(replace(/$/, '\n'))
+         .pipe(rename({ extname: '.min.js' }))
          .pipe(header('//! library.js ~~ ' + banner + '\n'))
+         .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
       }
    };
 
 // Gulp
-gulp.task('validate-spec', task.validateSpecPage);
-gulp.task('clean',         task.cleanTarget);
-gulp.task('build-js',      task.buildJs);
+gulp.task('validate-specs', task.validateSpecPages);
+gulp.task('clean',          task.cleanTarget);
+gulp.task('build-css',      task.buildCss);
+gulp.task('build-js',       task.buildJs);

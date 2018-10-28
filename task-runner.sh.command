@@ -84,8 +84,9 @@ publishWebFiles() {
       echo "Publishing:"
       echo $publishFolder
       mkdir -p $publishFolder
-      cdnUrl=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js
-      sed "s#src=library.js#src=$cdnUrl#g" js/spec.html > $publishFolder/spec.html
+      cdnPath=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist
+      sed "s#src=../dist#src=$cdnUrl#g" css/spec.html > $publishFolder/css-spec.html
+      sed "s#src=../dist#src=$cdnUrl#g" js/spec.html  > $publishFolder/js-spec.html
       ls -o $publishFolder
       echo
       }
@@ -95,10 +96,11 @@ publishWebFiles() {
 openWebPage() {
    cd $projectHome
    echo "Opening:"
-   url=js/spec.html
-   echo $url
+   echo "   css/spec.html"
+   echo "   js/spec.html"
    sleep 2
-   open $url
+   open css/spec.html
+   open js/spec.html
    echo
    }
 
