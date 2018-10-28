@@ -14,6 +14,11 @@ KISS!
 ## Use
 Load from the [jsdelivr.com CDN](https://www.jsdelivr.com/package/npm/web-ignition):
 ```html
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/reset.min.css>
+...
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
 ```
 

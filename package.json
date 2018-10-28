@@ -1,15 +1,19 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "0.0.3",
+   "version": "0.0.4",
    "license": "MIT",
    "main": "dist/library.min.js",
    "repository": "github:center-key/web-ignition",
    "homepage": "https://github.com/center-key/web-ignition",
    "bugs": "https://github.com/center-key/web-ignition/issues",
+   "docs": "https://github.com/center-key/web-ignition#readme",
    "keywords": [
+      "css",
+      "css-reset",
       "html",
       "javascript",
+      "layouts",
       "web"
    ],
    "jshintConfig": {
