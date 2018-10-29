@@ -81,17 +81,17 @@ publishWebFiles() {
    publishSite=$publishWebRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
    cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist
-   githubBase=https://github.com/center-key/web-ignition/blob/master
+   githubLayouts=https://github.com/center-key/web-ignition/blob/master/css/layouts
    publish() {
       echo "Publishing:"
       echo $publishFolder
       mkdir -p $publishFolder/layouts
       cp -v css/*.html js/*.html $publishFolder
       cp -v css/layouts/*.html $publishFolder/layouts
-      sed -i "" "s#[.][.]/dist#$cdnBase#g" $publishFolder/spec-*.html
-      sed -i "" "s#layouts/\([a-z\-]*\)[.]css#$githubBase/css/layouts/\1.css#g" $publishFolder/layouts.html
-      sed -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g" $publishFolder/layouts/*.html
-      sed -i "" "s#href=\([a-z\-]*\)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
+      sed -E -i "" "s#[.][.]/dist#$cdnBase#g"                              $publishFolder/spec-*.html
+      sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
+      sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/layouts/*.html
+      sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       ls -o $publishFolder
       echo
       }
