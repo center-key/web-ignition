@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "0.0.4",
+   "version": "0.0.5",
    "license": "MIT",
    "main": "dist/library.min.js",
    "repository": "github:center-key/web-ignition",

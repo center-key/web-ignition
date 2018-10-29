@@ -22,5 +22,12 @@ Load from the [jsdelivr.com CDN](https://www.jsdelivr.com/package/npm/web-igniti
 <script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
 ```
 
+## Specifications
+| Specification  | Link                                             |
+| -------------- | ------------------------------------------------ |
+| CSS reset      | https://centerkey.com/web-ignition/spec-css.html |
+| library.js     | https://centerkey.com/web-ignition/spec-js.html  |
+| Layout viewer  | https://centerkey.com/web-ignition/layouts.html  |
+
 ---
 [MIT License](LICENSE.txt)
