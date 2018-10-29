@@ -1,0 +1,146 @@
+/*! web-ignition v0.0.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*
+Block Duo layout -- Two big columns followed by a single footer
+Usage:
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/layouts/block-duo.css>
+   <style>
+      main >section:nth-child(1) { color: white;     background-color: steelblue; }
+      main >section:nth-child(2) { color: gainsboro; background-color: black; }
+   </style>
+HTML:
+   body
+      section.image-block
+      section
+         header
+            h1
+            h2
+         p
+         quotes-box
+            quote-list
+               blockquote
+                  cite
+      footer
+*/
+body {
+   max-width: none;
+   background-color: dimgray;
+   padding: 0px;
+   margin: 0px;
+   }
+main {
+   display: flex;
+   max-width: 1500px;
+   margin: 0px auto;
+   }
+main >section {
+   flex: 0 0 50%;
+   text-align: center;
+   padding: 50px 80px;
+   margin: 0px;
+   }
+main >section.image-block {
+   padding: 0px;
+   }
+main >section.image-block >h2 {
+   display: none;
+   }
+main >section.image-block >figure {
+   margin: 0px;
+   }
+main >section.image-block >figure img {
+   display: block;
+   width: 100%;
+   }
+main >section >header {
+   border-bottom: 1px solid silver;
+   padding-bottom: 20px;
+   }
+main >section >header h1 {
+   font-size: 1.8rem;
+   }
+main >section >header h2 {
+   font-size: 1.3rem;
+   }
+
+/* Quotes box */
+main >section quotes-box {
+   display: block;
+   min-height: 350px;
+   padding: 20px 0px;
+   border: 1px solid white;
+   margin-top: 50px;
+   }
+main >section quotes-box >p button {
+   background-color: transparent;
+   }
+main >section quotes-box >p button:hover {
+   background-color: transparent;
+   }
+main >section quotes-box >p button i[data-icon] {
+   font-size: 2rem;
+   }
+main >section quotes-box >quote-list >blockquote {
+   font-weight: lighter;
+   margin-bottom: 20px;
+   }
+main >section quotes-box >quote-list >blockquote cite {
+   display: block;
+   font-size: 0.9rem;
+   font-weight: bold;
+   padding-top: 8px;
+   }
+main >section quotes-box >quote-list >blockquote cite::before {
+   content: "\2014";  /* mdash */
+   padding-right: 0.5em;
+   }
+
+/* Pages box */
+main >section >nav {
+   margin: 30px 0px 10px 0px;
+   }
+main >section pages-box {
+   display: block;
+   border: 1px solid gainsboro;
+   padding: 10px 20px;
+   }
+main >section pages-box >page-contents {
+   display: block;
+   }
+main >section pages-box >page-contents aside {
+   border: 3px solid gainsboro;
+   }
+main >section pages-box >page-contents aside img {
+   display: block;
+   }
+main >section pages-box >page-contents p {
+   text-align: left;
+   }
+
+/* Footer */
+body >footer {
+   display: block;
+   padding: 40px 0px 20px 0px;
+   }
+body >footer >div {
+   max-width: 400px;
+   margin: 0px auto;
+   }
+body >footer >p a i.font-icon {
+   font-size: 1.6rem;
+   color: darkgray;
+   margin: 0px 8px;
+   }
+@media (max-width: 800px) {
+   main {
+      flex-direction: column;
+      }
+   main >section {
+      padding: 50px 15px;
+      }
+   }
+/**************************************************************************************************/
+
+/* Block Duo layout -- customize colors */
+main >section:nth-child(1) { color: white;     background-color: steelblue }
+main >section:nth-child(2) { color: gainsboro; background-color: black; }

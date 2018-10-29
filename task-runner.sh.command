@@ -80,13 +80,18 @@ publishWebFiles() {
    publishWebRoot=$(grep ^DocumentRoot /private/etc/apache2/httpd.conf | awk -F\" '{ print $2 }')
    publishSite=$publishWebRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
+   cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist
+   githubBase=https://github.com/center-key/web-ignition/blob/master
    publish() {
       echo "Publishing:"
       echo $publishFolder
-      mkdir -p $publishFolder
-      cdnPath=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist
-      sed "s#src=../dist#src=$cdnUrl#g" css/spec.html > $publishFolder/css-spec.html
-      sed "s#src=../dist#src=$cdnUrl#g" js/spec.html  > $publishFolder/js-spec.html
+      mkdir -p $publishFolder/layouts
+      cp -v css/*.html js/*.html $publishFolder
+      cp -v css/layouts/*.html $publishFolder/layouts
+      sed -i "" "s#[.][.]/dist#$cdnBase#g" $publishFolder/spec-*.html
+      sed -i "" "s#layouts/\([a-z\-]*\)[.]css#$githubBase/css/layouts/\1.css#g" $publishFolder/layouts.html
+      sed -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g" $publishFolder/layouts/*.html
+      sed -i "" "s#href=\([a-z\-]*\)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       ls -o $publishFolder
       echo
       }
@@ -96,11 +101,13 @@ publishWebFiles() {
 openWebPage() {
    cd $projectHome
    echo "Opening:"
-   echo "   css/spec.html"
-   echo "   js/spec.html"
+   echo "   css/spec-css.html"
+   echo "   js/spec-js.html"
+   echo "   css/layouts.html"
    sleep 2
-   open css/spec.html
-   open js/spec.html
+   open css/spec-css.html
+   open js/spec-js.html
+   open css/layouts.html
    echo
    }
 

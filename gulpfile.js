@@ -31,11 +31,12 @@ const cssPlugins = [
 // Tasks
 const task = {
    validateSpecPages: function() {
-      return gulp.src(['css/spec.html', 'css/spec.html'])
+      return gulp.src(['css/*.html', 'js/*.html'])
          .pipe(htmlHint(htmlHintConfig))
          .pipe(htmlHint.reporter())
          .pipe(htmlValidator())
-         .pipe(htmlValidator.reporter());
+         .pipe(htmlValidator.reporter())
+         .pipe(size({ showFiles: true }));
       },
    cleanTarget: function() {
       return del('dist');
@@ -61,6 +62,12 @@ const task = {
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
+      },
+   buildLayouts: function() {
+      return gulp.src('css/layouts/*.css')
+         .pipe(header('/*! ' + banner + ' */\n'))
+         .pipe(size({ showFiles: true }))
+         .pipe(gulp.dest('dist/layouts'));
       }
    };
 
@@ -68,4 +75,5 @@ const task = {
 gulp.task('validate-specs', task.validateSpecPages);
 gulp.task('clean',          task.cleanTarget);
 gulp.task('build-css',      task.buildCss);
+gulp.task('build-layouts',  task.buildLayouts);
 gulp.task('build-js',       task.buildJs);

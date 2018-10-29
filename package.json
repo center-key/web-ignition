@@ -30,7 +30,7 @@
    },
    "scripts": {
       "pretest": "jshint *.js js/*.js && gulp validate-specs",
-      "test": "gulp build-css && gulp build-js"
+      "test": "gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
       "dna.js": "~1.4",
@@ -55,6 +55,6 @@
       "gulp-size": "~3.0",
       "gulp-w3c-html-validator": "~1.4",
       "postcss-font-magician": "~2.2",
-      "postcss-preset-env": "~6.2"
+      "postcss-preset-env": "~6.3"
    }
 }
