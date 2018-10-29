@@ -1,0 +1,124 @@
+<!doctype html>
+<!-- - - - - - - -->
+<!-- Layout Test -->
+<!-- - - - - - - -->
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport                   content="width=device-width, initial-scale=1">
+<meta name=apple-mobile-web-app-title content="Color Blocks">
+<title>Layout &bull; Color Blocks</title>
+<link rel=icon             href=https://centerkey.com/graphics/bookmark.png>
+<link rel=apple-touch-icon href=https://centerkey.com/graphics/mobile-home-screen.png>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.3/css/all.min.css>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet       href=../../dist/reset.min.css>
+<link rel=stylesheet       href=color-blocks.css>
+</head>
+<style>
+   /* Color Blocks layout -- customize colors */
+   /* Block colors (2 columns * 3 blocks --> 6 colors) */
+   main >div:nth-child(1) >section:nth-child(3n+1)    { border-color:     rosybrown; }
+   main >div:nth-child(1) >section:nth-child(3n+1) h2 { background-color: rosybrown; }
+   main >div:nth-child(1) >section:nth-child(3n+2)    { border-color:     cadetblue; }
+   main >div:nth-child(1) >section:nth-child(3n+2) h2 { background-color: cadetblue; }
+   main >div:nth-child(1) >section:nth-child(3n+3)    { border-color:     silver; }
+   main >div:nth-child(1) >section:nth-child(3n+3) h2 { background-color: silver; }
+   main >div:nth-child(2) >section:nth-child(3n+1)    { border-color:     lightslategray; }
+   main >div:nth-child(2) >section:nth-child(3n+1) h2 { background-color: lightslategray; }
+   main >div:nth-child(2) >section:nth-child(3n+2)    { border-color:     darkkhaki; }
+   main >div:nth-child(2) >section:nth-child(3n+2) h2 { background-color: darkkhaki; }
+   main >div:nth-child(2) >section:nth-child(3n+3)    { border-color:     darkseagreen; }
+   main >div:nth-child(2) >section:nth-child(3n+3) h2 { background-color: darkseagreen; }
+</style>
+<body>
+
+<header>
+   <aside><button>Download</button></aside>
+   <h1>Page title (h1)</h1>
+   <h2>Page subtitle (h2)</h2>
+</header>
+
+<main>
+   <div>
+
+      <section>
+         <h2>Block title #1 (h2)</h2>
+         <h3>Block subtitle (h3)</h3>
+         <p>Bacon pancetta shankle turkey, burgdoggen sausage bresaola. Bresaola beef biltong spare ribs. Capicola shankle kevin t-bone tongue ground round. Pancetta jowl biltong tail. Capicola ham beef ribs doner porchetta t-bone. Beef hamburger doner tri-tip ball tip swine. Swine jerky brisket bresaola cow sausage salami pig.</p>
+      </section>
+
+      <section>
+         <h2>
+            Block title #2 (h2)
+            <a href=https://dnajs.org class=external-site><i data-icon=dna></i></a>
+         </h2>
+         <h3>Block subtitle (h3)</h3>
+         <p>Kielbasa jerky drumstick capicola prosciutto. Salami spare ribs drumstick pork chop chicken. Shankle boudin brisket t-bone sirloin. Hamburger venison landjaeger flank pork ground round spare ribs biltong shankle pork chop leberkas pork loin boudin shank. Filet mignon tail capicola hamburger jerky beef ribs pork loin shoulder rump corned beef sirloin ribeye bacon.</p>
+         <fieldset>
+            <legend>Fields</legend>
+            <label>
+               <span>Name:</span>
+               <input placeholder="Enter your name">
+            </label>
+            <label>
+               <span>Email:</span>
+               <input type=email placeholder="Enter your email address">
+            </label>
+         </fieldset>
+      </section>
+
+      <section>
+         <h2>Block title #3 (h2)</h2>
+         <h3>Block subtitle (h3)</h3>
+         <p>Bacon pancetta shankle turkey, burgdoggen sausage bresaola. Bresaola beef biltong spare ribs. Capicola shankle kevin t-bone tongue ground round. Pancetta jowl biltong tail. Capicola ham beef ribs doner porchetta t-bone. Beef hamburger doner tri-tip ball tip swine. Swine jerky brisket bresaola cow sausage salami pig.</p>
+         <h3>Block subtitle (h3)</h3>
+         <p>Kielbasa jerky drumstick capicola prosciutto. Salami spare ribs drumstick pork chop chicken. Shankle boudin brisket t-bone sirloin. Hamburger venison landjaeger flank pork ground round spare ribs biltong shankle pork chop leberkas pork loin boudin shank. Filet mignon tail capicola hamburger jerky beef ribs pork loin shoulder rump corned beef sirloin ribeye bacon.</p>
+      </section>
+
+   </div>
+   <div>
+
+      <section>
+         <h2>Block title #4 (h2)</h2>
+         <h3>Block subtitle (h3)</h3>
+         <p>Kielbasa jerky drumstick capicola prosciutto. Salami spare ribs drumstick pork chop chicken. Shankle boudin brisket t-bone sirloin. Hamburger venison landjaeger flank pork ground round spare ribs biltong shankle pork chop leberkas pork loin boudin shank. Filet mignon tail capicola hamburger jerky beef ribs pork loin shoulder rump corned beef sirloin ribeye bacon.</p>
+      </section>
+
+      <section>
+         <h2>Block title #5 (h2)</h2>
+         <fieldset>
+            <legend>Fields</legend>
+            <label>
+               <span>Name:</span>
+               <input placeholder="Enter your name">
+            </label>
+            <label>
+               <span>Email:<i data-icon=envelope data-href=.></i></span>
+               <input type=email placeholder="Enter your email address">
+            </label>
+         </fieldset>
+      </section>
+
+      <section>
+         <h2>Block title #6 (h2)<i data-brand=github-alt data-href=https://github.com class=external-site></i></h2>
+         <h3>Block subtitle (h3)</h3>
+         <p>Bacon pancetta shankle turkey, burgdoggen sausage bresaola. Bresaola beef biltong spare ribs. Capicola shankle kevin t-bone tongue ground round. Pancetta jowl biltong tail. Capicola ham beef ribs doner porchetta t-bone.</p>
+         <nav><button>Save</button></nav>
+         <p>Beef hamburger doner tri-tip ball tip swine. Swine jerky brisket bresaola cow sausage salami pig.</p>
+      </section>
+
+   </div>
+</main>
+
+<footer>
+   <div id=social-buttons></div>
+   <div><a href=../layouts.html>List of Layouts</a></div>
+   <div>Copyright &copy; 2151 Enterprise</div>
+</footer>
+
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
+</body>
+</html>

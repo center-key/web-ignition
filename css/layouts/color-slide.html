@@ -1,0 +1,95 @@
+<!doctype html>
+<!-- - - - - - - -->
+<!-- Layout test -->
+<!-- - - - - - - -->
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport                   content="width=device-width, initial-scale=1">
+<meta name=apple-mobile-web-app-title content="Layout">
+<title>Layout &bull; Color Slide</title>
+<link rel=icon             href=https://centerkey.com/graphics/bookmark.png>
+<link rel=apple-touch-icon href=https://centerkey.com/graphics/mobile-home-screen.png>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.3/css/all.min.css>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet       href=../../dist/reset.min.css>
+<link rel=stylesheet       href=color-slide.css>
+<style>
+   /* Color Slide layout -- customize colors */
+   html { background: linear-gradient(to bottom, gold, plum); }
+</style>
+</head>
+<body>
+
+<header>
+   <nav>
+      <a href=.>Home</a>
+      <a href=tutorial.html>Tutorial</a>
+      <a href=docs.html>Documentation</a>
+      <a href=about.html>About</a>
+   </nav>
+   <h1>Page title (h1)</h1>
+   <h2>Page subtitle (h2)</h2>
+   <img src=https://centerkey.com/graphics/center-key-logo.svg alt=logo>
+</header>
+
+<main>
+
+   <section>
+      <h2>Section title (h2)</h2>
+      <h3>Section subtitle (h3)</h3>
+      <figure>
+         <img src=https://centerkey.com/graphics/center-key-logo.svg alt=colors>
+         <figcaption>Color Chart</figcaption>
+      </figure>
+      <p>Stuff goes here.</p>
+   </section>
+
+   <section>
+      <h2 class=hide-me>Contact</h2>
+      <form class=perfect>
+         <h2>Send Us a Message</h2>
+         <label>
+            <span>Message:</span>
+            <textarea name=message placeholder="Enter message"></textarea>
+         </label>
+         <label>
+            <span>Name:</span>
+            <input name=name placeholder="Enter your name">
+         </label>
+         <label>
+            <span>Email:</span>
+            <input name=email placeholder="Enter your email">
+         </label>
+         <p>
+            <span>Powered by <a href=https://centerkey.com/php>PERFECT</a></span>
+            <button type=submit>Submit</button>
+         </p>
+      </form>
+   </section>
+
+   <section>
+      <aside>
+         Short ribs short loin alcatra shoulder swine, shankle pork loin. Jowl pastrami doner.
+      </aside>
+      <h2>Random</h2>
+      <p>
+         Bacon ipsum dolor amet spare ribs venison shoulder pork cupim turkey shankle tri-tip jowl ground round bacon leberkas swine.
+      </p>
+      <p>
+         Shank biltong landjaeger bacon, leberkas cow pork brisket tri-tip chuck jowl. Shank ham meatloaf, drumstick boudin chicken hamburger pig ribeye kielbasa chuck kevin leberkas swine. Shank pork loin strip steak ball tip porchetta landjaeger.
+      </p>
+   </section>
+
+</main>
+
+<footer>
+   <div id=social-buttons></div>
+   <div>Copyright &copy; 2151 Enterprise</div>
+</footer>
+
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<!-- - - - - - - -->
+<!-- Layout test -->
+<!-- - - - - - - -->
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport                   content="width=device-width, initial-scale=1">
+<meta name=apple-mobile-web-app-title content="Vertical Bars">
+<title>Layout &bull; Vertical Bars</title>
+<link rel=icon             href=https://centerkey.com/graphics/bookmark.png>
+<link rel=apple-touch-icon href=https://centerkey.com/graphics/mobile-home-screen.png>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.3/css/all.min.css>
+<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet       href=../../dist/reset.min.css>
+<link rel=stylesheet       href=vertical-bars.css>
+<style>
+   /* Vertical Bars Layout -- customize colors */
+   html { background-color: dimgray; }
+   body { color: whitesmoke; background-color: black; border-color: firebrick; }  /* font, body, bars */
+   body >header nav a { color: white; }
+   body >header nav a.current, body >header nav a:hover { border-color: gold; }
+   body >footer { color: silver; }
+</style>
+</head>
+<body>
+
+<header>
+   <nav>
+      <a href=. class=current>Home</a>
+      <a href=products>Products</a>
+      <a href=contact>Contact</a>
+      <a href=about>About</a>
+   </nav>
+   <h1>Page Header 1</h1>
+   <h2>Page Header 2</h2>
+</header>
+
+<main>
+   <section>
+      <h1>Section Header 1</h1>
+      <h2>Section Header 2</h2>
+      <div>
+         <p>
+            Picanha tenderloin leberkas alcatra jowl burgdoggen sirloin tail beef flank. Chuck ham bacon jowl pancetta flank. Sirloin alcatra sausage drumstick ball tip tongue. Salami pork landjaeger pastrami filet mignon.
+         </p>
+         <p>
+            Frankfurter jerky brisket pork loin ham hock. Andouille bacon bresaola spare ribs landjaeger chicken biltong pork shank drumstick pork belly turkey pastrami strip steak doner. Sirloin sausage jowl flank kielbasa tenderloin. Andouille leberkas meatball hamburger short ribs bresaola filet mignon pork pig meatloaf.
+         </p>
+      </div>
+   </section>
+</main>
+
+<footer>
+   <div id=social-buttons></div>
+</footer>
+
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
+</body>
+</html>

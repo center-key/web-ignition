@@ -1,0 +1,56 @@
+/*
+Color Slide layout -- Top to botttom color transition
+Usage:
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/layouts/color-slide.css>
+   <style>
+      html { background: linear-gradient(to bottom, gold, plum); }
+   </style>
+HTML:
+   body
+      header
+         nav
+            a
+         img
+      main
+         section
+            aside
+*/
+body {
+   width: 800px;
+   max-width: 95%;
+   background-color: rgba(255, 255, 255, 0.9);
+   padding: 20px 5%;
+   margin: 0px auto;
+   }
+body >header >nav {
+   margin-bottom: 20px;
+   }
+body >header >nav >a {
+   display: inline-block;
+   font-size: 0.8rem;
+   font-weight: bold;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   color: gray;
+   border-bottom: 1px solid;
+   padding: 1px 0.8em;
+   margin: 3px 1em;
+   }
+body >header >nav >a:hover {
+   color: black;
+   }
+body >header img {
+   max-height: 60px;
+   }
+main >section aside {
+   width: 150px;
+   max-width: 40%;
+   text-align: center;
+   background-color: gainsboro;
+   padding: 20px;
+   }
+/**************************************************************************************************/
+
+/* Color Slide -- customize colors */
+html { background: linear-gradient(to bottom, gold, plum); }

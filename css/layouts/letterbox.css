@@ -1,0 +1,72 @@
+/*
+Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
+Usage:
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/layouts/letterbox.css>
+   <style>
+      html { background-image: url(background.jpg); }
+   </style>
+HTML:
+   body
+      main
+         section
+            figure.video-container
+         cite
+*/
+html {
+   background: silver no-repeat center center fixed;
+   background-size: cover;
+   }
+body {
+   max-width: none;
+   padding: 0px;
+   margin: 0px;
+   }
+main {
+   text-align: center;
+   margin: 120px 0px;
+   }
+main >section:first-child h1 {
+   font-size: 2.0rem;
+   margin-bottom: 6px;
+   }
+main >section:first-child h2 {
+   font-size: 1.0rem;
+   text-transform: lowercase;
+   margin-bottom: 30px;
+   }
+main >section:first-child {
+   background-color: rgba(255,255,255,0.8);
+   padding: 50px 10px;
+   }
+main >section:first-child >div {
+   max-width: 560px;
+   padding: 0px 0px;
+   margin: 10px auto;
+   }
+main >section:first-child .box {
+   display: inline-block;
+   font-size: 0.8rem;
+   border: 1px solid darkgray;
+   border-radius: 0.1rem;
+   padding: 5px 20px;
+   margin: 5px 0px;
+   }
+main >section:first-child #social-buttons {
+   margin: 30px auto 5px auto;
+   }
+main >section:not(:first-child) {
+   max-width: 800px;
+   border: 40px solid rgba(255,255,255,0.8);
+   margin: 60px auto;
+   }
+main >section >figure.video-container {
+   margin-bottom: 0px;
+   }
+main >cite {
+   font-size: 0.8rem;
+   }
+/**************************************************************************************************/
+
+/* Letterbox layout -- customize colors */
+html { background-image: url(#); }
