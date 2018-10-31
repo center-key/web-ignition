@@ -31,7 +31,7 @@ const cssPlugins = [
 // Tasks
 const task = {
    validateSpecPages: function() {
-      return gulp.src(['css/*.html', 'js/*.html'])
+      return gulp.src(['css/*.html', 'js/*.html', 'css/layouts/*.html'])
          .pipe(htmlHint(htmlHintConfig))
          .pipe(htmlHint.reporter())
          .pipe(htmlValidator())
