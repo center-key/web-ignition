@@ -28,6 +28,8 @@ const library = {
       $(onLoadSetup);
       if (typeof module === 'object')
          module.exports = library;  //Node.js module loading system (CommonJS)
+      if (typeof window === 'object')
+         window.library = library;  //support both global and window property
       }
    };
 
