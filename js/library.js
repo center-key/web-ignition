@@ -56,9 +56,9 @@ library.ui = {
       return this.find(selector).addBack(selector);
       },
    makeIcons: function(holder) {
-      function makeIcon(i, elem) { $(elem).addClass('fa-' + $(elem).data().icon); }
+      function makeIcon(i, elem)  { $(elem).addClass('fa-' + $(elem).data().icon); }
       function makeBrand(i, elem) { $(elem).addClass('fa-' + $(elem).data().brand); }
-      holder.findAll('i[data-icon]').addClass('font-icon fas').each(makeIcon);
+      holder.findAll('i[data-icon]').addClass( 'font-icon fas').each(makeIcon);
       holder.findAll('i[data-brand]').addClass('font-icon fab').each(makeBrand);
       return holder;
       },
