@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "0.0.6",
+   "version": "0.0.7",
    "license": "MIT",
    "main": "dist/library.min.js",
    "repository": "github:center-key/web-ignition",
@@ -55,6 +55,6 @@
       "gulp-size": "~3.0",
       "gulp-w3c-html-validator": "~1.4",
       "postcss-font-magician": "~2.2",
-      "postcss-preset-env": "~6.3"
+      "postcss-preset-env": "~6.4"
    }
 }
