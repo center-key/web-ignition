@@ -10,7 +10,7 @@
 /* Core */
 * { box-sizing: border-box; }
 html, body { min-height: 100vh; }
-body { font-size: 100%; font-family: system-ui, geneva, tahoma, sans-serif; }  /* Override font-size percent to resize base font */
+body { font-size: 100%; font-family: system-ui, geneva, tahoma, sans-serif; }  /* override font-size percent to resize base font */
 body, h1, h2, h3, h4, h5, h6, p, figure, nav ul, nav ul li { padding: 0px; margin: 0px; }
 h1, h2, h3, h4, h5, h6 { margin-bottom: 0.2em; }
 section, header, figure { margin-bottom: 20px; }
@@ -30,7 +30,7 @@ hr { border: none; border-top: 1px solid silver; }
 sup, sub { font-size: 0.7rem }
 
 /* Basic styling */
-body { max-width: 800px; color: dimgray; padding: 0em 1em; margin: 40px auto; }
+body { max-width: 800px; color: dimgray; padding: 40px 15px; margin: 0px auto; }
 body >header { text-align: center; }
 main { min-height: 300px; }
 header { margin-bottom: 20px; }
@@ -359,7 +359,8 @@ img.popup-image + .popup-image-layer img { display: block; border: 20px solid si
 /* Mobile devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
    h1 { font-size: 2.0rem; }
-   h1+h2 { font-size: 1.2rem; }
+   h1+h2 { font-size: 1.3rem; }
+   body { padding: 20px 10px; }
    body >footer { flex-direction: column; padding: 20px 2px; }
    body >footer >div { text-align: center !important; }
    body >footer >*:not(:last-child) { margin-bottom: 15px; }
