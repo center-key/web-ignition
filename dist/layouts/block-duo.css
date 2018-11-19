@@ -133,4 +133,4 @@ main >section:nth-child(2) { color: gainsboro; background-color: black; }
 nav.dna-menu[data-style=flat-tabs]               { background-color: dimgray; }
 nav.dna-menu[data-style=flat-tabs] span.selected { background-color: darkgray; }
 nav.dna-menu[data-style=flat-tabs] span:hover    { background-color: darkgray; }
-nav.dna-menu[data-style=flat-tabs]+.dna-panels   { border-color: darkgray; }
+nav.dna-menu[data-style=flat-tabs]+.dna-panels   { border-color:     darkgray; }
