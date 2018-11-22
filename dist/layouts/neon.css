@@ -1,0 +1,161 @@
+/*! web-ignition v0.0.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*
+Neon layout -- For hackers and space junkies
+Usage:
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/layouts/neon.css>
+   ...
+   <script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/layouts/neon.js></script>
+HTML:
+   body
+      header
+         nav
+            a
+         img
+      main
+         section
+            aside
+Neon colors:
+   lime, fuchsia, yellow, aqua, red
+*/
+
+/* Foundation */
+body.neon-image-1 { background-image: url(neon/ameba-cdcgov.jpg); }
+body.neon-image-2 { background-image: url(neon/crystal-nihgov.jpg); }
+body.neon-image-3 { background-image: url(neon/embryo-nihgov.jpg); }
+body.neon-image-4 { background-image: url(neon/fruit-fly-science360gov.jpg); }
+body.neon-image-5 { background-image: url(neon/neuroscience-ucdavisedu.jpg); }
+body.neon-image-6 { background-image: url(neon/supernova-nasagov.jpg); }
+body.neon-image-7 { background-image: url(neon/supernova-shock-lblgov.jpg); }
+body.neon-image-8 { background-image: url(neon/wind-tunnel-nasagov.jpg); }
+body {
+   color: lime;
+   background: black 20px 20px no-repeat fixed;
+   background-size: 200px;
+   margin-top: 30px;
+   }
+
+/* Page header */
+body >header {
+   text-align: right;
+   border-bottom: 2px solid fuchsia;
+   }
+body >header h1 {
+   font-size: 2.4rem;
+   color: white;
+   padding-left: 140px;
+   }
+body >header h2 {
+   font-size: 1.0rem;
+   letter-spacing: 0.14em;
+   text-transform: uppercase;
+   color: white;
+   padding-left: 140px;
+   margin-bottom: 30px;
+   }
+body >header h3 {
+   margin-bottom: 20px;
+   }
+body >header h4 {
+   font-size: 1.1rem;
+   text-align: left;
+   text-transform: none;
+   }
+
+/* Page sections */
+main >section >h2 {
+   display: table;
+   font-size: 1.3rem;
+   color: black;
+   background-color: lime;
+   padding: 3px 30px;
+   }
+main >section >h3 {
+   color: aqua;
+   }
+
+/* Code blocks */
+main >section figure >pre {
+   display: inline-block;
+   text-align: left;
+   border: solid yellow 1px;
+   padding: 10px 15px;
+   margin: 0px 0px 20px 0px;
+   }
+main >section figure >pre >code {
+   display: inline-block;
+   font-size: 0.9rem;
+   color: fuchsia;
+   }
+main >section figure >pre >code.language-shell >span.prompt {
+   color: aqua;
+   }
+main >section figure >pre >code.language-shell >span.output {
+   color: lime;
+   }
+main >section figure >pre >code.language-bash {
+   color: aqua;
+   }
+
+/* Link color */
+main >section >p a,
+main >section >p a:visited {
+   font-size: 1.2rem;
+   color: white;
+   border-color: fuchsia;
+   }
+main >section >p a:hover {
+   background-color: fuchsia;
+   outline-color: fuchsia;
+   }
+
+/* Quotes */
+main >section blockquote {
+   clear: both;
+   font-size: 1.1rem;
+   color: yellow;
+   border: dashed aqua 1px;
+   padding: 8px 15px;
+   margin: 0px 0px 10px 0px;
+   }
+main >section blockquote >cite {
+   display: block;
+   font-size: 0.9rem;
+   font-weight: lighter;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   }
+main >section blockquote >cite::before {
+   content: "\2014";  /* mdash */
+   padding-right: 0.4em;
+   }
+
+/* Page footer */
+body >footer {
+   flex-direction: column;
+   padding: 0px;
+   }
+body >footer p {
+   text-align: center;
+   color: lime;
+   }
+
+/* Social buttons */
+#social-buttons { margin-top: -25px; }
+#social-buttons span i[data-brand] { color: black; }
+#social-buttons span i[data-brand]:hover { color: red; }
+
+/* Flat button color */
+button { background-color: fuchsia; }
+button:hover { background-color: red; }
+
+/* Reveal action color */
+.reveal-button { color: fuchsia; }
+.reveal-button:hover { background-color: fuchsia; }
+
+/* PERFECT colors */
+form.perfect { background-color: black; border-color: aqua; }           /* outer color */
+form.perfect h2 { color: black; background-color: aqua; }               /* outer color */
+form.perfect label span { color: aqua; }
+form.perfect input, form.perfect textarea { background-color: white; }  /* input fields */
+form.perfect p button:hover { background-color: lime; }
