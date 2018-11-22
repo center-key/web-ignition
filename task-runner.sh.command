@@ -94,7 +94,7 @@ publishWebFiles() {
       sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
       sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/layouts/*.html
       sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
-      sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.js#g"     $publishFolder/layouts/*.html
+      sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
       ls -o $publishFolder
       echo
       }

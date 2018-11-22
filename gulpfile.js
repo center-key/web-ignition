@@ -22,6 +22,7 @@ const size =            require('gulp-size');
 // Setup
 const pkg = require('./package.json');
 const banner = `${pkg.name} v${pkg.version} ~~ ${pkg.homepage} ~~ ${pkg.license} License`;
+const transpileES6 = ['@babel/env', { modules: false }];
 const htmlHintConfig = { 'attr-value-double-quotes': false };
 const cssPlugins = [
    cssFontMagician({ protocol: 'https:' }),
@@ -54,7 +55,6 @@ const task = {
          .pipe(gulp.dest('dist'));
       },
    buildJs: function() {
-      const transpileES6 = ['@babel/env', { modules: false }];
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
          .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
@@ -68,6 +68,13 @@ const task = {
       return mergeStream(
          gulp.src('css/layouts/*.css')
             .pipe(header('/*! ' + banner + ' */\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist/layouts')),
+         gulp.src('css/layouts/*.js')
+            .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
+            .pipe(rename({ extname: '.min.js' }))
+            .pipe(header('//! ' + banner + '\n'))
+            .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts')),
          gulp.src('css/layouts/neon/*.jpg')
