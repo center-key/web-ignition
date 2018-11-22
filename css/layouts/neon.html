@@ -18,15 +18,10 @@
 <body>
 
 <header>
-   <nav>
-      <a href=.>Home</a>
-      <a href=tutorial.html>Tutorial</a>
-      <a href=docs.html>Documentation</a>
-      <a href=about.html>About</a>
-   </nav>
-   <h1>Page title (h1)</h1>
-   <h2>Page subtitle (h2)</h2>
-   <img src=https://centerkey.com/graphics/center-key-logo.svg alt=logo>
+   <h1>Header 1</h1>
+   <h2>Header 2</h2>
+   <h3>Header 3</h3>
+   <h4>Header 4</h4>
 </header>
 
 <main>
@@ -35,6 +30,14 @@
       <h2>Section title (h2)</h2>
       <h3>Section subtitle (h3)</h3>
       <figure>
+         <pre><code class=language-shell>
+            <span class=prompt>$</span> mkdir the-folder
+            <span class=prompt>$</span> cd the-folder
+            <span class=prompt>$</span> date &gt; date.txt
+         </code></pre>
+      </figure>
+      <p>Stuff goes here.</p>
+      <figure>
          <img src=https://centerkey.com/graphics/center-key-logo.svg alt=colors>
          <figcaption>Color Chart</figcaption>
       </figure>
@@ -42,7 +45,7 @@
    </section>
 
    <section>
-      <h2 class=hide-me>Contact</h2>
+      <h2>Contact</h2>
       <form class=perfect>
          <h2>Send Us a Message</h2>
          <label>
@@ -65,28 +68,53 @@
    </section>
 
    <section>
-      <aside>
-         Short ribs short loin alcatra shoulder swine, shankle pork loin. Jowl pastrami doner.
-      </aside>
       <h2>Random</h2>
-      <p>
-         Bacon ipsum dolor amet spare ribs venison shoulder pork cupim turkey shankle tri-tip jowl ground round bacon leberkas swine.
-      </p>
-      <p>
-         Shank biltong landjaeger bacon, leberkas cow pork brisket tri-tip chuck jowl. Shank ham meatloaf, drumstick boudin chicken hamburger pig ribeye kielbasa chuck kevin leberkas swine. Shank pork loin strip steak ball tip porchetta landjaeger.
-      </p>
+      <aside><div id=social-buttons></div></aside>
+      <div>
+         <blockquote>
+            "I believe alien life is quite common in the universe, although intelligent life is less so.&nbsp; Some say it has yet to appear on planet Earth."
+            <cite>Stephen Hawking</cite>
+         </blockquote>
+         <blockquote>
+            "I feel... sexier, I think, with short hair.&nbsp; I feel like an alien!"
+            <cite>Pamela Anderson</cite>
+         </blockquote>
+         <blockquote>
+            "My folks came to U.S. as immigrants, aliens, and became citizens.&nbsp; I was born in Boston, a citizen, went to Hollywood and became an alien."
+            <cite>Leonard Nimoy</cite>
+         </blockquote>
+      </div>
    </section>
 
 </main>
 
 <footer>
-   <div id=social-buttons></div>
-   <div>Copyright &copy; 2151 Enterprise</div>
+   <p>
+      <b>Neon Layout</b><br>
+      For hackers and space junkies
+   </p>
+   <p>
+      <a href=https://centerkey.com>
+         <img src=https://centerkey.com/graphics/center-key-logo.svg alt=logo>
+      </a>
+   </p>
+   <p>
+      <a rel=license href=https://creativecommons.org/licenses/by-sa/4.0>
+         <img src=https://licensebuttons.net/i/l/by-sa/transparent/33/33/33/88x31.png alt=license>
+      </a>
+   </p>
 </footer>
 
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist/library.min.js></script>
 <script src=neon.js></script>
+<script>
+   function trimCodeBlock(i, elem) {
+      $(elem).html($(elem).html().replace(/\n {12}/g, '\n').trim());
+      }
+   $('figure >pre >code').each(trimCodeBlock);
+</script>
+
 </body>
 </html>

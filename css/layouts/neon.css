@@ -8,12 +8,19 @@ Usage:
 HTML:
    body
       header
-         nav
-            a
-         img
+         h1, h2, h3, h4
       main
          section
+            h2
             aside
+            figure
+               figcaption
+               pre code
+            div
+               blockquote
+                  cite
+      footer
+         p
 Neon colors:
    lime, fuchsia, yellow, aqua, red
 */
@@ -71,6 +78,10 @@ main >section >h2 {
    }
 main >section >h3 {
    color: aqua;
+   }
+main >section >h2 + aside,
+main >section >h3 + aside {
+   margin-top: -25px;
    }
 
 /* Code blocks */
@@ -138,9 +149,13 @@ body >footer p {
    text-align: center;
    color: lime;
    }
+body >footer a[rel=license] img {
+   background-color: cyan;
+   border-radius: 1000px;
+   padding: 2px 0px;
+   }
 
 /* Social buttons */
-#social-buttons { margin-top: -25px; }
 #social-buttons span i[data-brand] { color: black; }
 #social-buttons span i[data-brand]:hover { color: red; }
 
