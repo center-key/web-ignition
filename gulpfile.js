@@ -14,6 +14,7 @@ const header =          require('gulp-header');
 const htmlHint =        require('gulp-htmlhint');
 const htmlValidator =   require('gulp-w3c-html-validator');
 const less =            require('gulp-less');
+const mergeStream =     require('merge-stream');
 const rename =          require('gulp-rename');
 const replace =         require('gulp-replace');
 const size =            require('gulp-size');
@@ -64,10 +65,15 @@ const task = {
          .pipe(gulp.dest('dist'));
       },
    buildLayouts: function() {
-      return gulp.src('css/layouts/*.css')
-         .pipe(header('/*! ' + banner + ' */\n'))
-         .pipe(size({ showFiles: true }))
-         .pipe(gulp.dest('dist/layouts'));
+      return mergeStream(
+         gulp.src('css/layouts/*.css')
+            .pipe(header('/*! ' + banner + ' */\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist/layouts')),
+         gulp.src('css/layouts/neon/*.jpg')
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist/layouts/neon'))
+         );
       }
    };
 

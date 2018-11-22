@@ -29,7 +29,7 @@
       }
    },
    "scripts": {
-      "pretest": "jshint *.js js/*.js && gulp validate-specs",
+      "pretest": "jshint *.js js/*.js css/layouts/*.js && gulp validate-specs",
       "test": "gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
@@ -54,6 +54,7 @@
       "gulp-replace": "~1.0",
       "gulp-size": "~3.0",
       "gulp-w3c-html-validator": "~1.4",
+      "merge-stream": "~1.0",
       "postcss-font-magician": "~2.2",
       "postcss-preset-env": "~6.4"
    }
