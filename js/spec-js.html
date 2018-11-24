@@ -104,8 +104,6 @@
    window.onerror = makePageRed;
    library.ui.autoDisableButtons();
    const account = { active: true, codes: [48348, 28923, 39080], city: 'London' };
-   $('#account-info').html(library.json.prettyPrint(account));
-   $('#account-info-string').text(library.json.printable(account));
    library.animate.rollIn($('#roll-in-icons'));
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(dna.browser.iOS() ? 'YES' : 'no');
