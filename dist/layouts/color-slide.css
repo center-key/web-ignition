@@ -1,4 +1,4 @@
-/*! web-ignition v0.0.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.0.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 /*
 Color Slide layout -- Top to botttom color transition
 Usage:
@@ -53,4 +53,4 @@ main >section aside {
 /**************************************************************************************************/
 
 /* Color Slide layout -- customize colors */
-html { background: linear-gradient(to bottom, gold, plum); }
+html { background: linear-gradient(to bottom, gold, black); }
