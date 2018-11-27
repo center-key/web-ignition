@@ -30,6 +30,7 @@ releaseInstructions() {
    version=v$(grep '"version"' package.json | awk -F'"' '{print $4}')
    pushed=v$(curl --silent $package | grep '"version":' | awk -F'"' '{print $4}')
    released=$(git tag | tail -1)
+   minorVersion=$(echo ${pushed:1} | awk -F"." '{ print $1 "." $2 }')
    echo "Local changes:"
    git status --short
    echo
@@ -85,11 +86,9 @@ publishWebFiles() {
    publish() {
       echo "Publishing:"
       echo $publishFolder
-      mkdir -p $publishFolder/layouts/neon
+      mkdir -p $publishFolder/layouts
       cp -v css/*.html js/*.html   $publishFolder
       cp -v css/layouts/*.html     $publishFolder/layouts
-      cp -v css/layouts/*.js       $publishFolder/layouts
-      cp -v css/layouts/neon/*.jpg $publishFolder/layouts/neon
       sed -E -i "" "s#[.][.]/dist#$cdnBase#g"                              $publishFolder/spec-*.html
       sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
       sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/layouts/*.html
