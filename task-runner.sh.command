@@ -69,6 +69,13 @@ releaseInstructions() {
    echo
    }
 
+updateCdnVersion() {
+   cd $projectHome
+   updateVersion="s|web-ignition@[.0-9]*|web-ignition@$minorVersion|"
+   sed -i "" $updateVersion README.md
+   find css -name "*.html" -o -name "*.css" | xargs sed -i "" $updateVersion
+   }
+
 runSpecs() {
    cd $projectHome
    echo "Run specifications:"
@@ -81,7 +88,7 @@ publishWebFiles() {
    publishWebRoot=$(grep ^DocumentRoot /private/etc/apache2/httpd.conf | awk -F'"' '{ print $2 }')
    publishSite=$publishWebRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
-   cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@0.0/dist
+   cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@$minorVersion/dist
    githubLayouts=https://github.com/center-key/web-ignition/blob/master/css/layouts
    publish() {
       echo "Publishing:"
@@ -115,6 +122,7 @@ openWebPage() {
 
 setupTools
 releaseInstructions
+updateCdnVersion
 runSpecs
 publishWebFiles
 openWebPage
