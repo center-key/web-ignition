@@ -5,14 +5,14 @@
 <meta name=viewport  content="width=device-width, initial-scale=1">
 <title>library.js &bull; Specification page</title>
 <link rel=icon       href=https://centerkey.com/graphics/bookmark.png>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.3/css/all.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.5/css/all.min.css>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
 <link rel=stylesheet href=../dist/reset.min.css>
 </head>
 <body>
 
 <header>
-   <h1>library.js</h1>
+   <h1>library.js <span class=version></span></h1>
    <h2>Specifications Page</h2>
    <a id=fork-me href=https://github.com/center-key/web-ignition>Fork me on GitHub</a>
 </header>
@@ -98,13 +98,13 @@
 
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
-<script src=../dist/library.min.js></script>
+<script src=../dist/library.js></script>
 <script>
-   function makePageRed() { $('body').css({ backgroundColor: 'pink' }); }
+   const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
    window.onerror = makePageRed;
    library.ui.autoDisableButtons();
-   const account = { active: true, codes: [48348, 28923, 39080], city: 'London' };
    library.animate.rollIn($('#roll-in-icons'));
+   $('.version').text(library.version);
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(dna.browser.iOS() ? 'YES' : 'no');
 </script>

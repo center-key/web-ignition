@@ -110,9 +110,7 @@
 <script src=https://cdn.jsdelivr.net/npm/web-ignition@1.0/dist/library.min.js></script>
 <script src=neon.js></script>
 <script>
-   function trimCodeBlock(i, elem) {
-      $(elem).html($(elem).html().replace(/\n {12}/g, '\n').trim());
-      }
+   const trimCodeBlock = (i, elem) => $(elem).html($(elem).html().replace(/\n {12}/g, '\n').trim());
    $('figure >pre >code').each(trimCodeBlock);
 </script>
 

@@ -23,6 +23,7 @@ const size =            require('gulp-size');
 const pkg = require('./package.json');
 const banner = `${pkg.name} v${pkg.version} ~~ ${pkg.homepage} ~~ ${pkg.license} License`;
 const transpileES6 = ['@babel/env', { modules: false }];
+const babelMinifyJs = { presets: [transpileES6, 'minify'], comments: false };
 const htmlHintConfig = { 'attr-value-double-quotes': false };
 const cssPlugins = [
    cssFontMagician({ protocol: 'https:' }),
@@ -32,7 +33,7 @@ const cssPlugins = [
 
 // Tasks
 const task = {
-   validateSpecPages: function() {
+   validateSpecPages: () => {
       return gulp.src(['css/*.html', 'js/*.html', 'css/layouts/*.html'])
          .pipe(htmlHint(htmlHintConfig))
          .pipe(htmlHint.reporter())
@@ -40,10 +41,10 @@ const task = {
          .pipe(htmlValidator.reporter())
          .pipe(size({ showFiles: true }));
       },
-   cleanTarget: function() {
+   cleanTarget: () => {
       return del('dist');
       },
-   buildCss: function() {
+   buildCss: () => {
       return gulp.src('css/reset.less')
          .pipe(less())
          .pipe(css(cssPlugins))
@@ -54,33 +55,39 @@ const task = {
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
       },
-   buildJs: function() {
+   buildJs: () => {
+      const headerCommentsLines = /^[/][/].*\n/gm;
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
-         .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
+         .pipe(replace(headerCommentsLines, ''))
+         .pipe(header('//! library.js ~~ ' + banner + '\n'))
+         .pipe(gulp.dest('dist'))
+         .pipe(babel(babelMinifyJs))
          .pipe(rename({ extname: '.min.js' }))
          .pipe(header('//! library.js ~~ ' + banner + '\n'))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
       },
-   buildLayouts: function() {
-      return mergeStream(
+   buildLayouts: () => {
+      const buildCss = () =>
          gulp.src('css/layouts/*.css')
             .pipe(header('/*! ' + banner + ' */\n'))
             .pipe(size({ showFiles: true }))
-            .pipe(gulp.dest('dist/layouts')),
+            .pipe(gulp.dest('dist/layouts'));
+      const buildJs = () =>
          gulp.src('css/layouts/*.js')
-            .pipe(babel({ presets: [transpileES6, 'minify'], comments: false }))
+            .pipe(babel(babelMinifyJs))
             .pipe(rename({ extname: '.min.js' }))
             .pipe(header('//! ' + banner + '\n'))
             .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
-            .pipe(gulp.dest('dist/layouts')),
+            .pipe(gulp.dest('dist/layouts'));
+      const copyImages = () =>
          gulp.src('css/layouts/neon/*.jpg')
             .pipe(size({ showFiles: true }))
-            .pipe(gulp.dest('dist/layouts/neon'))
-         );
+            .pipe(gulp.dest('dist/layouts/neon'));
+      return mergeStream(buildCss(), buildJs(), copyImages());
       }
    };
 
