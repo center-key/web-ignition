@@ -12,7 +12,7 @@
 <body>
 
 <header>
-   <h1>library.js <span class=version></span></h1>
+   <h1>library.js v<span class=version></span></h1>
    <h2>Specifications Page</h2>
    <a id=fork-me href=https://github.com/center-key/web-ignition>Fork me on GitHub</a>
 </header>
@@ -102,6 +102,7 @@
 <script>
    const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
    window.onerror = makePageRed;
+   console.log('web-ignition v' + library.version);
    library.ui.autoDisableButtons();
    library.animate.rollIn($('#roll-in-icons'));
    $('.version').text(library.version);
