@@ -26,10 +26,6 @@ const library = {
             .on({ click: library.popupImage.show },    '[data-popup-image], .popup-image');
          };
       $(onLoadSetup);
-      if (typeof module === 'object')
-         module.exports = library;  //node module loading system (CommonJS)
-      if (typeof window === 'object')
-         window.library = library;  //support both global and window property
       }
    };
 
@@ -326,10 +322,14 @@ library.gTags = {
    setup: scriptTag => {
       const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
-      const gtag = () => window.dataLayer.push(arguments);
+      function gtag() { window.dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', trackingID);
       }
    };
 
+if (typeof module === 'object')
+   module.exports = library;  //node module loading system (CommonJS)
+if (typeof window === 'object')
+   window.library = library;  //support both global and window property
 library.initialize();
