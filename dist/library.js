@@ -1,7 +1,7 @@
-//! library.js ~~ web-ignition v1.0.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! library.js ~~ web-ignition v1.0.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const library = {
-   version: '1.0.1',
+   version: '1.0.2',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -22,10 +22,6 @@ const library = {
             .on({ click: library.popupImage.show },    '[data-popup-image], .popup-image');
          };
       $(onLoadSetup);
-      if (typeof module === 'object')
-         module.exports = library;  //node module loading system (CommonJS)
-      if (typeof window === 'object')
-         window.library = library;  //support both global and window property
       }
    };
 
@@ -320,10 +316,14 @@ library.gTags = {
    setup: scriptTag => {
       const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
-      const gtag = () => window.dataLayer.push(arguments);
+      function gtag() { window.dataLayer.push(arguments); }
       gtag('js', new Date());
       gtag('config', trackingID);
       }
    };
 
+if (typeof module === 'object')
+   module.exports = library;  //node module loading system (CommonJS)
+if (typeof window === 'object')
+   window.library = library;  //support both global and window property
 library.initialize();
