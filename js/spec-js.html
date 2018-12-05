@@ -6,13 +6,13 @@
 <title>library.js &bull; Specification page</title>
 <link rel=icon       href=https://centerkey.com/graphics/bookmark.png>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.5/css/all.min.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.5/dist/dna.css>
 <link rel=stylesheet href=../dist/reset.min.css>
 </head>
 <body>
 
 <header>
-   <h1>library.js v<span class=version></span></h1>
+   <h1>library.js v<span class=version-number></span></h1>
    <h2>Specifications Page</h2>
    <a id=fork-me href=https://github.com/center-key/web-ignition>Fork me on GitHub</a>
 </header>
@@ -97,7 +97,7 @@
 </footer>
 
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/dna.js@1.4/dna.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna.js@1.5/dist/dna.min.js></script>
 <script src=../dist/library.min.js></script>
 <script>
    const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
@@ -105,7 +105,7 @@
    console.log('web-ignition v' + library.version);
    library.ui.autoDisableButtons();
    library.animate.rollIn($('#roll-in-icons'));
-   $('.version').text(library.version);
+   $('.version-number').text(library.version);
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(dna.browser.iOS() ? 'YES' : 'no');
 </script>
