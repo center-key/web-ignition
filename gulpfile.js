@@ -20,16 +20,23 @@ const replace =         require('gulp-replace');
 const size =            require('gulp-size');
 
 // Setup
-const pkg = require('./package.json');
-const banner = `${pkg.name} v${pkg.version} ~~ ${pkg.homepage} ~~ ${pkg.license} License`;
-const transpileES6 = ['@babel/env', { modules: false }];
-const babelMinifyJs = { presets: [transpileES6, 'minify'], comments: false };
+const pkg =            require('./package.json');
+const home =           pkg.homepage.replace('https://', '');
+const banner =         'web-ignition v' + pkg.version + ' ~ ' + home + ' ~ MIT License';
+const transpileES6 =   ['@babel/env', { modules: false }];
+const babelMinifyJs =  { presets: [transpileES6, 'minify'], comments: false };
 const htmlHintConfig = { 'attr-value-double-quotes': false };
 const cssPlugins = [
    cssFontMagician({ protocol: 'https:' }),
    cssPresetEnv(),
    cssNano({ autoprefixer: false })
    ];
+const banners = {
+   reset:     '/*! reset.css ~ ' + banner + ' */\n',
+   library:   '//! library.js ~ ' + banner + '\n',
+   layoutCss: '/*! layouts ~ ' + banner + ' */\n',
+   layoutJs:  '//! layouts ~ ' + banner + '\n'
+   };
 
 // Tasks
 const task = {
@@ -49,22 +56,22 @@ const task = {
          .pipe(less())
          .pipe(css(cssPlugins))
          .pipe(rename({ extname: '.min.css' }))
-         .pipe(header('/*! reset.css ~~ ' + banner + ' */\n'))
+         .pipe(header(banners.reset))
          .pipe(gap.appendFile('css/reset-color-overrides.css'))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
       },
    buildJs: () => {
-      const headerCommentsLines = /^[/][/].*\n/gm;
+      const headerComments = /^[/][/].*\n/gm;
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
-         .pipe(replace(headerCommentsLines, ''))
-         .pipe(header('//! library.js ~~ ' + banner + '\n'))
+         .pipe(replace(headerComments, ''))
+         .pipe(header(banners.library))
          .pipe(gulp.dest('dist'))
          .pipe(babel(babelMinifyJs))
          .pipe(rename({ extname: '.min.js' }))
-         .pipe(header('//! library.js ~~ ' + banner + '\n'))
+         .pipe(header(banners.library))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('dist'));
@@ -72,14 +79,14 @@ const task = {
    buildLayouts: () => {
       const buildCss = () =>
          gulp.src('css/layouts/*.css')
-            .pipe(header('/*! ' + banner + ' */\n'))
+            .pipe(header(banners.layoutCss))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts'));
       const buildJs = () =>
          gulp.src('css/layouts/*.js')
             .pipe(babel(babelMinifyJs))
             .pipe(rename({ extname: '.min.js' }))
-            .pipe(header('//! ' + banner + '\n'))
+            .pipe(header(banners.layoutJs))
             .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts'));
