@@ -1,9 +1,10 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.0.2",
+   "version": "1.0.3",
    "license": "MIT",
-   "main": "dist/library.min.js",
+   "main": "js/library.js",
+   "browser": "dist/library.min.js",
    "repository": "github:center-key/web-ignition",
    "homepage": "https://github.com/center-key/web-ignition",
    "bugs": "https://github.com/center-key/web-ignition/issues",
@@ -33,13 +34,13 @@
       "test": "gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
-      "dna.js": "~1.4",
-      "fetch-json": "~2.1",
+      "dna.js": "~1.5",
+      "fetch-json": "~2.2",
       "jquery": "~3.3"
    },
    "devDependencies": {
-      "@babel/core": "~7.1",
-      "@babel/preset-env": "~7.1",
+      "@babel/core": "~7.2",
+      "@babel/preset-env": "~7.2",
       "cssnano": "~4.1",
       "del": "~3.0",
       "gulp": "~4.0",
