@@ -4,7 +4,7 @@ Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.0/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.0/dist/layouts/color-slide.css>
    <style>
-      html { background: linear-gradient(to bottom, gold, plum); }
+      html { background: linear-gradient(to bottom, gold, black); }
    </style>
 HTML:
    body
