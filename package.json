@@ -3,7 +3,7 @@
    "description": "Start a fire",
    "version": "1.0.3",
    "license": "MIT",
-   "main": "js/library.js",
+   "main": "dist/library.js",
    "browser": "dist/library.min.js",
    "repository": "github:center-key/web-ignition",
    "homepage": "https://github.com/center-key/web-ignition",
@@ -34,6 +34,7 @@
       "test": "gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
+      "@fortawesome/fontawesome-free": "~5.6",
       "dna.js": "~1.5",
       "fetch-json": "~2.2",
       "jquery": "~3.3"
