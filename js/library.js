@@ -51,14 +51,14 @@ library.ui = {
       //    elem.findAll('img').fadeOut();
       return this.find(selector).addBack(selector);
       },
-   makeIcons: holder => {
+   makeIcons: (holder) => {
       const makeIcon =  (i, elem) => $(elem).addClass('fa-' + $(elem).data().icon);
       const makeBrand = (i, elem) => $(elem).addClass('fa-' + $(elem).data().brand);
       holder.findAll('i[data-icon]').addClass( 'font-icon fas').each(makeIcon);
       holder.findAll('i[data-brand]').addClass('font-icon fab').each(makeBrand);
       return holder;
       },
-   normalize: holder => {
+   normalize: (holder) => {
       holder = holder || $(window.document);
       library.ui.makeIcons(holder);
       holder.find('button:not([type])').attr({ type: 'button' });
@@ -83,13 +83,13 @@ library.ui = {
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
-   popupClick: event => {
+   popupClick: (event) => {
       // Usage (see popup() for default width and height):
       //    <button data-href-popup=../support data-width=300>Help</button>
       const data = $(event.target).data();
       library.ui.popup(data.hrefPopup, data);
       },
-   revealSection: event => {
+   revealSection: (event) => {
       // Usage (data-reveal optional):
       //    <div class=reveal-button data-reveal=more>More...</div>
       //    <div class=reveal-target data-reveal=more>Surprise!</div>
@@ -106,11 +106,11 @@ library.ui = {
       return elem.css({ left: '+=' + (moveR - moveL) + 'px' });
       },
    autoDisableButtons: () => {
-      const disableButton = event => {
+      const disableButton = (event) => {
          if (!$(event.target).closest('nav,.no-disable').length)
             $(event.target).closest('button').disable();
          };
-      const disableFormButton = event => {
+      const disableFormButton = (event) => {
          return $(event.target).find('button:not(.no-disable)').disable();
          };
       $(window.document)
@@ -120,7 +120,7 @@ library.ui = {
    loadImageFadeIn: (elem, url, duration) => {
       // Usage:
       //    library.ui.loadImageFadeIn($('img#banner'), 'https://example.com/elephants.jpg');
-      const handleImg = event => {
+      const handleImg = (event) => {
          elem.fadeIn(duration || 1500);
          return elem[0].nodeName === 'IMG' ?
             elem.attr({ src: event.target.src }) :
@@ -151,26 +151,26 @@ library.ui = {
    };
 
 library.util = {
-   cleanupEmail: email => {
+   cleanupEmail: (email) => {
       // Usage:
       //    library.util.cleanupEmail(' Lee@Example.Com ') === 'lee@exampe.com';
       //    library.util.cleanupEmail('bogus@example') === false;
       email = email && email.replace(/\s/g, '').toLowerCase();
       return /.+@.+[.].+/.test(email) ? email : false;  //rudimentary format check
       },
-   toObj: string => {
+   toObj: (string) => {
       // Parse string into object
       return JSON.parse(string === undefined ? '{}' : string);
       },
-   removeWhitespace: string => {
+   removeWhitespace: (string) => {
       // Usage:
       //    library.util.removeWhitespace('a b \t\n c') === 'abc';
       return string.replace(/\s/g, '');
       },
-   details: thing => {
+   details: (thing) => {
       let msg = typeof thing + ' --> ';
       const addProp = property => { msg += property + ':' + thing[property] + ' '; };
-      const jQueryDetials = elem =>
+      const jQueryDetials = (elem) =>
          elem.length === 0 ? '' : ' [#1' +
             ' elem:' +  elem.first()[0].nodeName +
             ' id:' +    elem.first().id() +
@@ -186,7 +186,7 @@ library.util = {
          msg += thing;
       return msg;
       },
-   debug: thing => console.log(Date.now() + ': ' + library.util.details(thing))
+   debug: (thing) => console.log(Date.now() + ': ' + library.util.details(thing))
    };
 
 library.storage = {
@@ -196,7 +196,7 @@ library.storage = {
       window.localStorage[key] = JSON.stringify(obj);
       return library.storage.dbRead(key);
       },
-   dbRead: key => {
+   dbRead: (key) => {
       // Usage:
       //    const profile = library.storage.dbSave('profile');
       return library.util.toObj(window.localStorage[key]);
@@ -207,7 +207,7 @@ library.storage = {
       window.sessionStorage[key] = JSON.stringify(obj);
       return library.storage.sessionRead(key);
       },
-   sessionRead: key => {
+   sessionRead: (key) => {
       // Usage:
       //    const editorSettings = library.storage.sessionSave('editor-settings');
       return library.util.toObj(window.sessionStorage[key]);
@@ -221,7 +221,7 @@ library.browser = {
 library.popupImage = {
    // Usage (data-popup-image and data-popup-width are optional):
    //    <img src=thumb.png data-popup-image=full.jpg data-popup-width=300 alt=thumbnail>
-   show: event => {
+   show: (event) => {
       const defaultPopupWidth = 800;
       const thumbnail = $(event.target).addClass('popup-image');
       thumbnail.parent().css({ position: 'relative' });
@@ -241,7 +241,7 @@ library.popupImage = {
 library.animate = {
    // Usage:
    //    library.animate.rollIn($('.diagram'));
-   rollIn: holderOrElems => {
+   rollIn: (holderOrElems) => {
       let elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
       const startDelay = 300;
       const fadeDelay = 1500;
@@ -262,19 +262,16 @@ library.bubbleHelp = {
       let wrapper;
       const wrapperHtml = '<span class=bubble-wrap></span>';
       const pointerHtml = '<span class=pointer>&#9660;</span>';
-      const hi = event => {
-         const hover = $(event.target)
-            .closest('.bubble-help-hover');
+      const hi = (event) => {
+         const hover = $(event.target).closest('.bubble-help-hover');
          wrapper = hover.find('.bubble-wrap');
          if (wrapper.length === 0)
-            wrapper = hover.find('.bubble-help')
-               .wrap(wrapperHtml).parent().append(pointerHtml);
+            wrapper = hover.find('.bubble-help').wrap(wrapperHtml).parent().append(pointerHtml);
          wrapper.find('.bubble-help').show();
          wrapper.css({ top: -wrapper.height() }).hide().fadeIn();
          };
       const bye = () => wrapper.fadeOut('slow');
-      $('.bubble-help').parent().addClass('bubble-help-hover')
-         .hover(hi, bye);
+      $('.bubble-help').parent().addClass('bubble-help-hover').hover(hi, bye);
       }
    };
 
@@ -297,7 +294,7 @@ library.social = {
       { icon: 'digg',        title: 'Digg',     x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
       { icon: 'reddit',      title: 'Reddit',   x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' }
       ],
-   share: elem => {
+   share: (elem) => {
       const button = library.social.buttons[elem.index()];
       const insert = (str, find, value) => str.replace(find, encodeURIComponent(value));
       const linkTemp = insert(button.link, '${url}',   window.location.href);
@@ -319,7 +316,7 @@ library.social = {
 library.gTags = {
    // Usage:
    //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.gTags.setup></script>
-   setup: scriptTag => {
+   setup: (scriptTag) => {
       const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
