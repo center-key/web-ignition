@@ -30,7 +30,7 @@
       }
    },
    "scripts": {
-      "pretest": "jshint *.js js/*.js css/layouts/*.js && gulp validate-specs",
+      "pretest": "jshint *.js js css/layouts && gulp validate-specs",
       "test": "gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
