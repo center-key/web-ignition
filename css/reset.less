@@ -36,6 +36,7 @@ main { min-height: 300px; }
 header { margin-bottom: 20px; }
 aside { float: right; clear: right; font-size: 0.9rem; margin: 0px 0px 20px 20px; }
 aside.left { float: left; clear: left; margin: 0px 20px 20px 0px; }
+main section aside { max-width: 35%; background-color: whitesmoke; border: 1px solid silver; padding: 10px; }
 section:after { content: " "; display: table; clear: both; }  /* a section with an aside will self clear */
 body >footer { display: flex; justify-content: space-between; align-items: center; clear: both; text-align: center; font-size: 0.9rem; color: darkgray; padding: 30px 0px; }
 body >footer >div { min-width: 20%; }  /* centers middle child */
@@ -48,6 +49,7 @@ h2 { font-size: 1.5rem; }
 h3 { font-size: 1.2rem; }
 h4 { font-size: 0.9rem; font-weight: normal; text-transform: uppercase; letter-spacing: 0.14em; }
 h1+h2 { font-weight: lighter; margin: -0.2em 0px 0.4em 0px; }
+div h2, aside h2 { font-size: 1.1rem; }
 quoteblock:before { content: open-quote; }
 quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
@@ -360,6 +362,7 @@ img.popup-image + .popup-image-layer img { display: block; border: 20px solid si
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
    h1 { font-size: 2.0rem; }
    h1+h2 { font-size: 1.3rem; }
+   main section aside { float: none; max-width: none; margin: 0px 0px 20px 0px; }
    body { padding: 20px 10px; }
    body >footer { flex-direction: column; padding: 20px 2px; }
    body >footer >div { text-align: center !important; }
