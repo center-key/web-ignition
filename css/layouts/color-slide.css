@@ -19,6 +19,7 @@ HTML:
 body {
    width: 800px;
    max-width: 95%;
+   min-height: 100vh;
    background-color: rgba(255, 255, 255, 0.9);
    padding: 20px 5%;
    }

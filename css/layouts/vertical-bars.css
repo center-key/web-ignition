@@ -21,6 +21,7 @@ HTML:
 */
 body {
    max-width: 900px;
+   min-height: 100vh;
    border: 50px solid;
    border-top: none;
    border-bottom: none;
