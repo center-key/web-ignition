@@ -228,7 +228,6 @@ library.popupImage = {
       thumbnail.next('.popup-image-layer').remove();
       const keyUpEventName = 'keyup.' + Date.now();
       const close = () => {
-         console.log(keyUpEventName);
          $(window.document).off(keyUpEventName);
          thumbnail.next().fadeOut();
          };
