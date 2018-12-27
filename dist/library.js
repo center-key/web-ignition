@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.0.6 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.0.7 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.0.6',
+   version: '1.0.7',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -218,11 +218,17 @@ library.popupImage = {
    // Usage (data-popup-image and data-popup-width are optional):
    //    <img src=thumb.png data-popup-image=full.jpg data-popup-width=300 alt=thumbnail>
    show: (event) => {
-      const defaultPopupWidth = 800;
+      const defaultPopupWidth = 1000;
       const thumbnail = $(event.target).addClass('popup-image');
       thumbnail.parent().css({ position: 'relative' });
       thumbnail.next('.popup-image-layer').remove();
-      const close = () => thumbnail.next().fadeOut();
+      const keyUpEventName = 'keyup.' + Date.now();
+      const close = () => {
+         console.log(keyUpEventName);
+         $(window.document).off(keyUpEventName);
+         thumbnail.next().fadeOut();
+         };
+      const escKeyClose = (event) => event.key === 'Escape' && close();
       const width = thumbnail.data().popupWidth || defaultPopupWidth;
       const maxWidth = Math.min(width, $(window).width() - 30) + 'px';
       const imageSrc = thumbnail.data().popupImage || thumbnail.attr('src');
@@ -231,6 +237,7 @@ library.popupImage = {
          .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
       popup.insertAfter(thumbnail);
       library.ui.keepOnScreen(popup, 30).fadeTo('slow', 1);
+      $(window.document).on(keyUpEventName, escKeyClose);
       }
    };
 
