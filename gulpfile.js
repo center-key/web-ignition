@@ -74,6 +74,7 @@ const task = {
          .pipe(header(banners.library))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
+         .pipe(size({ showFiles: true, gzip: true }))
          .pipe(gulp.dest('dist'));
       },
    buildLayouts: () => {
