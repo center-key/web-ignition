@@ -5,6 +5,7 @@
    "license": "MIT",
    "main": "dist/library.js",
    "browser": "dist/library.min.js",
+   "style": "dist/reset.min.css",
    "repository": "github:center-key/web-ignition",
    "homepage": "https://github.com/center-key/web-ignition",
    "bugs": "https://github.com/center-key/web-ignition/issues",
