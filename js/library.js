@@ -65,7 +65,7 @@ library.ui = {
       holder.find('input:not([type])').attr({ type: 'text' });
       holder.find('input[type=email]').attr({ autocorrect: 'off', spellcheck: false });
       holder.find('a img, a i.font-icon').closest('a').addClass('image-link');
-      if (!dna.browser.iOS())
+      if (!library.browser.iOS())
          holder.find('a.external-site, .external-site a').attr({ target: '_blank' });
       return holder;
       },
@@ -215,7 +215,9 @@ library.storage = {
    };
 
 library.browser = {
-   macOS: () => /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor)
+   macOS: () => /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor),
+   iOS: () => /iPad|iPhone|iPod/.test(window.navigator.userAgent) &&
+      /Apple/.test(window.navigator.vendor)
    };
 
 library.popupImage = {
@@ -235,7 +237,7 @@ library.popupImage = {
       const width = thumbnail.data().popupWidth || defaultPopupWidth;
       const maxWidth = Math.min(width, $(window).width() - 30) + 'px';
       const imageSrc = thumbnail.data().popupImage || thumbnail.attr('src');
-      const popup = $('<div>').addClass('popup-image-layer').click(close)
+      const popup = $('<div>').addClass('popup-image-layer').on({ click: close })
          .append(library.ui.makeIcons($('<i data-icon=times>')))
          .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
       popup.insertAfter(thumbnail);
@@ -277,7 +279,8 @@ library.bubbleHelp = {
          wrapper.css({ top: -wrapper.height() }).hide().fadeIn();
          };
       const bye = () => wrapper.fadeOut('slow');
-      $('.bubble-help').parent().addClass('bubble-help-hover').hover(hi, bye);
+      const hoverEvents = { mouseenter: hi, mouseleave: bye, touchstart: hi, touchend: bye };
+      $('.bubble-help').parent().addClass('bubble-help-hover').on(hoverEvents);
       }
    };
 
