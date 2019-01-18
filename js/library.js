@@ -144,9 +144,10 @@ library.ui = {
       $('figure.video-container iframe').attr('allowfullscreen', true);
       },
    setupForkMe: () => {
-      const forkMeIcon = href => $('<i>', { 'data-brand': 'github', 'data-href': href });
-      const addForkMeIcon = elem => elem.after(forkMeIcon(elem.attr('href')));
-      addForkMeIcon($('#fork-me').removeAttr('id').wrap($('<div id=fork-me>'))).parent().show();
+      // <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
+      const makeIcon = (href) => $('<i>', { 'data-brand': 'github', 'data-href': href });
+      const forkMe = $('#fork-me').removeAttr('id').wrap($('<div id=fork-me>'));
+      forkMe.after(makeIcon(forkMe.attr('href'))).parent().show().parent().addClass('forkable');
       }
    };
 
