@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.0.8 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.0.9 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Blocks layout -- Two columns of colorful blocks
 Usage:
@@ -79,7 +79,6 @@ main >div >section h2 i.font-icon {
    opacity: 1 !important;
    }
 main >div >section >aside {
-   width: 40%;
    font-size: 0.8rem;
    text-align: center;
    border: 2px solid;
@@ -90,7 +89,6 @@ main >div >section >aside figure {
    margin-bottom: 0px;
    }
 main >div >section >aside figure img {
-   width: 100%;
    border: 1px solid black;
    }
 main >div >section li {
@@ -141,7 +139,10 @@ body >footer a:hover {
    }
 /* Mobile devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
-   body >header button { font-size: 0.8rem; }
+   body >header { text-align: center; }
+   body >header >aside { float: none; margin: 0px; }
+   body >header.forkable >aside { text-align: left; }
+   body >header >aside button { font-size: 0.8rem; }
    body >header >h1 { font-size: 1.6rem; }
    body >header >h1+h2 { font-size: 1.3rem; }
    main { flex-direction: column; }
