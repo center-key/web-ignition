@@ -1,9 +1,9 @@
-/*! layouts ~ web-ignition v1.0.9 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.0 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Blocks layout -- Two columns of colorful blocks
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.0/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.0/dist/layouts/color-blocks.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.1/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.1/dist/layouts/color-blocks.css>
    <style>
       main >div:nth-child(1) >section:nth-child(3n+1)    { border-color:     rosybrown; }
       main >div:nth-child(1) >section:nth-child(3n+1) h2 { background-color: rosybrown; }
