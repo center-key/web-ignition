@@ -58,9 +58,9 @@ quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
 
 /* Links */
-a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; transition: all 0.4s; }
+a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 0.4s; }
 a:visited { color: darkgray; }
-a:hover   { color: white; outline: 2px solid; }
+a:hover   { color: white; }
 a img,       a i.font-icon       { opacity: 0.8; transition: all 0.4s; }
 a img:hover, a i.font-icon:hover { opacity: 1.0; }
 a figure figcaption { text-align: center; transition: all 0.4s; }
@@ -125,7 +125,7 @@ table.data-box td.num { text-align: right; }
 .flex-columns >*:last-child  { padding-right: 0px; }
 @media (max-width: 667px) { .flex-columns { flex-direction: column; } .flex-columns >* { padding: 0px; } }
 
-/* Basic tools (for quick fixes on web pages built without proper components) */
+/* Basic tools (for quick fixes on web pages built without real component styling) */
 .small          { font-size: smaller; }
 .large          { font-size: larger; }
 .align-left     { text-align: left; }
@@ -165,7 +165,7 @@ table.data-box td.num { text-align: right; }
 .hide-me        { display: none; visibility: hidden; opacity: 0; max-height: 0px; max-width: 0px; }
 .stealth-mode   { position: absolute; left: -7000px; opacity: 0.0; }
 
-/* Utilities */
+/* Utilities (subsitute for mixes on web pages without less) */
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
 .hover-glow          { transition: all 0.4s; }
@@ -175,6 +175,8 @@ table.data-box td.num { text-align: right; }
 .framed img, img.framed             { border: 3px solid silver; border-radius: 2px; transition: all 0.4s; }
 .framed img:hover, img.framed:hover { border-color: dimgray; }
 .modal-layer { display: none; position: fixed; top: 0px; left: 0px; width: 100%; height: 100vh; text-align: center; }
+ul.simple-text { list-style-type: none; padding: 0px; }
+ul.simple-text li { font-size: 1rem; text-indent: 0px; padding: 0px; }
 
 /* Video container                                                    */
 /* <figure class=video-container>                                     */
