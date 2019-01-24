@@ -79,7 +79,7 @@ library.ui = {
       return $('.display-addr').each(display);
       },
    popup: (url, options) => {
-      const settings = $.extend({ width: 600, height: 400 }, options);
+      const settings = Object.assign({ width: 600, height: 400 }, options);
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
