@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.1.0 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.1.1 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.1.0',
+   version: '1.1.1',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -75,7 +75,7 @@ library.ui = {
       return $('.display-addr').each(display);
       },
    popup: (url, options) => {
-      const settings = $.extend({ width: 600, height: 400 }, options);
+      const settings = Object.assign({ width: 600, height: 400 }, options);
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
