@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.1.1 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.1.2 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.1.1',
+   version: '1.1.2',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -292,7 +292,6 @@ library.social = {
    // Usage:
    //    <div id=social-buttons></div>
    buttons: [
-      { icon: 'google',      title: 'Google',   x: 480, y: 700, link: 'https://plus.google.com/share?url=${url}' },
       { icon: 'twitter',     title: 'Twitter',  x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
       { icon: 'facebook-f',  title: 'Facebook', x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { icon: 'linkedin-in', title: 'LinkedIn', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
