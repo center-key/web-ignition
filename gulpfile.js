@@ -63,7 +63,7 @@ const task = {
          .pipe(gulp.dest('dist'));
       },
    buildJs: () => {
-      const headerComments = /^[/][/].*\n/gm;
+      const headerComments = /^\/\/.*\n/gm;
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
          .pipe(replace(headerComments, ''))
