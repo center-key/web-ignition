@@ -78,7 +78,6 @@ main >div >section h2 i.font-icon {
    opacity: 1 !important;
    }
 main >div >section >aside {
-   font-size: 0.8rem;
    text-align: center;
    border: 2px solid;
    border-color: inherit;
@@ -89,9 +88,6 @@ main >div >section >aside figure {
    }
 main >div >section >aside figure img {
    border: 1px solid black;
-   }
-main >div >section li {
-   font-size: 0.8rem;
    }
 main >div >section nav {
    text-align: right;
