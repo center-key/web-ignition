@@ -321,11 +321,21 @@ library.social = {
       }
    };
 
-// Google Tracking
-library.gTags = {
-   // Usage:
-   //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.gTags.setup></script>
-   setup: (scriptTag) => {
+// Extras for 3rd party stuff
+library.extra = {
+   blogger: (websiteUrl) => {
+      // Setup Blogger's Dynamic Views (sidebar)
+      const onArticleLoad = () => {
+         console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
+         $('#header >.header-bar h3').attr('data-href', websiteUrl);
+         library.ui.normalize();
+         };
+      $(window.blogger.ui()).on('viewitem', onArticleLoad);
+      },
+   gTags: (scriptTag) => {
+      // Google Tracking
+      // Usage:
+      //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.extra.gTags></script>
       const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
@@ -333,6 +343,7 @@ library.gTags = {
       gtag('config', trackingID);
       }
    };
+library.gTags = { setup: scriptTag => library.extra.gTags(scriptTag) };  //DEPRECATED
 
 if (typeof module === 'object')
    module.exports = library;  //node module loading system (CommonJS)

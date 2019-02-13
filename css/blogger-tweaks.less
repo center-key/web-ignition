@@ -1,0 +1,237 @@
+// Blogger tweeks
+
+#header-container {
+   #header {
+      .Pageheader();
+      }
+   }
+#sidebar {
+   width: 340px;
+   margin-top: -30px;  //leave simple black bar below header
+   .items {
+      .item {
+         h3.title {
+            font-size: 1.0rem;
+            }
+         }
+      }
+   }
+#content {
+   margin-left: 360px;
+   .article {
+      .article-header {
+         h1.title {
+            font-size: 2.0rem;
+            font-weight: bold;
+            }
+         }
+      .article-content {
+         .ArticleContent();
+         }
+      .article-footer {
+         border-top: 1px solid silver;
+         }
+      }
+   }
+#attribution-container {
+   .HideMe();
+   }
+
+body >.viewitem-panel {
+   .HideMe();  //prevent random single item mode
+   };
+
+.Pageheader() {
+   .header-bar {
+      .title {
+         h3 {
+            border-bottom: 2px solid transparent;
+            margin-left: 20px;
+            transition: all 0.4s;
+            &:hover {
+               border-color: black;
+               }
+            }
+         }
+      }
+   .header-drawer {
+      top: 35px;
+      #views.menu {
+         .HideMe();  //remove ridiculous view format drop-down
+         }
+      }
+   }
+
+.ArticleContent() {
+   .ColoredTable();
+   .OutputBox();
+   .StyleTools();
+   font-size: 1.2rem;
+   text-align: left;
+   margin-bottom: 40px;
+   h2 {
+      font-size: 1.4em;
+      margin: 1.0em 0em 0.2em 0em;
+      }
+   nav {
+      border: 1px solid silver;
+      padding: 10px 20px;
+      background-color: whitesmoke;
+      ol, ul {
+         margin: 0px;
+         }
+      }
+   p {
+      margin-top: 0px;
+      }
+   ol, ul {
+      padding-left: 3em;
+      margin: 0px 0px 1em 0px;
+      }
+   pre {
+      word-break: normal;
+      word-wrap: normal;
+      }
+   img {
+      max-width: 100%;
+      }
+   figure {
+      text-align: center;
+      margin: 0px 0px 20px 0px;
+      &.full-width {
+         img {
+            max-height: none;
+            }
+         }
+      &.small-image {
+         img {
+            max-height: 120px;
+            }
+         }
+      figcaption {
+         font-weight: bold;
+         }
+      img {
+         max-height: 200px;
+         border-image: none;
+         border-width: 0px;
+         padding: 0px;
+         margin: 0px;
+         }
+      }
+   figure.hljs-enhance {
+      clear: both;
+      text-align: left;
+      figcaption {
+         font-size: 1.1rem;
+         }
+      code.XXXXXXXXXX {
+         // word-break: normal;
+         // word-wrap: normal;
+         }
+      }
+   aside {
+      float: right;
+      max-width: 150px;
+      margin: 0px 0px 15px 20px;
+      &.left {
+         float: left;
+         margin: 0px 20px 15px 0px;
+         }
+      }
+   >footer {
+      border-top: 1px solid silver;
+      padding-top: 10px;
+      margin-top: 40px;
+      }
+   }
+
+.StyleTools() {
+   .hide-me {
+      .HideMe();
+      }
+   .indent {
+      display: block;
+      margin-left: 30px;
+      }
+   .framed,
+   .framed-padded {
+      border: 15px solid silver;
+      }
+   .framed-padded {
+      padding: 15px;
+      }
+   .highlight, .highlight2 {
+      background-color: lightyellow;
+      padding: 0px 3px;
+      }
+   .highlight2 {
+      background-color: mistyrose;
+      }
+   }
+
+.ColoredTable() {
+   table {
+      border-collapse: collapse;
+      background-color: lightsteelblue;
+      border: 3px solid lightsteelblue;
+      margin-bottom: 20px;
+      thead {
+         tr th {
+            text-align: left;
+            color: darkslategray;
+            padding: 4px 10px;
+            }
+         }
+      tbody {
+         tr {
+            background-color: whitesmoke;
+            transition: all 0.4s;
+            &:nth-child(even) {
+               background-color: ghostwhite;
+               }
+            &:hover {
+               background-color: ivory;
+               }
+            td {
+               padding: 4px 10px;
+               }
+            }
+         }
+      }
+   }
+
+.OutputBox() {
+   output {
+      display: block;
+      background-color: honeydew;
+      border: 3px solid darkseagreen;
+      margin-bottom: 20px;
+      overflow: hidden;
+      >h2 {
+         font-size: 1.3rem;
+         text-align: center;
+         color: white;
+         background-color: darkseagreen;
+         padding-bottom: 3px;
+         margin: 0px;
+         }
+      >pre {
+         // word-break: normal;
+         // word-wrap: normal;
+         padding: 10px 20px;
+         margin: 0em 0em -1.2em -3.3em;
+         overflow-x: scroll;
+         overflow-y: hidden;
+         }
+      }
+   }
+
+.HideMe() {
+   display: none;
+   visibility: hidden;
+   max-width: 0px;
+   max-height: 0px;
+   opacity: 0;
+   z-index: -10000;
+   }

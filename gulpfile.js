@@ -33,6 +33,7 @@ const cssPlugins = [
    ];
 const banners = {
    reset:     '/*! reset.css ~ ' + banner + ' */\n',
+   blogger:   '/*! Blogger tweaks for Dynamic Views (sidebar) ~ ' + banner + ' */\n',
    library:   '//! library.js ~ ' + banner + '\n',
    layoutCss: '/*! layouts ~ ' + banner + ' */\n',
    layoutJs:  '//! layouts ~ ' + banner + '\n'
@@ -52,15 +53,28 @@ const task = {
       return del('dist');
       },
    buildCss: () => {
-      return gulp.src('css/reset.less')
-         .pipe(less())
-         .pipe(css(cssPlugins))
-         .pipe(rename({ extname: '.min.css' }))
-         .pipe(header(banners.reset))
-         .pipe(gap.appendFile('css/reset-color-overrides.css'))
-         .pipe(gap.appendText('\n'))
-         .pipe(size({ showFiles: true }))
-         .pipe(gulp.dest('dist'));
+      const buildReset = () =>
+         gulp.src('css/reset.less')
+            .pipe(less())
+            .pipe(css(cssPlugins))
+            .pipe(rename({ extname: '.min.css' }))
+            .pipe(header(banners.reset))
+            .pipe(gap.appendFile('css/reset-color-overrides.css'))
+            .pipe(gap.appendText('\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist'));
+      const buildBloggerTweaks = () =>
+         gulp.src('css/blogger-tweaks.less')
+            .pipe(less())
+            .pipe(css(cssPlugins))
+            .pipe(rename({ extname: '.min.css' }))
+            .pipe(header(banners.blogger))
+            .pipe(gap.appendText('\n'))
+            .pipe(gap.appendFile('css/blogger-tweaks-instructions.css'))
+            .pipe(gap.appendText('\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist'));
+      return mergeStream(buildReset(), buildBloggerTweaks());
       },
    buildJs: () => {
       const headerComments = /^\/\/.*\n/gm;
