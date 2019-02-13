@@ -330,7 +330,7 @@ library.extra = {
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          library.ui.normalize();
          };
-      $(window.blogger.ui()).on('viewitem', onArticleLoad);
+      $(window.blogger.ui()).on({ viewitem: onArticleLoad });
       },
    gTags: (scriptTag) => {
       // Google Tracking
