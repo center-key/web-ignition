@@ -32,7 +32,7 @@
    },
    "scripts": {
       "pretest": "jshint *.js js css/layouts && gulp validate-specs",
-      "test": "gulp build-css && gulp build-js && gulp build-layouts"
+      "test": "gulp clean && gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
       "@fortawesome/fontawesome-free": "~5.7",
@@ -57,6 +57,7 @@
       "gulp-replace": "~1.0",
       "gulp-size": "~3.0",
       "gulp-w3c-html-validator": "~1.4",
+      "highlight.js": "~9.14",
       "jshint": "~2.10",
       "merge-stream": "~1.0",
       "postcss-font-magician": "~2.2",

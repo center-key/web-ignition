@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.1.2 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.1.3 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.1.2',
+   version: '1.1.3',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -292,11 +292,11 @@ library.social = {
    // Usage:
    //    <div id=social-buttons></div>
    buttons: [
-      { icon: 'twitter',     title: 'Twitter',  x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
-      { icon: 'facebook-f',  title: 'Facebook', x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
-      { icon: 'linkedin-in', title: 'LinkedIn', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
-      { icon: 'digg',        title: 'Digg',     x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
-      { icon: 'reddit',      title: 'Reddit',   x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' }
+      { title: 'Twitter',  icon: 'twitter',     x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
+      { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
+      { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
+      { title: 'Digg',     icon: 'digg',        x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
+      { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' }
       ],
    share: (elem) => {
       const button = library.social.buttons[elem.index()];
@@ -316,10 +316,20 @@ library.social = {
       }
    };
 
-library.gTags = {
-   // Usage:
-   //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.gTags.setup></script>
-   setup: (scriptTag) => {
+library.extra = {
+   blogger: (websiteUrl) => {
+      // Setup Blogger's Dynamic Views (sidebar)
+      const onArticleLoad = () => {
+         console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
+         $('#header >.header-bar h3').attr('data-href', websiteUrl);
+         library.ui.normalize();
+         };
+      $(window.blogger.ui()).on('viewitem', onArticleLoad);
+      },
+   gTags: (scriptTag) => {
+      // Google Tracking
+      // Usage:
+      //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=library.extra.gTags></script>
       const trackingID = $(scriptTag).attr('src').split('=')[1];
       window.dataLayer = window.dataLayer || [];
       function gtag() { window.dataLayer.push(arguments); }
@@ -327,6 +337,7 @@ library.gTags = {
       gtag('config', trackingID);
       }
    };
+library.gTags = { setup: scriptTag => library.extra.gTags(scriptTag) };  //DEPRECATED
 
 if (typeof module === 'object')
    module.exports = library;  //node module loading system (CommonJS)

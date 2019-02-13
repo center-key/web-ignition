@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.1.2 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.3 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Slide layout -- Top to botttom color transition
 Usage:
@@ -29,7 +29,7 @@ body >header >nav {
    }
 body >header >nav >a {
    display: inline-block;
-   font-size: 0.8rem;
+   font-size: 0.9rem;
    font-weight: bold;
    text-transform: uppercase;
    letter-spacing: 0.1em;
