@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.1.3 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.1.4 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.1.3',
+   version: '1.1.4',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -211,6 +211,30 @@ library.storage = {
       }
    };
 
+library.counter = {
+   key: 'counters',
+   list: () => {
+      const counters = sessionStorage[library.counter.key];
+      return counters ? JSON.parse(counters) : {};
+      },
+   get: (name = 'default') => {
+      const counters = library.counter.list();
+      return counters[name] ? counters[name] : 0;
+      },
+   set: (count = 0, name = 'default') => {
+      const counters = library.counter.list();
+      counters[name] = count;
+      sessionStorage[library.counter.key] = JSON.stringify(counters);
+      return count;
+      },
+   reset: (name = 'default') => {
+      return library.counter.set(0, name);
+      },
+   increment: (name = 'default') => {
+      return library.counter.set(library.counter.get(name) + 1, name);
+      }
+   };
+
 library.browser = {
    macOS: () => /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor),
    iOS: () => /iPad|iPhone|iPod/.test(window.navigator.userAgent) &&
@@ -324,7 +348,7 @@ library.extra = {
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          library.ui.normalize();
          };
-      $(window.blogger.ui()).on('viewitem', onArticleLoad);
+      $(window.blogger.ui()).on({ viewitem: onArticleLoad });
       },
    gTags: (scriptTag) => {
       // Google Tracking
@@ -337,7 +361,6 @@ library.extra = {
       gtag('config', trackingID);
       }
    };
-library.gTags = { setup: scriptTag => library.extra.gTags(scriptTag) };  //DEPRECATED
 
 if (typeof module === 'object')
    module.exports = library;  //node module loading system (CommonJS)
