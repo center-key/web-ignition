@@ -5,31 +5,33 @@
       .Pageheader();
       }
    }
-#sidebar {
-   width: 340px;
-   margin-top: -30px;  //leave simple black bar below header
-   .items {
-      .item {
-         h3.title {
-            font-size: 1.0rem;
+#main {
+   #sidebar {
+      width: 340px;
+      margin-top: -30px;  //leave simple black bar below header
+      .items {
+         .item {
+            h3.title {
+               font-size: 1.0rem;
+               }
             }
          }
       }
-   }
-#content {
-   margin-left: 360px;
-   .article {
-      .article-header {
-         h1.title {
-            font-size: 2.0rem;
-            font-weight: bold;
+   #content {
+      margin-left: 360px;
+      .article {
+         .article-header {
+            h1.title {
+               font-size: 2.0rem;
+               font-weight: bold;
+               }
             }
-         }
-      .article-content {
-         .ArticleContent();
-         }
-      .article-footer {
-         border-top: 1px solid silver;
+         .article-content {
+            .ArticleContent();
+            }
+         .article-footer {
+            border-top: 1px solid silver;
+            }
          }
       }
    }
@@ -38,7 +40,7 @@
    }
 
 body >.viewitem-panel {
-   .HideMe();  //prevent random single item mode
+   .HideMe();  //prevent random single article overlay mode
    };
 
 .Pageheader() {
@@ -69,14 +71,19 @@ body >.viewitem-panel {
    font-size: 1.2rem;
    text-align: left;
    margin-bottom: 40px;
+   * {
+      box-sizing: border-box;
+      }
    h2 {
       font-size: 1.4em;
       margin: 1.0em 0em 0.2em 0em;
       }
    nav {
+      clear: both;
       border: 1px solid silver;
       padding: 10px 20px;
       background-color: whitesmoke;
+      margin-bottom: 20px;
       ol, ul {
          margin: 0px;
          }
@@ -94,6 +101,10 @@ body >.viewitem-panel {
       }
    img {
       max-width: 100%;
+      border-image: none;
+      border-width: 0px;
+      padding: 0px;
+      margin: 0px;
       }
    figure {
       text-align: center;
@@ -113,10 +124,6 @@ body >.viewitem-panel {
          }
       img {
          max-height: 200px;
-         border-image: none;
-         border-width: 0px;
-         padding: 0px;
-         margin: 0px;
          }
       }
    figure.hljs-enhance {
@@ -124,10 +131,6 @@ body >.viewitem-panel {
       text-align: left;
       figcaption {
          font-size: 1.1rem;
-         }
-      code.XXXXXXXXXX {
-         // word-break: normal;
-         // word-wrap: normal;
          }
       }
    aside {
@@ -176,6 +179,9 @@ body >.viewitem-panel {
       background-color: lightsteelblue;
       border: 3px solid lightsteelblue;
       margin-bottom: 20px;
+      caption {
+         font-weight: bold;
+         }
       thead {
          tr th {
             text-align: left;
@@ -193,7 +199,7 @@ body >.viewitem-panel {
             &:hover {
                background-color: ivory;
                }
-            td {
+            th, td {
                padding: 4px 10px;
                }
             }
@@ -206,20 +212,17 @@ body >.viewitem-panel {
       display: block;
       background-color: honeydew;
       border: 3px solid darkseagreen;
+      padding: 0px 10px 5px 10px;
       margin-bottom: 20px;
       overflow: hidden;
       >h2 {
          font-size: 1.3rem;
-         text-align: center;
          color: white;
          background-color: darkseagreen;
-         padding-bottom: 3px;
-         margin: 0px;
+         padding: 0px 10px 3px 10px;
+         margin: 0px -10px 5px -10px;
          }
       >pre {
-         // word-break: normal;
-         // word-wrap: normal;
-         padding: 10px 20px;
          margin: 0em 0em -1.2em -3.3em;
          overflow-x: scroll;
          overflow-y: hidden;
