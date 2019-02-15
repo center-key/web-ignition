@@ -215,6 +215,30 @@ library.storage = {
       }
    };
 
+library.counter = {
+   key: 'counters',
+   list: () => {
+      const counters = sessionStorage[library.counter.key];
+      return counters ? JSON.parse(counters) : {};
+      },
+   get: (name = 'default') => {
+      const counters = library.counter.list();
+      return counters[name] ? counters[name] : 0;
+      },
+   set: (count = 0, name = 'default') => {
+      const counters = library.counter.list();
+      counters[name] = count;
+      sessionStorage[library.counter.key] = JSON.stringify(counters);
+      return count;
+      },
+   reset: (name = 'default') => {
+      return library.counter.set(0, name);
+      },
+   increment: (name = 'default') => {
+      return library.counter.set(library.counter.get(name) + 1, name);
+      }
+   };
+
 library.browser = {
    macOS: () => /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor),
    iOS: () => /iPad|iPhone|iPod/.test(window.navigator.userAgent) &&
@@ -343,7 +367,6 @@ library.extra = {
       gtag('config', trackingID);
       }
    };
-library.gTags = { setup: scriptTag => library.extra.gTags(scriptTag) };  //DEPRECATED
 
 if (typeof module === 'object')
    module.exports = library;  //node module loading system (CommonJS)

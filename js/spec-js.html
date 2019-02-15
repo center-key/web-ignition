@@ -69,6 +69,11 @@
       <p>Hover over me<span class=bubble-help>Help!</span></p>
       <p>On a Mac:    <code id=is-a-mac></code></p>
       <p>Running iOS: <code id=is-ios></code></p>
+      <p>
+         Counters:<br>
+         <code id=counters-actual></code> =<br>
+         <code id=counters-expected></code>
+      </p>
       <aside class=simple>
          <img src=https://centerkey.com/mac/java/graphics/installer-screenshot.png
             data-popup-image=https://centerkey.com/mac/java/graphics/installer-screenshot.png alt=thumbnail>
@@ -108,6 +113,16 @@
    $('.version-number').text(library.version);
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(library.browser.iOS() ? 'YES' : 'no');
+   library.counter.get();           //returns: 0
+   library.counter.increment();     //returns: 1
+   library.counter.reset();         //returns: 0
+   library.counter.increment();     //returns: 1
+   library.counter.increment();     //returns: 2
+   library.counter.set(99, 'x');    //returns: 99
+   library.counter.increment('x');  //returns: 100
+   library.counter.list();          //returns: { default: 2, x: 100 }
+   $('#counters-actual').text(  JSON.stringify(library.counter.list()));
+   $('#counters-expected').text(JSON.stringify({ default: 2, x: 100 }));
 </script>
 </body>
 </html>
