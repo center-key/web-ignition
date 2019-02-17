@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.1.4 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.1.5 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.1.4',
+   version: '1.1.5',
    initialize: () => {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -347,6 +347,7 @@ library.extra = {
          console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          library.ui.normalize();
+         window.hljsEnhance.setup();
          };
       $(window.blogger.ui()).on({ viewitem: onArticleLoad });
       },

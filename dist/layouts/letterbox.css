@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.1.4 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.5 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
 Usage:
@@ -24,8 +24,15 @@ body {
    margin: 0px;
    }
 main {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   min-height: 100vh;
    text-align: center;
-   margin-top: 120px;
+   }
+main >section:first-child {
+   background-color: rgba(255, 255, 255, 0.75);
+   padding: 50px 10px;
    }
 main >section:first-child h1 {
    font-size: 2.0rem;
@@ -35,10 +42,6 @@ main >section:first-child h2 {
    font-size: 1.3rem;
    text-transform: lowercase;
    margin-bottom: 30px;
-   }
-main >section:first-child {
-   background-color: rgba(255, 255, 255, 0.75);
-   padding: 50px 10px;
    }
 main >section:first-child >div {
    max-width: 560px;
@@ -70,7 +73,6 @@ main >cite {
    }
 /* Mobile devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
-   main { margin-top: 50px; }
    }
 /**************************************************************************************************/
 

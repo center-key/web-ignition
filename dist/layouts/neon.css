@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.1.4 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.5 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Neon layout -- For hackers and space junkies
 Usage:
@@ -85,7 +85,7 @@ main >section >h3 + aside {
    font-weight: bold;
    background-color: black;
    color: cyan;
-   border-color: cyan;   
+   border-color: cyan;
    margin-top: -25px;
    }
 
@@ -156,11 +156,6 @@ body >footer {
 body >footer p {
    text-align: center;
    color: lime;
-   }
-body >footer a[rel=license] img {
-   background-color: cyan;
-   border-radius: 1000px;
-   padding: 2px 0px;
    }
 
 /* Mobile devices */
