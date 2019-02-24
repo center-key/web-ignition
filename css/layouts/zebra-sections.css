@@ -74,11 +74,10 @@ body >header h2 {
    position: relative;
    color: whitesmoke;
    text-align: center;
-   text-shadow: 0px 0px 0.5em silver;
+   text-shadow: 0px 0px 0.2em dimgray;
    }
 body >header h2 {
    font-size: 1.1rem;
-   font-weight: lighter;
    letter-spacing: 0.25em;
    text-transform: uppercase;
    }

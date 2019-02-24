@@ -63,6 +63,14 @@ main >section >header h1 {
 main >section >header h2 {
    font-size: 1.3rem;
    }
+main >section aside {
+   background-color: transparent;
+   border: none;
+   padding: 0px;
+   }
+main >section aside img {
+   border: 3px solid gainsboro;
+   }
 
 /* dna.js panel navigation */
 nav.dna-menu[data-style=flat-tabs] span {

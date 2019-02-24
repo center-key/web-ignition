@@ -12,7 +12,7 @@
 html { min-height: 100vh; }
 body { font-size: 100%; font-family: system-ui, geneva, tahoma, sans-serif; }  /* override font-size percent to resize base font */
 body, h1, h2, h3, h4, h5, h6, p, figure, nav ul, nav ul li { padding: 0px; margin: 0px; }
-h1, h2, h3, h4, h5, h6 { margin-bottom: 0.2em; }
+h1, h2, h3, h4, h5, h6 { letter-spacing: 0.04em; margin-bottom: 0.2em; }
 section, header, figure { margin-bottom: 20px; }
 p, ul, ol { margin-bottom: 0.9em; }
 ul, ol { margin-top: 2px; }
@@ -38,6 +38,7 @@ aside { float: right; clear: right; font-size: 0.9rem; margin: 0px 0px 20px 20px
 aside.left { float: left; clear: left; margin: 0px 20px 20px 0px; }
 main section aside { max-width: 35%; background-color: whitesmoke; border: 1px solid silver; padding: 10px; }
 main section aside.simple { background-color: transparent; border: none; padding: 0px; }
+main section aside h2 { font-size: 1.1rem; }
 main section aside img { width: 100%; max-width: 100%; }
 main section aside p:last-child { margin-bottom: 0px; }
 section:after { content: " "; display: table; clear: both; }  /* a section with an aside will self clear */
@@ -47,12 +48,11 @@ body >footer >div:first-child:last-child { width: 100%; }
 body >footer >div:first-child:not(:last-child) { text-align: left; }
 body >footer >div:last-child:not(:first-child) { text-align: right; }
 body >footer a img[alt=logo] { height: 50px; }
-h1 { font-size: 2.6rem; font-family: Chango, sans-serif; }
+h1 { font-size: 2.6rem; font-family: Chango, system-ui, sans-serif; }
 h2 { font-size: 1.5rem; }
 h3 { font-size: 1.2rem; }
 h4 { font-size: 0.9rem; font-weight: normal; text-transform: uppercase; letter-spacing: 0.14em; }
-h1+h2 { font-weight: lighter; margin: -0.2em 0px 0.4em 0px; }
-div h2, aside h2 { font-size: 1.1rem; }
+h1+h2 { font-weight: lighter; text-shadow: 0px 0px 0.2em white; margin: -0.2em 0px 0.4em 0px; }
 quoteblock:before { content: open-quote; }
 quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
