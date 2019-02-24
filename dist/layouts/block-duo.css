@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.1.5 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.6 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Block Duo layout -- Two big columns followed by a single footer
 Usage:
@@ -63,6 +63,14 @@ main >section >header h1 {
    }
 main >section >header h2 {
    font-size: 1.3rem;
+   }
+main >section aside {
+   background-color: transparent;
+   border: none;
+   padding: 0px;
+   }
+main >section aside img {
+   border: 3px solid gainsboro;
    }
 
 /* dna.js panel navigation */

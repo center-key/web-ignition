@@ -1,4 +1,4 @@
-/*! layouts ~ web-ignition v1.1.5 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts ~ web-ignition v1.1.6 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
 Usage:
@@ -75,11 +75,10 @@ body >header h2 {
    position: relative;
    color: whitesmoke;
    text-align: center;
-   text-shadow: 0px 0px 0.5em silver;
+   text-shadow: 0px 0px 0.2em dimgray;
    }
 body >header h2 {
    font-size: 1.1rem;
-   font-weight: lighter;
    letter-spacing: 0.25em;
    text-transform: uppercase;
    }
