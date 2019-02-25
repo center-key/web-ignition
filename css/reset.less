@@ -126,18 +126,14 @@ table.data-box td.num { text-align: right; }
 @media (max-width: 667px) { .flex-columns { flex-direction: column; } .flex-columns >* { padding: 0px; } }
 
 /* Basic tools (for quick fixes on web pages built without real component styling) */
-.small          { font-size: smaller; }
 .large          { font-size: larger; }
-.align-left     { text-align: left; }
 .align-right    { text-align: right; }
 .align-center   { text-align: center; }
-.align-centered { text-align: center; }  /* deprecated */
 .middle         { margin-left: auto; margin-right: auto; }
 .column         { display: inline-block; float: left; }
 .push-left      { float: left; margin: 0px 10px 5px 0px; }
 .push-right     { float: right; margin: 0px 0px 5px 10px; }
 .leapfrog       { clear: both; }
-.right-block    { display: inline-block; text-align: right; padding-right: 5px; }
 .indent         { display: table; margin-left: 40px; }
 .block-indent   { display: block; margin-left: 40px; }
 .space-left-sm  { padding-left:  5px; }
@@ -163,7 +159,6 @@ table.data-box td.num { text-align: right; }
 .box-glow       { box-shadow: 0px 0px 2em deepskyblue; }
 .keep-together  { white-space: nowrap; }
 .hide-me        { display: none !important; visibility: hidden !important; max-width: 0px; max-height: 0px; padding: 0px; margin: 0px; opacity: 0; z-index: -10000; }
-.stealth-mode   { position: absolute; left: -7000px; opacity: 0.0; }
 
 /* Utilities (subsitute for mixes on web pages without less) */
 .float-endgame:after { content: " "; display: table; clear: both; }
