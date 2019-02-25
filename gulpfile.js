@@ -64,13 +64,13 @@ const task = {
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist'));
       const buildBloggerTweaks = () =>
-         gulp.src('css/blogger-tweaks.less')
+         gulp.src('css/blogger-tweaks/style.less')
             .pipe(less())
             .pipe(css(cssPlugins))
-            .pipe(rename({ extname: '.min.css' }))
+            .pipe(rename('blogger-tweaks.min.css'))
             .pipe(header(banners.blogger))
             .pipe(gap.appendText('\n'))
-            .pipe(gap.appendFile('css/blogger-tweaks-instructions.css'))
+            .pipe(gap.appendFile('css/blogger-tweaks/instructions.css'))
             .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist'));

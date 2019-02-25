@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport  content="width=device-width, initial-scale=1">
+<title>Blogger Tweaks &bull; Specification Page</title>
+<link rel=icon href=https://centerkey.com/graphics/bookmark.png>
+<script src=https://cdn.jsdelivr.net/npm/jquery@3.3/dist/jquery.min.js></script>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- CUSTOMIZE: Blogger > Theme > Edit HTML > insert into <head> section -->
+    <meta content='My Blog' name='apple-mobile-web-app-title'/>
+    <link href='https://centerkey.com/graphics/bookmark.png' rel='icon'/>
+    <link href='https://centerkey.com/graphics/mobile-home-screen.png' rel='apple-touch-icon'/>
+    <link href='https://cdn.jsdelivr.net/npm/dna.js@1.5/dist/dna.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15/build/styles/docco.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@0.0/hljs-enhance.css' rel='stylesheet'/>
+    <link href='../../dist/blogger-tweaks.min.css' rel='stylesheet'/>
+    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15/build/highlight.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@0.0/hljs-enhance.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/dna.js@1.5/dist/dna.min.js'></script>
+    <script src='../../dist/library.min.js'></script>
+    <script>window.blogger = { ui: () => $('html') };</script>
+    <script>library.extra.blogger('https://example.com');</script>
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<style>
+   body { font-family: system-ui; background-color: lightblue; margin: 20px 40px; }
+   aside { float: right; }
+   textarea { width: 100%; height: 300px; font-family: menlo, consolas, monospace; font-size: 0.8rem; line-height: 1.3em; color: white; background-color: darkslategrey; margin-bottom: 30px; }
+   body main #main #content { background-color: white; border: 10px solid silver; padding: 20px; margin-left: 0px; }
+   body main #main #content pre code { margin: -20px 0px -35px 0px; } /* compensate for no trim */
+   output { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+   <aside class=external-site>
+      <button data-href=https://www.convertstring.com/EncodeDecode/HtmlEncode>Encoder</button>
+      <button data-href=https://blog.centerkey.com>Example blog</button>
+      <button data-href=https://github.com/center-key/web-ignition/blob/master/dist/blogger-tweaks.min.css>Blogger Tweaks</button>
+   </aside>
+   <h1 class=entry-title>
+      Article Template &ndash; Blogger Tweaks v<span class=version-number></span>
+   </h1>
+</header>
+
+<main>
+   <textarea data-on-load=refreshOutput data-smart-update=refreshOutput>
+&lt;figure&gt;
+   &lt;a href=https://commons.wikimedia.org/wiki/File:Mood-level-green.svg data-author=RRZEicons class=external-site&gt;
+      &lt;img src=&quot;https://4.bp.blogspot.com/-9FHEaU81Zf4/VLMLo8oIYcI/AAAAAAAAAg4/W29KSNDXHRA/s1600/level-green.png&quot;
+         alt=speedometer&gt;
+   &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;h2&gt;Article Header (H2)&lt;/h2&gt;
+&lt;h3&gt;Article Subheader (H3)&lt;/h3&gt;
+
+&lt;aside&gt;
+   &lt;img src=&quot;https://4.bp.blogspot.com/-9FHEaU81Zf4/VLMLo8oIYcI/AAAAAAAAAg4/W29KSNDXHRA/s1600/level-green.png&quot;
+      class=framed-padded alt=speedometer&gt;
+&lt;/aside&gt;
+
+&lt;p&gt;
+This is a regular paragraph.
+&lt;/p&gt;
+
+&lt;p&gt;
+This is a regular paragraph with repeated text.&nbsp; This is a regular paragraph with repeated text.&nbsp; This is a regular paragraph with repeated text.
+&lt;/p&gt;
+
+&lt;nav&gt;
+   &lt;b&gt;Contents:&lt;/b&gt;
+   &lt;ol&gt;
+      &lt;li&gt;&lt;a href=#deep1&gt;Deep link one&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=#deep2&gt;Deep link two&lt;/a&gt;&lt;/li&gt;
+   &lt;/ol&gt;
+&lt;/nav&gt;
+
+&lt;p&gt;
+This is a regular paragraph.
+&lt;/p&gt;
+
+&lt;figure&gt;
+   &lt;figcaption&gt;Some code&lt;/figcaption&gt;
+   &lt;pre&gt;
+      &lt;code class=language-javascript&gt;
+         const makePageRed = () =&gt; $('body').css({ backgroundColor: 'pink' });
+         window.onerror = makePageRed;
+         $('.version-number').text(library.version);
+         const refreshOutput = (textarea) =&gt; {
+            $('output').html(textarea.val());
+            window.blogger.ui().trigger('viewitem');
+            };
+      &lt;/code&gt;
+   &lt;/pre&gt;
+&lt;/figure&gt;
+
+&lt;output&gt;
+   &lt;h2&gt;Output&lt;/h2&gt;
+   &lt;pre&gt;
+      Antelope | Bat     | Cat
+      Apple    | Banana  | Cantaloupe
+   &lt;/pre&gt;
+&lt;/output&gt;
+
+&lt;output&gt;
+   &lt;h2&gt;Output&lt;/h2&gt;
+   Just some regular text in an output box.
+&lt;/output&gt;
+
+&lt;table&gt;
+   &lt;thead&gt;
+      &lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Maker&lt;/th&gt;&lt;/tr&gt;
+   &lt;/thead&gt;
+   &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;Google&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Safari&lt;/td&gt;&lt;td&gt;Apple&lt;/td&gt;&lt;/tr&gt;
+   &lt;/tbody&gt;
+&lt;/table&gt;
+
+A list of stuff:
+&lt;ul&gt;
+   &lt;li&gt;Item A&lt;/li&gt;
+   &lt;li&gt;Item B&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;
+Fiddle with the code:
+   &lt;a href=https://jsfiddle.net/uLrc7kmp class=indent&gt;jsfiddle.net/uLrc7kmp&lt;/a&gt;
+&lt;/p&gt;
+
+&lt;figure class=small-image&gt;
+   &lt;a href=https://commons.wikimedia.org/wiki/File:Mood-level-green.svg data-author=RRZEicons class=external-site&gt;
+      &lt;img src=&quot;https://4.bp.blogspot.com/-9FHEaU81Zf4/VLMLo8oIYcI/AAAAAAAAAg4/W29KSNDXHRA/s1600/level-green.png&quot;
+         class=framed alt=speedometer&gt;
+   &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;figure class=full-width&gt;
+   &lt;a href=https://commons.wikimedia.org/wiki/File:Mood-level-green.svg data-author=RRZEicons class=external-site&gt;
+      &lt;img src=&quot;https://4.bp.blogspot.com/-9FHEaU81Zf4/VLMLo8oIYcI/AAAAAAAAAg4/W29KSNDXHRA/s1600/level-green.png&quot;
+         alt=speedometer&gt;
+   &lt;/a&gt;
+&lt;/figure&gt;
+
+&lt;footer&gt;
+This is the footer.
+&lt;/footer&gt;
+   </textarea>
+   <div id=main>
+      <div id=content>
+         <div class=article>
+            <output class=article-content></output>
+         </div>
+      </div>
+   </div>
+</main>
+
+<script>
+   const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
+   window.onerror = makePageRed;
+   $('.version-number').text(library.version);
+   const refreshOutput = (textarea) => {
+      $('output').html(textarea.val());
+      window.blogger.ui().trigger('viewitem');
+      };
+</script>
+</body>
+</html>
