@@ -50,7 +50,7 @@ const task = {
          .pipe(size({ showFiles: true }));
       },
    cleanTarget: () => {
-      return del('dist');
+      return del(['dist', '**/.DS_Store']);
       },
    buildCss: () => {
       const buildReset = () =>
