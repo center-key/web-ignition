@@ -28,6 +28,7 @@ body {
    padding: 5px 25px;
    }
 body >header {
+   padding-top: 5px;
    margin-bottom: 50px;
    }
 body >header nav {
@@ -35,7 +36,6 @@ body >header nav {
    flex-wrap: wrap;
    justify-content: center;
    padding-bottom: 30px;
-   margin: 5px -25px;
    }
 body >header nav a {
    font-size: 0.9rem;
