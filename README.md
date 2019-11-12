@@ -7,7 +7,7 @@ _Start a fire_
 [![npm](https://img.shields.io/npm/v/web-ignition.svg)](https://www.npmjs.com/package/web-ignition)
 [![Vulnerabilities](https://snyk.io/test/github/center-key/web-ignition/badge.svg)](https://snyk.io/test/github/center-key/web-ignition)
 [![Build](https://travis-ci.org/center-key/web-ignition.svg)](https://travis-ci.org/center-key/web-ignition)
-[![Hits](https://data.jsdelivr.com/v1/package/npm/web-ignition/badge)](https://www.jsdelivr.com/package/npm/web-ignition)
+[![Hits](https://data.jsdelivr.com/v1/package/npm/web-ignition/badge?style=rounded)](https://www.jsdelivr.com/package/npm/web-ignition)
 
 KISS!
 
