@@ -36,16 +36,16 @@
       "test": "gulp clean && gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
-      "@fortawesome/fontawesome-free": "~5.10",
+      "@fortawesome/fontawesome-free": "~5.11",
       "dna.js": "~1.5",
       "fetch-json": "~2.2",
-      "highlight.js": "~9.15",
+      "highlight.js": "~9.16",
       "hljs-enhance": "~0.0",
       "jquery": "~3.4"
    },
    "devDependencies": {
-      "@babel/core": "~7.6",
-      "@babel/preset-env": "~7.6",
+      "@babel/core": "~7.7",
+      "@babel/preset-env": "~7.7",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
       "del": "~5.1",
@@ -62,7 +62,7 @@
       "gulp-w3c-html-validator": "~1.4",
       "jshint": "~2.10",
       "merge-stream": "~2.0",
-      "postcss-font-magician": "~2.2",
+      "postcss-font-magician": "~2.3",
       "postcss-preset-env": "~6.7"
    }
 }
