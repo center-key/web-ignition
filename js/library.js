@@ -51,6 +51,13 @@ library.ui = {
       //    elem.findAll('img').fadeOut();
       return this.find(selector).addBack(selector);
       },
+   toElem: (elemOrNodeOrEventOrIndex, that) => {
+      // A flexible way to get the jQuery element whether it is passed in directly, is a DOM node,
+      // is the target of an event, or comes from the jQuery context.
+      const elem = elemOrNodeOrEventOrIndex instanceof $ && elemOrNodeOrEventOrIndex;
+      const target = elemOrNodeOrEventOrIndex && elemOrNodeOrEventOrIndex.target;
+      return elem || $(target || elemOrNodeOrEventOrIndex || that);
+      },
    makeIcons: (holder) => {
       const makeIcon =  (i, elem) => $(elem).addClass('fa-' + $(elem).data().icon);
       const makeBrand = (i, elem) => $(elem).addClass('fa-' + $(elem).data().brand);
@@ -272,9 +279,18 @@ library.popupImage = {
    };
 
 library.animate = {
-   // Usage:
-   //    library.animate.rollIn($('.diagram'));
+   jiggleIt: (elemOrEvent) => {
+      // Usage (3 ways):
+      //    library.animate.jiggleIt($('#logo'));
+      //    $('#logo').click(jiggleIt);
+      //    <img src=logo.svg data-click=library.animate.jiggleIt alt=logo>
+      const node = library.ui.toElem(elemOrEvent)[0];
+      node.style.animation = 'none';
+      window.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
+      },
    rollIn: (holderOrElems) => {
+      // Usage:
+      //    library.animate.rollIn($('.diagram'));
       let elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
       const startDelay = 300;
       const fadeDelay = 1500;

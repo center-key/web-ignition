@@ -65,10 +65,18 @@
          <div class=reveal-target data-reveal=more><p>Surprise!</p><p>Surprise!</p><p>Surprise!</p></div>
       </div>
       <hr>
-      <p>thumbs-o-up: <i data-icon=thumbs-o-up></i></p>
       <p>Hover over me<span class=bubble-help>Help!</span></p>
+      <hr>
       <p>On a Mac:    <code id=is-a-mac></code></p>
       <p>Running iOS: <code id=is-ios></code></p>
+      <p>thumbs-up: <i data-icon=thumbs-up></i></p>
+      <p>Jiggle it:
+         <i data-icon=glass-martini-alt data-click=library.animate.jiggleIt></i>
+         <i data-icon=flask             data-click=library.animate.jiggleIt></i>
+         <i data-icon=wine-bottle       data-click=library.animate.jiggleIt></i>
+         <i data-icon=fragil            data-click=library.animate.jiggleIt></i>
+         <i data-icon=biohazard         data-click=library.animate.jiggleIt></i>
+      </p>
       <p>
          Counters:<br>
          <code id=counters-actual></code> =<br>
@@ -110,6 +118,8 @@
    console.log('web-ignition v' + library.version);
    library.ui.autoDisableButtons();
    library.animate.rollIn($('#roll-in-icons'));
+   library.animate.jiggleIt($('#fork-me'));
+   $('h1').click(library.animate.jiggleIt);
    $('.version-number').text(library.version);
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(library.browser.iOS() ? 'YES' : 'no');
