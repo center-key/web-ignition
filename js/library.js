@@ -314,7 +314,7 @@ library.bubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
    setup(holder) {
-      const uninitialized = '.bubble-help:not(.bubble-initialized)'
+      const uninitialized = '.bubble-help:not(.bubble-initialized)';
       const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
       const wrapperHtml = '<span class=bubble-wrap></span>';
       const pointerHtml = '<span class=pointer>&#9660;</span>';
