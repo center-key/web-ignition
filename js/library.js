@@ -313,21 +313,24 @@ library.animate = {
 library.bubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
-   setup() {
-      let wrapper;
+   setup(holder) {
+      const uninitialized = '.bubble-help:not(.bubble-initialized)'
+      const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
       const wrapperHtml = '<span class=bubble-wrap></span>';
       const pointerHtml = '<span class=pointer>&#9660;</span>';
+      const getHover = (event) => $(event.target).closest('.bubble-help-hover');
       const hi = (event) => {
-         const hover = $(event.target).closest('.bubble-help-hover');
-         wrapper = hover.find('.bubble-wrap');
-         if (wrapper.length === 0)
-            wrapper = hover.find('.bubble-help').wrap(wrapperHtml).parent().append(pointerHtml);
+         const help = getHover(event).find('.bubble-help');
+         console.log(Date.now(), 'hi', help);  ///////
+         const wrapIt = () => help.wrap(wrapperHtml).parent().append(pointerHtml);
+         const wrapper = help.parent().hasClass('bubble-wrap') ? help.parent() : wrapIt();
          wrapper.find('.bubble-help').show();
-         wrapper.css({ top: -wrapper.height() }).hide().fadeIn();
+         wrapper.css({ top: -wrapper.height() }).stop(true).hide().fadeIn();
          };
-      const bye = () => wrapper.fadeOut('slow');
+      const bye = (event) => getHover(event).find('.bubble-wrap').fadeOut('slow');
       const hoverEvents = { mouseenter: hi, mouseleave: bye, touchstart: hi, touchend: bye };
-      $('.bubble-help').parent().addClass('bubble-help-hover').on(hoverEvents);
+      elems.parent().addClass('bubble-help-hover').on(hoverEvents);
+      return elems.addClass('bubble-initialized');
       },
    };
 

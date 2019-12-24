@@ -67,6 +67,12 @@
       <hr>
       <p>Hover over me<span class=bubble-help>Help!</span></p>
       <hr>
+      <div>
+         <p id=me class=dna-template>
+            Hover over a clone of me<span class=bubble-help>~~help~~</span>
+         </p>
+      </div>
+      <hr>
       <p>On a Mac:    <code id=is-a-mac></code></p>
       <p>Running iOS: <code id=is-ios></code></p>
       <p>thumbs-up: <i data-icon=thumbs-up></i></p>
@@ -123,6 +129,7 @@
    $('.version-number').text(library.version);
    $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
    $('#is-ios').text(library.browser.iOS() ? 'YES' : 'no');
+   window.setTimeout(() => dna.clone('me', { help: 'Help me too!' }, { fade: true }), 3000);
    library.counter.get();           //returns: 0
    library.counter.increment();     //returns: 1
    library.counter.reset();         //returns: 0
