@@ -4,10 +4,10 @@
 /* MIT License                 */
 /*******************************/
 
-/* Special font */
+// Special font
 @import url(https://fonts.googleapis.com/css?family=Chango);
 
-/* Core */
+// Core
 * { box-sizing: border-box; }
 html { min-height: 100vh; }
 body { font-size: 100%; font-family: system-ui, geneva, tahoma, sans-serif; }  /* override font-size percent to resize base font */
@@ -70,7 +70,7 @@ a figure:hover figcaption { color: black; }
 .plain a:hover, a.plain:hover, a.image-link:hover, nav a:hover { color: inherit; background-color: transparent; outline-color: transparent; }
 .plain a img, a.plain img, a img.plain { opacity: 1 }
 
-/* Forms and input controls */
+// Forms and input controls
 form, fieldset { max-width: 25em; }
 fieldset { border: none; }
 form >fieldset:first-child { border: 1px solid silver; border-radius: 5px; padding: 0.8rem 1rem 0rem 1rem; margin-bottom: 1.5rem; }
@@ -93,12 +93,12 @@ button, input, select, optgroup, option, textarea { transition: all 0.4s; }
 form p:last-child, fieldset p:last-child { text-align: right; }
 form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }
 
-/* Flat buttons */
+// Flat buttons
 button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 0.4s; }
 button i.font-icon { font-size: 1.2em; vertical-align: top; padding-right: 0.4em; }
 button:disabled    { background-color: silver; }
 
-/* Tables */
+// Tables
 table { border-collapse: collapse; border-spacing: 0px; margin: 0px auto 20px auto; }
 table caption { caption-side: bottom; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 0.4rem; }
 table tr { border-bottom: 1px solid steelblue; transition: all 0.4s; }
@@ -118,14 +118,14 @@ table.data-box td.num { text-align: right; }
 .plain-tables table tbody tr:hover { background-color: transparent; }
 @media (max-width: 667px) { table th, table td { padding: 6px 6px; } }
 
-/* Flex columns */
+// Flex columns
 .flex-columns    { display: flex; margin-bottom: 20px; }
 .flex-columns >* { flex: 1; padding: 0px 15px; margin-bottom: 20px; }
 .flex-columns >*:first-child { padding-left: 0px; }
 .flex-columns >*:last-child  { padding-right: 0px; }
 @media (max-width: 667px) { .flex-columns { flex-direction: column; } .flex-columns >* { padding: 0px; } }
 
-/* Basic tools (for quick fixes on web pages built without real component styling) */
+// DEPRECATED
 .large          { font-size: larger; }
 .align-right    { text-align: right; }
 .align-center   { text-align: center; }
@@ -160,7 +160,7 @@ table.data-box td.num { text-align: right; }
 .keep-together  { white-space: nowrap; }
 .hide-me        { display: none !important; visibility: hidden !important; max-width: 0px; max-height: 0px; padding: 0px; margin: 0px; opacity: 0; z-index: -10000; }
 
-/* Utilities (subsitute for mixes on web pages without less) */
+// Utilities (subsitute for mixes on web pages without less)
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
 .hover-glow          { transition: all 0.4s; }
@@ -173,16 +173,16 @@ table.data-box td.num { text-align: right; }
 ul.simple-text { list-style-type: none; padding: 0px; }
 ul.simple-text li { font-size: 1rem; text-indent: 0px; padding: 0px; }
 
-/* Video container                                                    */
-/* <figure class=video-container>                                     */
-/*    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe> */
-/* </figure>                                                          */
+// Video container
+// <figure class=video-container>
+//    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
+// </figure>
 figure.video-container,
 figure.video-container-link {
    display: block;
    position: relative;
    height: 0px;
-   padding-bottom: 56%;  /* 16:9 */
+   padding-bottom: 56%;  //aspect ratio 16:9
    margin: 0px 0px 20px 0px;
    overflow: hidden;
    }
@@ -212,7 +212,7 @@ figure.video-container-link:hover iframe {
    border-color: dimgray;
    }
 
-/* PERFECT style */
+// PERFECT style
 form.perfect { max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 20px; margin: 0px auto 20px auto; }
 form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: -20px -20px 20px -20px; clear: none; }
 form.perfect fieldset { border: none; padding: 0px; margin: 0px; }
@@ -229,7 +229,7 @@ form.perfect p button:hover { background-color: black; }
 form.perfect p span { font-size: 0.6rem; color: gray; }
 form.perfect p span a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
 
-/* JavaScript libraries */
+// JavaScript libraries
 .reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 0.4s; cursor: pointer; }
 .reveal-button:hover { color: white; border-color: transparent; }
 .reveal-target       { display: none; margin-bottom: 20px; }
@@ -245,41 +245,39 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
   50% { transform: rotate( 10deg); }
 }
 
-/* Bubble help */
+// Bubble help
 .bubble-help {
    display: none;
    }
 .bubble-help-hover {
    position: relative;
-   }
-.bubble-help-hover .bubble-wrap {
-   position: absolute;
-   left: 0px;
-   font-size: 0.8rem;
-   font-weight: bold;
-   pointer-events: none;
-   z-index: 200;
-   }
-.bubble-help-hover .bubble-wrap .bubble-help {
-   display: block;
-   white-space: nowrap;
-   color: white;
-   background-color: crimson;
-   border-radius: 5px;
-   padding: 5px 15px;
-   }
-.bubble-help-hover .bubble-wrap .pointer {
-   display: block;
-   font-size: 120%;
-   text-align: left;
-   color: crimson;
-   padding-left: 12px;
-   margin-top: -0.4em;
+   >.bubble-wrap {
+      position: absolute;
+      left: 0px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 200;
+      >.bubble-help {
+         display: block;
+         white-space: nowrap;
+         color: white;
+         border-radius: 5px;
+         padding: 5px 15px;
+         }
+      >.bubble-pointer {
+         display: block;
+         font-size: 120%;
+         text-align: left;
+         padding-left: 12px;
+         margin-top: -0.4em;
+         }
+      }
    }
 
-/* Fork me on GitHub */
+// Fork me on GitHub
 #fork-me {
-   display: none;  /* hide until elements added */
+   display: none;  //hide until elements added
    position: absolute;
    top: 0px;
    right: 0px;
@@ -288,42 +286,42 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    overflow: hidden;
    z-index: 150;
    pointer-events: none;
+   >a {
+      display: block;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: rgba(180, 180, 180, 0.8);
+      border: 1px solid dimgray;
+      transform: rotate(45deg);
+      margin: 60px -50px 0px 0px;
+      transition: all 0.4s;
+      pointer-events: auto;
+      &:hover {
+         color: white;
+         background-color: rgba(180, 180, 180, 1);
+         outline: none;
+         }
+      }
+   >i.font-icon {
+      display: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 40px;
+      color: dimgray;
+      pointer-events: auto;
+      }
    }
-#fork-me a {
-   display: block;
-   height: 30px;
-   line-height: 30px;
-   text-align: center;
-   font-size: 14px;
-   font-weight: bold;
-   color: white;
-   background-color: rgba(180, 180, 180, 0.8);
-   border: 1px solid dimgray;
-   transform: rotate(45deg);
-   margin: 60px -50px 0px 0px;
-   transition: all 0.4s;
-   pointer-events: auto;
-   }
-#fork-me a:hover {
-   color: white;
-   background-color: rgba(180, 180, 180, 1);
-   outline: none;
-   }
-#fork-me i.font-icon {
-   display: none;
-   position: absolute;
-   top: 10px;
-   right: 10px;
-   font-size: 40px;
-   color: dimgray;
-   pointer-events: auto;
-   }
-@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
-   #fork-me a { display: none }
-   #fork-me i.font-icon { display: block }
+@media (max-width: 667px) {  //selects iPhone 6/6s/7/8 landscape and anything narrower
+   #fork-me >a { display: none }
+   #fork-me >i.font-icon { display: block }
    }
 
-/* Social buttons */
+// Social buttons
 #social-buttons span i.font-icon {
    display: inline-block;
    width: 24px;
@@ -337,16 +335,16 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    border: 1px solid silver;
    border-radius: 0.2em;
    transition: all 0.4s;
-   }
-#social-buttons span i.font-icon:not(:last-child) {
-   margin-right: 8px;
-   }
-#social-buttons span i.font-icon:hover {
-   color: cornflowerblue;
-   box-shadow: 0px 0px 0.4em skyblue;
+   &:not(:last-child) {
+      margin-right: 8px;
+      }
+   &:hover {
+      color: cornflowerblue;
+      box-shadow: 0px 0px 0.4em skyblue;
+      }
    }
 
-/* Popup image */
+// Popup image
 img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 0.4s; cursor: pointer; }
 img.popup-image:hover, img[data-popup-image]:hover { opacity: 1 }
 img.popup-image + .popup-image-layer { position: absolute; top: 10px; left: 10px; background-color: white; z-index: 5000; opacity: 0; }
@@ -354,11 +352,11 @@ img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -
 img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
 img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
 
-/* Info rollover */
+// Info rollover
 .info-rollover-msg { display: none; }
 
-/* Mobile devices */
-@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
+// Mobile devices
+@media (max-width: 667px) {  //selects iPhone 6/6s/7/8 landscape and anything narrower
    h1 { font-size: 2.0rem; }
    h1+h2 { font-size: 1.3rem; }
    main section aside,

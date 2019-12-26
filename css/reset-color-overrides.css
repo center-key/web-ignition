@@ -18,6 +18,10 @@ button:hover { background-color: royalblue; }
 .reveal-button { color: darkseagreen; }
 .reveal-button:hover { background-color: darkseagreen; }
 
+/* Bubble help */
+.bubble-help-hover >.bubble-wrap >.bubble-help { background-color: crimson; }
+.bubble-help-hover >.bubble-wrap >.bubble-pointer { color: crimson; }
+
 /* PERFECT style colors */
 form.perfect { border-color: seagreen; }                                    /* outer color */
 form.perfect h2 { background-color: seagreen; }                             /* outer color */

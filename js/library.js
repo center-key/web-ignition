@@ -317,7 +317,7 @@ library.bubbleHelp = {
       const uninitialized = '.bubble-help:not(.bubble-initialized)';
       const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
       const wrapperHtml = '<span class=bubble-wrap></span>';
-      const pointerHtml = '<span class=pointer>&#9660;</span>';
+      const pointerHtml = '<span class=bubble-pointer>&#9660;</span>';
       const getHover = (event) => $(event.target).closest('.bubble-help-hover');
       const hi = (event) => {
          const help = getHover(event).find('.bubble-help');
