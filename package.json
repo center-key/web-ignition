@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.1.9",
+   "version": "1.2.0",
    "license": "MIT",
    "main": "dist/library.js",
    "browser": "dist/library.min.js",
@@ -37,7 +37,7 @@
    },
    "dependencies": {
       "@fortawesome/fontawesome-free": "~5.12",
-      "dna.js": "~1.5",
+      "dna.js": "~1.6",
       "fetch-json": "~2.2",
       "highlight.js": "~9.17",
       "hljs-enhance": "~0.0",
