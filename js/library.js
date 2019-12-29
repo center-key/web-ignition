@@ -313,6 +313,8 @@ library.animate = {
 library.bubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
+   // For use with dna.js:
+   //    dna.registerInitializer(library.bubbleHelp.setup);
    setup(holder) {
       const uninitialized = '.bubble-help:not(.bubble-initialized)';
       const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
@@ -321,7 +323,6 @@ library.bubbleHelp = {
       const getHover = (event) => $(event.target).closest('.bubble-help-hover');
       const hi = (event) => {
          const help = getHover(event).find('.bubble-help');
-         console.log(Date.now(), 'hi', help);  ///////
          const wrapIt = () => help.wrap(wrapperHtml).parent().append(pointerHtml);
          const wrapper = help.parent().hasClass('bubble-wrap') ? help.parent() : wrapIt();
          wrapper.find('.bubble-help').show();

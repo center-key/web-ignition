@@ -19,7 +19,7 @@ button:hover { background-color: royalblue; }
 .reveal-button:hover { background-color: darkseagreen; }
 
 /* Bubble help */
-.bubble-help-hover >.bubble-wrap >.bubble-help { background-color: crimson; }
+.bubble-help-hover >.bubble-wrap >.bubble-help { color: white; background-color: crimson; }
 .bubble-help-hover >.bubble-wrap >.bubble-pointer { color: crimson; }
 
 /* PERFECT style colors */
