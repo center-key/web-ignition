@@ -29,19 +29,19 @@ const htmlHintConfig = { 'attr-value-double-quotes': false };
 const cssPlugins = [
    cssFontMagician({ protocol: 'https:' }),
    cssPresetEnv(),
-   cssNano({ autoprefixer: false })
+   cssNano({ autoprefixer: false }),
    ];
 const banners = {
    reset:     '/*! reset.css ~ ' + banner + ' */\n',
    blogger:   '/*! Blogger tweaks for Dynamic Views (sidebar) ~ ' + banner + ' */\n',
    library:   '//! library.js ~ ' + banner + '\n',
    layoutCss: '/*! layouts ~ ' + banner + ' */\n',
-   layoutJs:  '//! layouts ~ ' + banner + '\n'
+   layoutJs:  '//! layouts ~ ' + banner + '\n',
    };
 
 // Tasks
 const task = {
-   validateSpecPages: () => {
+   validateSpecPages() {
       return gulp.src(['css/*.html', 'js/*.html', 'css/layouts/*.html'])
          .pipe(htmlHint(htmlHintConfig))
          .pipe(htmlHint.reporter())
@@ -49,10 +49,10 @@ const task = {
          .pipe(htmlValidator.reporter())
          .pipe(size({ showFiles: true }));
       },
-   cleanTarget: () => {
+   cleanTarget() {
       return del(['dist', '**/.DS_Store']);
       },
-   buildCss: () => {
+   buildCss() {
       const buildReset = () =>
          gulp.src('css/reset.less')
             .pipe(less())
@@ -76,7 +76,7 @@ const task = {
             .pipe(gulp.dest('dist'));
       return mergeStream(buildReset(), buildBloggerTweaks());
       },
-   buildJs: () => {
+   buildJs() {
       const headerComments = /^\/\/.*\n/gm;
       return gulp.src('js/library.js')
          .pipe(replace('[VERSION]', pkg.version))
@@ -91,7 +91,7 @@ const task = {
          .pipe(size({ showFiles: true, gzip: true }))
          .pipe(gulp.dest('dist'));
       },
-   buildLayouts: () => {
+   buildLayouts() {
       const buildCss = () =>
          gulp.src('css/layouts/*.css')
             .pipe(header(banners.layoutCss))
@@ -110,7 +110,7 @@ const task = {
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts/neon'));
       return mergeStream(buildCss(), buildJs(), copyImages());
-      }
+      },
    };
 
 // Gulp
