@@ -35,8 +35,8 @@ const banners = {
    reset:     '/*! reset.css ~ ' + banner + ' */\n',
    blogger:   '/*! Blogger tweaks for Dynamic Views (sidebar) ~ ' + banner + ' */\n',
    library:   '//! library.js ~ ' + banner + '\n',
-   layoutCss: '/*! layouts ~ ' + banner + ' */\n',
-   layoutJs:  '//! layouts ~ ' + banner + '\n',
+   layoutCss: '/*! layouts (${filename}) ~ ' + banner + ' */\n',
+   layoutJs:  '//! layouts (${filename}) ~ ' + banner + '\n',
    };
 
 // Tasks

@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.2.0",
+   "version": "1.2.1",
    "license": "MIT",
    "main": "dist/library.js",
    "browser": "dist/library.min.js",
@@ -59,7 +59,7 @@
       "gulp-rename": "~2.0",
       "gulp-replace": "~1.0",
       "gulp-size": "~3.0",
-      "gulp-w3c-html-validator": "~1.4",
+      "gulp-w3c-html-validator": "~2.0",
       "jshint": "~2.11",
       "merge-stream": "~2.0",
       "postcss-font-magician": "~2.3",
