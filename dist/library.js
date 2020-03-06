@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.2.0 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.2.1 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.2.0',
+   version: '1.2.1',
    initialize() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -334,7 +334,8 @@ library.bubbleHelp = {
 library.form = {
    setup() {
       const attributes = { method: 'post', action: 'perfect.php' };
-      $('form.perfect:not([action])').attr(attributes);  //bots are lazy
+      const actionable = () => $('form.perfect:not([action])').attr(attributes);
+      window.setTimeout(actionable, 3000);  //bots are fast and lazy
       },
    };
 
@@ -346,7 +347,7 @@ library.social = {
       { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
       { title: 'Digg',     icon: 'digg',        x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
-      { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' }
+      { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' },
       ],
    share(elem) {
       const button = library.social.buttons[elem.index()];
