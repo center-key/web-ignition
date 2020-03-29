@@ -36,7 +36,7 @@
       "test": "gulp clean && gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
-      "@fortawesome/fontawesome-free": "~5.12",
+      "@fortawesome/fontawesome-free": "~5.13",
       "dna.js": "~1.6",
       "fetch-json": "~2.2",
       "highlight.js": "~9.18",
@@ -44,8 +44,8 @@
       "jquery": "~3.4"
    },
    "devDependencies": {
-      "@babel/core": "~7.8",
-      "@babel/preset-env": "~7.8",
+      "@babel/core": "~7.9",
+      "@babel/preset-env": "~7.9",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
       "del": "~5.1",

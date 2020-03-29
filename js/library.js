@@ -59,6 +59,10 @@ library.ui = {
       return elem || $(target || elemOrNodeOrEventOrIndex || that);
       },
    makeIcons(holder) {
+      // Usage:
+      //    <i data-icon=home></i>
+      // For use with dna.js:
+      //    <i data-attr-data-icon=~~icon~~></i>
       const makeIcon =  (i, elem) => $(elem).addClass('fa-' + $(elem).data().icon);
       const makeBrand = (i, elem) => $(elem).addClass('fa-' + $(elem).data().brand);
       holder.findAll('i[data-icon]').addClass( 'font-icon fas').each(makeIcon);
