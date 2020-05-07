@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.2.1 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.2.2 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.2.1',
+   version: '1.2.2',
    initialize() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -55,6 +55,10 @@ library.ui = {
       return elem || $(target || elemOrNodeOrEventOrIndex || that);
       },
    makeIcons(holder) {
+      // Usage:
+      //    <i data-icon=home></i>
+      // Usage with dna.js:
+      //    <i data-attr-data-icon=~~icon~~></i>
       const makeIcon =  (i, elem) => $(elem).addClass('fa-' + $(elem).data().icon);
       const makeBrand = (i, elem) => $(elem).addClass('fa-' + $(elem).data().brand);
       holder.findAll('i[data-icon]').addClass( 'font-icon fas').each(makeIcon);
@@ -309,7 +313,7 @@ library.animate = {
 library.bubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
-   // For use with dna.js:
+   // Usage with dna.js:
    //    dna.registerInitializer(library.bubbleHelp.setup);
    setup(holder) {
       const uninitialized = '.bubble-help:not(.bubble-initialized)';
@@ -333,9 +337,10 @@ library.bubbleHelp = {
 
 library.form = {
    setup() {
-      const attributes = { method: 'post', action: 'perfect.php' };
-      const actionable = () => $('form.perfect:not([action])').attr(attributes);
-      window.setTimeout(actionable, 3000);  //bots are fast and lazy
+      const form = $('form.perfect:not([action])');
+      const version = form.data() && form.data().version || '';
+      const attributes = { method: 'post', action: 'perfect' + version + String.fromCharCode(46) + 'php' };
+      form.find('textarea').focus(() => form.attr(attributes));  //bot are lazy
       },
    };
 
