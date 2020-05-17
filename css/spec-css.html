@@ -13,6 +13,10 @@
 <link rel=stylesheet href=../dist/reset.min.css>
 <style>
    img.mini { height: 60px; }
+   .mobile-mode-detector { display: none; }
+   @media (max-width: 666px) { .mobile-mode-detector#max666 { display: block; } }
+   @media (max-width: 667px) { .mobile-mode-detector#max667 { display: block; } }
+   @media (max-width: 668px) { .mobile-mode-detector#max668 { display: block; } }
 </style>
 </head>
 <body>
@@ -35,6 +39,9 @@
       <h3>Section subheader (h3)</h3>
       <h4>Section Microheader (h3)</h4>
       <h5>Section Nanoheader (h4)</h5>
+      <aside class=mobile-mode-detector id=max666>Fits in: 666px</aside>
+      <aside class=mobile-mode-detector id=max667>Fits in: 667px</aside>
+      <aside class=mobile-mode-detector id=max668>Fits in: 668px</aside>
       <p>And now the content...</p>
       <hr>
       <p>Regular: <a href=https://gist.github.com/dpilafian/f6d26a7dc727d7a24f68>GitHub gist</a></p>

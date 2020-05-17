@@ -43,9 +43,9 @@
       "jquery": "~3.5"
    },
    "devDependencies": {
-      "@fortawesome/fontawesome-free": "~5.13",
       "@babel/core": "~7.9",
       "@babel/preset-env": "~7.9",
+      "@fortawesome/fontawesome-free": "~5.13",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
       "del": "~5.1",
