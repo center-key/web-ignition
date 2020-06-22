@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.2.2 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.2.3 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.2.2',
+   version: '1.2.3',
    initialize() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -86,7 +86,7 @@ library.ui = {
       return $('.display-addr').each(display);
       },
    popup(url, options) {
-      const settings = Object.assign({ width: 600, height: 400 }, options);
+      const settings = { ...{ width: 600, height: 400 }, ...options };
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
@@ -340,7 +340,7 @@ library.form = {
       const form = $('form.perfect:not([action])');
       const version = form.data() && form.data().version || '';
       const attributes = { method: 'post', action: 'perfect' + version + String.fromCharCode(46) + 'php' };
-      form.find('textarea').focus(() => form.attr(attributes));  //bot are lazy
+      form.find('textarea').focus(() => window.setTimeout(() => form.attr(attributes), 5000));  //bot are lazy
       },
    };
 

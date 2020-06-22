@@ -58,12 +58,12 @@ quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
 
 /* Links */
-a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 0.4s; }
+a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 400ms; }
 a:visited { color: darkgray; }
 a:hover   { color: white; }
-a img,       a i.font-icon       { opacity: 0.8; transition: all 0.4s; }
+a img,       a i.font-icon       { opacity: 0.9; transition: all 400ms; }
 a img:hover, a i.font-icon:hover { opacity: 1.0; }
-a figure figcaption { text-align: center; transition: all 0.4s; }
+a figure figcaption { text-align: center; transition: all 400ms; }
 a figure:hover figcaption { color: black; }
 .plain a, a.plain, a.image-link, nav a { border-bottom: none; }
 .plain a:visited, a.plain:visited, a.image-link:visited, nav a:visited { color: inherit; }
@@ -88,20 +88,20 @@ input, select, textarea { margin: 0px 0px 1em 0px; }
 input[type=range] { cursor: grab; }
 input[type=range]:active { cursor: grabbing; }
 button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
-button, input, select, optgroup, option, textarea { transition: all 0.4s; }
+button, input, select, optgroup, option, textarea { transition: all 400ms; }
 *:disabled { opacity: 0.5; cursor: default; pointer-events: none; }
 form p:last-child, fieldset p:last-child { text-align: right; }
 form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }
 
 // Flat buttons
-button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 0.4s; }
+button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 400ms; }
 button i.font-icon { font-size: 1.2em; vertical-align: top; padding-right: 0.4em; }
 button:disabled    { background-color: silver; }
 
 // Tables
 table { border-collapse: collapse; border-spacing: 0px; margin: 0px auto 20px auto; }
 table caption { caption-side: bottom; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 0.4rem; }
-table tr { border-bottom: 1px solid steelblue; transition: all 0.4s; }
+table tr { border-bottom: 1px solid steelblue; transition: all 400ms; }
 table thead tr { border-bottom-width: 2px; }
 table tbody tr:hover { background-color: aliceblue; }
 table tbody td { font-size: 0.9rem; vertical-align: top; text-align: center; }
@@ -163,11 +163,11 @@ table.data-box td.num { text-align: right; }
 // Utilities (subsitute for mixes on web pages without less)
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
-.hover-glow          { transition: all 0.4s; }
+.hover-glow          { transition: all 400ms; }
 .hover-glow:hover    { box-shadow: 0px 0px 0.2em deepskyblue; }
 .centered-flow-box   { display: flex; flex-wrap: wrap; justify-content: center; }
 .bullseye            { display: flex; justify-content: center; align-items: center; }
-.framed img, img.framed             { border: 3px solid silver; border-radius: 2px; transition: all 0.4s; }
+.framed img, img.framed             { border: 3px solid silver; border-radius: 2px; transition: all 400ms; }
 .framed img:hover, img.framed:hover { border-color: dimgray; }
 .modal-layer { display: none; position: fixed; top: 0px; left: 0px; width: 100%; height: 100vh; text-align: center; }
 ul.simple-text { list-style-type: none; padding: 0px; }
@@ -198,12 +198,12 @@ figure.video-container-link iframe {
    }
 figure.video-container-link {
    opacity: 0.9;
-   transition: all 0.4s;
+   transition: all 400ms;
    }
 figure.video-container-link iframe {
    border: 5px solid gray;
    pointer-events: none;
-   transition: all 0.4s;
+   transition: all 400ms;
    }
 figure.video-container-link:hover {
    opacity: 1;
@@ -224,17 +224,17 @@ form.perfect select { font-size: 1.2rem; }
 form.perfect textarea { height: 4.1em; }
 form.perfect input, form.perfect textarea { box-sizing: border-box; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
 form.perfect p { display: flex; justify-content: space-between; align-items: flex-end; margin: 0px; }
-form.perfect p button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; margin-bottom: 0px; cursor: pointer; transition: all 0.4s; }
+form.perfect p button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; margin-bottom: 0px; cursor: pointer; transition: all 400ms; }
 form.perfect p button:hover { background-color: black; }
 form.perfect p span { font-size: 0.6rem; color: gray; }
 form.perfect p span a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
 
 // JavaScript libraries
-.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 0.4s; cursor: pointer; }
+.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 400ms; cursor: pointer; }
 .reveal-button:hover { color: white; border-color: transparent; }
 .reveal-target       { display: none; margin-bottom: 20px; }
 [data-href-popup] { cursor: pointer; }
-i.font-icon[data-href], i.font-icon[data-click] { opacity: 0.8; transition: all 0.4s; }
+i.font-icon[data-href], i.font-icon[data-click] { opacity: 0.9; transition: all 400ms; }
 i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
 .json-key     { color: brown; }
 .json-value   { color: navy; }
@@ -297,7 +297,7 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
       border: 1px solid dimgray;
       transform: rotate(45deg);
       margin: 60px -50px 0px 0px;
-      transition: all 0.4s;
+      transition: all 400ms;
       pointer-events: auto;
       &:hover {
          color: white;
@@ -333,7 +333,7 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    background-color: white;
    border: 1px solid silver;
    border-radius: 0.2em;
-   transition: all 0.4s;
+   transition: all 400ms;
    &:not(:last-child) {
       margin-right: 8px;
       }
@@ -344,10 +344,10 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    }
 
 // Popup image
-img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 0.4s; cursor: pointer; }
+img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 400ms; cursor: pointer; }
 img.popup-image:hover, img[data-popup-image]:hover { opacity: 1 }
 img.popup-image + .popup-image-layer { position: absolute; top: 10px; left: 10px; background-color: white; z-index: 5000; opacity: 0; }
-img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 0.4s; }
+img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 400ms; }
 img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
 img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
 

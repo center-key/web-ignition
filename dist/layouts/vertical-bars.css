@@ -1,4 +1,4 @@
-/*! layouts (vertical-bars.css) ~ web-ignition v1.2.2 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (vertical-bars.css) ~ web-ignition v1.2.3 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Vertical Bars layout -- traditional boring old-school webpage
 Usage:
@@ -65,7 +65,7 @@ body >footer #social-buttons {
    }
 
 /* Mobile devices */
-@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE(2020) landscape and anything narrower */
    body { border: none; padding: 5px 15px; }
    body >header h1 { font-size: 1.7rem; }
    }

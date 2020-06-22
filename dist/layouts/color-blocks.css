@@ -1,4 +1,4 @@
-/*! layouts (color-blocks.css) ~ web-ignition v1.2.2 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (color-blocks.css) ~ web-ignition v1.2.3 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Blocks layout -- Two columns of colorful blocks
 Usage:
@@ -134,7 +134,7 @@ body >footer a:hover {
    outline: none;
    }
 /* Mobile devices */
-@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8 landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE(2020) landscape and anything narrower */
    body >header { text-align: center; }
    body >header >aside { float: none; margin: 0px; }
    body >header.forkable >aside { text-align: left; }
