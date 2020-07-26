@@ -5,7 +5,7 @@
 <meta name=viewport  content="width=device-width, initial-scale=1">
 <title>library.js &bull; Specification page</title>
 <link rel=icon       href=https://centerkey.com/graphics/bookmark.png>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.6/dist/dna.css>
 <link rel=stylesheet href=../dist/reset.min.css>
 </head>
@@ -90,6 +90,14 @@
          <code id=counters-actual></code> =<br>
          <code id=counters-expected></code>
       </p>
+      <div>
+         <label>
+            <span>Hash:</span>
+            <input data-smart-update=hashIt placeholder="Enter your secret">
+            <a href=https://emn178.github.io/online-tools/sha256.html class=external-site><i data-icon=info></i></a>
+            <pre><output>&nbsp;</output></pre>
+         </label>
+      </div>
       <aside class=simple>
          <img src=https://centerkey.com/mac/java/graphics/installer-screenshot.png
             data-popup-image=https://centerkey.com/mac/java/graphics/installer-screenshot.png alt=thumbnail>
@@ -142,6 +150,11 @@
    library.counter.list();          //returns: { default: 2, x: 100 }
    $('#counters-actual').text(  JSON.stringify(library.counter.list()));
    $('#counters-expected').text(JSON.stringify({ default: 2, x: 100 }));
+   const handleHash = (container) => (hash) => container.find('output').text(hash);
+   const hashIt = (elem) => library.crypto.hash(elem.val()).then(handleHash(elem.closest('div')));
+   const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
+   const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash ' + hash); });
+   library.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
 </script>
 </body>
 </html>
