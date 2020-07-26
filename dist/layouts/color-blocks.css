@@ -1,4 +1,4 @@
-/*! layouts (color-blocks.css) ~ web-ignition v1.2.3 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (color-blocks.css) ~ web-ignition v1.2.4 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Blocks layout -- Two columns of colorful blocks
 Usage:
@@ -37,7 +37,7 @@ HTML:
          div
 */
 body {
-   max-width: 900px;
+   max-width: 1000px;
    }
 body >header {
    text-align: left;

@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.2.3 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.2.4 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.2.3',
+   version: '1.2.4',
    initialize() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
@@ -14,7 +14,7 @@ const library = {
       const onLoadSetup = () => {
          library.ui.displayAddr();
          library.ui.setupVideos();
-         library.form.setup();
+         library.form.perfect();
          library.bubbleHelp.setup();
          $(window.document)
             .on(clickAndTap(library.ui.revealSection), '.reveal-button')
@@ -86,7 +86,8 @@ library.ui = {
       return $('.display-addr').each(display);
       },
    popup(url, options) {
-      const settings = { ...{ width: 600, height: 400 }, ...options };
+      const defaults = { width: 600, height: 400 };
+      const settings = { ...defaults, ...options };
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
       window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
@@ -196,6 +197,19 @@ library.util = {
       },
    debug(thing) {
       console.log(Date.now() + ': ' + library.util.details(thing));
+      },
+   };
+
+library.crypto = {
+   hash(message, options) {
+      // Usage:
+      //    library.crypto.hash('password1').then(console.log);
+      const defaults = { algorithm: 'SHA-256', salt: '' };
+      const settings = { ...defaults, ...options };
+      const byteArray =    new TextEncoder().encode(message + settings.salt);
+      const toHex =        (byte) => byte.toString(16).padStart(2, '0').slice(-2);
+      const handleDigest = (digest) => Array.from(new Uint8Array(digest)).map(toHex).join('');
+      return window.crypto.subtle.digest('SHA-256', byteArray).then(handleDigest);
       },
    };
 
@@ -336,11 +350,14 @@ library.bubbleHelp = {
    };
 
 library.form = {
-   setup() {
+   perfect() {
       const form = $('form.perfect:not([action])');
       const version = form.data() && form.data().version || '';
-      const attributes = { method: 'post', action: 'perfect' + version + String.fromCharCode(46) + 'php' };
-      form.find('textarea').focus(() => window.setTimeout(() => form.attr(attributes), 5000));  //bot are lazy
+      const extra = version + String.fromCharCode(46, 112) + 'hp';
+      const attributes = { method: 'post', action: 'perfect' + extra };
+      const field = () => form.find('[name=version]')[0] || $('<input type=hidden name=version>')[0];
+      const configure = () => form.attr(attributes).append($(field()).val(version));
+      form.find('textarea').focus(() => window.setTimeout(configure, 5000));  //bot are lazy
       },
    };
 

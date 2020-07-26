@@ -36,7 +36,7 @@ HTML:
          div
 */
 body {
-   max-width: 900px;
+   max-width: 1000px;
    }
 body >header {
    text-align: left;
