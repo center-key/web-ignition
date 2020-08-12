@@ -9,7 +9,8 @@
 
 // Core
 * { box-sizing: border-box; }
-html { min-height: 100vh; }
+html { display: flex; height: 100%; }
+body { flex: 1; }
 body { font-size: 100%; font-family: system-ui, geneva, tahoma, sans-serif; }  /* override font-size percent to resize base font */
 body, h1, h2, h3, h4, h5, h6, p, figure, nav ul, nav ul li { padding: 0px; margin: 0px; }
 h1, h2, h3, h4, h5, h6 { letter-spacing: 0.04em; margin-bottom: 0.2em; }
@@ -160,7 +161,7 @@ table.data-box td.num { text-align: right; }
 .keep-together  { white-space: nowrap; }
 .hide-me        { display: none !important; visibility: hidden !important; max-width: 0px; max-height: 0px; padding: 0px; margin: 0px; opacity: 0; z-index: -10000; }
 
-// Utilities (subsitute for mixes on web pages without less)
+// Utilities (subsitute for mixins on web pages without less)
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
 .hover-glow          { transition: all 400ms; }
