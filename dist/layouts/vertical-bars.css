@@ -1,9 +1,9 @@
-/*! layouts (vertical-bars.css) ~ web-ignition v1.2.4 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (vertical-bars.css) ~ web-ignition v1.3.0 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Vertical Bars layout -- traditional boring old-school webpage
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.2/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.2/dist/layouts/vertical-bars.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.3/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.3/dist/layouts/vertical-bars.css>
    <style>
       html { background-color: dimgray; }
       body { color: whitesmoke; background-color: black; border-color: firebrick; }
@@ -22,7 +22,6 @@ HTML:
 */
 body {
    max-width: 900px;
-   min-height: 100vh;
    border: 50px solid;
    border-top: none;
    border-bottom: none;

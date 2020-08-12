@@ -1,7 +1,7 @@
-//! library.js ~ web-ignition v1.2.4 ~ github.com/center-key/web-ignition ~ MIT License
+//! library.js ~ web-ignition v1.3.0 ~ github.com/center-key/web-ignition ~ MIT License
 
 const library = {
-   version: '1.2.4',
+   version: '1.3.0',
    initialize() {
       $.fn.id =      library.ui.id;
       $.fn.enable =  library.ui.enable;
