@@ -16,8 +16,11 @@ HTML:
          section
             aside
 */
+html {
+   height: auto;
+   }
 body {
-   width: 800px;
+   width: 900px;
    max-width: 95%;
    background-color: rgba(255, 255, 255, 0.9);
    padding: 20px 5%;

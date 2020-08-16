@@ -55,6 +55,9 @@ body >header h1 {
 body >header h2 {
    text-align: left;
    }
+main {
+   min-height: calc(100vh - 350px);
+   }
 body >footer {
    padding: 30px 0px 0px 0px;
    }
