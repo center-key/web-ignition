@@ -1,4 +1,4 @@
-/*! layouts (color-slide.css) ~ web-ignition v1.3.0 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (color-slide.css) ~ web-ignition v1.3.1 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Slide layout -- Top to botttom color transition
 Usage:
@@ -17,8 +17,11 @@ HTML:
          section
             aside
 */
+html {
+   height: auto;
+   }
 body {
-   width: 800px;
+   width: 900px;
    max-width: 95%;
    background-color: rgba(255, 255, 255, 0.9);
    padding: 20px 5%;
