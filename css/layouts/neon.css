@@ -35,6 +35,7 @@ body.neon-image-6 { background-image: url(neon/supernova-nasagov.jpg); }
 body.neon-image-7 { background-image: url(neon/supernova-shock-lblgov.jpg); }
 body.neon-image-8 { background-image: url(neon/wind-tunnel-nasagov.jpg); }
 body {
+   max-width: 750px;
    color: lime;
    background: black 20px 20px no-repeat fixed;
    background-size: 200px;
