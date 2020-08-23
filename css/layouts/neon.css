@@ -90,6 +90,9 @@ main >section >h3 + aside {
    }
 
 /* Code blocks */
+main >section code {
+   color: fuchsia;
+   }
 main >section >figure {
    overflow: scroll;
    }
@@ -103,7 +106,6 @@ main >section figure >pre {
 main >section figure >pre >code {
    display: inline-block;
    font-size: 0.9rem;
-   color: fuchsia;
    }
 main >section figure >pre >code.language-shell >span.prompt {
    color: aqua;
