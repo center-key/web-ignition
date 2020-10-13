@@ -38,31 +38,32 @@
    "dependencies": {
       "dna.js": "~1.6",
       "fetch-json": "~2.2",
-      "highlight.js": "~10.1",
+      "highlight.js": "~10.2",
       "hljs-enhance": "~0.0",
       "jquery": "~3.5"
    },
    "devDependencies": {
       "@babel/core": "~7.11",
       "@babel/preset-env": "~7.11",
-      "@fortawesome/fontawesome-free": "~5.14",
+      "@fortawesome/fontawesome-free": "~5.15",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
-      "del": "~5.1",
+      "del": "~6.0",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
       "gulp-header": "~2.0",
       "gulp-htmlhint": "~3.0",
       "gulp-less": "~4.0",
-      "gulp-postcss": "~8.0",
+      "gulp-postcss": "~9.0",
       "gulp-rename": "~2.0",
       "gulp-replace": "~1.0",
       "gulp-size": "~3.0",
       "gulp-w3c-html-validator": "~2.0",
       "jshint": "~2.12",
       "merge-stream": "~2.0",
-      "postcss-font-magician": "~2.3",
+      "postcss": "~8.1",
+      "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~6.7"
    }
 }
