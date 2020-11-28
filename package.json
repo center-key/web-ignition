@@ -6,6 +6,9 @@
    "main": "dist/library.js",
    "browser": "dist/library.min.js",
    "style": "dist/reset.min.css",
+   "files": [
+      "dist"
+   ],
    "repository": "github:center-key/web-ignition",
    "homepage": "https://github.com/center-key/web-ignition",
    "bugs": "https://github.com/center-key/web-ignition/issues",
@@ -38,13 +41,13 @@
    "dependencies": {
       "dna.js": "~1.6",
       "fetch-json": "~2.2",
-      "highlight.js": "~10.2",
+      "highlight.js": "~10.4",
       "hljs-enhance": "~0.0",
       "jquery": "~3.5"
    },
    "devDependencies": {
-      "@babel/core": "~7.11",
-      "@babel/preset-env": "~7.11",
+      "@babel/core": "~7.12",
+      "@babel/preset-env": "~7.12",
       "@fortawesome/fontawesome-free": "~5.15",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
