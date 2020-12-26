@@ -41,7 +41,7 @@
    "dependencies": {
       "dna.js": "~1.6",
       "fetch-json": "~2.2",
-      "highlight.js": "~10.4",
+      "highlight.js": "~10.5",
       "hljs-enhance": "~0.0",
       "jquery": "~3.5"
    },
@@ -65,7 +65,7 @@
       "gulp-w3c-html-validator": "~2.0",
       "jshint": "~2.12",
       "merge-stream": "~2.0",
-      "postcss": "~8.1",
+      "postcss": "~8.2",
       "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~6.7"
    }
