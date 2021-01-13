@@ -171,9 +171,8 @@ library.util = {
       email = email && email.replace(/\s/g, '').toLowerCase();
       return /.+@.+[.].+/.test(email) ? email : false;  //rudimentary format check
       },
-   toObj(string) {
-      // Parse string into object
-      return JSON.parse(string === undefined ? '{}' : string);
+   isObj(thing) {
+      return !!thing && thing.constructor === Object;
       },
    removeWhitespace(string) {
       // Usage:
@@ -227,7 +226,7 @@ library.storage = {
    dbRead(key) {
       // Usage:
       //    const profile = library.storage.dbSave('profile');
-      return library.util.toObj(window.localStorage[key]);
+      return window.localStorage[key] === undefined ? {} : JSON.parse(window.localStorage[key]);
       },
    sessionSave(key, obj) {
       // Usage:
@@ -238,7 +237,7 @@ library.storage = {
    sessionRead(key) {
       // Usage:
       //    const editorSettings = library.storage.sessionSave('editor-settings');
-      return library.util.toObj(window.sessionStorage[key]);
+      return window.sessionStorage[key] === undefined ? {} : JSON.parse(window.sessionStorage[key]);
       },
    };
 
