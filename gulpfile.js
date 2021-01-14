@@ -2,25 +2,26 @@
 // Gulp tasks
 
 // Imports
-const babel =           require('gulp-babel');
-const del =             require('del');
-const css =             require('gulp-postcss');
-const cssFontMagician = require('postcss-font-magician');
-const cssNano =         require('cssnano');
-const cssPresetEnv =    require('postcss-preset-env');
-const gap =             require('gulp-append-prepend');
-const gulp =            require('gulp');
-const header =          require('gulp-header');
-const htmlHint =        require('gulp-htmlhint');
-const htmlValidator =   require('gulp-w3c-html-validator');
-const less =            require('gulp-less');
-const mergeStream =     require('merge-stream');
-const rename =          require('gulp-rename');
-const replace =         require('gulp-replace');
-const size =            require('gulp-size');
+import babel from           'gulp-babel';
+import del from             'del';
+import css from             'gulp-postcss';
+import cssFontMagician from 'postcss-font-magician';
+import cssNano from         'cssnano';
+import cssPresetEnv from    'postcss-preset-env';
+import gap from             'gulp-append-prepend';
+import gulp from            'gulp';
+import header from          'gulp-header';
+import htmlHint from        'gulp-htmlhint';
+import htmlValidator from   'gulp-w3c-html-validator';
+import less from            'gulp-less';
+import mergeStream from     'merge-stream';
+import rename from          'gulp-rename';
+import replace from         'gulp-replace';
+import size from            'gulp-size';
+import { readFileSync } from 'fs';
 
 // Setup
-const pkg =            require('./package.json');
+const pkg =            JSON.parse(readFileSync('./package.json'));
 const home =           pkg.homepage.replace('https://', '');
 const banner =         'web-ignition v' + pkg.version + ' ~ ' + home + ' ~ MIT License';
 const transpileES6 =   ['@babel/env', { modules: false }];

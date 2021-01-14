@@ -3,6 +3,7 @@
    "description": "Start a fire",
    "version": "1.3.3",
    "license": "MIT",
+   "type": "module",
    "main": "dist/library.js",
    "browser": "dist/library.min.js",
    "style": "dist/reset.min.css",
