@@ -5,6 +5,7 @@
    "license": "MIT",
    "type": "module",
    "main": "dist/library.js",
+   "module": "dist/library.esm.js",
    "browser": "dist/library.min.js",
    "style": "dist/reset.min.css",
    "files": [
@@ -35,9 +36,30 @@
          "dna": false
       }
    },
+   "eslintConfig": {
+      "rules": {
+         "@typescript-eslint/no-explicit-any": "off"
+      },
+      "ignorePatterns": [
+         "build",
+         "dist",
+         "node_modules"
+      ],
+      "root": true,
+      "parser": "@typescript-eslint/parser",
+      "plugins": [
+         "@typescript-eslint"
+      ],
+      "extends": [
+         "eslint:recommended",
+         "plugin:@typescript-eslint/recommended"
+      ]
+   },
    "scripts": {
-      "pretest": "jshint *.js js css/layouts && gulp validate-specs",
-      "test": "gulp clean && gulp build-css && gulp build-js && gulp build-layouts"
+      "lint": "jshint *.js css/layouts && eslint --max-warnings 0 . --ext .ts",
+      "tsc": "tsc --version && tsc --project . --removeComments",
+      "pretest": "npm run lint && gulp validate-specs && rimraf build dist **/.DS_Store",
+      "test": "npm run tsc && gulp build-css && gulp build-js && gulp build-layouts"
    },
    "dependencies": {
       "dna.js": "~1.7",
@@ -50,9 +72,12 @@
       "@babel/core": "~7.12",
       "@babel/preset-env": "~7.12",
       "@fortawesome/fontawesome-free": "~5.15",
+      "@types/jquery": "~3.5",
+      "@typescript-eslint/eslint-plugin": "~4.14",
+      "@typescript-eslint/parser": "~4.14",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
-      "del": "~6.0",
+      "eslint": "~7.18",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
@@ -68,6 +93,8 @@
       "merge-stream": "~2.0",
       "postcss": "~8.2",
       "postcss-font-magician": "~3.0",
-      "postcss-preset-env": "~6.7"
+      "postcss-preset-env": "~6.7",
+      "rimraf": "~3.0",
+      "typescript": "~4.1"
    }
 }

@@ -3,7 +3,6 @@
 
 // Imports
 import babel from           'gulp-babel';
-import del from             'del';
 import css from             'gulp-postcss';
 import cssFontMagician from 'postcss-font-magician';
 import cssNano from         'cssnano';
@@ -50,9 +49,6 @@ const task = {
          .pipe(htmlValidator.reporter())
          .pipe(size({ showFiles: true }));
       },
-   cleanTarget() {
-      return del(['dist', '**/.DS_Store']);
-      },
    buildCss() {
       const buildReset = () =>
          gulp.src('css/reset.less')
@@ -79,13 +75,18 @@ const task = {
       },
    buildJs() {
       const headerComments = /^\/\/.*\n/gm;
-      return gulp.src('js/library.js')
+      return gulp.src('build/library.js')
          .pipe(replace('[VERSION]', pkg.version))
          .pipe(replace(headerComments, ''))
-         .pipe(header(banners.library))
+         .pipe(header(banners.library + '\n'))
+         .pipe(rename('library.esm.js'))
+         .pipe(gulp.dest('dist'))
+         .pipe(replace(/^import.*\n/m, ''))
+         .pipe(replace(/^export.*\n/m, ''))
+         .pipe(rename('library.js'))
          .pipe(gulp.dest('dist'))
          .pipe(babel(babelMinifyJs))
-         .pipe(rename({ extname: '.min.js' }))
+         .pipe(rename('library.min.js'))
          .pipe(header(banners.library))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
@@ -116,7 +117,6 @@ const task = {
 
 // Gulp
 gulp.task('validate-specs', task.validateSpecPages);
-gulp.task('clean',          task.cleanTarget);
 gulp.task('build-css',      task.buildCss);
 gulp.task('build-layouts',  task.buildLayouts);
 gulp.task('build-js',       task.buildJs);
