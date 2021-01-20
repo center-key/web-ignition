@@ -34,7 +34,7 @@ const cssPlugins = [
 const banners = {
    reset:     '/*! reset.css ~ ' + banner + ' */\n',
    blogger:   '/*! Blogger tweaks for Dynamic Views (sidebar) ~ ' + banner + ' */\n',
-   library:   '//! library.js ~ ' + banner + '\n',
+   library:   '//! lib-x.js ~ ' + banner + '\n',
    layoutCss: '/*! layouts (${filename}) ~ ' + banner + ' */\n',
    layoutJs:  '//! layouts (${filename}) ~ ' + banner + '\n',
    };
@@ -75,18 +75,18 @@ const task = {
       },
    buildJs() {
       const headerComments = /^\/\/.*\n/gm;
-      return gulp.src('build/library.js')
+      return gulp.src('build/lib-x.js')
          .pipe(replace('[VERSION]', pkg.version))
          .pipe(replace(headerComments, ''))
          .pipe(header(banners.library + '\n'))
-         .pipe(rename('library.esm.js'))
+         .pipe(rename('lib-x.esm.js'))
          .pipe(gulp.dest('dist'))
          .pipe(replace(/^import.*\n/m, ''))
          .pipe(replace(/^export.*\n/m, ''))
-         .pipe(rename('library.js'))
+         .pipe(rename('lib-x.js'))
          .pipe(gulp.dest('dist'))
          .pipe(babel(babelMinifyJs))
-         .pipe(rename('library.min.js'))
+         .pipe(rename('lib-x.min.js'))
          .pipe(header(banners.library))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))

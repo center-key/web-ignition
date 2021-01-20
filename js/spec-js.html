@@ -3,7 +3,7 @@
 <head>
 <meta charset=utf-8>
 <meta name=viewport  content="width=device-width, initial-scale=1">
-<title>library.js &bull; Specification page</title>
+<title>lib-x.js &bull; Specification page</title>
 <link rel=icon       href=https://centerkey.com/graphics/bookmark.png>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15/css/all.min.css>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@1.7/dist/dna.css>
@@ -12,7 +12,7 @@
 <body>
 
 <header>
-   <h1>library.js v<span class=version-number></span></h1>
+   <h1>lib-x.js v<span class=version-number></span></h1>
    <h2>Specifications Page</h2>
    <a id=fork-me href=https://github.com/center-key/web-ignition>Fork me on GitHub</a>
 </header>
@@ -79,11 +79,11 @@
       <p>Running iOS: <code id=is-ios></code></p>
       <p>thumbs-up: <i data-icon=thumbs-up></i></p>
       <p>Jiggle it:
-         <i data-icon=glass-martini-alt data-click=library.animate.jiggleIt></i>
-         <i data-icon=flask             data-click=library.animate.jiggleIt></i>
-         <i data-icon=wine-bottle       data-click=library.animate.jiggleIt></i>
-         <i data-icon=fragil            data-click=library.animate.jiggleIt></i>
-         <i data-icon=biohazard         data-click=library.animate.jiggleIt></i>
+         <i data-icon=glass-martini-alt data-click=libX.animate.jiggleIt></i>
+         <i data-icon=flask             data-click=libX.animate.jiggleIt></i>
+         <i data-icon=wine-bottle       data-click=libX.animate.jiggleIt></i>
+         <i data-icon=fragil            data-click=libX.animate.jiggleIt></i>
+         <i data-icon=biohazard         data-click=libX.animate.jiggleIt></i>
       </p>
       <p>
          Counters:<br>
@@ -127,34 +127,34 @@
 
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/dna.js@1.7/dist/dna.min.js></script>
-<script src=../dist/library.min.js></script>
+<script src=../dist/lib-x.min.js></script>
 <script>
    const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
    window.onerror = makePageRed;
-   console.log('web-ignition v' + library.version);
-   library.ui.autoDisableButtons();
-   library.animate.rollIn($('#roll-in-icons'));
-   library.animate.jiggleIt($('#fork-me'));
-   $('h1').click(library.animate.jiggleIt);
-   $('.version-number').text(library.version);
-   $('#is-a-mac').text(library.browser.macOS() ? 'YES' : 'no');
-   $('#is-ios').text(library.browser.iOS() ? 'YES' : 'no');
+   console.log('web-ignition v' + libX.version);
+   libX.ui.autoDisableButtons();
+   libX.animate.rollIn($('#roll-in-icons'));
+   libX.animate.jiggleIt($('#fork-me'));
+   $('h1').click(libX.animate.jiggleIt);
+   $('.version-number').text(libX.version);
+   $('#is-a-mac').text(libX.browser.macOS() ? 'YES' : 'no');
+   $('#is-ios').text(libX.browser.iOS() ? 'YES' : 'no');
    window.setTimeout(() => dna.clone('helicopter', { help: 'Help me too!' }, { fade: true }), 3000);
-   library.counter.get();           //returns: 0
-   library.counter.increment();     //returns: 1
-   library.counter.reset();         //returns: 0
-   library.counter.increment();     //returns: 1
-   library.counter.increment();     //returns: 2
-   library.counter.set(99, 'x');    //returns: 99
-   library.counter.increment('x');  //returns: 100
-   library.counter.list();          //returns: { default: 2, x: 100 }
-   $('#counters-actual').text(  JSON.stringify(library.counter.list()));
+   libX.counter.get();           //returns: 0
+   libX.counter.increment();     //returns: 1
+   libX.counter.reset();         //returns: 0
+   libX.counter.increment();     //returns: 1
+   libX.counter.increment();     //returns: 2
+   libX.counter.set(99, 'x');    //returns: 99
+   libX.counter.increment('x');  //returns: 100
+   libX.counter.list();          //returns: { default: 2, x: 100 }
+   $('#counters-actual').text(  JSON.stringify(libX.counter.list()));
    $('#counters-expected').text(JSON.stringify({ default: 2, x: 100 }));
    const handleHash = (container) => (hash) => container.find('output').text(hash);
-   const hashIt = (elem) => library.crypto.hash(elem.val()).then(handleHash(elem.closest('div')));
+   const hashIt = (elem) => libX.crypto.hash(elem.val()).then(handleHash(elem.closest('div')));
    const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
    const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash ' + hash); });
-   library.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
+   libX.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
 </script>
 </body>
 </html>

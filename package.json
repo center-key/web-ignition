@@ -4,9 +4,9 @@
    "version": "1.3.3",
    "license": "MIT",
    "type": "module",
-   "main": "dist/library.js",
-   "module": "dist/library.esm.js",
-   "browser": "dist/library.min.js",
+   "main": "dist/lib-x.js",
+   "module": "dist/lib-x.esm.js",
+   "browser": "dist/lib-x.min.js",
    "style": "dist/reset.min.css",
    "files": [
       "dist"
