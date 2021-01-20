@@ -1,4 +1,4 @@
-/*! layouts (neon.css) ~ web-ignition v1.3.3 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (neon.css) ~ web-ignition v1.4.0 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Neon layout -- For hackers and space junkies
 Usage:
@@ -175,7 +175,7 @@ body >footer p {
 
 /* Flat button color */
 button { background-color: fuchsia; }
-button:hover { background-color: red; }
+button:hover:not(:disabled) { background-color: red; }
 
 /* Reveal action color */
 .reveal-button { color: fuchsia; }
@@ -186,4 +186,4 @@ form.perfect { background-color: black; border-color: aqua; }           /* outer
 form.perfect h2 { color: black; background-color: aqua; }               /* outer color */
 form.perfect label span { color: aqua; }
 form.perfect input, form.perfect textarea { background-color: white; }  /* input fields */
-form.perfect p button:hover { background-color: lime; }
+form.perfect p button:hover:not(:disabled) { background-color: lime; }
