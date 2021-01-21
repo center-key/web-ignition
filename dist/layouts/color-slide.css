@@ -1,9 +1,9 @@
-/*! layouts (color-slide.css) ~ web-ignition v1.4.0 ~ github.com/center-key/web-ignition ~ MIT License */
+/*! layouts (color-slide.css) ~ web-ignition v1.4.1 ~ github.com/center-key/web-ignition ~ MIT License */
 /*
 Color Slide layout -- Top to botttom color transition
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.3/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.3/dist/layouts/color-slide.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/color-slide.css>
    <style>
       html { background: linear-gradient(to bottom, gold, black); }
    </style>

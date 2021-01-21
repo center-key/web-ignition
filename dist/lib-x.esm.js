@@ -1,4 +1,4 @@
-//! lib-x.js ~ web-ignition v1.4.0 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.1 ~ github.com/center-key/web-ignition ~ MIT License
 
 import { dna } from 'dna.js';
 const libXUi = {
@@ -325,7 +325,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.4.0',
+    version: '1.4.1',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
