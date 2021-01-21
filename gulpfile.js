@@ -22,6 +22,7 @@ import { readFileSync } from 'fs';
 // Setup
 const pkg =            JSON.parse(readFileSync('./package.json'));
 const home =           pkg.homepage.replace('https://', '');
+const headerComments = /^\/\/.*\n/gm;
 const banner =         'web-ignition v' + pkg.version + ' ~ ' + home + ' ~ MIT License';
 const transpileES6 =   ['@babel/env', { modules: false }];
 const babelMinifyJs =  { presets: [transpileES6, 'minify'], comments: false };
@@ -41,6 +42,7 @@ const banners = {
 
 // Tasks
 const task = {
+
    validateSpecPages() {
       return gulp.src(['css/*.html', 'js/*.html', 'css/layouts/*.html'])
          .pipe(htmlHint(htmlHintConfig))
@@ -49,7 +51,8 @@ const task = {
          .pipe(htmlValidator.reporter())
          .pipe(size({ showFiles: true }));
       },
-   buildCss() {
+
+   makeDistribution() {
       const buildReset = () =>
          gulp.src('css/reset.less')
             .pipe(less())
@@ -71,35 +74,12 @@ const task = {
             .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist'));
-      return mergeStream(buildReset(), buildBloggerTweaks());
-      },
-   buildJs() {
-      const headerComments = /^\/\/.*\n/gm;
-      return gulp.src('build/lib-x.js')
-         .pipe(replace('[VERSION]', pkg.version))
-         .pipe(replace(headerComments, ''))
-         .pipe(header(banners.library + '\n'))
-         .pipe(rename('lib-x.esm.js'))
-         .pipe(gulp.dest('dist'))
-         .pipe(replace(/^import.*\n/m, ''))
-         .pipe(replace(/^export.*\n/m, ''))
-         .pipe(rename('lib-x.js'))
-         .pipe(gulp.dest('dist'))
-         .pipe(babel(babelMinifyJs))
-         .pipe(rename('lib-x.min.js'))
-         .pipe(header(banners.library))
-         .pipe(gap.appendText('\n'))
-         .pipe(size({ showFiles: true }))
-         .pipe(size({ showFiles: true, gzip: true }))
-         .pipe(gulp.dest('dist'));
-      },
-   buildLayouts() {
-      const buildCss = () =>
+      const buildLayoutsCss = () =>
          gulp.src('css/layouts/*.css')
             .pipe(header(banners.layoutCss))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts'));
-      const buildJs = () =>
+      const buildLayoutsJs = () =>
          gulp.src('css/layouts/*.js')
             .pipe(babel(babelMinifyJs))
             .pipe(rename({ extname: '.min.js' }))
@@ -107,16 +87,46 @@ const task = {
             .pipe(gap.appendText('\n'))
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts'));
-      const copyImages = () =>
+      const copyLayoutsImages = () =>
          gulp.src('css/layouts/neon/*.jpg')
             .pipe(size({ showFiles: true }))
             .pipe(gulp.dest('dist/layouts/neon'));
-      return mergeStream(buildCss(), buildJs(), copyImages());
+      const buildDts = () =>
+         gulp.src('build/lib-x.d.ts')
+            .pipe(header(banners.library + '\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(gulp.dest('dist'));
+      const buildJs = () =>
+         gulp.src('build/lib-x.js')
+            .pipe(replace('[VERSION]', pkg.version))
+            .pipe(replace(headerComments, ''))
+            .pipe(header(banners.library + '\n'))
+            .pipe(rename('lib-x.esm.js'))
+            .pipe(gulp.dest('dist'))
+            .pipe(replace(/^import.*\n/m, ''))
+            .pipe(replace(/^export.*\n/m, ''))
+            .pipe(rename('lib-x.js'))
+            .pipe(gulp.dest('dist'))
+            .pipe(babel(babelMinifyJs))
+            .pipe(rename('lib-x.min.js'))
+            .pipe(header(banners.library))
+            .pipe(gap.appendText('\n'))
+            .pipe(size({ showFiles: true }))
+            .pipe(size({ showFiles: true, gzip: true }))
+            .pipe(gulp.dest('dist'));
+      return mergeStream(
+         buildReset(),
+         buildBloggerTweaks(),
+         buildLayoutsCss(),
+         buildLayoutsJs(),
+         copyLayoutsImages(),
+         buildDts(),
+         buildJs()
+         );
       },
+
    };
 
 // Gulp
 gulp.task('validate-specs', task.validateSpecPages);
-gulp.task('build-css',      task.buildCss);
-gulp.task('build-layouts',  task.buildLayouts);
-gulp.task('build-js',       task.buildJs);
+gulp.task('make-dist',      task.makeDistribution);

@@ -58,8 +58,8 @@
    "scripts": {
       "lint": "jshint *.js css/layouts && eslint --max-warnings 0 . --ext .ts",
       "tsc": "tsc --version && tsc --project . --removeComments",
-      "pretest": "npm run lint && gulp validate-specs && rimraf build dist **/.DS_Store",
-      "test": "npm run tsc && gulp build-css && gulp build-js && gulp build-layouts"
+      "test": "npm run lint && gulp validate-specs",
+      "posttest": "rimraf build dist **/.DS_Store && npm run tsc && gulp make-dist"
    },
    "dependencies": {
       "dna.js": "~1.7",
