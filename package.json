@@ -56,28 +56,28 @@
       ]
    },
    "scripts": {
-      "lint": "jshint *.js css/layouts && eslint --max-warnings 0 . --ext .ts",
-      "tsc": "tsc --version && tsc --project . --removeComments",
-      "test": "npm run lint && gulp validate-specs",
+      "lint": "    jshint *.js css/layouts && eslint --max-warnings 0 . --ext .ts",
+      "tsc": "     tsc --version && tsc --project . --removeComments",
+      "test": "    npm run lint && gulp validate-specs",
       "posttest": "rimraf build dist **/.DS_Store && npm run tsc && gulp make-dist"
    },
    "dependencies": {
       "dna.js": "~1.7",
       "fetch-json": "~2.4",
-      "highlight.js": "~10.5",
-      "hljs-enhance": "~0.0",
+      "highlight.js": "~10.6",
+      "hljs-enhance": "~1.0",
       "jquery": "~3.5"
    },
    "devDependencies": {
-      "@babel/core": "~7.12",
-      "@babel/preset-env": "~7.12",
+      "@babel/core": "~7.13",
+      "@babel/preset-env": "~7.13",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
-      "@typescript-eslint/eslint-plugin": "~4.14",
-      "@typescript-eslint/parser": "~4.14",
+      "@typescript-eslint/eslint-plugin": "~4.15",
+      "@typescript-eslint/parser": "~4.15",
       "babel-minify": "~0.5",
       "cssnano": "~4.1",
-      "eslint": "~7.18",
+      "eslint": "~7.20",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
@@ -95,6 +95,6 @@
       "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~6.7",
       "rimraf": "~3.0",
-      "typescript": "~4.1"
+      "typescript": "~4.2"
    }
 }
