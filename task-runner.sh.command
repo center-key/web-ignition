@@ -27,7 +27,7 @@ setupTools() {
 releaseInstructions() {
    cd $projectHome
    repository=$(grep repository package.json | awk -F'"' '{print $4}' | sed s/github://)
-   package=https://raw.githubusercontent.com/$repository/master/package.json
+   package=https://raw.githubusercontent.com/$repository/main/package.json
    version=v$(grep '"version"' package.json | awk -F'"' '{print $4}')
    pushed=v$(curl --silent $package | grep '"version":' | awk -F'"' '{print $4}')
    released=$(git tag | tail -1)
@@ -89,7 +89,7 @@ publishWebFiles() {
    publishSite=$publishWebRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
    cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@$minorVersion/dist
-   githubLayouts=https://github.com/center-key/web-ignition/blob/master/css/layouts
+   githubLayouts=https://github.com/center-key/web-ignition/blob/main/css/layouts
    publish() {
       echo "Publishing:"
       echo $publishFolder
