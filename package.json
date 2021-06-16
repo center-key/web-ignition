@@ -37,9 +37,6 @@
       }
    },
    "eslintConfig": {
-      "rules": {
-         "@typescript-eslint/no-explicit-any": "off"
-      },
       "ignorePatterns": [
          "build",
          "dist",
@@ -53,7 +50,11 @@
       "extends": [
          "eslint:recommended",
          "plugin:@typescript-eslint/recommended"
-      ]
+      ],
+      "rules": {
+         "@typescript-eslint/no-explicit-any": "off",
+         "@typescript-eslint/no-non-null-assertion": "off"
+      }
    },
    "scripts": {
       "lint": "    jshint *.js css/layouts && eslint --max-warnings 0 . --ext .ts",
@@ -64,20 +65,20 @@
    "dependencies": {
       "dna.js": "~1.7",
       "fetch-json": "~2.4",
-      "highlight.js": "~10.6",
+      "highlight.js": "~11.0",
       "hljs-enhance": "~1.0",
-      "jquery": "~3.5"
+      "jquery": "~3.6"
    },
    "devDependencies": {
-      "@babel/core": "~7.13",
-      "@babel/preset-env": "~7.13",
+      "@babel/core": "~7.14",
+      "@babel/preset-env": "~7.14",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
-      "@typescript-eslint/eslint-plugin": "~4.15",
-      "@typescript-eslint/parser": "~4.15",
+      "@typescript-eslint/eslint-plugin": "~4.27",
+      "@typescript-eslint/parser": "~4.27",
       "babel-minify": "~0.5",
-      "cssnano": "~4.1",
-      "eslint": "~7.20",
+      "cssnano": "~5.0",
+      "eslint": "~7.28",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
@@ -86,15 +87,15 @@
       "gulp-less": "~4.0",
       "gulp-postcss": "~9.0",
       "gulp-rename": "~2.0",
-      "gulp-replace": "~1.0",
-      "gulp-size": "~3.0",
-      "gulp-w3c-html-validator": "~3.0",
-      "jshint": "~2.12",
+      "gulp-replace": "~1.1",
+      "gulp-size": "~4.0",
+      "gulp-w3c-html-validator": "~3.2",
+      "jshint": "~2.13",
       "merge-stream": "~2.0",
-      "postcss": "~8.2",
+      "postcss": "~8.3",
       "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~6.7",
       "rimraf": "~3.0",
-      "typescript": "~4.2"
+      "typescript": "~4.3"
    }
 }
