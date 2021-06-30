@@ -4,12 +4,12 @@
    "version": "1.4.1",
    "license": "MIT",
    "type": "module",
-   "module": "dist/lib-x.esm.js",
-   "exports": "dist/lib-x.esm.js",
-   "main": "dist/lib-x.js",
-   "browser": "dist/lib-x.min.js",
-   "style": "dist/reset.min.css",
-   "types": "dist/lib-x.d.ts",
+   "module": "./dist/lib-x.esm.js",
+   "exports": "./dist/lib-x.esm.js",
+   "main": "./dist/lib-x.js",
+   "browser": "./dist/lib-x.min.js",
+   "style": "./dist/reset.min.css",
+   "types": "./dist/lib-x.d.ts",
    "files": [
       "dist"
    ],
