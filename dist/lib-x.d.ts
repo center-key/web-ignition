@@ -1,4 +1,4 @@
-//! lib-x.js ~ web-ignition v1.4.1 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.2 ~ github.com/center-key/web-ignition ~ MIT License
 
 /// <reference types="jquery" />
 declare global {

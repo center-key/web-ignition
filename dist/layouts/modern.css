@@ -1,0 +1,187 @@
+/*! layouts (modern.css) ~ web-ignition v1.4.2 ~ github.com/center-key/web-ignition ~ MIT License */
+/*
+Modern layout -- Clean blog post page
+Usage:
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/modern.css>
+HTML:
+   body
+      header
+         figure
+            img[alt=logo]
+         h2
+         nav
+            a[href].current
+      main[data-page]
+         h1
+         div
+            article
+               h3
+               p
+         p
+         nav.external-site
+            a[href]
+               img
+      footer
+         div
+            figure
+               img[alt=avatar]
+            address
+               b
+               p
+                  span
+         small
+*/
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap");
+html {
+   display: block;
+   }
+body {
+   font-family: "Nunito", system-ui, sans-serif;
+   display: flex;
+   flex-direction: column;
+   max-width: none;
+   min-height: 100vh;
+   background-color: white;
+   padding: 0px;
+   margin: 0px;
+   }
+body >header {
+   padding: 140px 10px 0px 10px;
+   margin: 0px;
+   overflow: hidden;
+   }
+body >header >figure >img {
+   max-width: 600px;
+   max-height: 100px;
+   }
+body >header >h2 {
+   font-size: 1.6rem;
+   font-weight: lighter;
+   text-transform: uppercase;
+   transform: scaleX(1.5);
+   margin-bottom: 30px;
+   }
+body >header >nav {
+   margin-bottom: 10px;
+   }
+body >header >nav >a {
+   display: inline-block;
+   font-size: 0.9rem;
+   text-transform: uppercase;
+   color: dimgray;
+   border-bottom: 3px solid transparent;
+   padding: 3px 5px;
+   margin: 0px 15px 5px 15px;
+   }
+body >header >nav >a:hover {
+   border-color: dimgray;
+   }
+body >header >nav >a.current {
+   color: black;
+   border-color: black;
+   cursor: default;
+   }
+main { position: relative;
+   width: 100%;
+   max-width: 800px;
+   padding: 0px 10px;
+   margin: 0px auto 40px auto;
+   }
+main >h1 {
+   font-family: inherit;
+   font-size: 1.4rem;
+   letter-spacing: 0.16em;
+   text-align: center;
+   text-transform: uppercase;
+   color: white;
+   background-color: dimgray;
+   padding: 5px 10px;
+   margin-bottom: 20px;
+   }
+main >div >article {
+   border: 1px solid;
+   padding: 10px 10px 0px 10px;
+   margin-bottom: 25px;
+   overflow-x: auto;
+   }
+main >div >article >h3 {
+   display: block;
+   font-size: 1.1rem;
+   font-weight: bold;
+   margin-bottom: 5px;
+   }
+main >nav {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
+   padding: 80px 0px;
+   }
+main >nav >a {
+   margin: 10px 20px;
+   }
+main >nav >a >img {
+   height: 50px;
+   }
+body >footer {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   color: white;
+   background-color: dimgray;
+   padding: 40px 10px;
+   }
+body >footer >div {
+   display: flex;
+   flex-wrap: wrap;
+   margin-bottom: 10px;
+   }
+body >footer >div >figure {
+   margin: 0px 5px;
+   }
+body >footer >div >figure >img {
+   height: 150px;
+   }
+body >footer >div >address {
+   display: flex;
+   flex-direction: column;
+   font-style: normal;
+   text-align: left;
+   margin: 0px 5px;
+   }
+body >footer >div >address >b {
+   display: block;
+   font-size: 1rem;
+   margin-bottom: 3px;
+   }
+body >footer >div >address >p {
+   display: flex;
+   flex-direction: column;
+   font-size: 1rem;
+   margin: 0px;
+   }
+body >footer >div >address >p:first-of-type {
+   flex: 1;
+   margin-bottom: 10px;
+   }
+body >footer >div >address >p >span >a {
+   color: inherit;  /* disable ios phone number color */
+   }
+body >footer >small {
+   color: silver;
+   }
+@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE(2020) landscape and anything narrower */
+   body >header { padding-top: 40px; }
+   body >header >h2 { font-size: 1.2rem; }
+   body >header >nav >a { margin: 0px 0px 5px 0px; }
+   main >h1 { margin: 0px -10px 20px -10px; }
+   body >footer { padding: 10px 10px; }
+   main >nav { padding: 40px 0px; }
+   }
+/**************************************************************************************************/
+
+/* Modern layout -- customize colors */
+main >div >article { background-color: aliceblue; border-color: steelblue; }
+main >div >article >h3 { color: steelblue; }

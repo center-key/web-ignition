@@ -1,4 +1,4 @@
-//! lib-x.js ~ web-ignition v1.4.1 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.2 ~ github.com/center-key/web-ignition ~ MIT License
 
 const libXUi = {
     plugin: {
@@ -324,7 +324,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.4.1',
+    version: '1.4.2',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
