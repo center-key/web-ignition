@@ -17,23 +17,22 @@ Usage:
       main >div:nth-child(2) >section:nth-child(3n+3)    { border-color:     darkseagreen; }
       main >div:nth-child(2) >section:nth-child(3n+3) h2 { background-color: darkseagreen; }
    </style>
-HTML:
-   body
-      header
-         aside
-         h1
-         h2
-      main
-         div         <!-- first column -->
-            section  <!-- color block -->
-               h2
-               p
-         div         <!-- second column -->
-            section  <!-- color block -->
-               h2
-               p
-      footer
-         div
+HTML (<body>):
+   header
+      aside
+      h1
+      h2
+   main
+      div         <!-- first column -->
+         section  <!-- color block -->
+            h2
+            p
+      div         <!-- second column -->
+         section  <!-- color block -->
+            h2
+            p
+   footer
+      div
 */
 body {
    max-width: 1000px;

@@ -11,14 +11,13 @@ Usage:
       body >header nav a.current, body >header nav a:hover { border-color: gold; }
       body >footer { color: silver; }
    </style>
-HTML:
-   body
-      header
-         nav
-            a
-         h1
-         h2
-      footer
+HTML (<body>):
+   header
+      nav
+         a
+      h1
+      h2
+   footer
 */
 body {
    max-width: 900px;

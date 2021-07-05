@@ -10,19 +10,18 @@ Usage:
       main >section:nth-child(1) { color: white;     background-color: steelblue; }
       main >section:nth-child(2) { color: gainsboro; background-color: black; }
    </style>
-HTML:
-   body
-      section.image-block
-      section
-         header
-            h1
-            h2
-         p
-         quotes-box
-            quote-list
-               blockquote
-                  cite
-      footer
+HTML (<body>):
+   section.image-block
+   section
+      header
+         h1
+         h2
+      p
+      quotes-box
+         quote-list
+            blockquote
+               cite
+   footer
 */
 body {
    max-width: none;

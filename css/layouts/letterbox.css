@@ -6,12 +6,11 @@ Usage:
    <style>
       html { background-image: url(background.jpg); }
    </style>
-HTML:
-   body
-      main
-         section
-            figure.video-container
-         cite
+HTML (<body>):
+   main
+      section
+         figure.video-container
+      cite
 */
 html {
    height: auto;

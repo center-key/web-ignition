@@ -10,18 +10,17 @@ Usage:
       body >header { background-image: url(bkgnd.jpg); }
       body main >section[data-background=cat] { background-image: url(cat.jpg); }
    </style>
-HTML:
-   body
-      header
-         nav
-            a.current
-         h1, h2, h4, img[alt=avatar]
-      main
-         section
-            h2
-               img
-            div
-      footer
+HTML (<body>):
+   header
+      nav
+         a.current
+      h1, h2, h4, img[alt=avatar]
+   main
+      section
+         h2
+            img
+         div
+   footer
 */
 body {
    max-width: none;

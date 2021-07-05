@@ -7,15 +7,14 @@ Usage:
    <style>
       html { background: linear-gradient(to bottom, gold, black); }
    </style>
-HTML:
-   body
-      header
-         nav
-            a
-         img
-      main
-         section
-            aside
+HTML (<body>):
+   header
+      nav
+         a
+      img
+   main
+      section
+         aside
 */
 html {
    height: auto;

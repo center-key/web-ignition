@@ -6,22 +6,21 @@ Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/neon.css>
    ...
    <script src=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/neon.min.js></script>
-HTML:
-   body
-      header
-         h1, h2, h3, h4
-      main
-         section
-            h2
-            aside
-            figure
-               figcaption
-               pre code
-            div
-               blockquote
-                  cite
-      footer
-         p
+HTML (<body>):
+   header
+      h1, h2, h3, h4
+   main
+      section
+         h2
+         aside
+         figure
+            figcaption
+            pre code
+         div
+            blockquote
+               cite
+   footer
+      p
 Neon colors:
    lime, fuchsia, yellow, aqua, red
 */
