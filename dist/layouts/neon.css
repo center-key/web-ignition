@@ -118,13 +118,17 @@ main >section figure >pre >code.language-bash {
    }
 
 /* Link color */
-main >section >p a,
-main >section >p a:visited {
+main >section a,
+main >section a:visited {
    font-size: 1.2rem;
    color: white;
    border-color: fuchsia;
    }
-main >section >p a:hover {
+main >section a:visited {
+   color: silver;
+   }
+main >section a:hover {
+   color: white;
    background-color: fuchsia;
    outline-color: fuchsia;
    }
