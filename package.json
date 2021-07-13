@@ -68,8 +68,8 @@
    },
    "dependencies": {
       "dna.js": "~1.8",
-      "fetch-json": "~2.4",
-      "highlight.js": "~11.0",
+      "fetch-json": "~2.5",
+      "highlight.js": "~11.1",
       "hljs-enhance": "~1.0",
       "jquery": "~3.6"
    },
@@ -78,6 +78,7 @@
       "@babel/preset-env": "~7.14",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
+      "@types/node": "~16.3",
       "@typescript-eslint/eslint-plugin": "~4.28",
       "@typescript-eslint/parser": "~4.28",
       "babel-minify": "~0.5",
