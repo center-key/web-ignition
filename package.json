@@ -63,14 +63,14 @@
    },
    "scripts": {
       "lint": "    jshint . --exclude node_modules,build,dist && eslint --max-warnings 0 . --ext .ts",
-      "tsc": "     tsc --version && tsc --project .",
+      "tsc": "     tsc",
       "test": "    npm run lint && gulp validate-specs",
       "posttest": "rimraf build dist **/.DS_Store && npm run tsc && gulp make-dist"
    },
    "dependencies": {
       "dna.js": "~1.8",
       "fetch-json": "~2.5",
-      "highlight.js": "~11.1",
+      "highlight.js": "~11.2",
       "hljs-enhance": "~1.0",
       "jquery": "~3.6"
    },
@@ -80,11 +80,11 @@
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
       "@types/node": "~16.4",
-      "@typescript-eslint/eslint-plugin": "~4.28",
-      "@typescript-eslint/parser": "~4.28",
+      "@typescript-eslint/eslint-plugin": "~4.29",
+      "@typescript-eslint/parser": "~4.29",
       "babel-minify": "~0.5",
       "cssnano": "~5.0",
-      "eslint": "~7.31",
+      "eslint": "~7.32",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
