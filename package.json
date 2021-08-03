@@ -62,10 +62,13 @@
       }
    },
    "scripts": {
-      "lint": "    jshint . --exclude node_modules,build,dist && eslint --max-warnings 0 . --ext .ts",
-      "tsc": "     tsc",
-      "test": "    npm run lint && gulp validate-specs",
-      "posttest": "rimraf build dist **/.DS_Store && npm run tsc && gulp make-dist"
+      "step:01": "rimraf build dist **/.DS_Store",
+      "step:02": "jshint . --exclude node_modules,build,dist",
+      "step:03": "eslint --max-warnings 0 . --ext .ts",
+      "step:04": "tsc",
+      "step:05": "gulp make-dist",
+      "step:06": "w3c-html-validator",
+      "test": "npm-run-all step:*"
    },
    "dependencies": {
       "dna.js": "~1.8",
@@ -89,19 +92,19 @@
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",
       "gulp-header": "~2.0",
-      "gulp-htmlhint": "~4.0",
       "gulp-less": "~5.0",
       "gulp-postcss": "~9.0",
       "gulp-rename": "~2.0",
       "gulp-replace": "~1.1",
       "gulp-size": "~4.0",
-      "gulp-w3c-html-validator": "~5.0",
       "jshint": "~2.13",
       "merge-stream": "~2.0",
+      "npm-run-all2": "~5.0",
       "postcss": "~8.3",
       "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~6.7",
       "rimraf": "~3.0",
-      "typescript": "~4.3"
+      "typescript": "~4.3",
+      "w3c-html-validator": "~0.7"
    }
 }

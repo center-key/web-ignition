@@ -10,13 +10,11 @@ import cssPresetEnv from    'postcss-preset-env';
 import gap from             'gulp-append-prepend';
 import gulp from            'gulp';
 import header from          'gulp-header';
-import htmlHint from        'gulp-htmlhint';
 import less from            'gulp-less';
 import mergeStream from     'merge-stream';
 import rename from          'gulp-rename';
 import replace from         'gulp-replace';
 import size from            'gulp-size';
-import { htmlValidator } from 'gulp-w3c-html-validator';
 import { readFileSync } from 'fs';
 
 // Setup
@@ -26,7 +24,6 @@ const headerComments = /^\/\/.*\n/gm;
 const banner =         'web-ignition v' + pkg.version + ' ~ ' + home + ' ~ MIT License';
 const transpileES6 =   ['@babel/env', { modules: false }];
 const babelMinifyJs =  { presets: [transpileES6, 'minify'], comments: false };
-const htmlHintConfig = { 'attr-value-double-quotes': false };
 const cssPlugins = [
    cssFontMagician({ protocol: 'https:' }),
    cssPresetEnv(),
@@ -42,15 +39,6 @@ const banners = {
 
 // Tasks
 const task = {
-
-   validateSpecPages() {
-      return gulp.src(['css/*.html', 'js/*.html', 'css/layouts/*.html'])
-         .pipe(htmlHint(htmlHintConfig))
-         .pipe(htmlHint.reporter())
-         .pipe(htmlValidator.analyzer())
-         .pipe(htmlValidator.reporter())
-         .pipe(size({ showFiles: true }));
-      },
 
    makeDistribution() {
       const buildReset = () =>
@@ -128,5 +116,4 @@ const task = {
    };
 
 // Gulp
-gulp.task('validate-specs', task.validateSpecPages);
 gulp.task('make-dist',      task.makeDistribution);
