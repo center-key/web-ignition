@@ -57,6 +57,7 @@ h1+h2 { font-weight: lighter; text-shadow: 0px 0px 0.2em white; margin: -0.2em 0
 quoteblock:before { content: open-quote; }
 quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
+[title] { cursor: help; }
 
 /* Links */
 a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 400ms; }
@@ -73,7 +74,7 @@ a figure:hover figcaption { color: black; }
 
 // Forms and input controls
 form, fieldset { max-width: 25em; }
-fieldset { border: none; }
+fieldset { padding: 0px; border: none; }
 form >fieldset:first-child { border: 1px solid silver; border-radius: 5px; padding: 0.8rem 1rem 0rem 1rem; margin-bottom: 1.5rem; }
 form >fieldset:first-child >legend { font-size: 1.1em; font-weight: bold; border: 1px solid silver; border-radius: 1000px; padding: 0.3em 1.0em; }
 label { display: block; }
@@ -82,17 +83,19 @@ input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-si
 input, textarea { background-color: mintcream; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
 input:not([type=checkbox]):not([type=radio]), textarea { -webkit-appearance: none; }  /* ios inner shadow */
 select { font-size: 1.1em; }
+input[type=number] { font-family: menlo, consolas, monospace; text-align: right; }
 input[type=checkbox], input[type=radio] { width: auto; margin: 0px 0.5em 0.2em 1.5em; }
 label:last-of-type input { margin-bottom: 1em; }
 textarea { height: 4.1em; }  /* 3 lines */
 input, select, textarea { margin: 0px 0px 1em 0px; }
-input[type=range] { cursor: grab; }
+input[type=range] { height: 0.7em; padding: 0px; margin: 0.5em 0px 1em 0px; cursor: grab; }
 input[type=range]:active { cursor: grabbing; }
 button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
 button, input, select, optgroup, option, textarea { transition: all 400ms; }
 *:disabled { opacity: 0.5; cursor: default; pointer-events: none; }
 form p:last-child, fieldset p:last-child { text-align: right; }
 form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }
+input:out-of-range { background-color: pink; }
 
 // Flat buttons
 button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 400ms; }
@@ -242,9 +245,9 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
 .json-boolean { color: teal; }
 .json-string  { color: olive; }
 @keyframes jiggle-it {
-  0%  { transform: rotate(-10deg); }
-  50% { transform: rotate( 10deg); }
-}
+   0%  { transform: rotate(-10deg); }
+   50% { transform: rotate( 10deg); }
+   }
 
 // Bubble help
 .bubble-help {
