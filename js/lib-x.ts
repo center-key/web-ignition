@@ -4,22 +4,26 @@
 // MIT License                          //
 //////////////////////////////////////////
 
-import { dna } from 'dna.js';
+import { dna, DnaCallback } from 'dna.js';
 
 declare global {
    interface JQuery {
-      id:      (name?: string | number) => JQuery,
+      id:      (name?: string | number) => string | undefined | JQuery,
       enable:  (setOn?: boolean) =>        JQuery,
       disable: (setOff?: boolean) =>       JQuery,
       findAll: (selector: string) =>       JQuery,
       }
    }
-type LibXObject =            Record<string, unknown>;
-type LibXUiPopupOptions =    { width?: number, height?: number };
-type LibXCryptoHashOptions = { algorithm?: string, salt?: string };
-type LibXUiEnei =            JQuery | HTMLElement | JQuery.EventBase | number;
-type LibXCounterMap =        Record<string, number>;
-type LibXSocialButton =      { title: string, icon: string, x: number, y: number, link: string };
+export type Json = string | number | boolean | null | undefined | Json[] | { [key: string]: Json };
+export type JsonObject = { [key: string]: Json };
+export type JsonArray = Json[];
+export type JsonData = JsonObject | JsonArray;
+export type LibXObject =            { [key: string]: unknown };
+export type LibXUiPopupOptions =    { width?: number, height?: number };
+export type LibXCryptoHashOptions = { algorithm?: string, salt?: string };
+export type LibXUiEnei =            JQuery | HTMLElement | JQuery.EventBase | number;
+export type LibXCounterMap =        { [counter: string]: number };
+export type LibXSocialButton =      { title: string, icon: string, x: number, y: number, link: string };
 
 const libXUi = {
    plugin: {
@@ -133,13 +137,13 @@ const libXUi = {
       // Usage:
       //    libX.ui.loadImageFadeIn($('img#banner'), 'https://example.com/elephants.jpg');
       const handleImg = (event: JQuery.EventBase): JQuery => {
-         elem.fadeIn(duration || 1500);
+         elem.fadeIn(duration ?? 1500);
          return (<HTMLElement>elem[0]).nodeName === 'IMG' ?
             elem.attr({ src: event.target.src }) :
             elem.css({ backgroundImage: 'url(' + event.target.src + ')' });
          };
       const img = new Image();
-      img.onload = <any>handleImg;
+      img.onload = <(this: GlobalEventHandlers, ev: Event) => JQuery><unknown>handleImg;
       img.src = url;
       return elem;
       },
@@ -180,7 +184,7 @@ const libXUtil = {
       return text.replace(/\s/g, '');
       },
    details(thing: unknown): string {
-      const obj = <Record<string, unknown>>thing;
+      const obj = <LibXObject>thing;
       const elem = <JQuery>thing;
       let msg = typeof thing + ' --> ';
       const addProp = (property: string) => { msg += property + ':' + obj[property] + ' '; };
@@ -220,7 +224,7 @@ const libXCrypto = {
    };
 
 const libXStorage = {
-   dbSave(key: string, obj: Record<string, unknown>): LibXObject {
+   dbSave(key: string, obj: LibXObject): LibXObject {
       // Usage:
       //    libX.storage.dbSave('profile', { name: 'Lee', admin: true });
       localStorage[key] = JSON.stringify(obj);
@@ -438,13 +442,13 @@ const libX = {
    extra:      libXExtra,
    initialize(): void {
       globalThis['libX' + ''] = libX;
-      $.fn.id =      <any>libX.ui.plugin.id;
+      $.fn.id =      libX.ui.plugin.id;
       $.fn.enable =  libX.ui.plugin.enable;
       $.fn.disable = libX.ui.plugin.disable;
       $.fn.findAll = libX.ui.plugin.findAll;
       libX.social.setup();
       libX.ui.setupForkMe();
-      dna.registerInitializer(<any>libX.ui.normalize);
+      dna.registerInitializer(<DnaCallback>libX.ui.normalize);
       const clickAndTap = (callback: (event: JQuery.EventBase) => void) => ({ click: callback, touchstart: callback });
       const onLoadSetup = () => {
          libX.ui.displayAddr();

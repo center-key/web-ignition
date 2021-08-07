@@ -57,7 +57,6 @@
          "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
-         "@typescript-eslint/no-explicit-any": "off",
          "@typescript-eslint/no-non-null-assertion": "off"
       }
    },
@@ -78,8 +77,8 @@
       "jquery": "~3.6"
    },
    "devDependencies": {
-      "@babel/core": "~7.14",
-      "@babel/preset-env": "~7.14",
+      "@babel/core": "~7.15",
+      "@babel/preset-env": "~7.15",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
       "@types/node": "~16.4",
