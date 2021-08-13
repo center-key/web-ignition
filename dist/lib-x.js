@@ -1,5 +1,6 @@
-//! lib-x.js ~ web-ignition v1.4.2 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.3 ~ github.com/center-key/web-ignition ~ MIT License
 
+import { dna } from 'dna.js';
 const libXUi = {
     plugin: {
         id: function (name) {
@@ -87,7 +88,7 @@ const libXUi = {
     },
     loadImageFadeIn(elem, url, duration) {
         const handleImg = (event) => {
-            elem.fadeIn(duration || 1500);
+            elem.fadeIn(duration ?? 1500);
             return elem[0].nodeName === 'IMG' ?
                 elem.attr({ src: event.target.src }) :
                 elem.css({ backgroundImage: 'url(' + event.target.src + ')' });
@@ -324,7 +325,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.4.2',
+    version: '1.4.3',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
@@ -361,3 +362,4 @@ const libX = {
     },
 };
 libX.initialize();
+export { libX };

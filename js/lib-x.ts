@@ -1,5 +1,5 @@
 //////////////////////////////////////////
-// web-ignition - lib-x.js            //
+// web-ignition - lib-x.js              //
 // Generic functions and web page setup //
 // MIT License                          //
 //////////////////////////////////////////

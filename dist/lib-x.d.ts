@@ -1,26 +1,38 @@
-//! lib-x.js ~ web-ignition v1.4.2 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.3 ~ github.com/center-key/web-ignition ~ MIT License
 
 /// <reference types="jquery" />
 declare global {
     interface JQuery {
-        id: (name?: string | number) => JQuery;
+        id: (name?: string | number) => string | undefined | JQuery;
         enable: (setOn?: boolean) => JQuery;
         disable: (setOff?: boolean) => JQuery;
         findAll: (selector: string) => JQuery;
     }
 }
-declare type LibXObject = Record<string, unknown>;
-declare type LibXUiPopupOptions = {
+export declare type Json = string | number | boolean | null | undefined | Json[] | {
+    [key: string]: Json;
+};
+export declare type JsonObject = {
+    [key: string]: Json;
+};
+export declare type JsonArray = Json[];
+export declare type JsonData = JsonObject | JsonArray;
+export declare type LibXObject = {
+    [key: string]: unknown;
+};
+export declare type LibXUiPopupOptions = {
     width?: number;
     height?: number;
 };
-declare type LibXCryptoHashOptions = {
+export declare type LibXCryptoHashOptions = {
     algorithm?: string;
     salt?: string;
 };
-declare type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
-declare type LibXCounterMap = Record<string, number>;
-declare type LibXSocialButton = {
+export declare type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
+export declare type LibXCounterMap = {
+    [counter: string]: number;
+};
+export declare type LibXSocialButton = {
     title: string;
     icon: string;
     x: number;
@@ -60,7 +72,7 @@ declare const libX: {
         hash(message: string, options?: LibXCryptoHashOptions | undefined): Promise<string>;
     };
     storage: {
-        dbSave(key: string, obj: Record<string, unknown>): LibXObject;
+        dbSave(key: string, obj: LibXObject): LibXObject;
         dbRead(key: string): LibXObject;
         sessionSave(key: string, obj: LibXObject): LibXObject;
         sessionRead(key: string): LibXObject;
