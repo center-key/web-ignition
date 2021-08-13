@@ -4,16 +4,15 @@
    "version": "1.4.2",
    "license": "MIT",
    "type": "module",
-   "module": "dist/lib-x.esm.js",
+   "module": "dist/lib-x.js",
    "jsdelivr": "dist/lib-x.min.js",
-   "main": "dist/lib-x.js",
    "style": "dist/reset.min.css",
    "types": "dist/lib-x.d.ts",
    "files": [
       "dist"
    ],
    "exports": {
-      ".": "./dist/lib-x.esm.js",
+      ".": "./dist/lib-x.js",
       "./": "./dist/"
    },
    "repository": "github:center-key/web-ignition",
@@ -70,8 +69,8 @@
       "test": "npm-run-all step:*"
    },
    "dependencies": {
-      "dna.js": "~1.8",
-      "fetch-json": "~2.5",
+      "dna.js": "~1.9",
+      "fetch-json": "~2.6",
       "highlight.js": "~11.2",
       "hljs-enhance": "~1.0",
       "jquery": "~3.6"
@@ -81,7 +80,7 @@
       "@babel/preset-env": "~7.15",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
-      "@types/node": "~16.4",
+      "@types/node": "~16.6",
       "@typescript-eslint/eslint-plugin": "~4.29",
       "@typescript-eslint/parser": "~4.29",
       "babel-minify": "~0.5",
