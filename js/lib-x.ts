@@ -8,16 +8,18 @@ import { dna, DnaCallback } from 'dna.js';
 
 declare global {
    interface JQuery {
-      id:      (name?: string | number) => string | undefined | JQuery,
-      enable:  (setOn?: boolean) =>        JQuery,
-      disable: (setOff?: boolean) =>       JQuery,
-      findAll: (selector: string) =>       JQuery,
+      id:      (name?: string | number) =>  JQuery | string | undefined,
+      enable:  (setOn?: boolean) =>         JQuery,
+      disable: (setOff?: boolean) =>        JQuery,
+      findAll: (selector: string) =>        JQuery,
+      forEach: (fn: LibXForEachCallback) => JQuery,
       }
    }
-export type Json = string | number | boolean | null | undefined | Json[] | { [key: string]: Json };
+export type Json =       string | number | boolean | null | undefined | Json[] | { [key: string]: Json };
 export type JsonObject = { [key: string]: Json };
-export type JsonArray = Json[];
-export type JsonData = JsonObject | JsonArray;
+export type JsonArray =  Json[];
+export type JsonData =   JsonObject | JsonArray;
+export type LibXForEachCallback =   (elem: JQuery, index: number) => void;
 export type LibXObject =            { [key: string]: unknown };
 export type LibXUiPopupOptions =    { width?: number, height?: number };
 export type LibXCryptoHashOptions = { algorithm?: string, salt?: string };
@@ -52,6 +54,13 @@ const libXUi = {
          const elem = <JQuery><unknown>this;
          return elem.find(selector).addBack(selector);
          },
+      forEach: function(fn: LibXForEachCallback): JQuery {
+         // Usage:
+         //    const addRandomNumber = (elem) => elem.text(Math.random());
+         //    elems.forEach(addRandomNumber).fadeIn();
+         const elems = <JQuery><unknown>this;
+         return elems.each((index, node) => fn($(node), index));
+         },
       },
    toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery): JQuery {
       // A flexible way to get the jQuery element whether it is passed in directly, is a DOM node,
@@ -65,10 +74,10 @@ const libXUi = {
       //    <i data-icon=home></i>
       // Usage with dna.js:
       //    <i data-attr-data-icon=~~icon~~></i>
-      const makeIcon =  (node: HTMLElement) => $(node).addClass('fa-' + $(node).data().icon);
-      const makeBrand = (node: HTMLElement) => $(node).addClass('fa-' + $(node).data().brand);
-      holder['findAll']('i[data-icon]').addClass( 'font-icon fas').toArray().forEach(makeIcon);
-      holder['findAll']('i[data-brand]').addClass('font-icon fab').toArray().forEach(makeBrand);
+      const makeIcon = (elem: JQuery) => elem.addClass('fa2-' + elem.data().icon);
+      const makeBrand = (elem: JQuery) => elem.addClass('fa2-' + elem.data().brand);
+      holder['findAll']('i[data-icon]').addClass( 'font-icon fas').forEach(makeIcon);
+      holder['findAll']('i[data-brand]').addClass('font-icon fab').forEach(makeBrand);
       return holder;
       },
    normalize(holder?: JQuery): JQuery {
@@ -86,12 +95,9 @@ const libXUi = {
       // Usage:
       //    <p class=display-addr data-name=sales data-domain=ibm.com></p>
       const elems = $('.display-addr');
-      const display = (node: HTMLElement) => {
-         const data = $(node).data();
-         $(node).html(data.name + '<span>' + String.fromCharCode(64) + data.domain + '</span>');
-         };
-      elems.toArray().forEach(display);
-      return elems;
+      const display = (elem: JQuery) =>
+         elem.html(elem.data().name + '<span>' + String.fromCharCode(64) + elem.data().domain + '</span>');
+      return elems.forEach(display);
       },
    popup(url: string, options?: LibXUiPopupOptions): Window | null {
       const defaults = { width: 600, height: 400 };
@@ -147,17 +153,16 @@ const libXUi = {
       img.src = url;
       return elem;
       },
-   setupVideos(): void {
+   setupVideos(): JQuery {
       // <figure class=video-container>
       //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
       // </figure>
-      const makeVideoClickable = (node: HTMLElement) => {
-         const elem = $(node);
+      const makeVideoClickable = (elem: JQuery) => {
          const url = <string>elem.find('iframe').attr('src');
          elem.attr('data-href', url.replace('//www.youtube.com/embed', '//youtu.be'));
          };
-      $('figure.video-container-link').toArray().forEach(makeVideoClickable);
-      $('figure.video-container iframe').attr({ allow: 'fullscreen' });
+      $('figure.video-container-link').forEach(makeVideoClickable);
+      return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
       },
    setupForkMe(): JQuery {
       // <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
@@ -446,6 +451,7 @@ const libX = {
       $.fn.enable =  libX.ui.plugin.enable;
       $.fn.disable = libX.ui.plugin.disable;
       $.fn.findAll = libX.ui.plugin.findAll;
+      $.fn.forEach = libX.ui.plugin.forEach;
       libX.social.setup();
       libX.ui.setupForkMe();
       dna.registerInitializer(<DnaCallback>libX.ui.normalize);
