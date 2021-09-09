@@ -1,22 +1,21 @@
-//! lib-x.js ~ web-ignition v1.4.3 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.4 ~ github.com/center-key/web-ignition ~ MIT License
 
 /// <reference types="jquery" />
 declare global {
     interface JQuery {
-        id: (name?: string | number) => string | undefined | JQuery;
+        id: (name?: string | number) => JQuery | string | undefined;
         enable: (setOn?: boolean) => JQuery;
         disable: (setOff?: boolean) => JQuery;
         findAll: (selector: string) => JQuery;
+        forEach: (fn: LibXForEachCallback) => JQuery;
     }
 }
-export declare type Json = string | number | boolean | null | undefined | Json[] | {
-    [key: string]: Json;
-};
+export declare type Json = string | number | boolean | null | undefined | JsonObject | Json[];
 export declare type JsonObject = {
     [key: string]: Json;
 };
-export declare type JsonArray = Json[];
-export declare type JsonData = JsonObject | JsonArray;
+export declare type JsonData = JsonObject | Json[];
+export declare type LibXForEachCallback = (elem: JQuery, index: number) => void;
 export declare type LibXObject = {
     [key: string]: unknown;
 };
@@ -47,6 +46,7 @@ declare const libX: {
             enable: (setOn?: boolean | undefined) => JQuery;
             disable: (setOff?: boolean | undefined) => JQuery;
             findAll: (selector: string) => JQuery;
+            forEach: (fn: LibXForEachCallback) => JQuery;
         };
         toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery<HTMLElement> | undefined): JQuery;
         makeIcons(holder: JQuery): JQuery;
@@ -58,7 +58,7 @@ declare const libX: {
         keepOnScreen(elem: JQuery, padding?: number): JQuery;
         autoDisableButtons(): void;
         loadImageFadeIn(elem: JQuery, url: string, duration?: number | undefined): JQuery;
-        setupVideos(): void;
+        setupVideos(): JQuery;
         setupForkMe(): JQuery;
     };
     util: {

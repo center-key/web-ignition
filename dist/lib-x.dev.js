@@ -1,4 +1,4 @@
-//! lib-x.js ~ web-ignition v1.4.3 ~ github.com/center-key/web-ignition ~ MIT License
+//! lib-x.js ~ web-ignition v1.4.4 ~ github.com/center-key/web-ignition ~ MIT License
 
 const libXUi = {
     plugin: {
@@ -18,6 +18,10 @@ const libXUi = {
             const elem = this;
             return elem.find(selector).addBack(selector);
         },
+        forEach: function (fn) {
+            const elems = this;
+            return elems.each((index, node) => fn($(node), index));
+        },
     },
     toElem(elemOrNodeOrEventOrIndex, that) {
         const elem = elemOrNodeOrEventOrIndex instanceof $ && elemOrNodeOrEventOrIndex;
@@ -25,10 +29,10 @@ const libXUi = {
         return elem || $(target || elemOrNodeOrEventOrIndex || that);
     },
     makeIcons(holder) {
-        const makeIcon = (node) => $(node).addClass('fa-' + $(node).data().icon);
-        const makeBrand = (node) => $(node).addClass('fa-' + $(node).data().brand);
-        holder['findAll']('i[data-icon]').addClass('font-icon fas').toArray().forEach(makeIcon);
-        holder['findAll']('i[data-brand]').addClass('font-icon fab').toArray().forEach(makeBrand);
+        const makeIcon = (elem) => elem.addClass('fa-' + elem.data().icon);
+        const makeBrand = (elem) => elem.addClass('fa-' + elem.data().brand);
+        holder['findAll']('i[data-icon]').addClass('font-icon fas').forEach(makeIcon);
+        holder['findAll']('i[data-brand]').addClass('font-icon fab').forEach(makeBrand);
         return holder;
     },
     normalize(holder) {
@@ -44,12 +48,8 @@ const libXUi = {
     },
     displayAddr() {
         const elems = $('.display-addr');
-        const display = (node) => {
-            const data = $(node).data();
-            $(node).html(data.name + '<span>' + String.fromCharCode(64) + data.domain + '</span>');
-        };
-        elems.toArray().forEach(display);
-        return elems;
+        const display = (elem) => elem.html(elem.data().name + '<span>' + String.fromCharCode(64) + elem.data().domain + '</span>');
+        return elems.forEach(display);
     },
     popup(url, options) {
         const defaults = { width: 600, height: 400 };
@@ -98,13 +98,12 @@ const libXUi = {
         return elem;
     },
     setupVideos() {
-        const makeVideoClickable = (node) => {
-            const elem = $(node);
+        const makeVideoClickable = (elem) => {
             const url = elem.find('iframe').attr('src');
             elem.attr('data-href', url.replace('//www.youtube.com/embed', '//youtu.be'));
         };
-        $('figure.video-container-link').toArray().forEach(makeVideoClickable);
-        $('figure.video-container iframe').attr({ allow: 'fullscreen' });
+        $('figure.video-container-link').forEach(makeVideoClickable);
+        return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
     },
     setupForkMe() {
         const forkMe = $('#fork-me').removeAttr('id').wrap($('<div id=fork-me>'));
@@ -198,7 +197,8 @@ const libXCounter = {
 };
 const libXBrowser = {
     macOS() {
-        return /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor);
+        const agent = window.navigator.userAgent;
+        return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
     },
     iOS() {
         const iDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
@@ -324,7 +324,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.4.3',
+    version: '1.4.4',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
@@ -343,6 +343,7 @@ const libX = {
         $.fn.enable = libX.ui.plugin.enable;
         $.fn.disable = libX.ui.plugin.disable;
         $.fn.findAll = libX.ui.plugin.findAll;
+        $.fn.forEach = libX.ui.plugin.forEach;
         libX.social.setup();
         libX.ui.setupForkMe();
         dna.registerInitializer(libX.ui.normalize);
