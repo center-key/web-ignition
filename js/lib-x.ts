@@ -73,8 +73,8 @@ const libXUi = {
       //    <i data-icon=home></i>
       // Usage with dna.js:
       //    <i data-attr-data-icon=~~icon~~></i>
-      const makeIcon = (elem: JQuery) => elem.addClass('fa2-' + elem.data().icon);
-      const makeBrand = (elem: JQuery) => elem.addClass('fa2-' + elem.data().brand);
+      const makeIcon =  (elem: JQuery) => elem.addClass('fa-' + elem.data().icon);
+      const makeBrand = (elem: JQuery) => elem.addClass('fa-' + elem.data().brand);
       holder['findAll']('i[data-icon]').addClass( 'font-icon fas').forEach(makeIcon);
       holder['findAll']('i[data-brand]').addClass('font-icon fab').forEach(makeBrand);
       return holder;
