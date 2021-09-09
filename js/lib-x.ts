@@ -15,10 +15,9 @@ declare global {
       forEach: (fn: LibXForEachCallback) => JQuery,
       }
    }
-export type Json =       string | number | boolean | null | undefined | Json[] | { [key: string]: Json };
+export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
-export type JsonArray =  Json[];
-export type JsonData =   JsonObject | JsonArray;
+export type JsonData =   JsonObject | Json[];
 export type LibXForEachCallback =   (elem: JQuery, index: number) => void;
 export type LibXObject =            { [key: string]: unknown };
 export type LibXUiPopupOptions =    { width?: number, height?: number };
@@ -279,7 +278,8 @@ const libXCounter = {
 
 const libXBrowser = {
    macOS(): boolean {
-      return /Mac/.test(window.navigator.platform) && /Apple/.test(window.navigator.vendor);
+      const agent = window.navigator.userAgent;
+      return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
       },
    iOS(): boolean {
       const iDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
@@ -455,7 +455,8 @@ const libX = {
       libX.social.setup();
       libX.ui.setupForkMe();
       dna.registerInitializer(<DnaCallback>libX.ui.normalize);
-      const clickAndTap = (callback: (event: JQuery.EventBase) => void) => ({ click: callback, touchstart: callback });
+      const clickAndTap = (callback: (event: JQuery.EventBase) => void) =>
+         ({ click: callback, touchstart: callback });
       const onLoadSetup = () => {
          libX.ui.displayAddr();
          libX.ui.setupVideos();
