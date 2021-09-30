@@ -432,7 +432,7 @@ const libXExtra = {
    };
 
 const libX = {
-   version:    '[VERSION]',
+   version:    '~~~version~~~',
    ui:         libXUi,
    util:       libXUtil,
    crypto:     libXCrypto,
