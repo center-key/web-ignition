@@ -2,19 +2,23 @@
 // Gulp tasks
 
 // Imports
-import babel           from 'gulp-babel';
-import css             from 'gulp-postcss';
-import cssFontMagician from 'postcss-font-magician';
-import cssNano         from 'cssnano';
-import cssPresetEnv    from 'postcss-preset-env';
-import gap             from 'gulp-append-prepend';
-import gulp            from 'gulp';
-import less            from 'gulp-less';
-import rename          from 'gulp-rename';
-import replace         from 'gulp-replace';
-import size            from 'gulp-size';
+import { readFileSync } from 'fs';
+import babel            from 'gulp-babel';
+import css              from 'gulp-postcss';
+import cssFontMagician  from 'postcss-font-magician';
+import cssNano          from 'cssnano';
+import cssPresetEnv     from 'postcss-preset-env';
+import gap              from 'gulp-append-prepend';
+import gulp             from 'gulp';
+import less             from 'gulp-less';
+import rename           from 'gulp-rename';
+import replace          from 'gulp-replace';
+import size             from 'gulp-size';
 
 // Setup
+const pkg =           JSON.parse(readFileSync('package.json', 'utf8'));
+const minorVersion =  pkg.version.split('.').slice(0, 2).join('.');
+const version =       (name) => pkg.dependencies[name].split('~')[1];
 const transpileES6 =  ['@babel/env', { modules: false }];
 const babelMinifyJs = { presets: [transpileES6, 'minify'], comments: false };
 const cssPlugins = [
@@ -45,6 +49,10 @@ const task = {
          .pipe(rename('blogger-tweaks.min.css'))
          .pipe(gap.appendText('\n'))
          .pipe(gap.appendFile('css/blogger-tweaks/instructions.css'))
+         .pipe(replace('[DNAJS]',        version('dna.js')))
+         .pipe(replace('[HIGHLIGHTJS]',  version('highlight.js')))
+         .pipe(replace('[HLJS-ENHANCE]', version('hljs-enhance')))
+         .pipe(replace('[WEB-IGNITION]', minorVersion))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build'));

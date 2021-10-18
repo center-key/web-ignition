@@ -78,7 +78,7 @@
    "dependencies": {
       "dna.js": "~1.9",
       "fetch-json": "~2.6",
-      "highlight.js": "~11.2",
+      "highlight.js": "~11.3",
       "hljs-enhance": "~1.0",
       "jquery": "~3.6"
    },
