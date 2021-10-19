@@ -19,6 +19,10 @@ import size             from 'gulp-size';
 const pkg =           JSON.parse(readFileSync('package.json', 'utf8'));
 const minorVersion =  pkg.version.split('.').slice(0, 2).join('.');
 const version =       (name) => pkg.dependencies[name].split('~')[1];
+const version1 =      replace('[DNAJS]',        version('dna.js'));
+const version2 =      replace('[HIGHLIGHTJS]',  version('highlight.js'));
+const version3 =      replace('[HLJS-ENHANCE]', version('hljs-enhance'));
+const version4 =      replace('[WEB-IGNITION]', minorVersion);
 const transpileES6 =  ['@babel/env', { modules: false }];
 const babelMinifyJs = { presets: [transpileES6, 'minify'], comments: false };
 const cssPlugins = [
@@ -42,6 +46,13 @@ const task = {
          .pipe(gulp.dest('build'));
       },
 
+   buildLayoutsCss() {
+      return gulp.src('css/layouts/*.css')
+         .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
+         .pipe(size({ showFiles: true }))
+         .pipe(gulp.dest('build/layouts'));
+      },
+
    buildBloggerCss() {
       return gulp.src('css/blogger-tweaks/style.less')
          .pipe(less())
@@ -49,10 +60,7 @@ const task = {
          .pipe(rename('blogger-tweaks.min.css'))
          .pipe(gap.appendText('\n'))
          .pipe(gap.appendFile('css/blogger-tweaks/instructions.css'))
-         .pipe(replace('[DNAJS]',        version('dna.js')))
-         .pipe(replace('[HIGHLIGHTJS]',  version('highlight.js')))
-         .pipe(replace('[HLJS-ENHANCE]', version('hljs-enhance')))
-         .pipe(replace('[WEB-IGNITION]', minorVersion))
+         .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build'));
@@ -85,6 +93,7 @@ const task = {
 
 // Gulp
 gulp.task('build-reset-css',   task.buildResetCss);
+gulp.task('build-layouts-css', task.buildLayoutsCss);
 gulp.task('build-blogger-css', task.buildBloggerCss);
 gulp.task('build-layouts-js',  task.buildLayoutsJs);
 gulp.task('build-lib-js',      task.buildLibJs);

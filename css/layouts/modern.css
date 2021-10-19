@@ -1,8 +1,8 @@
 /*
 Modern layout -- Clean blog post page
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/modern.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/layouts/modern.css>
 HTML (<body>):
    header
       figure
