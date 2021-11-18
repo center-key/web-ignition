@@ -97,6 +97,7 @@ main >div >section >fieldset {
    border: 1px solid;
    border-color: inherit;
    border-radius: 2px;
+   padding: 10px;
    margin-bottom: 1em;
    }
 main >div >section >fieldset >legend {
