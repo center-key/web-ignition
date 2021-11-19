@@ -72,9 +72,12 @@ releaseInstructions() {
 
 updateCdnVersion() {
    cd $projectHome
+   echo "Update CDN version:"
    updateVersion="s|web-ignition@[.0-9]*|web-ignition@$minorVersion|"
    sed -i "" $updateVersion README.md
-   find css -name "*.html" -o -name "*.css" | xargs sed -i "" $updateVersion
+   find css -name "*.html"
+   find css -name "*.html" | xargs sed -i "" $updateVersion
+   echo
    }
 
 runSpecs() {
