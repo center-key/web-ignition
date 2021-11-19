@@ -1,6 +1,5 @@
-//! web-ignition v1.4.5 ~ https://github.com/center-key/web-ignition ~ MIT License
+//! web-ignition v1.4.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
-/// <reference types="jquery" />
 declare global {
     interface JQuery {
         id: (name?: string | number) => JQuery | string | undefined;
