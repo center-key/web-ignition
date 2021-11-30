@@ -6,6 +6,9 @@
 
 banner="web-ignition"
 projectHome=$(cd $(dirname $0); pwd)
+apacheCfg=/usr/local/etc/httpd
+apacheLog=/usr/local/var/log/httpd/error_log
+webDocRoot=$(grep ^DocumentRoot $apacheCfg/httpd.conf | awk -F'"' '{ print $2 }')
 
 setupTools() {
    cd $projectHome
@@ -89,8 +92,7 @@ runSpecs() {
 
 publishWebFiles() {
    cd $projectHome
-   publishWebRoot=$(grep ^DocumentRoot /private/etc/apache2/httpd.conf | awk -F'"' '{ print $2 }')
-   publishSite=$publishWebRoot/centerkey.com
+   publishSite=$webDocRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
    cdnBase=https://cdn.jsdelivr.net/npm/web-ignition@$minorVersion/dist
    githubLayouts=https://github.com/center-key/web-ignition/blob/main/css/layouts
