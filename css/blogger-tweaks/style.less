@@ -65,7 +65,7 @@ body >.viewitem-panel {
    }
 
 .ArticleContent() {
-   .ColoredTable();
+   .LinedTable();
    .OutputBox();
    .StyleTools();
    font-size: 1.2rem;
@@ -173,33 +173,37 @@ body >.viewitem-panel {
       }
    }
 
-.ColoredTable() {
+.LinedTable() {
    table {
       border-collapse: collapse;
-      background-color: lightsteelblue;
-      border: 3px solid lightsteelblue;
       margin-bottom: 20px;
       caption {
+         font-size: 0.9rem;
          font-weight: bold;
+         text-transform: uppercase;
+         letter-spacing: 0.16em;
+         color: dimgray;
+         margin: 0.4rem 0px;
          }
       thead {
-         tr th {
-            text-align: left;
-            color: darkslategray;
-            padding: 4px 10px;
+         tr {
+            border-bottom: 3px solid steelblue;
+            th {
+               text-align: left;
+               word-break: normal;
+               padding: 4px 10px;
+               }
             }
          }
       tbody {
          tr {
-            background-color: whitesmoke;
+            border-bottom: 1px solid steelblue;
             transition: all 400ms;
-            &:nth-child(even) {
-               background-color: ghostwhite;
-               }
             &:hover {
-               background-color: ivory;
+               background-color: aliceblue;
                }
-            th, td {
+            td {
+               vertical-align: top;
                padding: 4px 10px;
                }
             }

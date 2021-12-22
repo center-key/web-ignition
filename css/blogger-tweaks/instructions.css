@@ -1,6 +1,7 @@
 /*
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-    <!-- CUSTOMIZE: Blogger > Theme > Edit HTML > insert into <head> section -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Usage: blogger.com > Theme > CUSTOMIZE: Edit HTML > insert code at bottom -->
+    <!--      of <head> section > update the 4 placeholders with real values       -->
     <meta content='[SHORT-BLOG-NAME]' name='apple-mobile-web-app-title'/>
     <link href='[URL-FOR-bookmark.png]' rel='icon'/>
     <link href='[URL-FOR-mobile-home-screen.png]' rel='apple-touch-icon'/>
@@ -13,7 +14,7 @@
     <script src='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/lib-x.min.js'></script>
     <script>libX.extra.blogger('[WEBSITE-URL]');</script>
-    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 */
 
 /* See blog template: https://centerkey.com/web-ignition/blogger-tweaks.html */
