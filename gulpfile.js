@@ -89,6 +89,17 @@ const task = {
          .pipe(gulp.dest('build'));
       },
 
+   customizeBlogger() {
+      return gulp.src('build/blogger-tweaks.min.css')
+         .pipe(rename('custom.css'))
+         .pipe(replace('[SHORT-BLOG-NAME]',                'Dem\'s Blog'))
+         .pipe(replace('[URL-FOR-bookmark.png]',           'https://centerkey.com/graphics/bookmark.png'))
+         .pipe(replace('[URL-FOR-mobile-home-screen.png]', 'https://centerkey.com/graphics/mobile-home-screen.png'))
+         .pipe(replace('[WEBSITE-URL]',                    'https://centerkey.com/dem'))
+         .pipe(size({ showFiles: true }))
+         .pipe(gulp.dest('build'));
+      },
+
    };
 
 // Gulp
@@ -97,3 +108,4 @@ gulp.task('build-layouts-css', task.buildLayoutsCss);
 gulp.task('build-blogger-css', task.buildBloggerCss);
 gulp.task('build-layouts-js',  task.buildLayoutsJs);
 gulp.task('build-lib-js',      task.buildLibJs);
+gulp.task('customize-blogger', task.customizeBlogger);
