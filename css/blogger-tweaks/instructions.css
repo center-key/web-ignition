@@ -1,8 +1,21 @@
 /*
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- Usage: blogger.com > Theme > CUSTOMIZE: Edit HTML > insert code at bottom -->
-    <!--      of <head> section > update the 4 placeholders with real values       -->
-    <meta content='[SHORT-BLOG-NAME]' name='apple-mobile-web-app-title'/>
+    <!--      of <head> section > update the 5 placeholders with real values       -->
+    <!-- Preview tweet before publishing: https://cards-dev.twitter.com/validator  -->
+    <meta content='[SHORT-BLOG-NAME]'            name='apple-mobile-web-app-title'/>
+    <meta content='summary_large_image'          name='twitter:card'/>
+    <meta content='@[TWITTER-USERNAME]'          name='twitter:site'/>
+    <meta content='@[TWITTER-USERNAME]'          name='twitter:creator'/>
+    <meta expr:content='data:blog.pageName'      name='twitter:title'/>
+    <meta expr:content='data:blog.title'         name='twitter:description'/>
+    <meta expr:content='data:post.firstImageUrl' name='twitter:image'/>
+    <meta content='Picture lead'                 name='twitter:image:alt'/>
+    <meta content='website'                      property='og:type'/>
+    <meta expr:content='data:blog.pageName'      property='og:title'/>
+    <meta expr:content='data:blog.title'         property='og:description'/>
+    <meta expr:content='data:post.firstImageUrl' property='og:image'/>
+    <meta content='Picture lead'                 property='og:image:alt'/>
     <link href='[URL-FOR-bookmark.png]' rel='icon'/>
     <link href='[URL-FOR-mobile-home-screen.png]' rel='apple-touch-icon'/>
     <link href='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.css' rel='stylesheet'/>
@@ -13,7 +26,7 @@
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/lib-x.min.js'></script>
-    <script>libX.extra.blogger('[WEBSITE-URL]');</script>
+    <script>libX.extra.blogger('[AUTHORS-URL]');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 */
 

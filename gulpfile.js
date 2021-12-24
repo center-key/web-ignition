@@ -91,11 +91,12 @@ const task = {
 
    customizeBlogger() {
       return gulp.src('build/blogger-tweaks.min.css')
-         .pipe(rename('custom.css'))
-         .pipe(replace('[SHORT-BLOG-NAME]',                'Dem\'s Blog'))
+         .pipe(rename('blogger-tweaks-custom.css'))
+         .pipe(replace('[SHORT-BLOG-NAME]',                'Dem&apos;s Blog'))
          .pipe(replace('[URL-FOR-bookmark.png]',           'https://centerkey.com/graphics/bookmark.png'))
          .pipe(replace('[URL-FOR-mobile-home-screen.png]', 'https://centerkey.com/graphics/mobile-home-screen.png'))
-         .pipe(replace('[WEBSITE-URL]',                    'https://centerkey.com/dem'))
+         .pipe(replace('[AUTHORS-URL]',                    'https://centerkey.com/dem'))
+         .pipe(replace('[TWITTER-USERNAME]',               'DemPilafian'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build'));
       },
