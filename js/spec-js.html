@@ -157,7 +157,7 @@
    const handleHash = (container) => (hash) => container.find('output').text(hash);
    const hashIt = (elem) => libX.crypto.hash(elem.val()).then(handleHash(elem.closest('div')));
    const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
-   const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash ' + hash); });
+   const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash: ' + hash); });
    libX.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
 </script>
 </body>
