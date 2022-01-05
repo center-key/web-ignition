@@ -78,8 +78,8 @@ updateCdnVersion() {
    echo "Update CDN version:"
    updateVersion="s|web-ignition@[.0-9]*|web-ignition@$minorVersion|"
    sed -i "" $updateVersion README.md
-   find css -name "*.html"
-   find css -name "*.html" | xargs sed -i "" $updateVersion
+   find src/css -name "*.html"
+   find src/css -name "*.html" | xargs sed -i "" $updateVersion
    echo
    }
 
@@ -100,9 +100,9 @@ publishWebFiles() {
       echo "Publishing:"
       echo $publishFolder
       mkdir -p $publishFolder/layouts
-      cp -v css/*.html js/*.html         $publishFolder
-      cp -v css/layouts/*.html           $publishFolder/layouts
-      cp -v css/blogger-tweaks/spec.html $publishFolder/blogger-tweaks.html
+      cp -v src/css/*.html src/js/*.html     $publishFolder
+      cp -v src/css/layouts/*.html           $publishFolder/layouts
+      cp -v src/css/blogger-tweaks/spec.html $publishFolder/blogger-tweaks.html
       sed -E -i "" "s#[.][.]/dist#$cdnBase#g"                              $publishFolder/spec-*.html
       sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
       sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/layouts/*.html
@@ -118,13 +118,13 @@ publishWebFiles() {
 openWebPage() {
    cd $projectHome
    echo "Opening:"
-   echo "   css/spec-css.html"
-   echo "   js/spec-js.html"
-   echo "   css/layouts.html"
+   echo "   src/css/spec-css.html"
+   echo "   src/js/spec-js.html"
+   echo "   src/css/layouts.html"
    sleep 2
-   open css/spec-css.html
-   open js/spec-js.html
-   open css/layouts.html
+   open src/css/spec-css.html
+   open src/js/spec-js.html
+   open src/css/layouts.html
    echo
    }
 

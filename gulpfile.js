@@ -35,31 +35,31 @@ const cssPlugins = [
 const task = {
 
    buildResetCss() {
-      return gulp.src('css/reset.less')
+      return gulp.src('src/css/reset.less')
          .pipe(less())
          .pipe(size({ showFiles: true, gzip: true }))  //workaround to prevent "Error: read ECONNRESET" (revisit with Gulp v5.0)
          .pipe(css(cssPlugins))
          .pipe(rename({ extname: '.min.css' }))
-         .pipe(gap.appendFile('css/reset-color-overrides.css'))
+         .pipe(gap.appendFile('src/css/reset-color-overrides.css'))
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build'));
       },
 
    buildLayoutsCss() {
-      return gulp.src('css/layouts/*.css')
+      return gulp.src('src/css/layouts/*.css')
          .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build/layouts'));
       },
 
    buildBloggerCss() {
-      return gulp.src('css/blogger-tweaks/style.less')
+      return gulp.src('src/css/blogger-tweaks/style.less')
          .pipe(less())
          .pipe(css(cssPlugins))
          .pipe(rename('blogger-tweaks.min.css'))
          .pipe(gap.appendText('\n'))
-         .pipe(gap.appendFile('css/blogger-tweaks/instructions.css'))
+         .pipe(gap.appendFile('src/css/blogger-tweaks/instructions.css'))
          .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
          .pipe(gap.appendText('\n'))
          .pipe(size({ showFiles: true }))
@@ -67,7 +67,7 @@ const task = {
       },
 
    buildLayoutsJs() {
-      return gulp.src('css/layouts/*.js')
+      return gulp.src('src/css/layouts/*.js')
          .pipe(babel(babelMinifyJs))
          .pipe(rename({ extname: '.min.js' }))
          .pipe(gap.appendText('\n'))
