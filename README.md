@@ -6,7 +6,7 @@ _Start a fire_
 [![License:MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/center-key/web-ignition/blob/main/LICENSE.txt)
 [![npm](https://img.shields.io/npm/v/web-ignition.svg)](https://www.npmjs.com/package/web-ignition)
 [![Vulnerabilities](https://snyk.io/test/github/center-key/web-ignition/badge.svg)](https://snyk.io/test/github/center-key/web-ignition)
-[![Build](https://github.com/center-key/web-ignition/workflows/build/badge.svg)](https://github.com/center-key/web-ignition/actions?query=workflow%3Abuild)
+[![Build](https://github.com/center-key/web-ignition/workflows/build/badge.svg)](https://github.com/center-key/web-ignition/actions/workflows/run-spec-on-push.yaml)
 [![Hits](https://data.jsdelivr.com/v1/package/npm/web-ignition/badge?style=rounded)](https://www.jsdelivr.com/package/npm/web-ignition)
 
 KISS!

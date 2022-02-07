@@ -84,7 +84,7 @@
       "jquery": "~3.6"
    },
    "devDependencies": {
-      "@babel/core": "~7.16",
+      "@babel/core": "~7.17",
       "@babel/preset-env": "~7.16",
       "@fortawesome/fontawesome-free": "~5.15",
       "@types/jquery": "~3.5",
