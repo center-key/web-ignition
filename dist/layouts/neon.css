@@ -1,12 +1,12 @@
-/*! web-ignition v1.4.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Neon layout -- For hackers and space junkies
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/neon.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/layouts/neon.css>
    ...
-   <script src=https://cdn.jsdelivr.net/npm/web-ignition@1.4/dist/layouts/neon.min.js></script>
+   <script src=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/layouts/neon.min.js></script>
 HTML (<body>):
    header
       h1, h2, h3, h4
