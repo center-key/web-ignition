@@ -157,8 +157,9 @@ const libXUi = {
       //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
       // </figure>
       const makeVideoClickable = (elem: JQuery) => {
-         const url = <string>elem.find('iframe').attr('src');
-         elem.attr('data-href', url.replace('//www.youtube.com/embed', '//youtu.be'));
+         const src = <string>elem.find('iframe').attr('src');
+         const url = src.replace('//www.youtube.com/embed', '//youtu.be');
+         elem.attr('data-href', url).addClass('external-site');
          };
       $('figure.video-container-link').forEach(makeVideoClickable);
       return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
