@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.5.0",
+   "version": "1.5.1",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",
@@ -95,7 +95,7 @@
       "babel-minify": "~0.5",
       "cpy-cli": "~3.1",
       "cssnano": "~5.0",
-      "eslint": "~8.9",
+      "eslint": "~8.10",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
       "gulp-babel": "~8.0",

@@ -1,4 +1,4 @@
-//! web-ignition v1.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXUi = {
     plugin: {
@@ -68,11 +68,21 @@ const libXUi = {
         dna.ui.slideFadeOut(button);
         return dna.ui.slideFadeIn(target);
     },
-    keepOnScreen(elem, padding = 10) {
-        const gap = elem.offset().left;
-        const moveR = Math.max(-gap, -padding) + padding;
-        const moveL = Math.max(gap + elem.width() - $(window).width(), -padding) + padding;
-        return elem.css({ left: '+=' + (moveR - moveL) + 'px' });
+    keepOnScreen(elem, options) {
+        const defaults = { padding: 10 };
+        const settings = { ...defaults, ...options };
+        const pad = settings.padding;
+        const win = {
+            width: $(window).width(),
+            height: $(window).height(),
+            scroll: $(window).scrollTop(),
+        };
+        const offset = elem.offset();
+        const moveR = Math.max(-offset.left, -pad) + pad;
+        const moveL = Math.max(offset.left + elem.width() - win.width, -pad) + pad;
+        const moveU = Math.min(win.scroll + win.height - offset.top - elem.height() - pad, 0);
+        const moveD = Math.max(moveU, win.scroll - offset.top + pad);
+        return elem.css({ left: `+=${moveR - moveL}px`, top: `+=${moveD}px` });
     },
     autoDisableButtons() {
         const disableButton = (event) => {
@@ -99,8 +109,9 @@ const libXUi = {
     },
     setupVideos() {
         const makeVideoClickable = (elem) => {
-            const url = elem.find('iframe').attr('src');
-            elem.attr('data-href', url.replace('//www.youtube.com/embed', '//youtu.be'));
+            const src = elem.find('iframe').attr('src');
+            const url = src.replace('//www.youtube.com/embed', '//youtu.be');
+            elem.attr('data-href', url).addClass('external-site');
         };
         $('figure.video-container-link').forEach(makeVideoClickable);
         return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
@@ -224,7 +235,7 @@ const libXPopupImage = {
             .append(libX.ui.makeIcons($('<i data-icon=times>')))
             .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
         popup.insertAfter(thumbnail);
-        libX.ui.keepOnScreen(popup, 30).fadeTo('slow', 1);
+        libX.ui.keepOnScreen(popup, { padding: 30 }).fadeTo('slow', 1);
         $(document).on({ [keyUpEventName]: escKeyClose });
     },
 };
@@ -324,7 +335,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.0',
+    version: '1.5.1',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

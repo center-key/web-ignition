@@ -1,4 +1,4 @@
-//! web-ignition v1.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 declare global {
     interface JQuery {
@@ -21,6 +21,9 @@ export declare type LibXObject = {
 export declare type LibXUiPopupOptions = {
     width?: number;
     height?: number;
+};
+export declare type LibXUiKeepOnScreenOptions = {
+    padding?: number;
 };
 export declare type LibXCryptoHashOptions = {
     algorithm?: string;
@@ -54,7 +57,7 @@ declare const libX: {
         popup(url: string, options?: LibXUiPopupOptions | undefined): Window | null;
         popupClick(event: JQuery.EventBase): Window | null;
         revealSection(event: JQuery.EventBase): JQuery;
-        keepOnScreen(elem: JQuery, padding?: number): JQuery;
+        keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions | undefined): JQuery;
         autoDisableButtons(): void;
         loadImageFadeIn(elem: JQuery, url: string, duration?: number | undefined): JQuery;
         setupVideos(): JQuery;
