@@ -18,13 +18,14 @@ declare global {
 export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
 export type JsonData =   JsonObject | Json[];
-export type LibXForEachCallback =   (elem: JQuery, index: number) => void;
-export type LibXObject =            { [key: string]: unknown };
-export type LibXUiPopupOptions =    { width?: number, height?: number };
-export type LibXCryptoHashOptions = { algorithm?: string, salt?: string };
-export type LibXUiEnei =            JQuery | HTMLElement | JQuery.EventBase | number;
-export type LibXCounterMap =        { [counter: string]: number };
-export type LibXSocialButton =      { title: string, icon: string, x: number, y: number, link: string };
+export type LibXForEachCallback =       (elem: JQuery, index: number) => void;
+export type LibXObject =                { [key: string]: unknown };
+export type LibXUiPopupOptions =        { width?: number, height?: number };
+export type LibXUiKeepOnScreenOptions = { padding?: number };
+export type LibXCryptoHashOptions =     { algorithm?: string, salt?: string };
+export type LibXUiEnei =                JQuery | HTMLElement | JQuery.EventBase | number;
+export type LibXCounterMap =            { [counter: string]: number };
+export type LibXSocialButton =          { title: string, icon: string, x: number, y: number, link: string };
 
 const libXUi = {
    plugin: {
@@ -120,17 +121,24 @@ const libXUi = {
       dna.ui.slideFadeOut(button);
       return dna.ui.slideFadeIn(target);
       },
-   keepOnScreen(elem: JQuery, padding = 10): JQuery {  //must be position: absolute with top/left
+   keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions): JQuery {
+      // Moves element if it is off screen so that it becomes visible (element must be
+      // position: absolute with top/left).
+      // Usage:
+      //    libX.ui.keepOnScreen($('#sidebar'), { padding: 30 });
+      const defaults = { padding: 10 };
+      const settings = { ...defaults, ...options };
+      const pad = settings.padding;
       const win = {
          width:  <number>$(window).width(),
          height: <number>$(window).height(),
          scroll: <number>$(window).scrollTop(),
          };
       const offset = <JQuery.Coordinates>elem.offset();
-      const moveR =  Math.max(-offset.left, -padding) + padding;
-      const moveL =  Math.max(offset.left + <number>elem.width() - win.width, -padding) + padding;
-      const moveU =  win.scroll + win.height - offset.top - <number>elem.height() - padding;
-      const moveD =  Math.max(Math.min(moveU, 0), win.scroll - offset.top + padding);
+      const moveR =  Math.max(-offset.left, -pad) + pad;
+      const moveL =  Math.max(offset.left + <number>elem.width() - win.width, -pad) + pad;
+      const moveU =  Math.min(win.scroll + win.height - offset.top - <number>elem.height() - pad, 0);
+      const moveD =  Math.max(moveU, win.scroll - offset.top + pad);
       return elem.css({ left: `+=${moveR - moveL}px`, top: `+=${moveD}px` });
       },
    autoDisableButtons(): void {
@@ -316,7 +324,7 @@ const libXPopupImage = {
          .append(libX.ui.makeIcons($('<i data-icon=times>')))
          .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
       popup.insertAfter(thumbnail);
-      libX.ui.keepOnScreen(popup, 30).fadeTo('slow', 1);
+      libX.ui.keepOnScreen(popup, { padding: 30 }).fadeTo('slow', 1);
       $(document).on({ [keyUpEventName]: escKeyClose });
       },
    };
