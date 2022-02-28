@@ -121,10 +121,17 @@ const libXUi = {
       return dna.ui.slideFadeIn(target);
       },
    keepOnScreen(elem: JQuery, padding = 10): JQuery {  //must be position: absolute with top/left
-      const gap = (<JQuery.Coordinates>elem.offset()).left;
-      const moveR = Math.max(-gap, -padding) + padding;
-      const moveL = Math.max(gap + <number>elem.width() - <number>$(window).width(), -padding) + padding;
-      return elem.css({ left: '+=' + (moveR - moveL) + 'px' });
+      const win = {
+         width:  <number>$(window).width(),
+         height: <number>$(window).height(),
+         scroll: <number>$(window).scrollTop(),
+         };
+      const offset = <JQuery.Coordinates>elem.offset();
+      const moveR =  Math.max(-offset.left, -padding) + padding;
+      const moveL =  Math.max(offset.left + <number>elem.width() - win.width, -padding) + padding;
+      const moveU =  win.scroll + win.height - offset.top - <number>elem.height() - padding;
+      const moveD =  Math.max(Math.min(moveU, 0), win.scroll - offset.top + padding);
+      return elem.css({ left: `+=${moveR - moveL}px`, top: `+=${moveD}px` });
       },
    autoDisableButtons(): void {
       const disableButton = (event: JQuery.EventBase) => {
