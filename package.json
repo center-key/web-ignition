@@ -35,6 +35,7 @@
       "unused": true,
       "browser": true,
       "jquery": true,
+      "mocha": true,
       "node": true,
       "globals": {
          "dna": false
@@ -73,8 +74,9 @@
       "step:11": "add-dist-header build/layouts dist/layouts",
       "step:12": "cpy 'src/css/layouts/neon/*.jpg' dist/layouts/neon",
       "step:13": "gulp customize-blogger",
+      "step:14": "w3c-html-validator",
       "pretest": "npm-run-all step:*",
-      "test": "w3c-html-validator"
+      "test": "mocha spec/*.spec.js"
    },
    "dependencies": {
       "dna.js": "~1.9",
@@ -89,12 +91,13 @@
       "@fortawesome/fontawesome-free": "~6.0",
       "@types/jquery": "~3.5",
       "@types/node": "~17.0",
-      "@typescript-eslint/eslint-plugin": "~5.12",
-      "@typescript-eslint/parser": "~5.12",
+      "@typescript-eslint/eslint-plugin": "~5.13",
+      "@typescript-eslint/parser": "~5.13",
       "add-dist-header": "~0.1",
+      "assert-deep-strict-equal": "~1.0",
       "babel-minify": "~0.5",
       "cpy-cli": "~3.1",
-      "cssnano": "~5.0",
+      "cssnano": "~5.1",
       "eslint": "~8.10",
       "gulp": "~4.0",
       "gulp-append-prepend": "~1.0",
@@ -105,12 +108,13 @@
       "gulp-replace": "~1.1",
       "gulp-size": "~4.0",
       "jshint": "~2.13",
+      "mocha": "~9.2",
       "npm-run-all2": "~5.0",
       "postcss": "~8.4",
       "postcss-font-magician": "~3.0",
       "postcss-preset-env": "~7.4",
       "rimraf": "~3.0",
-      "typescript": "~4.5",
+      "typescript": "~4.6",
       "w3c-html-validator": "~1.0"
    }
 }
