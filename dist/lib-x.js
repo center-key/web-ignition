@@ -1,4 +1,4 @@
-//! web-ignition v1.5.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna.js';
 const libXUi = {
@@ -54,7 +54,7 @@ const libXUi = {
     },
     popup(url, options) {
         const defaults = { width: 600, height: 400 };
-        const settings = { ...defaults, ...options };
+        const settings = Object.assign(Object.assign({}, defaults), options);
         const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
         return window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
     },
@@ -71,7 +71,7 @@ const libXUi = {
     },
     keepOnScreen(elem, options) {
         const defaults = { padding: 10 };
-        const settings = { ...defaults, ...options };
+        const settings = Object.assign(Object.assign({}, defaults), options);
         const pad = settings.padding;
         const win = {
             width: $(window).width(),
@@ -98,7 +98,7 @@ const libXUi = {
     },
     loadImageFadeIn(elem, url, duration) {
         const handleImg = (event) => {
-            elem.fadeIn(duration ?? 1500);
+            elem.fadeIn(duration !== null && duration !== void 0 ? duration : 1500);
             return elem[0].nodeName === 'IMG' ?
                 elem.attr({ src: event.target.src }) :
                 elem.css({ backgroundImage: 'url(' + event.target.src + ')' });
@@ -161,7 +161,7 @@ const libXUtil = {
 const libXCrypto = {
     hash(message, options) {
         const defaults = { algorithm: 'SHA-256', salt: '' };
-        const settings = { ...defaults, ...options };
+        const settings = Object.assign(Object.assign({}, defaults), options);
         const byteArray = new TextEncoder().encode(message + settings.salt);
         const toHex = (byte) => byte.toString(16).padStart(2, '0').slice(-2);
         const handleDigest = (digest) => Array.from(new Uint8Array(digest)).map(toHex).join('');
@@ -336,7 +336,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.1',
+    version: '1.5.2',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
