@@ -427,7 +427,7 @@ const libXSocial = {
 const libXExtra = {
    blogger(websiteUrl: string): JQuery {
       // Setup Blogger's Dynamic Views (sidebar)
-      console.log('Setup for ', websiteUrl);
+      console.log('Setup for:', websiteUrl);
       const onArticleLoad = () => {
          console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
          $('#header >.header-bar h3').attr('data-href', websiteUrl);

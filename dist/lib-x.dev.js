@@ -1,4 +1,4 @@
-//! web-ignition v1.5.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXUi = {
     plugin: {
@@ -318,12 +318,14 @@ const libXSocial = {
 };
 const libXExtra = {
     blogger(websiteUrl) {
+        console.log('Setup for:', websiteUrl);
         const onArticleLoad = () => {
             console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
             $('#header >.header-bar h3').attr('data-href', websiteUrl);
             libX.ui.normalize();
             window['hljsEnhance'].setup();
         };
+        window.setTimeout(libX.ui.normalize, 2000);
         return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
     },
     gTags(scriptTag) {
@@ -335,7 +337,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.2',
+    version: '1.5.3',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
