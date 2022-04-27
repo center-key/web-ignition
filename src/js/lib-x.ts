@@ -427,12 +427,14 @@ const libXSocial = {
 const libXExtra = {
    blogger(websiteUrl: string): JQuery {
       // Setup Blogger's Dynamic Views (sidebar)
+      console.log('Setup for ', websiteUrl);
       const onArticleLoad = () => {
          console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          libX.ui.normalize();
          window['hljsEnhance'].setup();
          };
+      window.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
       return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
       },
    gTags(scriptTag: string): void {
