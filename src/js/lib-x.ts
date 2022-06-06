@@ -403,11 +403,12 @@ const libXSocial = {
       { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
       { title: 'Digg',     icon: 'digg',        x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
-      { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' },
+      { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
       ],
    share(elem: JQuery): Window | null {
       const button = <LibXSocialButton>libX.social.buttons[elem.index()];
-      const insert = (text: string, find: string, value: string): string => text.replace(find, encodeURIComponent(value));
+      const insert = (text: string, find: string, value: string): string =>
+         text.replace(find, encodeURIComponent(value));
       const linkTemp = insert(button.link, '${url}',   window.location.href);
       const link =     insert(linkTemp,    '${title}', window.document.title);
       return libX.ui.popup(link, { width: button.x, height: button.y });
