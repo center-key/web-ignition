@@ -26,6 +26,11 @@ export type LibXCryptoHashOptions =     { algorithm?: string, salt?: string };
 export type LibXUiEnei =                JQuery | HTMLElement | JQuery.EventBase | number;
 export type LibXCounterMap =            { [counter: string]: number };
 export type LibXSocialButton =          { title: string, icon: string, x: number, y: number, link: string };
+export type LibXMontageLoopOptions = {
+   selector?:   string,  //container of <img> elements         (default: '.montage-loop')
+   intervalMs?: number,  //milliseconds between transitions    (default: 10,000)
+   fadeMs?:     number,  //milliseconds to complete transition (default: 3,000)
+   };
 
 const libXUi = {
    plugin: {
@@ -353,6 +358,33 @@ const libXAnimate = {
          };
       elems.css({ opacity: 0 });
       return window.setTimeout(roll, startDelay);
+      },
+   montageLoop(options: LibXMontageLoopOptions): JQuery {
+      // <figure class=montage-loop>
+      //    <img src=image1.jpg>
+      //    <img src=image2.jpg>
+      //    <img src=image3.jpg>
+      // </figure>
+      // Usage:
+      //    libX.animate.montageLoop();
+      const defaults = {
+         selector:   '.montage-loop',  //container of <img> elements
+         intervalMs: 10000,            //10 seconds between transitions
+         fadeMs:     3000,             //3 seconds to complete transition
+         };
+      const settings = { ...defaults, ...options };
+      const imgs =     $(settings.selector).addClass('montage-loop').children('img');
+      if (!imgs.length)
+         console.error('[montage-loop] No images found:', settings.selector);
+      imgs.css({ transition: `all ${settings.fadeMs}ms` });
+      imgs.eq(Date.now() % imgs.length).addClass('current');
+      const nextImage = () => {
+         const previous = imgs.removeClass('previous').filter('.current').addClass('previous');
+         const index =    (previous.index() + 1) % imgs.length;
+         imgs.removeClass('current').eq(index).addClass('current');
+         };
+      window.setInterval(nextImage, settings.intervalMs);
+      return imgs;
       },
    };
 

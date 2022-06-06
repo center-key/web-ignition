@@ -49,6 +49,16 @@
          <code id=account-info-string></code>
       </div>
       <br>
+      <aside class=montage-loop style="width: 150px; height: 250px; padding: 0px;" title="Montage Loop">
+         <img src=../css/layouts/neon/ameba-cdcgov.jpg            alt=montage>
+         <img src=../css/layouts/neon/crystal-nihgov.jpg          alt=montage>
+         <img src=../css/layouts/neon/embryo-nihgov.jpg           alt=montage>
+         <img src=../css/layouts/neon/fruit-fly-science360gov.jpg alt=montage>
+         <img src=../css/layouts/neon/neuroscience-ucdavisedu.jpg alt=montage>
+         <img src=../css/layouts/neon/supernova-nasagov.jpg       alt=montage>
+         <img src=../css/layouts/neon/supernova-shock-lblgov.jpg  alt=montage>
+         <img src=../css/layouts/neon/wind-tunnel-nasagov.jpg     alt=montage>
+      </aside>
       <p class=display-addr data-name=sales data-domain=ibm.com></p>
       <hr>
       <div>
@@ -159,6 +169,7 @@
    const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
    const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash: ' + hash); });
    libX.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
+   libX.animate.montageLoop();
 </script>
 </body>
 </html>

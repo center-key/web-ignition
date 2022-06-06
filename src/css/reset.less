@@ -355,6 +355,27 @@ img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -
 img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
 img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
 
+// Montage Loop
+.montage-loop {
+   position: relative;
+   }
+.montage-loop >img {
+   position: absolute;
+   display: block;
+   object-fit: cover;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   }
+.montage-loop >img.previous {
+   opacity: 1;
+   z-index: 1000;
+   }
+.montage-loop >img.current {
+   opacity: 1;
+   z-index: 2000;
+   }
+
 // Info rollover
 .info-rollover-msg { display: none; }
 
