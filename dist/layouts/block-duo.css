@@ -1,4 +1,4 @@
-/*! web-ignition v1.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Block Duo layout -- Two big columns followed by a single footer
@@ -135,7 +135,7 @@ body >footer >p a i.font-icon {
 /**************************************************************************************************/
 
 /* Block Duo layout -- customize colors */
-main >section:nth-child(1) { color: white;     background-color: steelblue }
+main >section:nth-child(1) { color: white;     background-color: steelblue; }
 main >section:nth-child(2) { color: gainsboro; background-color: black; }
 nav.dna-menu[data-style=flat-tabs]               { background-color: dimgray; }
 nav.dna-menu[data-style=flat-tabs] span.selected { background-color: darkgray; }

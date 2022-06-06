@@ -1,4 +1,4 @@
-//! web-ignition v1.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 declare global {
     interface JQuery {
@@ -40,26 +40,32 @@ export declare type LibXSocialButton = {
     y: number;
     link: string;
 };
+export declare type LibXMontageLoopOptions = {
+    selector?: string;
+    start?: number | null;
+    intervalMs?: number;
+    fadeMs?: number;
+};
 declare const libX: {
     version: string;
     ui: {
         plugin: {
-            id: (name?: string | number | undefined) => string | undefined | JQuery;
-            enable: (setOn?: boolean | undefined) => JQuery;
-            disable: (setOff?: boolean | undefined) => JQuery;
+            id: (name?: string | number) => string | undefined | JQuery;
+            enable: (setOn?: boolean) => JQuery;
+            disable: (setOff?: boolean) => JQuery;
             findAll: (selector: string) => JQuery;
             forEach: (fn: LibXForEachCallback) => JQuery;
         };
-        toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery<HTMLElement> | undefined): JQuery;
+        toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery): JQuery;
         makeIcons(holder: JQuery): JQuery;
-        normalize(holder?: JQuery<HTMLElement> | undefined): JQuery;
+        normalize(holder?: JQuery): JQuery;
         displayAddr(): JQuery;
-        popup(url: string, options?: LibXUiPopupOptions | undefined): Window | null;
+        popup(url: string, options?: LibXUiPopupOptions): Window | null;
         popupClick(event: JQuery.EventBase): Window | null;
         revealSection(event: JQuery.EventBase): JQuery;
-        keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions | undefined): JQuery;
+        keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions): JQuery;
         autoDisableButtons(): void;
-        loadImageFadeIn(elem: JQuery, url: string, duration?: number | undefined): JQuery;
+        loadImageFadeIn(elem: JQuery, url: string, duration?: number): JQuery;
         setupVideos(): JQuery;
         setupForkMe(): JQuery;
     };
@@ -71,7 +77,7 @@ declare const libX: {
         debug(thing: unknown): void;
     };
     crypto: {
-        hash(message: string, options?: LibXCryptoHashOptions | undefined): Promise<string>;
+        hash(message: string, options?: LibXCryptoHashOptions): Promise<string>;
     };
     storage: {
         dbSave(key: string, obj: LibXObject): LibXObject;
@@ -97,9 +103,10 @@ declare const libX: {
     animate: {
         jiggleIt(elemOrEvent: JQuery | JQuery.EventBase): JQuery;
         rollIn(holderOrElems: JQuery): number;
+        montageLoop(options: LibXMontageLoopOptions): JQuery;
     };
     bubbleHelp: {
-        setup(holder?: JQuery<HTMLElement> | undefined): JQuery;
+        setup(holder?: JQuery): JQuery;
     };
     form: {
         perfect(): JQuery;

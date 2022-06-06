@@ -1,4 +1,4 @@
-//! web-ignition v1.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna.js';
 const libXUi = {
@@ -259,6 +259,28 @@ const libXAnimate = {
         elems.css({ opacity: 0 });
         return window.setTimeout(roll, startDelay);
     },
+    montageLoop(options) {
+        var _a;
+        const defaults = {
+            selector: '.montage-loop',
+            start: null,
+            intervalMs: 10000,
+            fadeMs: 3000,
+        };
+        const settings = Object.assign(Object.assign({}, defaults), options);
+        const imgs = $(settings.selector).addClass('montage-loop').children('img');
+        if (!imgs.length)
+            console.error('[montage-loop] No images found:', settings.selector);
+        imgs.css({ transition: `all ${settings.fadeMs}ms` });
+        imgs.eq((_a = settings.start) !== null && _a !== void 0 ? _a : Date.now() % imgs.length).addClass('current');
+        const nextImage = () => {
+            const previous = imgs.removeClass('previous').filter('.current').addClass('previous');
+            const index = (previous.index() + 1) % imgs.length;
+            imgs.removeClass('current').eq(index).addClass('current');
+        };
+        window.setInterval(nextImage, settings.intervalMs);
+        return imgs;
+    },
 };
 const libXBubbleHelp = {
     setup(holder) {
@@ -298,7 +320,7 @@ const libXSocial = {
         { title: 'Facebook', icon: 'facebook-f', x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
         { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
         { title: 'Digg', icon: 'digg', x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
-        { title: 'Reddit', icon: 'reddit', x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}$title=${title}' },
+        { title: 'Reddit', icon: 'reddit', x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
     ],
     share(elem) {
         const button = libX.social.buttons[elem.index()];
@@ -338,7 +360,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.3',
+    version: '1.5.4',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
