@@ -27,7 +27,7 @@ export type LibXUiEnei =                JQuery | HTMLElement | JQuery.EventBase 
 export type LibXCounterMap =            { [counter: string]: number };
 export type LibXSocialButton =          { title: string, icon: string, x: number, y: number, link: string };
 export type LibXMontageLoopOptions = {
-   selector?:   string,         //container of <img> elements         (default: '.montage-loop')
+   container?:  string,         //selector for <img> elements holder  (default: '.montage-loop')
    start?:      number | null,  //index of first image to show        (default: nulll for random)
    intervalMs?: number,         //milliseconds between transitions    (default: 10,000)
    fadeMs?:     number,         //milliseconds to complete transition (default: 3,000)
@@ -369,15 +369,15 @@ const libXAnimate = {
       // Usage:
       //    libX.animate.montageLoop();
       const defaults = {
-         selector:   '.montage-loop',  //container of <img> elements
+         container:  '.montage-loop',  //selector for <img> elements holder
          start:      null,             //random
          intervalMs: 10000,            //10 seconds between transitions
          fadeMs:     3000,             //3 seconds to complete transition
          };
       const settings = { ...defaults, ...options };
-      const imgs =     $(settings.selector).addClass('montage-loop').children('img');
+      const imgs =     $(settings.container).addClass('montage-loop').children('img');
       if (!imgs.length)
-         console.error('[montage-loop] No images found:', settings.selector);
+         console.error('[montage-loop] No images found:', settings.container);
       imgs.css({ transition: `all ${settings.fadeMs}ms` });
       imgs.eq(settings.start ?? Date.now() % imgs.length).addClass('current');
       const nextImage = () => {
