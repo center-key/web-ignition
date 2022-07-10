@@ -1,4 +1,4 @@
-//! web-ignition v1.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXUi = {
     plugin: {
@@ -261,15 +261,15 @@ const libXAnimate = {
     montageLoop(options) {
         var _a;
         const defaults = {
-            selector: '.montage-loop',
+            container: '.montage-loop',
             start: null,
             intervalMs: 10000,
             fadeMs: 3000,
         };
         const settings = Object.assign(Object.assign({}, defaults), options);
-        const imgs = $(settings.selector).addClass('montage-loop').children('img');
+        const imgs = $(settings.container).addClass('montage-loop').children('img');
         if (!imgs.length)
-            console.error('[montage-loop] No images found:', settings.selector);
+            console.error('[montage-loop] No images found:', settings.container);
         imgs.css({ transition: `all ${settings.fadeMs}ms` });
         imgs.eq((_a = settings.start) !== null && _a !== void 0 ? _a : Date.now() % imgs.length).addClass('current');
         const nextImage = () => {
@@ -359,7 +359,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.4',
+    version: '1.5.5',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

@@ -1,4 +1,4 @@
-//! web-ignition v1.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 declare global {
     interface JQuery {
@@ -41,7 +41,7 @@ export declare type LibXSocialButton = {
     link: string;
 };
 export declare type LibXMontageLoopOptions = {
-    selector?: string;
+    container?: string;
     start?: number | null;
     intervalMs?: number;
     fadeMs?: number;
