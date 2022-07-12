@@ -1,4 +1,4 @@
-//! web-ignition v1.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 declare global {
     interface JQuery {
@@ -41,7 +41,7 @@ export declare type LibXSocialButton = {
     link: string;
 };
 export declare type LibXMontageLoopOptions = {
-    container?: string;
+    container?: string | JQuery;
     start?: number | null;
     intervalMs?: number;
     fadeMs?: number;
@@ -103,7 +103,7 @@ declare const libX: {
     animate: {
         jiggleIt(elemOrEvent: JQuery | JQuery.EventBase): JQuery;
         rollIn(holderOrElems: JQuery): number;
-        montageLoop(options: LibXMontageLoopOptions): JQuery;
+        montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery;
     };
     bubbleHelp: {
         setup(holder?: JQuery): JQuery;

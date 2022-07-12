@@ -1,4 +1,4 @@
-//! web-ignition v1.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna.js';
 const libXUi = {
@@ -259,8 +259,9 @@ const libXAnimate = {
         elems.css({ opacity: 0 });
         return window.setTimeout(roll, startDelay);
     },
-    montageLoop(options) {
+    montageLoop(optionsOrContainer) {
         var _a;
+        const options = optionsOrContainer instanceof $ ? { container: optionsOrContainer } : optionsOrContainer;
         const defaults = {
             container: '.montage-loop',
             start: null,
@@ -268,7 +269,8 @@ const libXAnimate = {
             fadeMs: 3000,
         };
         const settings = Object.assign(Object.assign({}, defaults), options);
-        const imgs = $(settings.container).addClass('montage-loop').children('img');
+        const container = typeof settings.container === 'string' ? $(settings.container) : settings.container;
+        const imgs = container.first().addClass('montage-loop').children('img');
         if (!imgs.length)
             console.error('[montage-loop] No images found:', settings.container);
         imgs.css({ transition: `all ${settings.fadeMs}ms` });
@@ -360,7 +362,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.5',
+    version: '1.5.6',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
