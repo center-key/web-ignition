@@ -27,10 +27,10 @@ export type LibXUiEnei =                JQuery | HTMLElement | JQuery.EventBase 
 export type LibXCounterMap =            { [counter: string]: number };
 export type LibXSocialButton =          { title: string, icon: string, x: number, y: number, link: string };
 export type LibXMontageLoopOptions = {
-   container?:  string,         //selector for <img> elements holder  (default: '.montage-loop')
-   start?:      number | null,  //index of first image to show        (default: nulll for random)
-   intervalMs?: number,         //milliseconds between transitions    (default: 10,000)
-   fadeMs?:     number,         //milliseconds to complete transition (default: 3,000)
+   container?:  string | JQuery,  //selector for <img> elements holder  (default: '.montage-loop')
+   start?:      number | null,    //index of first image to show        (default: nulll for random)
+   intervalMs?: number,           //milliseconds between transitions    (default: 10,000)
+   fadeMs?:     number,           //milliseconds to complete transition (default: 3,000)
    };
 
 const libXUi = {
@@ -360,7 +360,7 @@ const libXAnimate = {
       elems.css({ opacity: 0 });
       return window.setTimeout(roll, startDelay);
       },
-   montageLoop(options: LibXMontageLoopOptions): JQuery {
+   montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery {
       // <figure class=montage-loop>
       //    <img src=image1.jpg>
       //    <img src=image2.jpg>
@@ -368,14 +368,18 @@ const libXAnimate = {
       // </figure>
       // Usage:
       //    libX.animate.montageLoop();
+      // Usage with dna.js (default options):
+      //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
+      const options = optionsOrContainer instanceof $ ? { container: <JQuery>optionsOrContainer } : optionsOrContainer;
       const defaults = {
          container:  '.montage-loop',  //selector for <img> elements holder
          start:      null,             //random
          intervalMs: 10000,            //10 seconds between transitions
          fadeMs:     3000,             //3 seconds to complete transition
          };
-      const settings = { ...defaults, ...options };
-      const imgs =     $(settings.container).addClass('montage-loop').children('img');
+      const settings =  { ...defaults, ...options };
+      const container = typeof settings.container === 'string' ? $(settings.container) : settings.container;
+      const imgs =      container.first().addClass('montage-loop').children('img');
       if (!imgs.length)
          console.error('[montage-loop] No images found:', settings.container);
       imgs.css({ transition: `all ${settings.fadeMs}ms` });
