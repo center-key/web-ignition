@@ -5,7 +5,23 @@
 <meta name=viewport  content="width=device-width, initial-scale=1">
 <title>Blogger Tweaks &bull; Specification Page</title>
 <link rel=icon href=https://centerkey.com/graphics/bookmark.png>
+<style>
+   body { font-family: system-ui; background-color: lightblue; margin: 20px 40px; }
+   aside { float: right; }
+   textarea { width: 100%; height: 300px; font-family: menlo, consolas, monospace; font-size: 0.8rem; line-height: 1.3em; color: white; background-color: darkslategray; margin-bottom: 30px; }
+   body main #main #content { background-color: white; border: 10px solid silver; padding: 20px; margin-left: 0px; }
+   body main #main #content pre code { margin: -20px 0px -35px 0px; }  /* compensate for no trim */
+   output { display: block; }
+</style>
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
+<script>window.onerror = () => document.body.style.background = 'pink';</script>
+<script data-on-load=displayVersion>
+   const refreshOutput = (textarea) => {
+      $('output').html(textarea.val());
+      window.blogger.ui().trigger('viewitem');
+      };
+   const displayVersion = () => $('.version-number').text(libX.version);
+</script>
 <!-- Insert HTML from build/blogger-tweaks.min.css below this comment. -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- CUSTOMIZE: Blogger > Theme > Edit HTML > insert at bottom of <head> section -->
@@ -13,25 +29,18 @@
     <link href='https://centerkey.com/graphics/bookmark.png' rel='icon'/>
     <link href='https://centerkey.com/graphics/mobile-home-screen.png' rel='apple-touch-icon'/>
     <link href='https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.css' rel='stylesheet'/>
-    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5/build/styles/docco.min.css' rel='stylesheet'/>
+    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6/build/styles/docco.min.css' rel='stylesheet'/>
     <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@1.0/hljs-enhance.css' rel='stylesheet'/>
     <link href='../../dist/blogger-tweaks.min.css' rel='stylesheet'/>
-    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5/build/highlight.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5/build/languages/http.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6/build/highlight.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.6/build/languages/http.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@1.0/hljs-enhance.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.min.js'></script>
     <script src='../../dist/lib-x.min.js'></script>
     <script>window.blogger = { ui: () => $('html') };</script>
     <script>libX.extra.blogger('https://example.com');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
-<style>
-   body { font-family: system-ui; background-color: lightblue; margin: 20px 40px; }
-   aside { float: right; }
-   textarea { width: 100%; height: 300px; font-family: menlo, consolas, monospace; font-size: 0.8rem; line-height: 1.3em; color: white; background-color: darkslategray; margin-bottom: 30px; }
-   body main #main #content { background-color: white; border: 10px solid silver; padding: 20px; margin-left: 0px; }
-   body main #main #content pre code { margin: -20px 0px -35px 0px; } /* compensate for no trim */
-   output { display: block; }
-</style>
+<!-- Insert HTML from build/blogger-tweaks.min.css above this comment. -->
 </head>
 <body>
 
@@ -159,14 +168,5 @@ This is the footer.
    </div>
 </main>
 
-<script>
-   const makePageRed = () => $('body').css({ backgroundColor: 'pink' });
-   window.onerror = makePageRed;
-   $('.version-number').text(libX.version);
-   const refreshOutput = (textarea) => {
-      $('output').html(textarea.val());
-      window.blogger.ui().trigger('viewitem');
-      };
-</script>
 </body>
 </html>

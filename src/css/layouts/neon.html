@@ -4,20 +4,28 @@
 <!-- - - - - - - - - - - - -->
 <html lang=en>
 <head>
-<meta charset=utf-8>
-<meta name=viewport                   content="width=device-width, initial-scale=1">
-<meta name=robots                     content="index, follow">
-<meta name=description                content="Neon layout -- For hackers and space junkies">
-<meta name=apple-mobile-web-app-title content="Neon">
-<title>Layout &bull; Neon</title>
-<link rel=icon             href=https://centerkey.com/graphics/bookmark.png>
-<link rel=apple-touch-icon href=https://centerkey.com/graphics/mobile-home-screen.png>
-<link rel=preconnect       href=https://fonts.googleapis.com>
-<link rel=preconnect       href=https://fonts.gstatic.com crossorigin>
-<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1/css/all.min.css>
-<link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.css>
-<link rel=stylesheet       href=../../../dist/reset.min.css>
-<link rel=stylesheet       href=neon.css>
+   <meta charset=utf-8>
+   <meta name=viewport                   content="width=device-width, initial-scale=1">
+   <meta name=robots                     content="index, follow">
+   <meta name=description                content="Neon layout -- For hackers and space junkies">
+   <meta name=apple-mobile-web-app-title content="Neon">
+   <title>Layout &bull; Neon</title>
+   <link rel=icon             href=https://centerkey.com/graphics/bookmark.png>
+   <link rel=apple-touch-icon href=https://centerkey.com/graphics/mobile-home-screen.png>
+   <link rel=preconnect       href=https://fonts.googleapis.com>
+   <link rel=preconnect       href=https://fonts.gstatic.com crossorigin>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1/css/all.min.css>
+   <link rel=stylesheet       href=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.css>
+   <link rel=stylesheet       href=../../../dist/reset.min.css>
+   <link rel=stylesheet       href=neon.css>
+   <script defer src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
+   <script defer src=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.min.js></script>
+   <script defer src=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/lib-x.min.js></script>
+   <script defer src=neon.js></script>
+   <script data-on-load=trimCodeBlocks>
+      const trimCodeBlock = (elem) => elem.html(elem.html().replace(/\n {12}/g, '\n').trim());
+      const trimCodeBlocks = () => $('figure >pre >code').forEach(trimCodeBlock);
+   </script>
 </head>
 <body>
 
@@ -119,15 +127,6 @@
       </a>
    </p>
 </footer>
-
-<script src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/lib-x.min.js></script>
-<script src=neon.js></script>
-<script>
-   const trimCodeBlock = (elem) => elem.html(elem.html().replace(/\n {12}/g, '\n').trim());
-   $('figure >pre >code').forEach(trimCodeBlock);
-</script>
 
 </body>
 </html>
