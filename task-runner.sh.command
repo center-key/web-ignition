@@ -18,7 +18,9 @@ setupTools() {
    echo $banner
    echo $(echo $banner | sed s/./=/g)
    pwd
-   test -d .git && git restore dist/* && git pull --ff-only
+   test -d .git || { echo "Project must be in a git repository."; exit; }
+   git restore dist/* &>/dev/null
+   git pull --ff-only
    echo
    echo "Node.js:"
    which node || { echo "Need to install Node.js: https://nodejs.org"; exit; }
@@ -35,9 +37,10 @@ releaseInstructions() {
    package=https://raw.githubusercontent.com/$repository/main/package.json
    version=v$(grep '"version"' package.json | awk -F'"' '{print $4}')
    pushed=v$(curl --silent $package | grep '"version":' | awk -F'"' '{print $4}')
+   minorVersion=$(echo ${pushed:1} | awk -F"." '{ print $1 "." $2 }')
    released=$(git tag | tail -1)
    published=v$(npm view $repository version)
-   minorVersion=$(echo ${pushed:1} | awk -F"." '{ print $1 "." $2 }')
+   test $? -ne 0 && echo "NOTE: Ignore error if package is not yet published."
    echo "Local changes:"
    git status --short
    echo
@@ -112,6 +115,7 @@ publishWebFiles() {
       sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/blogger-tweaks.html
       ls -o $publishFolder
+      echo "Published -> ${publishFolder/$webDocRoot/http//:localhost}"
       echo
       }
    test -w $publishSite && publish
