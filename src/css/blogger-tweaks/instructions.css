@@ -3,25 +3,25 @@
     <!-- Usage: blogger.com > Theme > CUSTOMIZE: Edit HTML > insert code at bottom -->
     <!--      of <head> section > update the 5 placeholders with real values       -->
     <!-- Preview tweet before publishing: https://cards-dev.twitter.com/validator  -->
-    <meta content='[SHORT-BLOG-NAME]'           name='apple-mobile-web-app-title'/>
-    <meta content='summary_large_image'         name='twitter:card'/>
-    <meta content='@[TWITTER-USERNAME]'         name='twitter:site'/>
-    <meta content='@[TWITTER-USERNAME]'         name='twitter:creator'/>
-    <meta expr:content='data:blog.pageName'     name='twitter:title'/>
-    <meta expr:content='data:blog.title'        name='twitter:description'/>
-    <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-    <meta content='Picture lead'                name='twitter:image:alt'/>
-    <meta content='website'                     property='og:type'/>
-    <meta expr:content='data:blog.pageName'     property='og:title'/>
-    <meta expr:content='data:blog.title'        property='og:description'/>
-    <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-    <meta content='Picture lead'                property='og:image:alt'/>
-    <link href='[URL-FOR-bookmark.png]' rel='icon'/>
-    <link href='[URL-FOR-mobile-home-screen.png]' rel='apple-touch-icon'/>
-    <link href='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.css' rel='stylesheet'/>
-    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/styles/docco.min.css' rel='stylesheet'/>
-    <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.css' rel='stylesheet'/>
-    <link href='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/blogger-tweaks.min.css' rel='stylesheet'/>
+    <meta content='[SHORT-BLOG-NAME]'           name='apple-mobile-web-app-title'>
+    <meta content='summary_large_image'         name='twitter:card'>
+    <meta content='@[TWITTER-USERNAME]'         name='twitter:site'>
+    <meta content='@[TWITTER-USERNAME]'         name='twitter:creator'>
+    <meta expr:content='data:blog.pageName'     name='twitter:title'>
+    <meta expr:content='data:blog.title'        name='twitter:description'>
+    <meta expr:content='data:blog.postImageUrl' name='twitter:image'>
+    <meta content='Picture lead'                name='twitter:image:alt'>
+    <meta content='website'                     property='og:type'>
+    <meta expr:content='data:blog.pageName'     property='og:title'>
+    <meta expr:content='data:blog.title'        property='og:description'>
+    <meta expr:content='data:blog.postImageUrl' property='og:image'>
+    <meta content='Picture lead'                property='og:image:alt'>
+    <link href='[URL-FOR-bookmark.png]' rel='icon'>
+    <link href='[URL-FOR-mobile-home-screen.png]' rel='apple-touch-icon'>
+    <link href='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/styles/docco.min.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/blogger-tweaks.min.css' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/highlight.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/languages/http.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.js'></script>
