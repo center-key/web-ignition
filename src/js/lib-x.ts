@@ -18,20 +18,24 @@ declare global {
 export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
 export type JsonData =   JsonObject | Json[];
-export type LibXForEachCallback =       (elem: JQuery, index: number) => void;
-export type LibXObject =                { [key: string]: unknown };
-export type LibXUiPopupOptions =        { width?: number, height?: number };
-export type LibXUiKeepOnScreenOptions = { padding?: number };
-export type LibXCryptoHashOptions =     { algorithm?: string, salt?: string };
-export type LibXUiEnei =                JQuery | HTMLElement | JQuery.EventBase | number;
-export type LibXCounterMap =            { [counter: string]: number };
-export type LibXSocialButton =          { title: string, icon: string, x: number, y: number, link: string };
-export type LibXMontageLoopOptions = {
-   container?:  string | JQuery,  //selector for <img> elements holder  (default: '.montage-loop')
-   start?:      number | null,    //index of first image to show        (default: nulll for random)
-   intervalMs?: number,           //milliseconds between transitions    (default: 10,000)
-   fadeMs?:     number,           //milliseconds to complete transition (default: 3,000)
+export type LibXForEachCallback =        (elem: JQuery, index: number) => void;
+export type LibXObject =                 { [key: string]: unknown };
+export type LibXUiPopupSettings =        { width: number, height: number };
+export type LibXUiPopupOptions =         Partial<LibXUiPopupSettings>;
+export type LibXUiKeepOnScreenSettings = { padding: number };
+export type LibXUiKeepOnScreenOptions =  Partial<LibXUiKeepOnScreenSettings>;
+export type LibXCryptoHashSettings =     { algorithm: string, salt: string };
+export type LibXCryptoHashOptions =      Partial<LibXCryptoHashSettings>;
+export type LibXUiEnei =                 JQuery | HTMLElement | JQuery.EventBase | number;
+export type LibXCounterMap =             { [counter: string]: number };
+export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
+export type LibXMontageLoopSettings = {
+   container:  string | JQuery,  //selector for <img> elements holder  (default: '.montage-loop')
+   start:      number | null,    //index of first image to show        (default: nulll for random)
+   intervalMs: number,           //milliseconds between transitions    (default: 10,000)
+   fadeMs:     number,           //milliseconds to complete transition (default: 3,000)
    };
+export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 
 const libXUi = {
    plugin: {
