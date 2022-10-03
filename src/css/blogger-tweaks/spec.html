@@ -14,11 +14,11 @@
    output { display: block; }
 </style>
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
-<script>window.onerror = () => document.body.style.background = 'pink';</script>
+<script>globalThis.onerror = () => document.body.style.background = 'pink';</script>
 <script data-on-load=displayVersion>
    const refreshOutput = (textarea) => {
       $('output').html(textarea.val());
-      window.blogger.ui().trigger('viewitem');
+      globalThis.blogger.ui().trigger('viewitem');
       };
    const displayVersion = () => $('.version-number').text(libX.version);
 </script>
@@ -37,7 +37,7 @@
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@1.0/hljs-enhance.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.min.js'></script>
     <script src='../../dist/lib-x.min.js'></script>
-    <script>window.blogger = { ui: () => $('html') };</script>
+    <script>globalThis.blogger = { ui: () => $('html') };</script>
     <script>libX.extra.blogger('https://example.com');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Insert HTML from build/blogger-tweaks.min.css above this comment. -->
@@ -97,11 +97,11 @@ This is a regular paragraph.
    &lt;pre&gt;
       &lt;code class=language-javascript&gt;
          const makePageRed = () =&gt; $('body').css({ backgroundColor: 'pink' });
-         window.onerror = makePageRed;
+         globalThis.onerror = makePageRed;
          $('.version-number').text(libX.version);
          const refreshOutput = (textarea) =&gt; {
             $('output').html(textarea.val());
-            window.blogger.ui().trigger('viewitem');
+            globalThis.blogger.ui().trigger('viewitem');
             };
       &lt;/code&gt;
    &lt;/pre&gt;

@@ -113,7 +113,7 @@ const libXUi = {
       const defaults = { width: 600, height: 400 };
       const settings = { ...defaults, ...options };
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
-      return window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
+      return globalThis.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
    popupClick(event: JQuery.EventBase): Window | null {
       // Usage (see popup() for default width and height):
@@ -159,7 +159,7 @@ const libXUi = {
          };
       const disableFormButton = (event: JQuery.EventBase): JQuery =>
          $(event.target).find('button:not(.no-disable)').disable();
-      $(window.document)
+      $(globalThis.document)
          .on({ submit: disableFormButton }, 'form')
          .on({ click:  disableButton },     'button:not([type=submit],[data-href],[data-href-popup])');
       },
@@ -263,18 +263,18 @@ const libXStorage = {
    dbRead(key: string): LibXObject {
       // Usage:
       //    const profile = libX.storage.dbSave('profile');
-      return window.localStorage[key] === undefined ? {} : JSON.parse(window.localStorage[key]);
+      return globalThis.localStorage[key] === undefined ? {} : JSON.parse(globalThis.localStorage[key]);
       },
    sessionSave(key: string, obj: LibXObject): LibXObject {
       // Usage:
       //    libX.storage.dbSave('editor-settings', { line: 42, mode: 'insert' });
-      window.sessionStorage[key] = JSON.stringify(obj);
+      globalThis.sessionStorage[key] = JSON.stringify(obj);
       return libX.storage.sessionRead(key);
       },
    sessionRead(key: string): LibXObject {
       // Usage:
       //    const editorSettings = libX.storage.sessionSave('editor-settings');
-      return window.sessionStorage[key] === undefined ? {} : JSON.parse(window.sessionStorage[key]);
+      return globalThis.sessionStorage[key] === undefined ? {} : JSON.parse(globalThis.sessionStorage[key]);
       },
    };
 
@@ -304,12 +304,12 @@ const libXCounter = {
 
 const libXBrowser = {
    macOS(): boolean {
-      const agent = window.navigator.userAgent;
+      const agent = globalThis.navigator.userAgent;
       return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
       },
    iOS(): boolean {
-      const iDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-      return iDevice && /Apple/.test(window.navigator.vendor);
+      const iDevice = /iPad|iPhone|iPod/.test(globalThis.navigator.userAgent);
+      return iDevice && /Apple/.test(globalThis.navigator.vendor);
       },
    };
 
@@ -323,7 +323,7 @@ const libXPopupImage = {
       thumbnail.next('.popup-image-layer').remove();
       const keyUpEventName = 'keyup.' + String(Date.now());
       const close = () => {
-         $(window.document).off(keyUpEventName);
+         $(globalThis.document).off(keyUpEventName);
          thumbnail.next().fadeOut();
          };
       const escKeyClose = (event: JQuery.EventBase) => event.key === 'Escape' && close();
@@ -347,10 +347,10 @@ const libXAnimate = {
       //    <img src=logo.svg data-click=libX.animate.jiggleIt alt=logo>
       const node = <HTMLElement>libX.ui.toElem(elemOrEvent)[0];
       node.style.animation = 'none';
-      window.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
+      globalThis.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
       return $(node);
       },
-   rollIn(holderOrElems: JQuery): number {
+   rollIn(holderOrElems: JQuery) {
       // Usage:
       //    libX.animate.rollIn($('.diagram'));
       let elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
@@ -362,7 +362,7 @@ const libXAnimate = {
          elems = elems.slice(1);
          };
       elems.css({ opacity: 0 });
-      return window.setTimeout(roll, startDelay);
+      return globalThis.setTimeout(roll, startDelay);
       },
    montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery {
       // <figure class=montage-loop>
@@ -393,7 +393,7 @@ const libXAnimate = {
          const index =    (previous.index() + 1) % imgs.length;
          imgs.removeClass('current').eq(index).addClass('current');
          };
-      window.setInterval(nextImage, settings.intervalMs);
+      globalThis.setInterval(nextImage, settings.intervalMs);
       return imgs;
       },
    };
@@ -405,7 +405,7 @@ const libXBubbleHelp = {
    //    dna.registerInitializer(libX.bubbleHelp.setup);
    setup(holder?: JQuery): JQuery {
       const uninitialized = '.bubble-help:not(.bubble-initialized)';
-      const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
+      const elems = (holder || $(globalThis.document)).find(uninitialized).addBack(uninitialized);
       const wrapperHtml = '<span class=bubble-wrap></span>';
       const pointerHtml = '<span class=bubble-pointer>&#9660;</span>';
       const getHover = (event: JQuery.EventBase) => $(event.target).closest('.bubble-help-hover');
@@ -432,7 +432,7 @@ const libXForm = {
       const backupField = (): HTMLElement => <HTMLElement>$('<input type=hidden name=version>')[0];
       const field =       (): HTMLElement => form.find('[name=version]')[0] || backupField();
       const configure =   () => form.attr(attributes).append($(field()).val(version));
-      return form.find('textarea').on({ focus: () => window.setTimeout(configure, 5000) });  //bot are lazy
+      return form.find('textarea').on({ focus: () => globalThis.setTimeout(configure, 5000) });  //bot are lazy
       },
    };
 
@@ -451,8 +451,8 @@ const libXSocial = {
       const button = <LibXSocialButton>libX.social.buttons[elem.index()];
       const insert = (text: string, find: string, value: string): string =>
          text.replace(find, encodeURIComponent(value));
-      const linkTemp = insert(button.link, '${url}',   window.location.href);
-      const link =     insert(linkTemp,    '${title}', window.document.title);
+      const linkTemp = insert(button.link, '${url}',   globalThis.location.href);
+      const link =     insert(linkTemp,    '${title}', globalThis.document.title);
       return libX.ui.popup(link, { width: button.x, height: button.y });
       },
    setup(): JQuery {
@@ -477,7 +477,7 @@ const libXExtra = {
          libX.ui.normalize();
          window['hljsEnhance'].setup();
          };
-      window.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
+      globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
       return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
       },
    gTags(scriptTag: string): void {
@@ -523,7 +523,7 @@ const libX = {
          libX.ui.setupVideos();
          libX.form.perfect();
          libX.bubbleHelp.setup();
-         $(window.document)
+         $(globalThis.document)
             .on(clickAndTap(libX.ui.revealSection), '.reveal-button')
             .on({ click: libX.ui.popupClick },      '[data-href-popup]')
             .on({ click: libX.popupImage.show },    '[data-popup-image], .popup-image');

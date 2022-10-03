@@ -15,7 +15,7 @@
    <script defer src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
    <script defer src=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.min.js></script>
    <script defer src=../../dist/lib-x.min.js></script>
-   <script>window.onerror = () => document.body.style.background = 'pink';</script>
+   <script>globalThis.onerror = () => document.body.style.background = 'pink';</script>
    <script data-on-load=startup>
       const startup = () => {
          console.log('web-ignition v' + libX.version);
@@ -26,7 +26,7 @@
          $('.version-number').text(libX.version);
          $('#is-a-mac').text(libX.browser.macOS() ? 'YES' : 'no');
          $('#is-ios').text(libX.browser.iOS() ? 'YES' : 'no');
-         window.setTimeout(() => dna.clone('helicopter', { help: 'Help me too!' }, { fade: true }), 3000);
+         globalThis.setTimeout(() => dna.clone('helicopter', { help: 'Help me too!' }, { fade: true }), 3000);
          libX.counter.get();           //returns: 0
          libX.counter.increment();     //returns: 1
          libX.counter.reset();         //returns: 0
@@ -38,7 +38,7 @@
          $('#counters-actual').text(  JSON.stringify(libX.counter.list()));
          $('#counters-expected').text(JSON.stringify({ default: 2, x: 100 }));
          const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
-         const throwBadHash = (hash) => window.setTimeout(() => { throw Error('Bad hash: ' + hash); });
+         const throwBadHash = (hash) => globalThis.setTimeout(() => { throw Error('Bad hash: ' + hash); });
          libX.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
          libX.animate.montageLoop({ intervalMs: 5000 });
          };
