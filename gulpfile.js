@@ -2,20 +2,20 @@
 // Gulp tasks
 
 // Imports
-import { readFileSync } from 'fs';
-import css              from 'gulp-postcss';
-import cssFontMagician  from 'postcss-font-magician';
-import cssNano          from 'cssnano';
-import cssPresetEnv     from 'postcss-preset-env';
-import gap              from 'gulp-append-prepend';
-import gulp             from 'gulp';
-import less             from 'gulp-less';
-import rename           from 'gulp-rename';
-import replace          from 'gulp-replace';
-import size             from 'gulp-size';
+import css             from 'gulp-postcss';
+import cssFontMagician from 'postcss-font-magician';
+import cssNano         from 'cssnano';
+import cssPresetEnv    from 'postcss-preset-env';
+import fs              from 'fs';
+import gap             from 'gulp-append-prepend';
+import gulp            from 'gulp';
+import less            from 'gulp-less';
+import rename          from 'gulp-rename';
+import replace         from 'gulp-replace';
+import size            from 'gulp-size';
 
 // Setup
-const pkg =          JSON.parse(readFileSync('package.json', 'utf-8'));
+const pkg =          JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 const minorVersion = pkg.version.split('.').slice(0, 2).join('.');
 const version =      (name) => pkg.dependencies[name].split('~')[1];
 const version1 =     replace('[DNAJS]',        version('dna.js'));
