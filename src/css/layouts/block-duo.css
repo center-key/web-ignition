@@ -1,8 +1,8 @@
 /*
 Block Duo layout -- Two big columns followed by a single footer
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/panel-nav.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@[DNA-ENGINE]/dist/dna-engine.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@[DNA-ENGINE]/dist/panel-nav.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/layouts/block-duo.css>
    <style>
@@ -71,7 +71,7 @@ main >section aside img {
    border: 3px solid gainsboro;
    }
 
-/* dna.js panel navigation */
+/* dna-engine panel navigation */
 nav.dna-menu[data-style=flat-tabs] span {
    padding: 10px 12px;
    }

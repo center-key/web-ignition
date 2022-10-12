@@ -18,14 +18,14 @@
     <meta content='Picture lead'                property='og:image:alt'>
     <link href='[URL-FOR-bookmark.png]' rel='icon'>
     <link href='[URL-FOR-mobile-home-screen.png]' rel='apple-touch-icon'>
-    <link href='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/dna-engine@[DNA-ENGINE]/dist/dna-engine.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/styles/docco.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/blogger-tweaks.min.css' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/highlight.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@[HIGHLIGHTJS]/build/languages/http.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@[HLJS-ENHANCE]/hljs-enhance.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/dna.js@[DNAJS]/dist/dna.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/dna-engine@[DNA-ENGINE]/dist/dna-engine.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/web-ignition@[WEB-IGNITION]/dist/lib-x.min.js'></script>
     <script>libX.extra.blogger('[AUTHORS-URL]');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->

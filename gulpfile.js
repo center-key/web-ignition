@@ -18,7 +18,7 @@ import size            from 'gulp-size';
 const pkg =          JSON.parse(fs.readFileSync('package.json', 'utf-8'));
 const minorVersion = pkg.version.split('.').slice(0, 2).join('.');
 const version =      (name) => pkg.dependencies[name].split('~')[1];
-const version1 =     replace('[DNAJS]',        version('dna.js'));
+const version1 =     replace('[DNA-ENGINE]',   version('dna-engine'));
 const version2 =     replace('[HIGHLIGHTJS]',  version('highlight.js'));
 const version3 =     replace('[HLJS-ENHANCE]', version('hljs-enhance'));
 const version4 =     replace('[WEB-IGNITION]', minorVersion);

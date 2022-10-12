@@ -4,7 +4,7 @@
 // MIT License                          //
 //////////////////////////////////////////
 
-import { dna, DnaCallback } from 'dna.js';
+import { dna, DnaCallback } from 'dna-engine';
 
 declare global {
    interface JQuery {
@@ -82,7 +82,7 @@ const libXUi = {
    makeIcons(holder: JQuery): JQuery {
       // Usage:
       //    <i data-icon=home></i>
-      // Usage with dna.js:
+      // Usage with dna-engine:
       //    <i data-attr-data-icon=~~icon~~></i>
       const makeIcon =  (elem: JQuery) => elem.addClass('fa-' + elem.data().icon);
       const makeBrand = (elem: JQuery) => elem.addClass('fa-' + elem.data().brand);
@@ -372,7 +372,7 @@ const libXAnimate = {
       // </figure>
       // Usage:
       //    libX.animate.montageLoop();
-      // Usage with dna.js (default options):
+      // Usage with dna-engine (default options):
       //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
       const options = optionsOrContainer instanceof $ ? { container: <JQuery>optionsOrContainer } : optionsOrContainer;
       const defaults = {
@@ -401,7 +401,7 @@ const libXAnimate = {
 const libXBubbleHelp = {
    // Usage:
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
-   // Usage with dna.js:
+   // Usage with dna-engine:
    //    dna.registerInitializer(libX.bubbleHelp.setup);
    setup(holder?: JQuery): JQuery {
       const uninitialized = '.bubble-help:not(.bubble-initialized)';
@@ -457,7 +457,7 @@ const libXSocial = {
       },
    setup(): JQuery {
       const container = $('#social-buttons');
-      const iconHtml = ['<i data-brand=', ' data-click=libX.social.share></i>'];  //click by dna.js
+      const iconHtml = ['<i data-brand=', ' data-click=libX.social.share></i>'];  //click by dna-engine
       let html = '<span>';
       const addHtml = (button: LibXSocialButton) => html += iconHtml[0] + button.icon + iconHtml[1];
       if (container.length)
