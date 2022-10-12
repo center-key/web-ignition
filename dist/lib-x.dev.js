@@ -1,4 +1,4 @@
-//! web-ignition v1.5.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXUi = {
     plugin: {
@@ -55,7 +55,7 @@ const libXUi = {
         const defaults = { width: 600, height: 400 };
         const settings = Object.assign(Object.assign({}, defaults), options);
         const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
-        return window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
+        return globalThis.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
     },
     popupClick(event) {
         const data = $(event.target).data();
@@ -91,7 +91,7 @@ const libXUi = {
                 elem.closest('button').disable();
         };
         const disableFormButton = (event) => $(event.target).find('button:not(.no-disable)').disable();
-        $(window.document)
+        $(globalThis.document)
             .on({ submit: disableFormButton }, 'form')
             .on({ click: disableButton }, 'button:not([type=submit],[data-href],[data-href-popup])');
     },
@@ -173,14 +173,14 @@ const libXStorage = {
         return libX.storage.dbRead(key);
     },
     dbRead(key) {
-        return window.localStorage[key] === undefined ? {} : JSON.parse(window.localStorage[key]);
+        return globalThis.localStorage[key] === undefined ? {} : JSON.parse(globalThis.localStorage[key]);
     },
     sessionSave(key, obj) {
-        window.sessionStorage[key] = JSON.stringify(obj);
+        globalThis.sessionStorage[key] = JSON.stringify(obj);
         return libX.storage.sessionRead(key);
     },
     sessionRead(key) {
-        return window.sessionStorage[key] === undefined ? {} : JSON.parse(window.sessionStorage[key]);
+        return globalThis.sessionStorage[key] === undefined ? {} : JSON.parse(globalThis.sessionStorage[key]);
     },
 };
 const libXCounter = {
@@ -208,12 +208,12 @@ const libXCounter = {
 };
 const libXBrowser = {
     macOS() {
-        const agent = window.navigator.userAgent;
+        const agent = globalThis.navigator.userAgent;
         return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
     },
     iOS() {
-        const iDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent);
-        return iDevice && /Apple/.test(window.navigator.vendor);
+        const iDevice = /iPad|iPhone|iPod/.test(globalThis.navigator.userAgent);
+        return iDevice && /Apple/.test(globalThis.navigator.vendor);
     },
 };
 const libXPopupImage = {
@@ -224,7 +224,7 @@ const libXPopupImage = {
         thumbnail.next('.popup-image-layer').remove();
         const keyUpEventName = 'keyup.' + String(Date.now());
         const close = () => {
-            $(window.document).off(keyUpEventName);
+            $(globalThis.document).off(keyUpEventName);
             thumbnail.next().fadeOut();
         };
         const escKeyClose = (event) => event.key === 'Escape' && close();
@@ -243,7 +243,7 @@ const libXAnimate = {
     jiggleIt(elemOrEvent) {
         const node = libX.ui.toElem(elemOrEvent)[0];
         node.style.animation = 'none';
-        window.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
+        globalThis.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
         return $(node);
     },
     rollIn(holderOrElems) {
@@ -256,7 +256,7 @@ const libXAnimate = {
             elems = elems.slice(1);
         };
         elems.css({ opacity: 0 });
-        return window.setTimeout(roll, startDelay);
+        return globalThis.setTimeout(roll, startDelay);
     },
     montageLoop(optionsOrContainer) {
         var _a;
@@ -279,14 +279,14 @@ const libXAnimate = {
             const index = (previous.index() + 1) % imgs.length;
             imgs.removeClass('current').eq(index).addClass('current');
         };
-        window.setInterval(nextImage, settings.intervalMs);
+        globalThis.setInterval(nextImage, settings.intervalMs);
         return imgs;
     },
 };
 const libXBubbleHelp = {
     setup(holder) {
         const uninitialized = '.bubble-help:not(.bubble-initialized)';
-        const elems = (holder || $(window.document)).find(uninitialized).addBack(uninitialized);
+        const elems = (holder || $(globalThis.document)).find(uninitialized).addBack(uninitialized);
         const wrapperHtml = '<span class=bubble-wrap></span>';
         const pointerHtml = '<span class=bubble-pointer>&#9660;</span>';
         const getHover = (event) => $(event.target).closest('.bubble-help-hover');
@@ -312,7 +312,7 @@ const libXForm = {
         const backupField = () => $('<input type=hidden name=version>')[0];
         const field = () => form.find('[name=version]')[0] || backupField();
         const configure = () => form.attr(attributes).append($(field()).val(version));
-        return form.find('textarea').on({ focus: () => window.setTimeout(configure, 5000) });
+        return form.find('textarea').on({ focus: () => globalThis.setTimeout(configure, 5000) });
     },
 };
 const libXSocial = {
@@ -326,8 +326,8 @@ const libXSocial = {
     share(elem) {
         const button = libX.social.buttons[elem.index()];
         const insert = (text, find, value) => text.replace(find, encodeURIComponent(value));
-        const linkTemp = insert(button.link, '${url}', window.location.href);
-        const link = insert(linkTemp, '${title}', window.document.title);
+        const linkTemp = insert(button.link, '${url}', globalThis.location.href);
+        const link = insert(linkTemp, '${title}', globalThis.document.title);
         return libX.ui.popup(link, { width: button.x, height: button.y });
     },
     setup() {
@@ -349,7 +349,7 @@ const libXExtra = {
             libX.ui.normalize();
             window['hljsEnhance'].setup();
         };
-        window.setTimeout(libX.ui.normalize, 2000);
+        globalThis.setTimeout(libX.ui.normalize, 2000);
         return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
     },
     gTags(scriptTag) {
@@ -361,7 +361,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.7',
+    version: '1.5.8',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
@@ -390,7 +390,7 @@ const libX = {
             libX.ui.setupVideos();
             libX.form.perfect();
             libX.bubbleHelp.setup();
-            $(window.document)
+            $(globalThis.document)
                 .on(clickAndTap(libX.ui.revealSection), '.reveal-button')
                 .on({ click: libX.ui.popupClick }, '[data-href-popup]')
                 .on({ click: libX.popupImage.show }, '[data-popup-image], .popup-image');
@@ -399,3 +399,4 @@ const libX = {
     },
 };
 libX.initialize();
+globalThis.libX = libX;

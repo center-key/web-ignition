@@ -1,5 +1,6 @@
-//! web-ignition v1.5.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
+/// <reference types="node" />
 declare global {
     interface JQuery {
         id: (name?: string | number) => JQuery | string | undefined;
@@ -18,17 +19,20 @@ export declare type LibXForEachCallback = (elem: JQuery, index: number) => void;
 export declare type LibXObject = {
     [key: string]: unknown;
 };
-export declare type LibXUiPopupOptions = {
-    width?: number;
-    height?: number;
+export declare type LibXUiPopupSettings = {
+    width: number;
+    height: number;
 };
-export declare type LibXUiKeepOnScreenOptions = {
-    padding?: number;
+export declare type LibXUiPopupOptions = Partial<LibXUiPopupSettings>;
+export declare type LibXUiKeepOnScreenSettings = {
+    padding: number;
 };
-export declare type LibXCryptoHashOptions = {
-    algorithm?: string;
-    salt?: string;
+export declare type LibXUiKeepOnScreenOptions = Partial<LibXUiKeepOnScreenSettings>;
+export declare type LibXCryptoHashSettings = {
+    algorithm: string;
+    salt: string;
 };
+export declare type LibXCryptoHashOptions = Partial<LibXCryptoHashSettings>;
 export declare type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
 export declare type LibXCounterMap = {
     [counter: string]: number;
@@ -40,12 +44,13 @@ export declare type LibXSocialButton = {
     y: number;
     link: string;
 };
-export declare type LibXMontageLoopOptions = {
-    container?: string | JQuery;
-    start?: number | null;
-    intervalMs?: number;
-    fadeMs?: number;
+export declare type LibXMontageLoopSettings = {
+    container: string | JQuery;
+    start: number | null;
+    intervalMs: number;
+    fadeMs: number;
 };
+export declare type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 declare const libX: {
     version: string;
     ui: {
@@ -102,7 +107,7 @@ declare const libX: {
     };
     animate: {
         jiggleIt(elemOrEvent: JQuery | JQuery.EventBase): JQuery;
-        rollIn(holderOrElems: JQuery): number;
+        rollIn(holderOrElems: JQuery): NodeJS.Timeout;
         montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery;
     };
     bubbleHelp: {

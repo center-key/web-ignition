@@ -1,10 +1,10 @@
-/*! web-ignition v1.5.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Block Duo layout -- Two big columns followed by a single footer
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/dna.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna.js@2.0/dist/panel-nav.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@2.2/dist/dna-engine.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@2.2/dist/panel-nav.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.5/dist/layouts/block-duo.css>
    <style>
@@ -73,7 +73,7 @@ main >section aside img {
    border: 3px solid gainsboro;
    }
 
-/* dna.js panel navigation */
+/* dna-engine panel navigation */
 nav.dna-menu[data-style=flat-tabs] span {
    padding: 10px 12px;
    }
