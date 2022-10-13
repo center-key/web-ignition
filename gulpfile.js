@@ -31,18 +31,6 @@ const cssPlugins = [
 // Tasks
 const task = {
 
-   buildResetCss() {
-      return gulp.src('src/css/reset.less')
-         .pipe(less())
-         .pipe(size({ showFiles: true, gzip: true }))  //workaround to prevent "Error: read ECONNRESET" (revisit with Gulp v5.0)
-         .pipe(css(cssPlugins))
-         .pipe(rename({ extname: '.min.css' }))
-         .pipe(gap.appendFile('src/css/reset-color-overrides.css'))
-         .pipe(gap.appendText('\n'))
-         .pipe(size({ showFiles: true }))
-         .pipe(gulp.dest('build'));
-      },
-
    buildLayoutsCss() {
       return gulp.src('src/css/layouts/*.css')
          .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
@@ -78,7 +66,6 @@ const task = {
    };
 
 // Gulp
-gulp.task('build-reset-css',   task.buildResetCss);
 gulp.task('build-layouts-css', task.buildLayoutsCss);
 gulp.task('build-blogger-css', task.buildBloggerCss);
 gulp.task('customize-blogger', task.customizeBlogger);
