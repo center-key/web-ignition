@@ -2,17 +2,11 @@
 // Gulp tasks
 
 // Imports
-import css             from 'gulp-postcss';
-import cssFontMagician from 'postcss-font-magician';
-import cssNano         from 'cssnano';
-import cssPresetEnv    from 'postcss-preset-env';
-import fs              from 'fs';
-import gap             from 'gulp-append-prepend';
-import gulp            from 'gulp';
-import less            from 'gulp-less';
-import rename          from 'gulp-rename';
-import replace         from 'gulp-replace';
-import size            from 'gulp-size';
+import fs      from 'fs';
+import gulp    from 'gulp';
+import rename  from 'gulp-rename';
+import replace from 'gulp-replace';
+import size    from 'gulp-size';
 
 // Setup
 const pkg =          JSON.parse(fs.readFileSync('package.json', 'utf-8'));
@@ -22,11 +16,6 @@ const version1 =     replace('[DNA-ENGINE]',   version('dna-engine'));
 const version2 =     replace('[HIGHLIGHTJS]',  version('highlight.js'));
 const version3 =     replace('[HLJS-ENHANCE]', version('hljs-enhance'));
 const version4 =     replace('[WEB-IGNITION]', minorVersion);
-const cssPlugins = [
-   cssFontMagician({ protocol: 'https:' }),
-   cssPresetEnv(),
-   cssNano({ autoprefixer: false }),
-   ];
 
 // Tasks
 const task = {
@@ -36,19 +25,6 @@ const task = {
          .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
          .pipe(size({ showFiles: true }))
          .pipe(gulp.dest('build/layouts'));
-      },
-
-   buildBloggerCss() {
-      return gulp.src('src/css/blogger-tweaks/style.less')
-         .pipe(less())
-         .pipe(css(cssPlugins))
-         .pipe(rename('blogger-tweaks.min.css'))
-         .pipe(gap.appendText('\n'))
-         .pipe(gap.appendFile('src/css/blogger-tweaks/instructions.css'))
-         .pipe(version1).pipe(version2).pipe(version3).pipe(version4)
-         .pipe(gap.appendText('\n'))
-         .pipe(size({ showFiles: true }))
-         .pipe(gulp.dest('build'));
       },
 
    customizeBlogger() {
@@ -67,5 +43,4 @@ const task = {
 
 // Gulp
 gulp.task('build-layouts-css', task.buildLayoutsCss);
-gulp.task('build-blogger-css', task.buildBloggerCss);
 gulp.task('customize-blogger', task.customizeBlogger);
