@@ -281,7 +281,9 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
 
 // Fork me on GitHub
 #fork-me {
-   display: none;  //hide until elements added
+   display: none;
+   }
+body >header >#fork-me-container {  //dynamically added wrapper element
    position: absolute;
    top: 0px;
    right: 0px;
@@ -290,7 +292,7 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    overflow: hidden;
    z-index: 150;
    pointer-events: none;
-   >a {
+   >a#fork-me {
       display: block;
       height: 30px;
       line-height: 30px;
@@ -321,8 +323,8 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
       }
    }
 @media (max-width: 667px) {  //selects iPhone 6/6s/7/8/SE(2020) landscape and anything narrower
-   #fork-me >a { display: none }
-   #fork-me >i.font-icon { display: block }
+   body >header >#fork-me-container >a#fork-me { display: none }
+   body >header >#fork-me-container >i.font-icon { display: block }
    }
 
 // Social buttons

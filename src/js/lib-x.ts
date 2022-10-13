@@ -191,9 +191,9 @@ const libXUi = {
       },
    setupForkMe(): JQuery {
       // <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
-      const forkMe = $('#fork-me').removeAttr('id').wrap($('<div id=fork-me>'));
+      const forkMe = $('#fork-me').wrap($('<div id=fork-me-container>'));
       const icon = $('<i>', { 'data-brand': 'github', 'data-href': forkMe.attr('href') });
-      return forkMe.after(icon).parent().show().parent().addClass('forkable');
+      return forkMe.after(icon).parent().parent().addClass('forkable');
       },
    };
 
