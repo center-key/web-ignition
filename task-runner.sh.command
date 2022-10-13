@@ -95,6 +95,21 @@ runSpecs() {
    echo
    }
 
+
+customizeBlogger() {
+   cd $projectHome
+   sed \
+      -e "s|.SHORT-BLOG-NAME.|One of Dem Blogs|g" \
+      -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark.png|g" \
+      -e "s|.MOBILE-HOME-SCREEN-URL.|https://centerkey.com/graphics/mobile-home-screen.png|g" \
+      -e "s|.AUTHORS-URL.|https://centerkey.com/dem|g" \
+      -e "s|.TWITTER-USERNAME.|DemPilafian|g" \
+      dist/blogger-tweaks.min.css > build/blogger-tweaks-custom.css
+   pwd
+   ls -lo build/blogger-tweaks-custom.css
+   echo
+   }
+
 publishWebFiles() {
    cd $projectHome
    publishSite=$webDocRoot/centerkey.com
@@ -138,5 +153,6 @@ setupTools
 releaseInstructions
 updateCdnVersion
 runSpecs
+customizeBlogger
 publishWebFiles
 openWebPage
