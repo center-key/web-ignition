@@ -180,9 +180,10 @@ const libXUi = {
    setupVideos(): JQuery {
       // <figure class=video-container>
       //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
+      //    <figcaption>Optional semantic tag not actually visible</figcaption>
       // </figure>
       const makeVideoClickable = (elem: JQuery) => {
-         const src = <string>elem.find('iframe').attr('src');
+         const src = elem.find('iframe').attr('src') ?? '';
          const url = src.replace('//www.youtube.com/embed', '//youtu.be');
          elem.attr('data-href', url).addClass('external-site');
          };

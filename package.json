@@ -28,7 +28,7 @@
       "web"
    ],
    "jshintConfig": {
-      "esversion": 9,
+      "esversion": 11,
       "strict": "implied",
       "eqeqeq": true,
       "undef": true,
@@ -97,7 +97,7 @@
    "devDependencies": {
       "@fortawesome/fontawesome-free": "~6.2",
       "@types/jquery": "~3.5",
-      "@types/node": "~18.8",
+      "@types/node": "~18.11",
       "@typescript-eslint/eslint-plugin": "~5.40",
       "@typescript-eslint/parser": "~5.40",
       "add-dist-header": "~0.3",
@@ -109,12 +109,12 @@
       "esm-to-plain-js": "~0.1",
       "jshint": "~2.13",
       "less": "~4.1",
-      "mocha": "~10.0",
+      "mocha": "~10.1",
       "npm-run-all2": "~6.0",
       "replacer-util": "~0.2",
       "rimraf": "~3.0",
       "typescript": "~4.8",
       "uglify-js": "~3.17",
-      "w3c-html-validator": "~1.1"
+      "w3c-html-validator": "~1.2"
    }
 }
