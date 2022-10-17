@@ -1,4 +1,4 @@
-/*! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -182,7 +182,7 @@ body >footer i[data-brand] {
    font-size: 1.6rem;
    margin: 0px 5px;
    }
-/**************************************************************************************************/
+/******************************************************************************/
 
 /* Zebra Sections layout -- customize colors */
 body >header nav a { color: white; text-shadow: 0px 0px 0.6em black; }

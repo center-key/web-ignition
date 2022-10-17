@@ -111,6 +111,16 @@ customizeBlogger() {
    }
 
 publishWebFiles() {
+   # spec-js.html:
+   #     <link rel=stylesheet href=../../dist/reset.min.css>
+   #     <script defer src=../../dist/lib-x.min.js></script>
+   #     <img src=../css/layouts/neon/ameba-cdcgov.jpg alt=montage>
+   # layouts.html:
+   #     <a href=layouts/block-duo.css>block-duo.css</a>
+   # layouts/*.html:
+   #     <link rel=stylesheet href=../../../dist/reset.min.css>
+   #     <link rel=stylesheet href=neon.css>
+   #     <script defer src=neon.js></script>
    cd $projectHome
    publishSite=$webDocRoot/centerkey.com
    publishFolder=$publishSite/web-ignition
@@ -123,12 +133,13 @@ publishWebFiles() {
       cp -v src/css/*.html src/js/*.html     $publishFolder
       cp -v src/css/layouts/*.html           $publishFolder/layouts
       cp -v src/css/blogger-tweaks/spec.html $publishFolder/blogger-tweaks.html
-      sed -E -i "" "s#[.][.]/dist#$cdnBase#g"                              $publishFolder/spec-*.html
+      sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/spec-*.html
+      sed -E -i "" "s#[./]+/css#$cdnBase#g"                                $publishFolder/spec-*.html
       sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
-      sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/layouts/*.html
+      sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/layouts/*.html
       sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
-      sed -E -i "" "s#[.][.]/[.][.]/dist#$cdnBase#g"                       $publishFolder/blogger-tweaks.html
+      sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/blogger-tweaks.html
       ls -o $publishFolder
       echo "Published -> ${publishFolder/$webDocRoot/http//:localhost}"
       echo

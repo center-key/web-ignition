@@ -1,4 +1,4 @@
-/*! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Vertical Bars layout -- traditional boring old-school webpage
@@ -71,7 +71,7 @@ body >footer #social-buttons {
    body { border: none; padding: 5px 15px; }
    body >header h1 { font-size: 1.7rem; }
    }
-/**************************************************************************************************/
+/******************************************************************************/
 
 /* Vertical Bars layout -- customize colors */
 html { background-color: dimgray; }

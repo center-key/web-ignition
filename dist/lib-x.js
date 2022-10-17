@@ -1,4 +1,4 @@
-//! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -110,7 +110,8 @@ const libXUi = {
     },
     setupVideos() {
         const makeVideoClickable = (elem) => {
-            const src = elem.find('iframe').attr('src');
+            var _a;
+            const src = (_a = elem.find('iframe').attr('src')) !== null && _a !== void 0 ? _a : '';
             const url = src.replace('//www.youtube.com/embed', '//youtu.be');
             elem.attr('data-href', url).addClass('external-site');
         };
@@ -118,9 +119,9 @@ const libXUi = {
         return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
     },
     setupForkMe() {
-        const forkMe = $('#fork-me').removeAttr('id').wrap($('<div id=fork-me>'));
+        const forkMe = $('#fork-me').wrap($('<div id=fork-me-container>'));
         const icon = $('<i>', { 'data-brand': 'github', 'data-href': forkMe.attr('href') });
-        return forkMe.after(icon).parent().show().parent().addClass('forkable');
+        return forkMe.after(icon).parent().parent().addClass('forkable');
     },
 };
 const libXUtil = {
@@ -362,7 +363,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.8',
+    version: '1.5.9',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

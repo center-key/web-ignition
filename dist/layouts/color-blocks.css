@@ -1,4 +1,4 @@
-/*! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Color Blocks layout -- Two columns of colorful blocks
@@ -145,7 +145,7 @@ body >footer a:hover {
    main { flex-direction: column; }
    main >div:nth-child(n) { flex: auto; }
    }
-/**************************************************************************************************/
+/******************************************************************************/
 
 /* Color Blocks layout -- customize colors */
 /* Block colors (2 columns * 3 blocks --> 6 colors) */

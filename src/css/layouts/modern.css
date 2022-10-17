@@ -178,7 +178,7 @@ body >footer >small {
    body >footer { padding: 10px 10px; }
    main >nav { padding: 40px 0px; }
    }
-/**************************************************************************************************/
+/******************************************************************************/
 
 /* Modern layout -- customize colors */
 main >div >article { background-color: aliceblue; border-color: steelblue; }

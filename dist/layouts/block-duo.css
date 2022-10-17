@@ -1,4 +1,4 @@
-/*! web-ignition v1.5.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Block Duo layout -- Two big columns followed by a single footer
@@ -132,7 +132,7 @@ body >footer >p a i.font-icon {
       padding: 50px 15px;
       }
    }
-/**************************************************************************************************/
+/******************************************************************************/
 
 /* Block Duo layout -- customize colors */
 main >section:nth-child(1) { color: white;     background-color: steelblue; }
