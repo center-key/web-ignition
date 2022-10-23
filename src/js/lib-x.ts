@@ -36,6 +36,14 @@ export type LibXMontageLoopSettings = {
    fadeMs:     number,           //milliseconds to complete transition (default: 3,000)
    };
 export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
+export type NavigatorUAData = {
+   readonly brands: {
+      brand:   string,  //examples: "Chromium", "Google Chrome"
+      version: string,  //example: "106"
+      }[],
+   readonly mobile:   boolean;
+   readonly platform: string;  //examples: "macOS", "Windows"
+   };
 
 const libXUi = {
    plugin: {
@@ -97,7 +105,7 @@ const libXUi = {
       elem.find('input:not([type])').attr({ type: 'text' });
       elem.find('input[type=email]').attr({ autocorrect: 'off', spellcheck: false });
       elem.find('a img, a i.font-icon').closest('a').addClass('image-link');
-      if (!libX.browser.iOS())
+      if (!libX.browser.userAgentData().mobile)
          elem.find('a.external-site, .external-site a').attr({ target: '_blank' });
       return elem;
       },
@@ -304,13 +312,27 @@ const libXCounter = {
    };
 
 const libXBrowser = {
-   macOS(): boolean {
-      const agent = globalThis.navigator.userAgent;
-      return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
+   userAgentData(): NavigatorUAData {
+      const polyfil = (): NavigatorUAData => {
+         const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
+         const platform =   globalThis.navigator.platform;
+         const platforms =  { 'MacIntel': 'macOS', 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };  //note: iOS not verified
+         return {
+            brands:   [{ brand: brandEntry?.[0] ?? '', version: brandEntry?.[1] ?? '' }],
+            mobile:   /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
+            platform: platforms[platform] ?? platform,
+            };
+         };
+      return globalThis.navigator['userAgentData'] ?? polyfil();
       },
    iOS(): boolean {
-      const iDevice = /iPad|iPhone|iPod/.test(globalThis.navigator.userAgent);
-      return iDevice && /Apple/.test(globalThis.navigator.vendor);
+      return libX.browser.userAgentData().platform === 'iOS';
+      },
+   macOS(): boolean {
+      return libX.browser.userAgentData().platform === 'macOS';
+      },
+   msWindows(): boolean {
+      return libX.browser.userAgentData().platform === 'Windows';
       },
    };
 

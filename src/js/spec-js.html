@@ -24,8 +24,8 @@
          libX.animate.jiggleIt($('#fork-me'));
          $('h1').click(libX.animate.jiggleIt);
          $('.version-number').text(libX.version);
-         $('#is-a-mac').text(libX.browser.macOS() ? 'YES' : 'no');
-         $('#is-ios').text(libX.browser.iOS() ? 'YES' : 'no');
+         $('#is-a-mac').text(libX.browser.macOS ? 'YES' : 'no');
+         $('#is-mobile').text(libX.browser.userAgentData().mobile ? 'YES' : 'no');
          globalThis.setTimeout(() => dna.clone('helicopter', { help: 'Help me too!' }, { fade: true }), 3000);
          libX.counter.get();           //returns: 0
          libX.counter.increment();     //returns: 1
@@ -127,8 +127,8 @@
          </p>
       </div>
       <hr>
-      <p>On a Mac:    <code id=is-a-mac></code></p>
-      <p>Running iOS: <code id=is-ios></code></p>
+      <p>On a Mac:  <code id=is-a-mac></code></p>
+      <p>Mobile:    <code id=is-mobile></code></p>
       <p>thumbs-up: <i data-icon=thumbs-up></i></p>
       <p>Jiggle it:
          <i data-icon=glass-martini-alt data-click=libX.animate.jiggleIt></i>
