@@ -1,4 +1,4 @@
-//! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.6.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -43,7 +43,7 @@ const libXUi = {
         elem.find('input:not([type])').attr({ type: 'text' });
         elem.find('input[type=email]').attr({ autocorrect: 'off', spellcheck: false });
         elem.find('a img, a i.font-icon').closest('a').addClass('image-link');
-        if (!libX.browser.iOS())
+        if (!libX.browser.userAgentData().mobile)
             elem.find('a.external-site, .external-site a').attr({ target: '_blank' });
         return elem;
     },
@@ -116,7 +116,7 @@ const libXUi = {
             elem.attr('data-href', url).addClass('external-site');
         };
         $('figure.video-container-link').forEach(makeVideoClickable);
-        return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
+        return $('figure.video-container >iframe').attr({ allow: 'fullscreen' }).parent();
     },
     setupForkMe() {
         const forkMe = $('#fork-me').wrap($('<div id=fork-me-container>'));
@@ -209,13 +209,29 @@ const libXCounter = {
     },
 };
 const libXBrowser = {
-    macOS() {
-        const agent = globalThis.navigator.userAgent;
-        return /Macintosh/.test(agent) && /Mac OS X|macOS/i.test(agent);
+    userAgentData() {
+        var _a;
+        const polyfil = () => {
+            var _a, _b, _c, _d, _e;
+            const brandEntry = (_b = (_a = globalThis.navigator.userAgent.split(' ').pop()) === null || _a === void 0 ? void 0 : _a.split('/')) !== null && _b !== void 0 ? _b : [];
+            const platform = globalThis.navigator.platform;
+            const platforms = { 'MacIntel': 'macOS', 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
+            return {
+                brands: [{ brand: (_c = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[0]) !== null && _c !== void 0 ? _c : '', version: (_d = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[1]) !== null && _d !== void 0 ? _d : '' }],
+                mobile: /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
+                platform: (_e = platforms[platform]) !== null && _e !== void 0 ? _e : platform,
+            };
+        };
+        return (_a = globalThis.navigator['userAgentData']) !== null && _a !== void 0 ? _a : polyfil();
     },
     iOS() {
-        const iDevice = /iPad|iPhone|iPod/.test(globalThis.navigator.userAgent);
-        return iDevice && /Apple/.test(globalThis.navigator.vendor);
+        return libX.browser.userAgentData().platform === 'iOS';
+    },
+    macOS() {
+        return libX.browser.userAgentData().platform === 'macOS';
+    },
+    msWindows() {
+        return libX.browser.userAgentData().platform === 'Windows';
     },
 };
 const libXPopupImage = {
@@ -363,7 +379,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.5.9',
+    version: '1.6.0',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

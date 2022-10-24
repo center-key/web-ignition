@@ -1,4 +1,4 @@
-//! web-ignition v1.5.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.6.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 /// <reference types="node" />
 declare global {
@@ -51,6 +51,14 @@ export declare type LibXMontageLoopSettings = {
     fadeMs: number;
 };
 export declare type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
+export declare type NavigatorUAData = {
+    readonly brands: {
+        brand: string;
+        version: string;
+    }[];
+    readonly mobile: boolean;
+    readonly platform: string;
+};
 declare const libX: {
     version: string;
     ui: {
@@ -99,8 +107,10 @@ declare const libX: {
         increment(name?: string): number;
     };
     browser: {
-        macOS(): boolean;
+        userAgentData(): NavigatorUAData;
         iOS(): boolean;
+        macOS(): boolean;
+        msWindows(): boolean;
     };
     popupImage: {
         show(event: JQuery.EventBase): void;
