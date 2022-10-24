@@ -196,7 +196,7 @@ const libXUi = {
          elem.attr('data-href', url).addClass('external-site');
          };
       $('figure.video-container-link').forEach(makeVideoClickable);
-      return $('figure.video-container iframe').attr({ allow: 'fullscreen' }).parent();
+      return $('figure.video-container >iframe').attr({ allow: 'fullscreen' }).parent();
       },
    setupForkMe(): JQuery {
       // <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
