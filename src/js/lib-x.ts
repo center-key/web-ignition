@@ -199,7 +199,8 @@ const libXUi = {
       return $('figure.video-container >iframe').attr({ allow: 'fullscreen' }).parent();
       },
    setupForkMe(): JQuery {
-      // <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
+      // Append to body>header:
+      //    <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
       const forkMe = $('#fork-me').wrap($('<div id=fork-me-container>'));
       const icon = $('<i>', { 'data-brand': 'github', 'data-href': forkMe.attr('href') });
       return forkMe.after(icon).parent().parent().addClass('forkable');
@@ -315,11 +316,13 @@ const libXBrowser = {
    userAgentData(): NavigatorUAData {
       const polyfil = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
+         const hasTouch =   !!navigator.maxTouchPoints;
          const platform =   globalThis.navigator.platform;
-         const platforms =  { 'MacIntel': 'macOS', 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };  //note: iOS not verified
+         const mac =        hasTouch ? 'iOS' : 'macOS';
+         const platforms =  { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
          return {
             brands:   [{ brand: brandEntry?.[0] ?? '', version: brandEntry?.[1] ?? '' }],
-            mobile:   /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
+            mobile:   hasTouch || /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
             platform: platforms[platform] ?? platform,
             };
          };
