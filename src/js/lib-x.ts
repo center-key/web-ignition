@@ -501,25 +501,25 @@ const libXExtra = {
          console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          libX.ui.normalize();
-         window['hljsEnhance'].setup();
+         globalThis['hljsEnhance'].setup();
          };
       globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
-      return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
+      return $(globalThis['blogger'].ui()).on({ viewitem: onArticleLoad });
       },
    gTags(scriptTag: string): void {
       // Google Tracking
       // Usage:
       //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=libX.extra.gTags></script>
       const trackingID = (<string>$(scriptTag).attr('src')).split('=')[1];
-      window['dataLayer'] = window['dataLayer'] || [];
-      function gtag(...args: unknown[]) { window['dataLayer'].push(args); }
+      globalThis['dataLayer'] = globalThis['dataLayer'] || [];
+      function gtag(...args: unknown[]) { globalThis['dataLayer'].push(args); }
       gtag('js', new Date());
       gtag('config', trackingID);
       },
    };
 
 const libX = {
-   version:    '~~~version~~~',
+   version:    '{{pkg.version}}',
    ui:         libXUi,
    util:       libXUtil,
    crypto:     libXCrypto,

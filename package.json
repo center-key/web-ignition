@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.6.0",
+   "version": "1.6.1",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",

@@ -1,4 +1,4 @@
-//! web-ignition v1.6.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.6.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -214,11 +214,13 @@ const libXBrowser = {
         const polyfil = () => {
             var _a, _b, _c, _d, _e;
             const brandEntry = (_b = (_a = globalThis.navigator.userAgent.split(' ').pop()) === null || _a === void 0 ? void 0 : _a.split('/')) !== null && _b !== void 0 ? _b : [];
+            const hasTouch = !!navigator.maxTouchPoints;
             const platform = globalThis.navigator.platform;
-            const platforms = { 'MacIntel': 'macOS', 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
+            const mac = hasTouch ? 'iOS' : 'macOS';
+            const platforms = { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
             return {
                 brands: [{ brand: (_c = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[0]) !== null && _c !== void 0 ? _c : '', version: (_d = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[1]) !== null && _d !== void 0 ? _d : '' }],
-                mobile: /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
+                mobile: hasTouch || /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
                 platform: (_e = platforms[platform]) !== null && _e !== void 0 ? _e : platform,
             };
         };
@@ -379,7 +381,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.6.0',
+    version: '1.6.1',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

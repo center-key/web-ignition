@@ -140,6 +140,7 @@ publishWebFiles() {
       sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/blogger-tweaks.html
+      test -x "$(which tree)" && tree $publishFolder
       ls -o $publishFolder
       echo "Published -> ${publishFolder/$webDocRoot/http//:localhost}"
       echo
