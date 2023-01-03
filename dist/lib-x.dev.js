@@ -1,4 +1,4 @@
-//! web-ignition v1.6.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.6.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXUi = {
     plugin: {
@@ -210,7 +210,7 @@ const libXCounter = {
 const libXBrowser = {
     userAgentData() {
         var _a;
-        const polyfil = () => {
+        const polyfill = () => {
             var _a, _b, _c, _d, _e;
             const brandEntry = (_b = (_a = globalThis.navigator.userAgent.split(' ').pop()) === null || _a === void 0 ? void 0 : _a.split('/')) !== null && _b !== void 0 ? _b : [];
             const hasTouch = !!navigator.maxTouchPoints;
@@ -223,7 +223,7 @@ const libXBrowser = {
                 platform: (_e = platforms[platform]) !== null && _e !== void 0 ? _e : platform,
             };
         };
-        return (_a = globalThis.navigator['userAgentData']) !== null && _a !== void 0 ? _a : polyfil();
+        return (_a = globalThis.navigator['userAgentData']) !== null && _a !== void 0 ? _a : polyfill();
     },
     iOS() {
         return libX.browser.userAgentData().platform === 'iOS';
@@ -366,21 +366,21 @@ const libXExtra = {
             console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
             $('#header >.header-bar h3').attr('data-href', websiteUrl);
             libX.ui.normalize();
-            window['hljsEnhance'].setup();
+            globalThis['hljsEnhance'].setup();
         };
         globalThis.setTimeout(libX.ui.normalize, 2000);
-        return $(window['blogger'].ui()).on({ viewitem: onArticleLoad });
+        return $(globalThis['blogger'].ui()).on({ viewitem: onArticleLoad });
     },
     gTags(scriptTag) {
         const trackingID = $(scriptTag).attr('src').split('=')[1];
-        window['dataLayer'] = window['dataLayer'] || [];
-        function gtag(...args) { window['dataLayer'].push(args); }
+        globalThis['dataLayer'] = globalThis['dataLayer'] || [];
+        function gtag(...args) { globalThis['dataLayer'].push(args); }
         gtag('js', new Date());
         gtag('config', trackingID);
     },
 };
 const libX = {
-    version: '1.6.1',
+    version: '1.6.2',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

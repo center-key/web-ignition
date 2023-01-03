@@ -314,7 +314,7 @@ const libXCounter = {
 
 const libXBrowser = {
    userAgentData(): NavigatorUAData {
-      const polyfil = (): NavigatorUAData => {
+      const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
          const platform =   globalThis.navigator.platform;
@@ -326,7 +326,7 @@ const libXBrowser = {
             platform: platforms[platform] ?? platform,
             };
          };
-      return globalThis.navigator['userAgentData'] ?? polyfil();
+      return globalThis.navigator['userAgentData'] ?? polyfill();
       },
    iOS(): boolean {
       return libX.browser.userAgentData().platform === 'iOS';

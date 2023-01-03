@@ -1,4 +1,4 @@
-//! web-ignition v1.6.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.6.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 /// <reference types="node" />
 declare global {
@@ -10,48 +10,48 @@ declare global {
         forEach: (fn: LibXForEachCallback) => JQuery;
     }
 }
-export declare type Json = string | number | boolean | null | undefined | JsonObject | Json[];
-export declare type JsonObject = {
+export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
+export type JsonObject = {
     [key: string]: Json;
 };
-export declare type JsonData = JsonObject | Json[];
-export declare type LibXForEachCallback = (elem: JQuery, index: number) => void;
-export declare type LibXObject = {
+export type JsonData = JsonObject | Json[];
+export type LibXForEachCallback = (elem: JQuery, index: number) => void;
+export type LibXObject = {
     [key: string]: unknown;
 };
-export declare type LibXUiPopupSettings = {
+export type LibXUiPopupSettings = {
     width: number;
     height: number;
 };
-export declare type LibXUiPopupOptions = Partial<LibXUiPopupSettings>;
-export declare type LibXUiKeepOnScreenSettings = {
+export type LibXUiPopupOptions = Partial<LibXUiPopupSettings>;
+export type LibXUiKeepOnScreenSettings = {
     padding: number;
 };
-export declare type LibXUiKeepOnScreenOptions = Partial<LibXUiKeepOnScreenSettings>;
-export declare type LibXCryptoHashSettings = {
+export type LibXUiKeepOnScreenOptions = Partial<LibXUiKeepOnScreenSettings>;
+export type LibXCryptoHashSettings = {
     algorithm: string;
     salt: string;
 };
-export declare type LibXCryptoHashOptions = Partial<LibXCryptoHashSettings>;
-export declare type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
-export declare type LibXCounterMap = {
+export type LibXCryptoHashOptions = Partial<LibXCryptoHashSettings>;
+export type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
+export type LibXCounterMap = {
     [counter: string]: number;
 };
-export declare type LibXSocialButton = {
+export type LibXSocialButton = {
     title: string;
     icon: string;
     x: number;
     y: number;
     link: string;
 };
-export declare type LibXMontageLoopSettings = {
+export type LibXMontageLoopSettings = {
     container: string | JQuery;
     start: number | null;
     intervalMs: number;
     fadeMs: number;
 };
-export declare type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
-export declare type NavigatorUAData = {
+export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
+export type NavigatorUAData = {
     readonly brands: {
         brand: string;
         version: string;
