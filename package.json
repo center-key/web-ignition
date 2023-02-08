@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "1.6.2",
+   "version": "1.6.3",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",
@@ -99,11 +99,11 @@
       "jquery": "~3.6"
    },
    "devDependencies": {
-      "@fortawesome/fontawesome-free": "~6.2",
+      "@fortawesome/fontawesome-free": "~6.3",
       "@types/jquery": "~3.5",
-      "@types/node": "~18.11",
-      "@typescript-eslint/eslint-plugin": "~5.50",
-      "@typescript-eslint/parser": "~5.50",
+      "@types/node": "~18.13",
+      "@typescript-eslint/eslint-plugin": "~5.51",
+      "@typescript-eslint/parser": "~5.51",
       "add-dist-header": "~0.3",
       "assert-deep-strict-equal": "~1.0",
       "copy-file-util": "~0.1",
