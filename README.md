@@ -15,11 +15,11 @@ KISS!
 Load from the [jsdelivr.com CDN](https://www.jsdelivr.com/package/npm/web-ignition):
 ```html
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@2.3/dist/dna-engine.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.6/dist/reset.min.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@1.7/dist/reset.min.css>
 ...
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/dna-engine@2.3/dist/dna-engine.min.js></script>
-<script src=https://cdn.jsdelivr.net/npm/web-ignition@1.6/dist/lib-x.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/web-ignition@1.7/dist/lib-x.min.js></script>
 ```
 
 ## Specifications
