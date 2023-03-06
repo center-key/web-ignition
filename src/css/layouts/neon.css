@@ -119,7 +119,7 @@ main >section figure >pre >code.language-bash {
 /* Link color */
 main >section a,
 main >section a:visited {
-   font-size: 1.2rem;
+   font-size: 1.2em;
    color: white;
    border-color: fuchsia;
    }
