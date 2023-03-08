@@ -64,31 +64,39 @@
       "highlightjs": "11.7"
    },
    "runScriptsConfig": {
-      "build": [
-         "rimraf build dist",
+      "clean": [
+         "rimraf build dist"
+      ],
+      "lint": [
          "jshint . --exclude-path .gitignore",
-         "eslint --max-warnings 0 . --ext .ts",
+         "eslint --max-warnings 0 . --ext .ts"
+      ],
+      "blogger": [
+         "lessc src/css/blogger-tweaks/style.less build/step3/blogger-tweaks.css",
+         "replacer src/css/blogger-tweaks/instructions.css build/step4 --regex=/{{apos}}{{gt}}$/gm --replacement={{apos}}/{{gt}}",
+         "csso build/step3/blogger-tweaks.css --output build/step4/blogger-tweaks.min.css",
+         "replacer build/step4 --ext=.css build --pkg --concat=blogger-tweaks.min.css"
+      ],
+      "build": [
          "tsc",
          "lessc src/css/reset.less build/step1/reset.css",
          "copy-file src/css/reset-color-overrides.css --folder build/step2",
          "csso build/step1/reset.css --output build/step2/core-reset.min.css",
          "replacer build/step2 --ext=.css build --concat=reset.min.css",
          "replacer src/css/layouts --ext=.css build/layouts --pkg",
-         "lessc src/css/blogger-tweaks/style.less build/step3/blogger-tweaks.css",
-         "copy-file src/css/blogger-tweaks/instructions.css --folder build/step4",
-         "csso build/step3/blogger-tweaks.css --output build/step4/blogger-tweaks.min.css",
-         "replacer build/step4 --ext=.css build --pkg --concat=blogger-tweaks.min.css",
          "esm-to-plain-js --cd=build lib-x.js lib-x.dev.js",
          "uglifyjs build/lib-x.dev.js --output build/lib-x.min.js",
          "uglifyjs src/css/layouts/neon.js --output build/layouts/neon.min.js",
          "add-dist-header build dist",
          "add-dist-header build/layouts dist/layouts",
-         "copy-folder src/css/layouts/neon --ext=.jpg dist/layouts/neon",
+         "copy-folder src/css/layouts/neon --ext=.jpg dist/layouts/neon"
+      ],
+      "validate": [
          "html-validator"
       ]
    },
    "scripts": {
-      "pretest": "run-scripts build",
+      "pretest": "run-scripts clean lint blogger build validate",
       "test": "mocha spec/*.spec.js"
    },
    "dependencies": {
