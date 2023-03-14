@@ -1,4 +1,4 @@
-//! web-ignition v1.7.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -381,7 +381,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.7.0',
+    version: '1.7.1',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,

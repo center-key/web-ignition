@@ -142,7 +142,7 @@ publishWebFiles() {
       sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/blogger-tweaks.html
       test -x "$(which tree)" && tree $publishFolder
       ls -o $publishFolder
-      echo "Published -> ${publishFolder/$webDocRoot/http//:localhost}"
+      echo "Published -> ${publishFolder/$webDocRoot/http://localhost}"
       echo
       }
    test -w $publishSite && publish
