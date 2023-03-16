@@ -1,4 +1,4 @@
-//! web-ignition v1.7.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 /// <reference types="node" />
 declare global {
@@ -132,7 +132,7 @@ declare const libX: {
         setup(): JQuery;
     };
     extra: {
-        blogger(websiteUrl: string): JQuery;
+        blogger(websiteUrl: string): void;
         gTags(scriptTag: string): void;
     };
     initialize(): void;

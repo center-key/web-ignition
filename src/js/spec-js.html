@@ -15,7 +15,7 @@
    <script defer src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
    <script defer src=https://cdn.jsdelivr.net/npm/dna-engine@2.3/dist/dna-engine.min.js></script>
    <script defer src=../../dist/lib-x.min.js></script>
-   <script>globalThis.onerror = () => document.body.style.background = 'pink';</script>
+   <script>globalThis.onerror = () => globalThis.document.body.style.background = 'pink';</script>
    <script data-on-load=startup data-wait-for=libX>
       const startup = () => {
          console.log('web-ignition v' + libX.version);

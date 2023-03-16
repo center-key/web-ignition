@@ -1,4 +1,4 @@
-//! web-ignition v1.7.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -364,13 +364,21 @@ const libXExtra = {
     blogger(websiteUrl) {
         console.log('Setup for:', websiteUrl);
         const onArticleLoad = () => {
-            console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
+            const titleStyle = 'font-weight: bold; color: purple;';
+            console.log('Article: %c' + $('h1.entry-title').text().trim(), titleStyle);
             $('#header >.header-bar h3').attr('data-href', websiteUrl);
             libX.ui.normalize();
             globalThis['hljsEnhance'].setup();
         };
+        const ready = () => {
+            console.log(Date.now(), 'loading...');
+            if ($('#header h1').length)
+                onArticleLoad();
+            else
+                globalThis.setTimeout(ready, 250);
+        };
+        ready();
         globalThis.setTimeout(libX.ui.normalize, 2000);
-        return $(globalThis['blogger'].ui()).on({ viewitem: onArticleLoad });
     },
     gTags(scriptTag) {
         const trackingID = $(scriptTag).attr('src').split('=')[1];
@@ -381,7 +389,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '1.7.1',
+    version: '1.7.2',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
