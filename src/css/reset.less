@@ -109,7 +109,9 @@ table caption { caption-side: bottom; font-size: 0.7rem; font-weight: bold; text
 table tr { border-bottom: 1px solid steelblue; transition: all 400ms; }
 table thead tr { border-bottom-width: 3px; }
 table tbody tr:hover { background-color: aliceblue; }
-table tbody td { font-size: 0.9rem; vertical-align: top; text-align: center; }
+table tbody tr th[colspan] { font-size: 0.8rem; font-weight: normal; text-align: center; text-transform: uppercase; color: white; background-color: steelblue; padding: 3px 0px; }
+table tbody tr td { font-size: 0.9rem; vertical-align: top; text-align: center; }
+table tbody tr td.num { text-align: right; }
 table th, table td { padding: 6px 15px; }
 table.data-box { background-color: aliceblue; border: 3px solid gainsboro; }
 table.data-box tr { border: none; }
@@ -117,7 +119,7 @@ table.data-box th, table.data-box td { font-size: 0.9rem; text-align: left; padd
 table.data-box thead tr { background-color: gainsboro; }
 table.data-box tbody tr:nth-child(odd) { background-color: mintcream; }
 table.data-box tbody tr:hover { background-color: floralwhite; }
-table.data-box td.num { text-align: right; }
+table.data-box tbody tr th[colspan] { background-color: darkgray; }
 .plain-tables table tr { border-bottom: none; }
 .plain-tables table tbody td { text-align: left; }
 .plain-tables table tbody tr:hover { background-color: transparent; }
