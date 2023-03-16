@@ -14,12 +14,9 @@
    output { display: block; }
 </style>
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.6/dist/jquery.min.js></script>
-<script>globalThis.onerror = () => document.body.style.background = 'pink';</script>
+<script>globalThis.onerror = () => globalThis.document.body.style.background = 'pink';</script>
 <script data-on-load=displayVersion>
-   const refreshOutput = (textarea) => {
-      $('output').html(textarea.val());
-      globalThis.blogger.ui().trigger('viewitem');
-      };
+   const refreshOutput =  (textarea) => $('output').html(textarea.val());
    const displayVersion = () => $('.version-number').text(libX.version);
 </script>
 <!-- Insert HTML from build/blogger-tweaks.min.css below this comment. -->
@@ -37,14 +34,13 @@
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@1.1/hljs-enhance.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/dna-engine@2.3/dist/dna-engine.min.js'></script>
     <script src='../../dist/lib-x.min.js'></script>
-    <script>globalThis.blogger = { ui: () => $('html') };</script>
     <script>libX.extra.blogger('https://example.com');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Insert HTML from build/blogger-tweaks.min.css above this comment. -->
 </head>
 <body>
 
-<header>
+<header id=header>
    <aside class=external-site>
       <button data-href=https://www.convertstring.com/EncodeDecode/HtmlEncode>Encoder</button>
       <button data-href=https://blog.centerkey.com>Example blog</button>
@@ -96,13 +92,9 @@ This is a regular paragraph.
    &lt;figcaption&gt;Some code&lt;/figcaption&gt;
    &lt;pre&gt;
       &lt;code class=language-javascript&gt;
-         const makePageRed = () =&gt; $('body').css({ backgroundColor: 'pink' });
-         globalThis.onerror = makePageRed;
+         globalThis.onerror = () => globalThis.document.body.style.background = 'pink';
          $('.version-number').text(libX.version);
-         const refreshOutput = (textarea) =&gt; {
-            $('output').html(textarea.val());
-            globalThis.blogger.ui().trigger('viewitem');
-            };
+         const refreshOutput = (textarea) =&gt; $('output').html(textarea.val());
       &lt;/code&gt;
    &lt;/pre&gt;
 &lt;/figure&gt;

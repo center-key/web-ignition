@@ -494,17 +494,25 @@ const libXSocial = {
 
 // Extras for 3rd party stuff
 const libXExtra = {
-   blogger(websiteUrl: string): JQuery {
+   blogger(websiteUrl: string) {
       // Setup Blogger's Dynamic Views (sidebar)
       console.log('Setup for:', websiteUrl);
       const onArticleLoad = () => {
-         console.log('Article: %c' + $('h1.entry-title').text().trim(), 'color: purple;');
+         const titleStyle = 'font-weight: bold; color: purple;';
+         console.log('Article: %c' + $('h1.entry-title').text().trim(), titleStyle);
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          libX.ui.normalize();
          globalThis['hljsEnhance'].setup();
          };
+      const ready = () => {
+         console.log(Date.now(), 'loading...');
+         if ($('#header h1').length)  //takes about 1 second for page to load
+            onArticleLoad();
+         else
+            globalThis.setTimeout(ready, 250);
+         };
+      ready();
       globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
-      return $(globalThis['blogger'].ui()).on({ viewitem: onArticleLoad });
       },
    gTags(scriptTag: string): void {
       // Google Tracking
