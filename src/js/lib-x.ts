@@ -44,6 +44,10 @@ export type NavigatorUAData = {
    readonly mobile:   boolean;
    readonly platform: string;  //examples: "macOS", "Windows"
    };
+export type LibX = typeof libX;
+declare global { var dataLayer:   unknown[] }              //eslint-disable-line no-var
+declare global { var hljsEnhance: { setup: () => void } }  //eslint-disable-line no-var
+declare global { var libX:        LibX }                   //eslint-disable-line no-var
 
 const libXUi = {
    plugin: {
@@ -317,7 +321,7 @@ const libXBrowser = {
       const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
-         const platform =   globalThis.navigator.platform;
+         const platform =   <keyof typeof platforms>globalThis.navigator.platform;
          const mac =        hasTouch ? 'iOS' : 'macOS';
          const platforms =  { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
          return {
@@ -326,7 +330,8 @@ const libXBrowser = {
             platform: platforms[platform] ?? platform,
             };
          };
-      return globalThis.navigator['userAgentData'] ?? polyfill();
+      const navigatorUAData = <unknown>globalThis.navigator['userAgentData' as keyof Navigator];
+      return <NavigatorUAData>navigatorUAData ?? polyfill();
       },
    iOS(): boolean {
       return libX.browser.userAgentData().platform === 'iOS';
@@ -502,7 +507,7 @@ const libXExtra = {
          console.log('Article: %c' + $('h1.entry-title').text().trim(), titleStyle);
          $('#header >.header-bar h3').attr('data-href', websiteUrl);
          libX.ui.normalize();
-         globalThis['hljsEnhance'].setup();
+         globalThis.hljsEnhance.setup();
          };
       const ready = () => {
          console.log(Date.now(), 'loading...');
@@ -519,8 +524,8 @@ const libXExtra = {
       // Usage:
       //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=libX.extra.gTags></script>
       const trackingID = (<string>$(scriptTag).attr('src')).split('=')[1];
-      globalThis['dataLayer'] = globalThis['dataLayer'] || [];
-      function gtag(...args: unknown[]) { globalThis['dataLayer'].push(args); }
+      globalThis.dataLayer = globalThis.dataLayer || [];
+      function gtag(...args: unknown[]) { globalThis.dataLayer.push(args); }
       gtag('js', new Date());
       gtag('config', trackingID);
       },
@@ -541,7 +546,7 @@ const libX = {
    social:     libXSocial,
    extra:      libXExtra,
    initialize(): void {
-      globalThis['libX' + ''] = libX;
+      globalThis.libX = libX;
       $.fn.id =      libX.ui.plugin.id;
       $.fn.enable =  libX.ui.plugin.enable;
       $.fn.disable = libX.ui.plugin.disable;

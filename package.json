@@ -125,7 +125,7 @@
       "replacer-util": "~1.0",
       "rimraf": "~4.4",
       "run-scripts-util": "~1.0",
-      "typescript": "~4.9",
+      "typescript": "~5.0",
       "uglify-js": "~3.17",
       "w3c-html-validator": "~1.3"
    }
