@@ -1,4 +1,4 @@
-//! web-ignition v1.7.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 import { dna } from 'dna-engine';
 const libXUi = {
@@ -224,7 +224,8 @@ const libXBrowser = {
                 platform: (_e = platforms[platform]) !== null && _e !== void 0 ? _e : platform,
             };
         };
-        return (_a = globalThis.navigator['userAgentData']) !== null && _a !== void 0 ? _a : polyfill();
+        const navigatorUAData = globalThis.navigator['userAgentData'];
+        return (_a = navigatorUAData) !== null && _a !== void 0 ? _a : polyfill();
     },
     iOS() {
         return libX.browser.userAgentData().platform === 'iOS';
@@ -368,7 +369,7 @@ const libXExtra = {
             console.log('Article: %c' + $('h1.entry-title').text().trim(), titleStyle);
             $('#header >.header-bar h3').attr('data-href', websiteUrl);
             libX.ui.normalize();
-            globalThis['hljsEnhance'].setup();
+            globalThis.hljsEnhance.setup();
         };
         const ready = () => {
             console.log(Date.now(), 'loading...');
@@ -382,14 +383,14 @@ const libXExtra = {
     },
     gTags(scriptTag) {
         const trackingID = $(scriptTag).attr('src').split('=')[1];
-        globalThis['dataLayer'] = globalThis['dataLayer'] || [];
-        function gtag(...args) { globalThis['dataLayer'].push(args); }
+        globalThis.dataLayer = globalThis.dataLayer || [];
+        function gtag(...args) { globalThis.dataLayer.push(args); }
         gtag('js', new Date());
         gtag('config', trackingID);
     },
 };
 const libX = {
-    version: '1.7.2',
+    version: '1.7.3',
     ui: libXUi,
     util: libXUtil,
     crypto: libXCrypto,
@@ -403,7 +404,7 @@ const libX = {
     social: libXSocial,
     extra: libXExtra,
     initialize() {
-        globalThis['libX' + ''] = libX;
+        globalThis.libX = libX;
         $.fn.id = libX.ui.plugin.id;
         $.fn.enable = libX.ui.plugin.enable;
         $.fn.disable = libX.ui.plugin.disable;

@@ -1,4 +1,4 @@
-//! web-ignition v1.7.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 /// <reference types="node" />
 declare global {
@@ -59,6 +59,18 @@ export type NavigatorUAData = {
     readonly mobile: boolean;
     readonly platform: string;
 };
+export type LibX = typeof libX;
+declare global {
+    var dataLayer: unknown[];
+}
+declare global {
+    var hljsEnhance: {
+        setup: () => void;
+    };
+}
+declare global {
+    var libX: LibX;
+}
 declare const libX: {
     version: string;
     ui: {
