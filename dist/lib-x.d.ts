@@ -1,4 +1,4 @@
-//! web-ignition v1.7.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v1.7.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 /// <reference types="node" />
 declare global {

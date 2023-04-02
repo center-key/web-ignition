@@ -330,7 +330,7 @@ const libXBrowser = {
             platform: platforms[platform] ?? platform,
             };
          };
-      const navigatorUAData = <unknown>globalThis.navigator['userAgentData' as keyof Navigator];
+      const navigatorUAData = <unknown>globalThis.navigator[<keyof Navigator>'userAgentData'];
       return <NavigatorUAData>navigatorUAData ?? polyfill();
       },
    iOS(): boolean {
