@@ -51,7 +51,7 @@ main >section:first-child h2 {
    margin-bottom: 30px;
    }
 main >section:first-child >div {
-   max-width: 560px;
+   max-width: 600px;
    padding: 0px 0px;
    margin: 10px auto;
    }

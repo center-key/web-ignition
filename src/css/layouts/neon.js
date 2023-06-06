@@ -1,3 +1,4 @@
 // Neon layout -- For hackers and space junkies
 const numNeonImages = 8;
-$('body').addClass('neon-image-' + (Date.now() % numNeonImages + 1));
+const randomImage =   Date.now() % numNeonImages + 1;
+globalThis.document.body.classList.add('neon-image-' + String(randomImage));
