@@ -133,41 +133,6 @@ table.data-box tbody tr th[colspan] { background-color: darkgray; }
 .flex-columns >*:last-child  { padding-right: 0px; }
 @media (max-width: 667px) { .flex-columns { flex-direction: column; } .flex-columns >* { padding: 0px; } }
 
-// DEPRECATED
-.large          { font-size: larger; }
-.align-right    { text-align: right; }
-.align-center   { text-align: center; }
-.middle         { margin-left: auto; margin-right: auto; }
-.column         { display: inline-block; float: left; }
-.push-left      { float: left; margin: 0px 10px 5px 0px; }
-.push-right     { float: right; margin: 0px 0px 5px 10px; }
-.leapfrog       { clear: both; }
-.indent         { display: table; margin-left: 40px; }
-.block-indent   { display: block; margin-left: 40px; }
-.space-left-sm  { padding-left:  5px; }
-.space-left     { padding-left: 10px; }
-.space-left-2x  { padding-left: 20px; }
-.space-right-sm { padding-right:  5px; }
-.space-right    { padding-right: 10px; }
-.space-right-2x { padding-right: 20px; }
-.space-above-sm { margin-top:  5px; }
-.space-above    { margin-top: 10px; }
-.space-above-2x { margin-top: 20px; }
-.space-above-3x { margin-top: 30px; }
-.space-above-4x { margin-top: 40px; }
-.space-below-sm { margin-bottom:  5px; }
-.space-below    { margin-bottom: 10px; }
-.space-below-2x { margin-bottom: 20px; }
-.space-below-3x { margin-bottom: 30px; }
-.space-below-4x { margin-bottom: 40px; }
-.advisory       { color: darkred; }
-.dim-out        { color: darkgray; }
-.highligh-pen   { color: lightyellow; padding: 0px 3px; }
-.highligh-pen2  { color: mistyrose; padding: 0px 3px; }
-.box-glow       { box-shadow: 0px 0px 2em deepskyblue; }
-.keep-together  { white-space: nowrap; }
-.hide-me        { display: none !important; visibility: hidden !important; max-width: 0px; max-height: 0px; padding: 0px; margin: 0px; opacity: 0; z-index: -10000; }
-
 // Utilities (substitute for mixins on web pages without less)
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
@@ -275,7 +240,7 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
 .json-value   { color: navy; }
 .json-boolean { color: teal; }
 .json-string  { color: olive; }
-@keyframes jiggle-it {
+@keyframes jiggle-it {  //'jiggle-it 200ms 3'
    0%  { transform: rotate(-10deg); }
    50% { transform: rotate( 10deg); }
    }

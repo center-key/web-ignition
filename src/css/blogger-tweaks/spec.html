@@ -16,8 +16,10 @@
 <script src=https://cdn.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js></script>
 <script>globalThis.onerror = () => globalThis.document.body.style.background = 'pink';</script>
 <script data-on-load=displayVersion>
-   const refreshOutput =  (textarea) => $('output').html(textarea.val());
-   const displayVersion = () => $('.version-number').text(libX.version);
+   const refreshOutput =  (textarea) =>
+      globalThis.document.querySelector('output').innerHTML = textarea.value;
+   const displayVersion = () =>
+      globalThis.document.querySelector('.version-number').textContent = libX.version;
 </script>
 <!-- Insert HTML from build/blogger-tweaks.min.css below this comment. -->
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -93,8 +95,8 @@ This is a regular paragraph.
    &lt;pre&gt;
       &lt;code class=language-javascript&gt;
          globalThis.onerror = () => globalThis.document.body.style.background = 'pink';
-         $('.version-number').text(libX.version);
-         const refreshOutput = (textarea) =&gt; $('output').html(textarea.val());
+         globalThis.document.querySelector('.version-number').textContent = libX.version;
+         const refreshOutput = (textarea) =&gt; globalThis.document.querySelector('output').innerHTML = textarea.value;
       &lt;/code&gt;
    &lt;/pre&gt;
 &lt;/figure&gt;

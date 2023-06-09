@@ -34,7 +34,6 @@
       "undef": true,
       "unused": true,
       "browser": true,
-      "jquery": true,
       "mocha": true,
       "node": true,
       "globals": {
@@ -103,12 +102,10 @@
       "dna-engine": "~2.3",
       "fetch-json": "~3.1",
       "highlight.js": "~11.8",
-      "hljs-enhance": "~1.1",
-      "jquery": "~3.7"
+      "hljs-enhance": "~1.1"
    },
    "devDependencies": {
       "@fortawesome/fontawesome-free": "~6.4",
-      "@types/jquery": "~3.5",
       "@types/node": "~20.2",
       "@typescript-eslint/eslint-plugin": "~5.59",
       "@typescript-eslint/parser": "~5.59",

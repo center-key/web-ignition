@@ -20,12 +20,14 @@
       const startup = () => {
          console.log('web-ignition v' + libX.version);
          libX.ui.autoDisableButtons();
-         libX.animate.rollIn($('#roll-in-icons'));
-         libX.animate.jiggleIt($('#fork-me'));
-         $('h1').click(libX.animate.jiggleIt);
-         $('.version-number').text(libX.version);
-         $('#is-a-mac').text(libX.browser.macOS ? 'YES' : 'no');
-         $('#is-mobile').text(libX.browser.userAgentData().mobile ? 'YES' : 'no');
+         libX.animate.rollIn(globalThis.document.getElementById('roll-in-icons'));
+         libX.animate.jiggleIt(globalThis.document.getElementById('fork-me'));
+         globalThis.document.querySelector('h1').addEventListener('click', libX.animate.jiggleIt);
+         globalThis.document.querySelector('.version-number').textContent = libX.version;
+         const macOS = libX.browser.macOS ? 'YES' : 'no';
+         globalThis.document.getElementById('is-a-mac').textContent = macOS;
+         const isMobile = libX.browser.userAgentData().mobile ? 'YES' : 'no';
+         globalThis.document.getElementById('is-mobile').textContent = isMobile;
          globalThis.setTimeout(() => dna.clone('helicopter', { help: 'Help me too!' }, { fade: true }), 3000);
          libX.counter.get();           //returns: 0
          libX.counter.increment();     //returns: 1
@@ -35,15 +37,19 @@
          libX.counter.set(99, 'x');    //returns: 99
          libX.counter.increment('x');  //returns: 100
          libX.counter.list();          //returns: { default: 2, x: 100 }
-         $('#counters-actual').text(  JSON.stringify(libX.counter.list()));
-         $('#counters-expected').text(JSON.stringify({ default: 2, x: 100 }));
-         const expected = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
+         const actual =         globalThis.document.getElementById('counters-actual');
+         const expected =       globalThis.document.getElementById('counters-expected');
+         actual.textContent =   JSON.stringify(libX.counter.list());
+         expected.textContent = JSON.stringify({ default: 2, x: 100 });
+         const expectedHash = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
          const throwBadHash = (hash) => globalThis.setTimeout(() => { throw Error('Bad hash: ' + hash); });
-         libX.crypto.hash('My secret').then(hash => hash === expected || throwBadHash(hash));
-         libX.animate.montageLoop({ intervalMs: 5000 });
+         libX.crypto.hash('My secret').then(hash => hash === expectedHash || throwBadHash(hash));
+         globalThis.document.querySelectorAll('.montage-loop').forEach(
+            holder => libX.animate.montageLoop(holder, { intervalMsec: 5000 }));
          };
-      const handleHash = (container) => (hash) => container.find('output').text(hash);
-      const hashIt = (elem) => libX.crypto.hash(elem.val()).then(handleHash(elem.closest('div')));
+      const handleHash = (container) => (hash) => container.querySelector('output').textContent = hash;
+      const hashIt = (elem) => libX.crypto.hash(libX.dom.migrate(elem).value)
+         .then(handleHash(libX.dom.migrate(elem).closest('div')));
    </script>
 </head>
 <body>
@@ -131,11 +137,11 @@
       <p>Mobile:    <code id=is-mobile></code></p>
       <p>thumbs-up: <i data-icon=thumbs-up></i></p>
       <p>Jiggle it:
-         <i data-icon=glass-martini-alt data-click=libX.animate.jiggleIt></i>
-         <i data-icon=flask             data-click=libX.animate.jiggleIt></i>
-         <i data-icon=wine-bottle       data-click=libX.animate.jiggleIt></i>
-         <i data-icon=fragil            data-click=libX.animate.jiggleIt></i>
-         <i data-icon=biohazard         data-click=libX.animate.jiggleIt></i>
+         <i data-icon=glass-martini-alt data-on-click=libX.animate.jiggleIt></i>
+         <i data-icon=flask             data-on-click=libX.animate.jiggleIt></i>
+         <i data-icon=wine-bottle       data-on-click=libX.animate.jiggleIt></i>
+         <i data-icon=fragil            data-on-click=libX.animate.jiggleIt></i>
+         <i data-icon=biohazard         data-on-click=libX.animate.jiggleIt></i>
       </p>
       <p>
          Counters:<br>

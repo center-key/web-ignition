@@ -4,21 +4,17 @@
 // MIT License                          //
 //////////////////////////////////////////
 
-import { dna, DnaCallback } from 'dna-engine';
-
-declare global {
-   interface JQuery {
-      id:      (name?: string | number) =>  JQuery | string | undefined,
-      enable:  (setOn?: boolean) =>         JQuery,
-      disable: (setOff?: boolean) =>        JQuery,
-      findAll: (selector: string) =>        JQuery,
-      forEach: (fn: LibXForEachCallback) => JQuery,
-      }
-   }
+type GlobalKey =    keyof typeof globalThis;
+export type LibXEventListener = (elem: Element, event: Event, selector: string | null) => void;
+export type LibXOptionsEventsOn = Partial<LibXSettingsEventsOn>;
+export type LibXSettingsEventsOn = {
+   keyFilter:  KeyboardEvent["key"] | null,
+   selector:   string | null,
+   };
 export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
 export type JsonData =   JsonObject | Json[];
-export type LibXForEachCallback =        (elem: JQuery, index: number) => void;
+export type LibXForEachCallback =        (elem: Element, index: number) => void;
 export type LibXObject =                 { [key: string]: unknown };
 export type LibXUiPopupSettings =        { width: number, height: number };
 export type LibXUiPopupOptions =         Partial<LibXUiPopupSettings>;
@@ -26,14 +22,12 @@ export type LibXUiKeepOnScreenSettings = { padding: number };
 export type LibXUiKeepOnScreenOptions =  Partial<LibXUiKeepOnScreenSettings>;
 export type LibXCryptoHashSettings =     { algorithm: string, salt: string };
 export type LibXCryptoHashOptions =      Partial<LibXCryptoHashSettings>;
-export type LibXUiEnei =                 JQuery | HTMLElement | JQuery.EventBase | number;
 export type LibXCounterMap =             { [counter: string]: number };
 export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
 export type LibXMontageLoopSettings = {
-   container:  string | JQuery,  //selector for <img> elements holder  (default: '.montage-loop')
-   start:      number | null,    //index of first image to show        (default: nulll for random)
-   intervalMs: number,           //milliseconds between transitions    (default: 10,000)
-   fadeMs:     number,           //milliseconds to complete transition (default: 3,000)
+   start:        number | null,    //index of first image to show        (default: nulll for random)
+   intervalMsec: number,           //milliseconds between transitions    (default: 10,000)
+   fadeMsec:     number,           //milliseconds to complete transition (default: 3,000)
    };
 export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 export type NavigatorUAData = {
@@ -49,165 +43,571 @@ declare global { var dataLayer:   unknown[] }              //eslint-disable-line
 declare global { var hljsEnhance: { setup: () => void } }  //eslint-disable-line no-var
 declare global { var libX:        LibX }                   //eslint-disable-line no-var
 
-const libXUi = {
-   plugin: {
-      id: function(name?: string | number): string | undefined | JQuery {
-         // Usage:
-         //    const userElem = $('.user').id('J777');
-         //    const userId = userElem.id();
-         const elem = <JQuery><unknown>this;
-         return name === undefined ? elem.attr('id') : elem.attr({ id: name });
-         },
-      enable: function(setOn?: boolean): JQuery {
-         // Usage:
-         //    $('button').enable();
-         const elem = <JQuery><unknown>this;
-         return elem.prop({ disabled: setOn !== undefined && !setOn });
-         },
-      disable: function(setOff?: boolean): JQuery {
-         // Usage:
-         //    $('button').disable();
-         const elem = <JQuery><unknown>this;
-         return elem.prop({ disabled: setOff === undefined || !!setOff });
-         },
-      findAll: function(selector: string): JQuery {
-         // Usage:
-         //    elem.findAll('img').fadeOut();
-         const elem = <JQuery><unknown>this;
-         return elem.find(selector).addBack(selector);
-         },
-      forEach: function(fn: LibXForEachCallback): JQuery {
-         // Usage:
-         //    const addRandomNumber = (elem) => elem.text(Math.random());
-         //    elems.forEach(addRandomNumber).fadeIn();
-         const elems = <JQuery><unknown>this;
-         return elems.each((index, node) => fn($(node), index));
-         },
-      },
-   toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery): JQuery {
-      // A flexible way to get the jQuery element whether it is passed in directly, is a DOM node,
-      // is the target of an event, or comes from the jQuery context.
-      const elem = elemOrNodeOrEventOrIndex instanceof $ && <JQuery>elemOrNodeOrEventOrIndex;
-      const target = elemOrNodeOrEventOrIndex && (<JQuery.EventBase>elemOrNodeOrEventOrIndex).target;
-      return elem || $(target || elemOrNodeOrEventOrIndex || that);
-      },
-   makeIcons(holder: JQuery): JQuery {
-      // Usage:
-      //    <i data-icon=home></i>
-      // Usage with dna-engine:
-      //    <i data-attr-data-icon=~~icon~~></i>
-      const makeIcon =  (elem: JQuery) => elem.addClass('fa-' + elem.data().icon);
-      const makeBrand = (elem: JQuery) => elem.addClass('fa-' + elem.data().brand);
-      holder['findAll']('i[data-icon]').addClass( 'font-icon fas').forEach(makeIcon);
-      holder['findAll']('i[data-brand]').addClass('font-icon fab').forEach(makeBrand);
-      return holder;
-      },
-   normalize(holder?: JQuery): JQuery {
-      const elem = holder || $(document.body);
-      libX.ui.makeIcons(elem);
-      elem.find('button:not([type])').attr({ type: 'button' });
-      elem.find('input:not([type])').attr({ type: 'text' });
-      elem.find('input[type=email]').attr({ autocorrect: 'off', spellcheck: false });
-      elem.find('a img, a i.font-icon').closest('a').addClass('image-link');
-      if (!libX.browser.userAgentData().mobile)
-         elem.find('a.external-site, .external-site a').attr({ target: '_blank' });
+const libXDom = {
+   migrate(elem: Element): Element {
+      if (!libX.dom.isElem(elem) || elem.constructor.name === 'HTMLDocument')
+         console.log(Date.now(), typeof elem, elem?.constructor?.name, elem);
+      elem = elem.constructor.name === 'ce' ? (<Element[]><unknown>elem)[0]! : elem;
+      elem = elem.constructor.name === 'HTMLDocument' ? globalThis.document.body : elem;
       return elem;
       },
-   displayAddr(): JQuery {
+   stateDepot: <{ [key: string | number | symbol]: unknown }[]>[],
+   state(elem: Element) {
+      // Returns an object associated with the element that can be used to store values.
+      // Usage:
+      //    libX.dom.state(document.body).lastUpdate = Date.now();
+      // Class added to element:
+      //    <body class=dna-state data-dna-state=21>
+      const data = (<HTMLElement>elem).dataset;
+      elem.classList.add('dna-state');
+      if (!data.dnaState)
+         data.dnaState = String(libX.dom.stateDepot.push({}) - 1);
+      return libX.dom.stateDepot[Number(data.dnaState)]!;
+      },
+   cloneState(clone: Element): Element {
+      // Use imediately after cloning an element in order to grant the clone its own state
+      // data (note: it's a shallow copy).
+      const copy = (elem: Element) => {
+         const data =     (<HTMLElement>elem).dataset;
+         const newState = { ...libX.dom.stateDepot[Number(data.dnaState)] };
+         data.dnaState = String(libX.dom.stateDepot.push(newState) - 1);
+         };
+      if (clone.classList.contains('dna-state'))
+         copy(clone);
+      libX.dom.forEach(clone.getElementsByClassName('dna-state'), copy);
+      return clone;
+      },
+   removeState(elem: Element): Element {
+      const data = (<HTMLElement>elem).dataset;
+      if (data.dnaState)
+         libX.dom.stateDepot[Number(data.dnaState)] = {};
+      return elem;
+      },
+   select(selector: string): HTMLElement | null {
+      return globalThis.document.body.querySelector(selector);
+      },
+   selectAll(selector: string): HTMLElement[] {
+      return <HTMLElement[]>[...globalThis.document.body.querySelectorAll(selector)];
+      },
+   hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean {
+      // Returns true if any of the elements in the given list have the specified class.
+      return Array.prototype.some.call(elems, elem => elem.classList.contains(className));
+      },
+   toggleClass(elem: Element, className: string, state?: boolean): Element {
+      // Adds or removes an element class.
+      if (state === undefined ? !elem.classList.contains(className) : state)
+         elem.classList.add(className);
+      else
+         elem.classList.remove(className);
+      return elem;
+      },
+   replaceClass(elem: Element, oldName: string, newName: string): Element {
+      // Same as native elem.classList.replace() except the new class name is always added.
+      elem.classList.remove(oldName);
+      elem.classList.add(newName);
+      return elem;
+      },
+   addClass<T extends Element[] | HTMLCollection | NodeListOf<Element>>(elems: T, className: string): T {
+      // Adds the specified class to each of the elements in the given list.
+      Array.prototype.forEach.call(elems, elem => elem.classList.add(className));
+      return elems;
+      },
+   forEach<T extends HTMLCollection>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T {
+      // Loops over the given list of elements to pass each element to the specified function.
+      Array.prototype.forEach.call(elems, fn);
+      return elems;
+      },
+   map<T>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T): T[] {
+      // Loops over the given list of elements to pass each element to the specified function.
+      return <T[]>Array.prototype.map.call(elems, fn);
+      },
+   filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[] {
+      // Filters a list of elements.
+      return Array.prototype.filter.call(elems, fn);
+      },
+   filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[] {
+      // Returns direct child elements filtered by the specified selector.
+      return Array.prototype.filter.call(elems, elem => elem.matches(selector));
+      },
+   filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[] {
+      // Returns direct child elements filtered by one or more class names.
+      const hasClass = (elem: Element) => elem.classList.contains(classNames[0]!);
+      const filtered = Array.prototype.filter.call(elems, hasClass);
+      return classNames.length === 1 ? filtered : libX.dom.filterByClass(filtered, ...classNames.splice(1));
+      },
+   find(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null {
+      // Finds the first element that satisfies the given condition.
+      return Array.prototype.find.call(elems, fn) ?? null;
+      },
+   index(elem: Element): number {
+      // Returns the index of element within its container (relative to all its sibling elements).
+      let index = 0;
+      let prev =  elem.previousElementSibling;
+      while (prev) {
+         index++;
+         prev = prev.previousElementSibling;
+         }
+      return index;
+      },
+   indexOf(elems: NodeListOf<Element>, elem: Element): number {
+      // Returns the location an element within an array of elements.
+      return Array.prototype.indexOf.call(elems, elem);
+      },
+   findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number {
+      // Returns the location of the first matching element within an array of elements.
+      return Array.prototype.findIndex.call(elems, (elem) => elem.matches(selector));
+      },
+   isElem(elem: unknown): boolean {
+      return !!elem && typeof elem === 'object' && !!(<Element>elem).nodeName;
+      },
+   getAttrs(elem: Element): Attr[] {
+      // Returns the attributes of the element in a regular array.
+      return elem ? Object.values(elem.attributes) : [];
+      },
+   toElem(elemOrEvent: Element | Event): HTMLElement {
+      // Allows convenient support of both:
+      //    libX.dom.onClick(addBorder, 'h1');
+      //    titleElem.addEventListener('click', addBorder);
+      return <HTMLElement>(libX.dom.isElem(elemOrEvent) ? elemOrEvent : (<Event>elemOrEvent).target);
+      },
+   on(type: string, listener: LibXEventListener, options?: LibXOptionsEventsOn) {
+      // See types: https://developer.mozilla.org/en-US/docs/Web/Events
+      const defaults = { keyFilter: null, selector: null };
+      const settings = { ...defaults, ...options };
+      const noFilter =   !settings.keyFilter;
+      const noSelector = !settings.selector;
+      const delegator = (event: Event) => {
+         const target = <Element>event.target;
+         const elem =   !target || noSelector ? target : <Element>target.closest(settings.selector!);
+         if (elem && (noFilter || settings.keyFilter === (<KeyboardEvent>event).key))
+            listener(elem, event, settings.selector);
+         };
+      globalThis.document.addEventListener(type, delegator);
+      },
+   onClick(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('click', listener, { selector: selector ?? null });
+      },
+   onChange(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('change', listener, { selector: selector ?? null });
+      },
+   onInput(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('input', listener, { selector: selector ?? null });
+      },
+   onKeyDown(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('keydown', listener, { selector: selector ?? null });
+      },
+   onKeyUp(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('keyup', listener, { selector: selector ?? null });
+      },
+   onEnterKey(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('keyup', listener, { selector: selector ?? null, keyFilter: 'Enter' });
+      },
+   onFocusIn(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('focusin', listener, { selector: selector ?? null });
+      },
+   onFocusOut(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('focusin', listener, { selector: selector ?? null });
+      },
+   onCut(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('cut', listener, { selector: selector ?? null });
+      },
+   onPaste(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('paste', listener, { selector: selector ?? null });
+      },
+   onTouchstart(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('touchstart', listener, { selector: selector ?? null });
+      },
+   onSubmit(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('submit', listener, { selector: selector ?? null });
+      },
+   onHoverIn(listener: LibXEventListener, selector: string) {
+      let ready = true;
+      const delegator = (event: Event) => {
+         const target = <Element>(<Element>event.target)?.closest(selector);
+         if (target !== null && ready)
+            listener(target, event, selector);
+         ready = target === null;
+         };
+      globalThis.document.addEventListener('pointerover', delegator);
+      },
+   onHoverOut(listener: LibXEventListener, selector: string) {
+      let ready = false;
+      let prevTarget: Element | null = null;
+      const delegator = (event: Event) => {
+         const target = <Element>(<Element>event.target)?.closest(selector);
+         prevTarget = target ?? prevTarget;
+         if (target === null && ready)
+            listener(prevTarget!, event, selector);
+         ready = target !== null;
+         };
+      globalThis.document.addEventListener('pointerover', delegator);
+      },
+   onReady(callback: () => unknown, options?: { quiet?: boolean }): DocumentReadyState | 'browserless' {
+      const state = globalThis.document ? globalThis.document.readyState : 'browserless';
+      if (state === 'browserless' && !options?.quiet)
+         console.log(new Date().toISOString(), 'Callback run in browserless context');
+      if (['complete', 'browserless'].includes(state))
+         callback();
+      else
+         globalThis.window.addEventListener('DOMContentLoaded', callback);
+      return state;
+      },
+   };
+
+const libXUi = {
+   isHidden(elem: Element): boolean {
+      const computed = globalThis.getComputedStyle(elem);
+      return computed.display === 'none' || computed.visibility === 'hidden' ||
+         computed.visibility === 'collapse' || computed.opacity === '0' || elem.clientHeight === 0;
+      },
+   isVisible(elem: Element): boolean {
+      return !libX.ui.isHidden(elem);
+      },
+   show(elem: Element): Element {
+      const style = (<HTMLElement>elem).style;
+      style.removeProperty('display');
+      style.removeProperty('opacity');
+      style.removeProperty('visibility');
+      const computed = globalThis.getComputedStyle(elem);
+      const override = (prop: string, values: string[], standIn: string) =>
+         values.includes(computed.getPropertyValue(prop)) && style.setProperty(prop, standIn);
+      override('display',    ['none'],               'block');
+      override('opacity',    ['0'],                  '1');
+      override('visibility', ['collapse', 'hidden'], 'visible');
+      return elem;
+      },
+   hide(elem: Element): Element {
+      (<HTMLElement>elem).style.display = 'none';
+      return elem;
+      },
+   toggle(elem: Element, display: boolean): Element {
+      return display ? libX.ui.show(elem) : libX.ui.hide(elem);
+      },
+   fadeIn(elem: Element): Promise<Element> {
+      // Smooth fade in effect.
+      const fadeTransition =  600;
+      const computed =        globalThis.getComputedStyle(elem);
+      const startOpacity =    libX.ui.isVisible(elem) ? computed.opacity : '0';
+      libX.ui.show(elem);
+      const style = (<HTMLElement>elem).style;
+      style.transition = 'all 0ms';
+      style.opacity =    startOpacity;
+      const animate = () => {
+         style.transition = `all ${fadeTransition}ms`;
+         style.opacity =    '1';
+         };
+      globalThis.requestAnimationFrame(animate);
+      const cleanup = () => {
+         style.removeProperty('transition');
+         style.removeProperty('opacity');
+         libX.ui.show(elem);  //ensure visibility in case another animation interfered
+         return elem;
+         };
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), fadeTransition + 100));
+      },
+   fadeOut(elem: Element): Promise<Element> {
+      // Smooth fade out effect.
+      const fadeTransition =  600;
+      const style =           (<HTMLElement>elem).style;
+      style.transition =      'all 0ms';
+      style.opacity =         globalThis.getComputedStyle(elem).opacity;
+      const animate = () => {
+         style.transition = `all ${fadeTransition}ms`;
+         style.opacity =    '0';
+         };
+      if (libX.ui.isVisible(elem))
+         globalThis.requestAnimationFrame(animate);
+      const cleanup = () => {
+         style.removeProperty('transition');
+         style.opacity = '0';
+         return elem;
+         };
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), fadeTransition + 100));
+      },
+   slideFadeIn(elem: Element): Promise<Element> {
+      // Smooth slide in plus fade in effect.
+      const fadeTransition =  600;
+      const style =           (<HTMLElement>elem).style;
+      const verticals = [
+         'height',
+         'border-top-width',
+         'border-bottom-width',
+         'padding-top',
+         'padding-bottom',
+         'margin-top',
+         'margin-bottom',
+         ];
+      const start = () => {
+         libX.ui.show(elem);
+         style.transition = 'all 0ms';
+         style.opacity =    '0';
+         style.overflow =   'hidden';
+         const computed =   globalThis.getComputedStyle(elem);
+         const heights =    verticals.map(prop => computed.getPropertyValue(prop));  //store natural heights
+         verticals.forEach(prop => style.setProperty(prop, '0px'));                  //squash down to zero
+         const animate = () => {
+            style.transition = `all ${fadeTransition}ms`;
+            style.opacity =    '1';
+            verticals.forEach((prop, i) => style.setProperty(prop, heights[i]!));  //slowly restore natural heights
+            };
+         globalThis.requestAnimationFrame(animate);
+         };
+      if (libX.ui.isHidden(elem))
+         start();
+      const cleanup = () => {
+         style.removeProperty('transition');
+         style.removeProperty('opacity');
+         style.removeProperty('overflow');
+         verticals.forEach((prop) => style.removeProperty(prop));
+         libX.ui.show(elem);  //ensure visibility in case another animation interfered
+         return elem;
+         };
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), fadeTransition + 100));
+      },
+   slideFadeOut(elem: Element): Promise<Element> {
+      // Smooth slide out plus fade out effect.
+      const fadeTransition =  600;
+      const computed =        globalThis.getComputedStyle(elem);
+      const style =           (<HTMLElement>elem).style;
+      style.transition = `all ${fadeTransition}ms`;
+      style.opacity =    String(Math.min(1, Number(computed.getPropertyValue('opacity'))));
+      style.overflow =   'hidden';
+      const verticals = [
+         'height',
+         'border-top-width',
+         'border-bottom-width',
+         'padding-top',
+         'padding-bottom',
+         'margin-top',
+         'margin-bottom',
+         ];
+      const heights = verticals.map(prop => computed.getPropertyValue(prop));  //store natural heights
+      verticals.forEach((prop, i) => style.setProperty(prop, heights[i]!));    //lock in natural heights
+      const animate = () => {
+         style.opacity = '0';
+         verticals.forEach(prop => style.setProperty(prop, '0px'));  //squash down to zero
+         };
+      globalThis.requestAnimationFrame(animate);
+      const cleanup = () => {
+         style.display = 'none';
+         style.removeProperty('transition');
+         style.removeProperty('opacity');
+         style.removeProperty('overflow');
+         verticals.forEach((prop) => style.removeProperty(prop));
+         return elem;
+         };
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), fadeTransition + 100));
+      },
+   slideFade(elem: Element, show: boolean): Promise<Element> {
+      return show ? libX.ui.slideFadeIn(elem) : libX.ui.slideFadeOut(elem);
+      },
+   smoothHeight(updateUI: () => unknown, options?: { container?: Element, transition?: number }): Promise<Element> {
+      // Smoothly animates the height of a container element from a beginning height to a final
+      // height.
+      const defaults = { container: globalThis.document.body, transition: 1000 };
+      const settings = { ...defaults, ...options };
+      const container = settings.container;
+      const style = (<HTMLElement>container).style;
+      const setBaseline = () => {
+         const height = String(container.clientHeight) + 'px';
+         style.minHeight = height;
+         style.maxHeight = height;
+         style.overflow =  'hidden';
+         container.classList.add('libx-animating');
+         };
+      const animate = () => {
+         const turnOffTransition = () => {
+            style.transition = 'none';
+            style.maxHeight =  'none';
+            container.classList.remove('libx-animating');
+            };
+         const animate = () => {
+            style.minHeight = '0px';
+            style.maxHeight = '100vh';
+            globalThis.setTimeout(turnOffTransition, 1000);  //allow 1s transition to finish
+            };
+         const setAnimationLength = () => {
+            style.transition = `all ${settings.transition}ms`;
+            globalThis.requestAnimationFrame(animate);  //allow transition to lock-in before animating
+            };
+         globalThis.requestAnimationFrame(setAnimationLength);  //allow baseline to lock-in starting height
+         };
+      const cleanup = () => {
+         container.classList.replace('libx-animating', 'libx-animating-done');
+         return container;
+         };
+      setBaseline();
+      updateUI();
+      animate();
+      const delay = settings.transition + 100;
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), delay));
+      },
+   makeIcons(container: Element = globalThis.document.body): Element {
+      // Usage:
+      //    <i data-icon=home></i>
+      // For dynamically created elements, initialize the element or parent element:
+      //    libX.ui.makeIcons(container);
+      // Usage with dna-engine:
+      //    <i data-attr-data-icon=~~icon~~></i>
+      // Note:
+      //    LibX detects dna-engine and automatically runs: dna.registerInitializer(libX.ui.makeIcons))
+      container = libX.dom.migrate(container);
+      const iconify = (isBrand: boolean) => (icon: Element) => {
+         const data = (<HTMLElement>icon).dataset;
+         icon.classList.add('font-icon');
+         icon.classList.add(isBrand ? 'fab' : 'fas');
+         icon.classList.add('fa-' + (isBrand ? data.brand : data.icon));
+         };
+      container.matches('i[data-icon]') &&  iconify(false)(container);
+      container.matches('i[data-brand]') && iconify(true)(container);
+      container.querySelectorAll('i[data-icon]').forEach(iconify(false));
+      container.querySelectorAll('i[data-brand]').forEach(iconify(true));
+      return container;
+      },
+   normalize(container: Element = globalThis.document.body): Element {
+      container = libX.dom.migrate(container);
+      const rawInput = (elem: Element) => {
+         elem.setAttribute('autocorrect', 'off');
+         elem.setAttribute('spellcheck',  'false');
+         };
+      const makeImageLink = (elem: Element) => elem.closest('a')!.classList.add('image-link');
+      const openInNewTab =  (elem: Element) =>  elem.setAttribute('target', '_blank');
+      container.querySelectorAll('button:not([type])').forEach(elem => elem.setAttribute('type', 'button'));
+      container.querySelectorAll('input:not([type])').forEach(elem =>  elem.setAttribute('type', 'text'));
+      container.querySelectorAll('input[type=email]').forEach(rawInput);
+      container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);
+      if (!libX.browser.userAgentData().mobile)
+         container.querySelectorAll('a.external-site, .external-site a').forEach(openInNewTab);
+      return container;
+      },
+   displayAddr(container: Element = globalThis.document.body): Element {
       // Usage:
       //    <p class=display-addr data-name=sales data-domain=ibm.com></p>
-      const elems = $('.display-addr');
-      const display = (elem: JQuery) =>
-         elem.html(elem.data().name + '<span>' + String.fromCharCode(64) + elem.data().domain + '</span>');
-      return elems.forEach(display);
+      const display = (elem: Element) =>
+         elem.innerHTML = (<HTMLElement>elem).dataset.name + '<span>' + String.fromCharCode(64) +
+            (<HTMLElement>elem).dataset.domain + '</span>';
+      libX.dom.forEach(container.getElementsByClassName('display-addr'), display);
+      return container;
       },
    popup(url: string, options?: LibXUiPopupOptions): Window | null {
       const defaults = { width: 600, height: 400 };
       const settings = { ...defaults, ...options };
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
-      return globalThis.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
+      return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
-   popupClick(event: JQuery.EventBase): Window | null {
-      // Usage (see popup() for default width and height):
+   popupClick(elem: Element): Window | null {
+      // Usage:
       //    <button data-href-popup=../support data-width=300>Help</button>
-      const data = $(event.target).data();
-      return libX.ui.popup(data.hrefPopup, data);
+      const data =   (<HTMLElement>elem).dataset;
+      const width =  Number(data.width ?? '600');
+      const height = Number(data.height ?? '400');
+      return libX.ui.popup(data.hrefPopup!, { width, height });
       },
-   revealSection(event: JQuery.EventBase): JQuery {
-      // Usage (data-reveal optional):
+   revealSection(elem: Element): Element {
+      // Usage (if attribute data-reveal is missing, next sibling element is revealed):
       //    <div class=reveal-button data-reveal=more>More...</div>
       //    <div class=reveal-target data-reveal=more>Surprise!</div>
-      const button = $(event.target).closest('.reveal-button');
-      const findTarget = '.reveal-target[data-reveal=' + button.data().reveal + ']';
-      const target = button.data().reveal ? $(findTarget) : button.next();
-      dna.ui.slideFadeOut(button);
-      return dna.ui.slideFadeIn(target);
+      const button =     <HTMLElement>elem.closest('.reveal-button');
+      const findTarget = () => libX.dom.select('.reveal-target[data-reveal="' + button.dataset.reveal + '"]');
+      const target =     button.dataset.reveal ? findTarget() : button.nextElementSibling;
+      libX.ui.slideFadeIn(target!);
+      return button;
       },
-   keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions): JQuery {
+   keepOnScreen(elem: Element, options?: LibXUiKeepOnScreenOptions): Element {
       // Moves element if it is off screen so that it becomes visible (element must be
       // position: absolute with top/left).
       // Usage:
-      //    libX.ui.keepOnScreen($('#sidebar'), { padding: 30 });
+      //    libX.ui.keepOnScreen(elem, { padding: 30 });
       const defaults = { padding: 10 };
       const settings = { ...defaults, ...options };
-      const pad = settings.padding;
-      const win = {
-         width:  <number>$(window).width(),
-         height: <number>$(window).height(),
-         scroll: <number>$(window).scrollTop(),
-         };
-      const offset = <JQuery.Coordinates>elem.offset();
-      const moveR =  Math.max(-offset.left, -pad) + pad;
-      const moveL =  Math.max(offset.left + <number>elem.width() - win.width, -pad) + pad;
-      const moveU =  Math.min(win.scroll + win.height - offset.top - <number>elem.height() - pad, 0);
-      const moveD =  Math.max(moveU, win.scroll - offset.top + pad);
-      return elem.css({ left: `+=${moveR - moveL}px`, top: `+=${moveD}px` });
-      },
-   autoDisableButtons(): void {
-      const disableButton = (event: JQuery.EventBase) => {
-         const elem = $(event.target);
-         if (!elem.closest('nav,.no-disable').length)
-            elem.closest('button').disable();
-         };
-      const disableFormButton = (event: JQuery.EventBase): JQuery =>
-         $(event.target).find('button:not(.no-disable)').disable();
-      $(globalThis.document)
-         .on({ submit: disableFormButton }, 'form')
-         .on({ click:  disableButton },     'button:not([type=submit],[data-href],[data-href-popup])');
-      },
-   loadImageFadeIn(elem: JQuery, url: string, duration?: number): JQuery {
-      // Usage:
-      //    libX.ui.loadImageFadeIn($('img#banner'), 'https://example.com/elephants.jpg');
-      const handleImg = (event: JQuery.EventBase): JQuery => {
-         elem.fadeIn(duration ?? 1500);
-         return (<HTMLElement>elem[0]).nodeName === 'IMG' ?
-            elem.attr({ src: event.target.src }) :
-            elem.css({ backgroundImage: 'url(' + event.target.src + ')' });
-         };
-      const img = new Image();
-      img.onload = <(this: GlobalEventHandlers, ev: Event) => JQuery><unknown>handleImg;
-      img.src = url;
+      const getPixels = (style: string) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
+      const pad =       settings.padding;
+      const client =    elem.getBoundingClientRect();
+      const computed =  globalThis.getComputedStyle(elem);
+      const moveL =     Math.max(pad + client.right - globalThis.window.innerWidth, 0);
+      const moveR =     Math.max(pad - client.left, 0);
+      const moveU =     Math.min(pad + client.bottom - globalThis.window.innerHeight, 0);
+      const moveD =     Math.max(pad - client.top, 0);
+      const newLeft =   getPixels(computed.left) + (moveR ? moveR : -moveL);
+      const newTop =    getPixels(computed.top) +  (moveD ? moveD : -moveU);
+      (<HTMLElement>elem).style.left = String(newLeft) + 'px';
+      (<HTMLElement>elem).style.top =  String(newTop) +  'px';
       return elem;
       },
-   setupVideos(): JQuery {
+   autoDisableButtons(): void {
+      // Prevents double posting.
+      const disable = (elem: Element | null) =>
+         elem ? (<HTMLButtonElement>elem).disabled = true : false;
+      const disableFormButton = (elem: Element) =>
+         disable(elem.querySelector('button:not(.no-disable)'));
+      const disableButton = (elem: Element) =>
+         disable(elem.closest('nav, .no-disable') ? null : elem.closest('button'));
+      libX.dom.onSubmit(disableFormButton, 'form');
+      libX.dom.onClick(disableButton, 'button:not([type=submit],[data-href],[data-href-popup])');
+      },
+   loadImageFadeIn(elem: Element, url: string, duration?: number): Promise<Element> {
+      // Usage:
+      //    libX.ui.loadImageFadeIn(elem, 'https://example.com/elephants.jpg');
+      const fadeTransition = duration ?? 600;
+      const goalElem = <HTMLElement>elem;
+      goalElem.style.transition = `all 0ms`;
+      goalElem.style.opacity =    '0';
+      const load = (done: (elem: Element) => void) => {
+         const cleanup = () => {
+            goalElem.style.removeProperty('transition');
+            goalElem.style.removeProperty('opacity');
+            done(elem);
+            };
+         const handleImgage = () => {
+            if (goalElem.matches('img'))
+               (<HTMLImageElement>goalElem).src = url;
+            else
+               goalElem.style.backgroundImage = 'url("' + url + '")';
+            goalElem.style.transition = `all ${fadeTransition}ms`;
+            goalElem.style.opacity =    '1';
+            globalThis.setTimeout(cleanup, fadeTransition + 100);
+            };
+         const img = new Image();
+         img.onload = handleImgage;
+         img.src = url;
+         };
+      return new Promise(resolve => load(resolve));
+      },
+   setupVideos(): void {
       // <figure class=video-container>
       //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
       //    <figcaption>Optional semantic tag not actually visible</figcaption>
       // </figure>
-      const makeVideoClickable = (elem: JQuery) => {
-         const src = elem.find('iframe').attr('src') ?? '';
+      const makeClickable = (elem: Element) => {
+         const src = elem.querySelector('iframe')?.src ?? '';
          const url = src.replace('//www.youtube.com/embed', '//youtu.be');
-         elem.attr('data-href', url).addClass('external-site');
+         (<HTMLElement>elem).dataset.href = url;
+         elem.classList.add('external-site');
          };
-      $('figure.video-container-link').forEach(makeVideoClickable);
-      return $('figure.video-container >iframe').attr({ allow: 'fullscreen' }).parent();
+      const allowFullScreen = (iframe: Element) => iframe.setAttribute('allow', 'fullscreen')
+      globalThis.document.querySelectorAll('figure.video-container-link').forEach(makeClickable);
+      globalThis.document.querySelectorAll('figure.video-container >iframe').forEach(allowFullScreen);
+      return;
       },
-   setupForkMe(): JQuery {
-      // Append to body>header:
-      //    <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
-      const forkMe = $('#fork-me').wrap($('<div id=fork-me-container>'));
-      const icon = $('<i>', { 'data-brand': 'github', 'data-href': forkMe.attr('href') });
-      return forkMe.after(icon).parent().parent().addClass('forkable');
+   setupForkMe(): Element | null {
+      // Place the repository link inside the <header> element.
+      // Usage:
+      //    <body>
+      //       <header>
+      //          <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
+      const forkMe = <HTMLAnchorElement>globalThis.document.getElementById('fork-me');
+      const wrap = () => {
+         const header =    forkMe!.parentElement!;
+         const container = globalThis.document.createElement('div');
+         container.id =    'fork-me-container';
+         const icon =      globalThis.document.createElement('i');
+         icon.dataset.brand = 'github';
+         icon.dataset.href =  forkMe.href;
+         container.appendChild(forkMe);
+         container.appendChild(libX.ui.makeIcons(icon));
+         return header.appendChild(container);
+         };
+      return forkMe ? wrap() : null;
       },
    };
 
@@ -227,36 +627,12 @@ const libXUtil = {
       //    libX.util.removeWhitespace('a b \t\n c') === 'abc';
       return text.replace(/\s/g, '');
       },
-   details(thing: unknown): string {
-      const obj = <LibXObject>thing;
-      const elem = <JQuery>thing;
-      let msg = typeof thing + ' --> ';
-      const addProp = (property: string) => { msg += property + ':' + obj[property] + ' '; };
-      const jQueryDetials = (elem: JQuery): string =>
-         elem.length === 0 ? '' : ' [#1' +
-            ' elem:' +  (<HTMLElement>elem.first()[0]).nodeName +
-            ' id:' +    elem.first().id() +
-            ' class:' + elem.first().attr('class') +
-            ' kids:' +  elem.first().children().length + ']';
-      if (thing instanceof $)
-         msg += 'jquery:' + elem.jquery + ' elems:' + elem.length + jQueryDetials(elem);
-      else if (thing === null)
-         msg += '[null]';
-      else if (typeof thing === 'object')
-         Object.keys(obj).forEach(addProp);
-      else
-         msg += thing;
-      return msg;
-      },
-   debug(thing: unknown): void {
-      console.log(Date.now() + ': ' + libX.util.details(thing));
-      },
    };
 
 const libXCrypto = {
    hash(message: string, options?: LibXCryptoHashOptions): Promise<string> {
       // Usage:
-      //    libX.crypto.hash('password1').then(console.log);
+      //    libX.crypto.hash('password1').then(handleHashString);
       const defaults = { algorithm: 'SHA-256', salt: '' };
       const settings = { ...defaults, ...options };
       const byteArray =    new TextEncoder().encode(message + settings.salt);
@@ -345,87 +721,121 @@ const libXBrowser = {
    };
 
 const libXPopupImage = {
-   // Usage (data-popup-image and data-popup-width are optional):
+   // Usage (attributes "data-popup-image" and "data-popup-width" are optional):
    //    <img src=thumb.png data-popup-image=full.jpg data-popup-width=300 alt=thumbnail>
-   show(event: JQuery.EventBase): void {
+   show(thumbnail: Element): Element {
       const defaultPopupWidth = 1000;
-      const thumbnail = $(event.target).addClass('popup-image');
-      thumbnail.parent().css({ position: 'relative' });
-      thumbnail.next('.popup-image-layer').remove();
-      const keyUpEventName = 'keyup.' + String(Date.now());
+      const gap =               30;
+      thumbnail.classList.add('popup-image');
+      thumbnail.parentElement!.style.position = 'relative';
+      if (thumbnail.nextElementSibling?.classList.contains(('popup-image-layer')))
+         thumbnail.nextElementSibling.remove();
+      const data =       (<HTMLElement>thumbnail).dataset;
+      const width =      data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
+      const popupLayer = globalThis.document.createElement('div');
+      const popupImg =   globalThis.document.createElement('img');
+      const closeIcon =  globalThis.document.createElement('i');
+      popupLayer.classList.add('popup-image-layer');
+      popupImg.src = data.popupImage ?? (<HTMLImageElement>thumbnail).src;
+      popupImg.style.maxWidth = Math.min(width, globalThis.window.innerWidth - gap) + 'px';
+      closeIcon.dataset.icon = 'times';
+      libX.ui.makeIcons(closeIcon);
+      popupLayer.appendChild(popupImg);
+      popupLayer.appendChild(closeIcon);
+      thumbnail.after(popupLayer);
+      libX.ui.fadeIn(popupLayer);
+      libX.ui.keepOnScreen(popupLayer);
       const close = () => {
-         $(globalThis.document).off(keyUpEventName);
-         thumbnail.next().fadeOut();
+         libX.ui.fadeOut(popupLayer).then(elem => elem.remove());
+         globalThis.window.removeEventListener('keyup', close);
          };
-      const escKeyClose = (event: JQuery.EventBase) => event.key === 'Escape' && close();
-      const width = thumbnail.data().popupWidth || defaultPopupWidth;
-      const maxWidth = Math.min(width, <number>$(window).width() - 30) + 'px';
-      const imageSrc = thumbnail.data().popupImage || thumbnail.attr('src');
-      const popup = $('<div>').addClass('popup-image-layer').on({ click: close })
-         .append(libX.ui.makeIcons($('<i data-icon=times>')))
-         .append($('<img>').attr({ src: imageSrc }).css({ maxWidth: maxWidth }));
-      popup.insertAfter(thumbnail);
-      libX.ui.keepOnScreen(popup, { padding: 30 }).fadeTo('slow', 1);
-      $(document).on({ [keyUpEventName]: escKeyClose });
+      popupLayer.addEventListener('click', close);
+      libX.dom.on('keyup', close, { keyFilter: 'Escape' });
+      return thumbnail;
       },
    };
 
 const libXAnimate = {
-   jiggleIt(elemOrEvent: JQuery | JQuery.EventBase): JQuery {
-      // Usage (3 ways):
-      //    libX.animate.jiggleIt($('#logo'));
-      //    $('#logo').click(jiggleIt);
-      //    <img src=logo.svg data-click=libX.animate.jiggleIt alt=logo>
-      const node = <HTMLElement>libX.ui.toElem(elemOrEvent)[0];
-      node.style.animation = 'none';
-      globalThis.requestAnimationFrame(() => node.style.animation = 'jiggle-it 0.2s 3');
-      return $(node);
-      },
-   rollIn(holderOrElems: JQuery) {
+   jiggleIt(elemOrEvent: Element | Event): Promise<Element> {
       // Usage:
-      //    libX.animate.rollIn($('.diagram'));
-      let elems = holderOrElems.length === 1 ? holderOrElems.children() : holderOrElems;
-      const startDelay = 300;
-      const fadeDelay = 1500;
-      const fadeIn = { opacity: 1, transition: 'opacity 5s' };
-      const roll = () => {
-         elems.first().css(fadeIn).delay(fadeDelay).queue(roll);
-         elems = elems.slice(1);
+      //    libX.animate.jiggleIt(elem);
+      // Usage in dna-engine:
+      //    <img src=logo.svg data-on-click=libX.animate.jiggleIt alt=logo>
+      elemOrEvent = elemOrEvent.constructor.name === 'ce' ? (<Element[]><unknown>elemOrEvent)[0]! : elemOrEvent;  //see: libX.dom.migrate
+      const elem = libX.dom.toElem(elemOrEvent);
+      const animatation = 'jiggle-it 200ms 3';  //keyframes duration iterations
+      const style =       (<HTMLElement>elem).style;
+      style.animation = 'none';
+      globalThis.requestAnimationFrame(() => style.animation = animatation);
+      const cleanup = () => {
+         style.removeProperty('animation');
+         return elem;
          };
-      elems.css({ opacity: 0 });
-      return globalThis.setTimeout(roll, startDelay);
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), 200 * 3 + 100));
       },
-   montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery {
+   rollIn(container: Element): Promise<Element> {
+      // Usage:
+      //    libX.animate.rollIn(elem);
+      // Usage in dna-engine:
+      //    <ul data-on-load=libX.animate.rollIn>
+      const startDelay =     300;
+      const fadeDelay =      1500;
+      const fadeTransition = 2000;
+      const hide = (elem: Element) => {
+         const style = (<HTMLElement>elem).style;
+         style.transition = 'all 0ms';
+         style.opacity =    '0';
+         };
+      const fadeIn = (elem: Element) => {
+         const style = (<HTMLElement>elem).style;
+         style.transition = `all ${fadeTransition}ms`;
+         style.opacity =    '1';
+         };
+      const show = (elem: Element, index: number) =>
+         globalThis.setTimeout(() => fadeIn(elem), startDelay + fadeDelay * index);
+      libX.dom.forEach(container.children, hide);
+      libX.dom.forEach(container.children, show);
+      const cleanup = () => {
+         libX.dom.forEach(container.children,
+            elem => (<HTMLElement>elem).style.removeProperty('transition'));
+         return container;
+         };
+      const total = startDelay + fadeDelay * container.children.length - fadeDelay + fadeTransition;
+      return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
+      },
+   montageLoop(container: Element, options?: LibXMontageLoopOptions | Element): Element {
       // <figure class=montage-loop>
       //    <img src=image1.jpg>
       //    <img src=image2.jpg>
       //    <img src=image3.jpg>
       // </figure>
       // Usage:
-      //    libX.animate.montageLoop();
+      //    libX.animate.montageLoop(elem);
       // Usage with dna-engine (default options):
       //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
-      const options = optionsOrContainer instanceof $ ? { container: <JQuery>optionsOrContainer } : optionsOrContainer;
+      container = libX.dom.migrate(container);
       const defaults = {
-         container:  '.montage-loop',  //selector for <img> elements holder
-         start:      null,             //random
-         intervalMs: 10000,            //10 seconds between transitions
-         fadeMs:     3000,             //3 seconds to complete transition
+         start:        null,   //random
+         intervalMsec: 10000,  //10 seconds between transitions
+         fadeMsec:     3000,   //3 seconds to complete transition
          };
-      const settings =  { ...defaults, ...options };
-      const container = typeof settings.container === 'string' ? $(settings.container) : settings.container;
-      const imgs =      container.first().addClass('montage-loop').children('img');
-      if (!imgs.length)
-         console.error('[montage-loop] No images found:', settings.container);
-      imgs.css({ transition: `all ${settings.fadeMs}ms` });
-      imgs.eq(settings.start ?? Date.now() % imgs.length).addClass('current');
+      const settings = { ...defaults, ...options };
+      container.classList.add('montage-loop');
+      if (!container.children.length)
+         console.error('[montage-loop] No images found:', container);
+      const transition = `all ${settings.fadeMsec}ms`;
+      libX.dom.forEach(container.children, img => (<HTMLElement>img).style.transition = transition);
+      const start = (settings.start ?? Date.now()) % container.children.length;
+      container.children[start]!.classList.add('current');
       const nextImage = () => {
-         const previous = imgs.removeClass('previous').filter('.current').addClass('previous');
-         const index =    (previous.index() + 1) % imgs.length;
-         imgs.removeClass('current').eq(index).addClass('current');
+         libX.dom.forEach(container.children, img => img.classList.remove('previous'));
+         const previous = container.getElementsByClassName('current')[0]!;
+         previous.classList.replace('current', 'previous');
+         const next = previous.nextElementSibling || container.firstElementChild!;
+         next.classList.add('current');
          };
-      globalThis.setInterval(nextImage, settings.intervalMs);
-      return imgs;
+      globalThis.setInterval(nextImage, settings.intervalMsec);
+      return container;
       },
    };
 
@@ -434,36 +844,35 @@ const libXBubbleHelp = {
    //    <div>Hover over me<span class=bubble-help>Help!</span></div>
    // Usage with dna-engine:
    //    dna.registerInitializer(libX.bubbleHelp.setup);
-   setup(holder?: JQuery): JQuery {
-      const uninitialized = '.bubble-help:not(.bubble-initialized)';
-      const elems = (holder || $(globalThis.document)).find(uninitialized).addBack(uninitialized);
-      const wrapperHtml = '<span class=bubble-wrap></span>';
-      const pointerHtml = '<span class=bubble-pointer>&#9660;</span>';
-      const getHover = (event: JQuery.EventBase) => $(event.target).closest('.bubble-help-hover');
-      const hi = (event: JQuery.EventBase) => {
-         const help =    getHover(event).find('.bubble-help');
-         const wrapIt =  () => help.wrap(wrapperHtml).parent().append(pointerHtml);
-         const wrapper = help.parent().hasClass('bubble-wrap') ? help.parent() : wrapIt();
-         wrapper.find('.bubble-help').show();
-         wrapper.css({ top: -<number>wrapper.height() }).stop(true).hide().fadeIn();
-         };
-      const bye = (event: JQuery.EventBase) => getHover(event).find('.bubble-wrap').fadeOut('slow');
-      const hoverEvents = { mouseenter: hi, mouseleave: bye, touchstart: hi, touchend: bye };
-      elems.parent().addClass('bubble-help-hover').on(hoverEvents);
-      return elems.addClass('bubble-initialized');
+   setup(holder?: Element): Element {
+      // todo
+      return holder ?? globalThis.document.body;
       },
    };
 
 const libXForm = {
-   perfect(): JQuery {
-      const form =        $('form.perfect:not([action])');
-      const version =     form.data() && form.data().version || '';
-      const extra =       version + String.fromCharCode(46, 112) + 'hp';
-      const attributes =  { method: 'post', action: 'perfect' + extra };
-      const backupField = (): HTMLElement => <HTMLElement>$('<input type=hidden name=version>')[0];
-      const field =       (): HTMLElement => form.find('[name=version]')[0] || backupField();
-      const configure =   () => form.attr(attributes).append($(field()).val(version));
-      return form.find('textarea').on({ focus: () => globalThis.setTimeout(configure, 5000) });  //bot are lazy
+   // <form class=perfect data-version=21>
+   perfect(): Element | null {
+      const form =        globalThis.document.querySelector('form.perfect:not([action])');
+      const backupField = (): HTMLElement => {
+         const elem = globalThis.document.createElement('input');
+         elem.type = 'hidden';
+         elem.name = 'version';
+         return elem;
+         };
+      const configure =   () => {
+         const elem =    <HTMLFormElement>form;
+         const version = elem.dataset.version || '';
+         const extra =   version + String.fromCharCode(46, 112) + 'hp';
+         const field =   elem.querySelector('[name=version]') || backupField();
+         (<HTMLInputElement>field).value = version;
+         elem.method = 'post';
+         elem.action = 'perfect' + extra;
+         elem.appendChild(field);
+         };
+      if (form)
+         libX.dom.onFocusIn(() => globalThis.setTimeout(configure, 5000), 'form.perfect:not([action])');  //bots are lazy
+      return form;
       },
    };
 
@@ -478,22 +887,19 @@ const libXSocial = {
       { title: 'Digg',     icon: 'digg',        x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
       { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
       ],
-   share(elem: JQuery): Window | null {
-      const button = <LibXSocialButton>libX.social.buttons[elem.index()];
+   share(elem: Element): Window | null {
+      // const button = <LibXSocialButton>libX.social.buttons[elem.index()];
+      const button = <LibXSocialButton>libX.social.buttons[elem.nodeType];
       const insert = (text: string, find: string, value: string): string =>
          text.replace(find, encodeURIComponent(value));
       const linkTemp = insert(button.link, '${url}',   globalThis.location.href);
       const link =     insert(linkTemp,    '${title}', globalThis.document.title);
       return libX.ui.popup(link, { width: button.x, height: button.y });
       },
-   setup(): JQuery {
-      const container = $('#social-buttons');
-      const iconHtml = ['<i data-brand=', ' data-click=libX.social.share></i>'];  //click by dna-engine
-      let html = '<span>';
-      const addHtml = (button: LibXSocialButton) => html += iconHtml[0] + button.icon + iconHtml[1];
-      if (container.length)
-         libX.social.buttons.forEach(addHtml);
-      return container.fadeTo(0, 0.0).html(html + '</span>').fadeTo('slow', 1.0);
+   setup(): Element | null {
+      const container = globalThis.document.getElementById('social-buttons');
+      // todo
+      return container;
       },
    };
 
@@ -503,15 +909,15 @@ const libXExtra = {
       // Setup Blogger's Dynamic Views (sidebar)
       console.log('Setup for:', websiteUrl);
       const onArticleLoad = () => {
-         const titleStyle = 'font-weight: bold; color: purple;';
-         console.log('Article: %c' + $('h1.entry-title').text().trim(), titleStyle);
-         $('#header >.header-bar h3').attr('data-href', websiteUrl);
+         const title = libX.dom.select('h1.entry-title')!.textContent!.trim();
+         console.log('Article: %c' + title, 'font-weight: bold; color: purple;');
+         libX.dom.select('#header >.header-bar h3')!.dataset.href = websiteUrl;
          libX.ui.normalize();
          globalThis.hljsEnhance.setup();
          };
       const ready = () => {
          console.log(Date.now(), 'loading...');
-         if ($('#header h1').length)  //takes about 1 second for page to load
+         if (globalThis.document.querySelectorAll('#header h1').length)  //takes about 1 second for page to load
             onArticleLoad();
          else
             globalThis.setTimeout(ready, 250);
@@ -519,11 +925,11 @@ const libXExtra = {
       ready();
       globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
       },
-   gTags(scriptTag: string): void {
+   gTags(scriptTag: HTMLScriptElement): void {
       // Google Tracking
       // Usage:
       //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=libX.extra.gTags></script>
-      const trackingID = (<string>$(scriptTag).attr('src')).split('=')[1];
+      const trackingID = scriptTag.src.split('=')[1];
       globalThis.dataLayer = globalThis.dataLayer || [];
       function gtag(...args: unknown[]) { globalThis.dataLayer.push(args); }
       gtag('js', new Date());
@@ -533,6 +939,7 @@ const libXExtra = {
 
 const libX = {
    version:    '{{pkg.version}}',
+   dom:        libXDom,
    ui:         libXUi,
    util:       libXUtil,
    crypto:     libXCrypto,
@@ -545,31 +952,32 @@ const libX = {
    form:       libXForm,
    social:     libXSocial,
    extra:      libXExtra,
+   initializeDna(): void {
+      globalThis[<GlobalKey>'dna'].registerInitializer(libX.ui.normalize);
+      globalThis[<GlobalKey>'dna'].registerInitializer(libX.ui.makeIcons);
+      },
    initialize(): void {
       globalThis.libX = libX;
-      $.fn.id =      libX.ui.plugin.id;
-      $.fn.enable =  libX.ui.plugin.enable;
-      $.fn.disable = libX.ui.plugin.disable;
-      $.fn.findAll = libX.ui.plugin.findAll;
-      $.fn.forEach = libX.ui.plugin.forEach;
-      libX.social.setup();
-      libX.ui.setupForkMe();
-      dna.registerInitializer(<DnaCallback>libX.ui.normalize);
-      const clickAndTap = (callback: (event: JQuery.EventBase) => void) =>
-         ({ click: callback, touchstart: callback });
-      const onLoadSetup = () => {
+      if (globalThis[<GlobalKey>'dna'])
+         libX.initializeDna();
+      const onReadySetup = () => {
+         libX.ui.normalize();
+         libX.ui.makeIcons();
+         libX.ui.setupForkMe();
          libX.ui.displayAddr();
          libX.ui.setupVideos();
          libX.form.perfect();
          libX.bubbleHelp.setup();
-         $(globalThis.document)
-            .on(clickAndTap(libX.ui.revealSection), '.reveal-button')
-            .on({ click: libX.ui.popupClick },      '[data-href-popup]')
-            .on({ click: libX.popupImage.show },    '[data-popup-image], .popup-image');
+         libX.social.setup();
+         libX.dom.onClick(libX.ui.revealSection,      '.reveal-button');
+         libX.dom.onTouchstart(libX.ui.revealSection, '.reveal-button');
+         libX.dom.onClick(libX.ui.popupClick,         '[data-href-popup]');
+         libX.dom.onClick(libX.popupImage.show,       '[data-popup-image], .popup-image');
          };
-      $(onLoadSetup);
+      libX.dom.onReady(onReadySetup);
       },
    };
+
 libX.initialize();
 
 export { libX };

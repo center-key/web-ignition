@@ -23,8 +23,11 @@
    <script defer src=https://cdn.jsdelivr.net/npm/web-ignition@1.7/dist/lib-x.min.js></script>
    <script defer src=neon.js></script>
    <script data-on-load=trimCodeBlocks>
-      const trimCodeBlock = (elem) => elem.html(elem.html().replace(/\n {12}/g, '\n').trim());
-      const trimCodeBlocks = () => $('figure >pre >code').forEach(trimCodeBlock);
+      const trimCodeBlock = (elem) =>
+         elem.innerHTML = elem.innerHTML.replace(/\n {12}/g, '\n').trim();
+      const trimCodeBlocks = () =>
+         globalThis.document.querySelectorAll('figure >pre >code').forEach(trimCodeBlock);
+      libX.dom.onReady(trimCodeBlocks);
    </script>
 </head>
 <body>
