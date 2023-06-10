@@ -246,19 +246,35 @@ i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
    }
 
 // Bubble help
+//    <button class=bubble-help-hover>
+//       Hover over me
+//       <span class=bubble-wrap>
+//          <span class=bubble-help>Help!</span>
+//          <span class=bubble-pointer>▼</span>
+//       </span>
+//    </button>
 .bubble-help {
    display: none;
    }
 .bubble-help-hover {
    position: relative;
+   &.bubble-help-show {
+      >.bubble-wrap {
+         opacity: 1;
+         }
+      }
    >.bubble-wrap {
       position: absolute;
+      top: 5px;  //let pointer slightly overlap hover target
       left: 0px;
+      transform: translateY(-100%);  //sit directly on top of target
       font-family: system-ui, sans-serif;
       font-size: 0.8rem;
       font-weight: bold;
       pointer-events: none;
       z-index: 200;
+      opacity: 0;
+      transition: opacity 600ms 300ms;  //300ms delay to prevent flicker
       >.bubble-help {
          display: block;
          white-space: nowrap;

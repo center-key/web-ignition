@@ -4,13 +4,7 @@
 // MIT License                          //
 //////////////////////////////////////////
 
-type GlobalKey =    keyof typeof globalThis;
-export type LibXEventListener = (elem: Element, event: Event, selector: string | null) => void;
-export type LibXOptionsEventsOn = Partial<LibXSettingsEventsOn>;
-export type LibXSettingsEventsOn = {
-   keyFilter:  KeyboardEvent["key"] | null,
-   selector:   string | null,
-   };
+export type GlobalKey =  keyof typeof globalThis;
 export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
 export type JsonData =   JsonObject | Json[];
@@ -24,10 +18,16 @@ export type LibXCryptoHashSettings =     { algorithm: string, salt: string };
 export type LibXCryptoHashOptions =      Partial<LibXCryptoHashSettings>;
 export type LibXCounterMap =             { [counter: string]: number };
 export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
+export type LibXEventListener =          (elem: Element, event: Event, selector: string | null) => void;
+export type LibXOptionsEventsOn =        Partial<LibXSettingsEventsOn>;
+export type LibXSettingsEventsOn = {
+   keyFilter:  KeyboardEvent["key"] | null,
+   selector:   string | null,
+   };
 export type LibXMontageLoopSettings = {
-   start:        number | null,    //index of first image to show        (default: nulll for random)
-   intervalMsec: number,           //milliseconds between transitions    (default: 10,000)
-   fadeMsec:     number,           //milliseconds to complete transition (default: 3,000)
+   start:        number | null,  //index of first image to show        (default: nulll for random)
+   intervalMsec: number,         //milliseconds between transitions    (default: 10,000)
+   fadeMsec:     number,         //milliseconds to complete transition (default: 3,000)
    };
 export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 export type NavigatorUAData = {
@@ -57,30 +57,30 @@ const libXDom = {
       // Usage:
       //    libX.dom.state(document.body).lastUpdate = Date.now();
       // Class added to element:
-      //    <body class=dna-state data-dna-state=21>
+      //    <body class=libx-state data-libx-state=21>
       const data = (<HTMLElement>elem).dataset;
-      elem.classList.add('dna-state');
-      if (!data.dnaState)
-         data.dnaState = String(libX.dom.stateDepot.push({}) - 1);
-      return libX.dom.stateDepot[Number(data.dnaState)]!;
+      elem.classList.add('libx-state');
+      if (!data.libXState)
+         data.libXState = String(libX.dom.stateDepot.push({}) - 1);
+      return libX.dom.stateDepot[Number(data.libXState)]!;
       },
    cloneState(clone: Element): Element {
       // Use imediately after cloning an element in order to grant the clone its own state
       // data (note: it's a shallow copy).
       const copy = (elem: Element) => {
          const data =     (<HTMLElement>elem).dataset;
-         const newState = { ...libX.dom.stateDepot[Number(data.dnaState)] };
-         data.dnaState = String(libX.dom.stateDepot.push(newState) - 1);
+         const newState = { ...libX.dom.stateDepot[Number(data.libXState)] };
+         data.libXState = String(libX.dom.stateDepot.push(newState) - 1);
          };
-      if (clone.classList.contains('dna-state'))
+      if (clone.classList.contains('libx-state'))
          copy(clone);
-      libX.dom.forEach(clone.getElementsByClassName('dna-state'), copy);
+      libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
       return clone;
       },
    removeState(elem: Element): Element {
       const data = (<HTMLElement>elem).dataset;
-      if (data.dnaState)
-         libX.dom.stateDepot[Number(data.dnaState)] = {};
+      if (data.libXState)
+         libX.dom.stateDepot[Number(data.libXState)] = {};
       return elem;
       },
    select(selector: string): HTMLElement | null {
@@ -214,8 +214,11 @@ const libXDom = {
    onPaste(listener: LibXEventListener, selector?: string) {
       libX.dom.on('paste', listener, { selector: selector ?? null });
       },
-   onTouchstart(listener: LibXEventListener, selector?: string) {
+   onTouchStart(listener: LibXEventListener, selector?: string) {
       libX.dom.on('touchstart', listener, { selector: selector ?? null });
+      },
+   onTouchEnd(listener: LibXEventListener, selector?: string) {
+      libX.dom.on('touchend', listener, { selector: selector ?? null });
       },
    onSubmit(listener: LibXEventListener, selector?: string) {
       libX.dom.on('submit', listener, { selector: selector ?? null });
@@ -526,12 +529,13 @@ const libXUi = {
       const computed =  globalThis.getComputedStyle(elem);
       const moveL =     Math.max(pad + client.right - globalThis.window.innerWidth, 0);
       const moveR =     Math.max(pad - client.left, 0);
-      const moveU =     Math.min(pad + client.bottom - globalThis.window.innerHeight, 0);
+      const moveU =     Math.max(pad + client.bottom - globalThis.window.innerHeight, 0);
       const moveD =     Math.max(pad - client.top, 0);
-      const newLeft =   getPixels(computed.left) + (moveR ? moveR : -moveL);
-      const newTop =    getPixels(computed.top) +  (moveD ? moveD : -moveU);
-      (<HTMLElement>elem).style.left = String(newLeft) + 'px';
-      (<HTMLElement>elem).style.top =  String(newTop) +  'px';
+      const newLeft =   getPixels(computed.left) + moveR - moveL;
+      const newTop =    getPixels(computed.top) +  moveD - moveU;
+      const style =     (<HTMLElement>elem).style;
+      style.left = String(newLeft) + 'px';
+      style.top =  String(newTop) +  'px';
       return elem;
       },
    autoDisableButtons(): void {
@@ -841,12 +845,54 @@ const libXAnimate = {
 
 const libXBubbleHelp = {
    // Usage:
-   //    <div>Hover over me<span class=bubble-help>Help!</span></div>
+   //    <button>Hover over me<span class=bubble-help>Help!</span></button>
+   // For dynamically created elements, also run:
+   //    libX.bubbleHelp.setup(elem);
    // Usage with dna-engine:
    //    dna.registerInitializer(libX.bubbleHelp.setup);
-   setup(holder?: Element): Element {
-      // todo
-      return holder ?? globalThis.document.body;
+   setup(container: Element = globalThis.document.body): Element {
+      container = libX.dom.migrate(container);
+      const hi = (target: Element) => {
+         const init = () => {
+            // <button class=bubble-help-hover>
+            //    Hover over me
+            //    <span class=bubble-wrap>
+            //       <span class=bubble-help>Help!</span>
+            //       <span class=bubble-pointer>▼</span>
+            //    </span>
+            // </button>
+            const bubbleWrap =    globalThis.document.createElement('span');
+            const bubblePointer = globalThis.document.createElement('span');
+            bubbleWrap.classList.add('bubble-wrap');
+            bubblePointer.classList.add('bubble-pointer');
+            bubblePointer.innerHTML = '&#9660;';  //black down-pointing triangle: ▼
+            bubbleWrap.appendChild(target.querySelector('.bubble-help')!);
+            bubbleWrap.appendChild(bubblePointer);
+            target.appendChild(bubbleWrap);
+            target.classList.add('bubble-help-initialized');
+            };
+         console.log('hi:', target);
+         if (!target.classList.contains('bubble-help-initialized'))
+            init();
+         globalThis.window.requestAnimationFrame(() => target.classList.add('bubble-help-show'));
+         };
+      const bye = (target: Element) => {
+         console.log('bye:', target);
+         const delayFadeOut = 200;
+         globalThis.setTimeout(() => target.classList.remove('bubble-help-show'), delayFadeOut);
+         };
+      if (container.matches('bubble-help'))
+         container.parentElement!.classList.add('bubble-help-hover');
+      libX.dom.forEach(container.getElementsByClassName('bubble-help'),
+         elem => elem.parentElement!.classList.add('bubble-help-hover'));
+      const enable = () => {
+         libX.dom.onHoverIn(hi,   '.bubble-help-hover');
+         libX.dom.onHoverOut(bye, '.bubble-help-hover');
+         globalThis.document.body.classList.add('bubble-help-enabled');
+         };
+      if (!globalThis.document.body.classList.contains('bubble-help-enabled'))
+         enable();
+      return container;
       },
    };
 
@@ -888,17 +934,35 @@ const libXSocial = {
       { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
       ],
    share(elem: Element): Window | null {
-      // const button = <LibXSocialButton>libX.social.buttons[elem.index()];
-      const button = <LibXSocialButton>libX.social.buttons[elem.nodeType];
+      const button = libX.social.buttons.find(info => info.icon === (<HTMLElement>elem).dataset.brand)!;
       const insert = (text: string, find: string, value: string): string =>
          text.replace(find, encodeURIComponent(value));
-      const linkTemp = insert(button.link, '${url}',   globalThis.location.href);
-      const link =     insert(linkTemp,    '${title}', globalThis.document.title);
+      const linkWithUrl = insert(button.link, '${url}',   globalThis.location.href);
+      const link =        insert(linkWithUrl, '${title}', globalThis.document.title);
       return libX.ui.popup(link, { width: button.x, height: button.y });
       },
    setup(): Element | null {
+      // <div id=social-buttons>
+      //    <span>
+      //       <i class=font-icon data-brand=twitter></i>
+      //       ...
+      //    </span>
+      // </div>
       const container = globalThis.document.getElementById('social-buttons');
-      // todo
+      const addIcons = () => {
+         const span = globalThis.document.createElement('span');
+         const addIcon = (button: LibXSocialButton) => {
+            const icon = globalThis.document.createElement('i');
+            icon.dataset.brand = button.icon;
+            span.appendChild(icon);
+            };
+         libX.social.buttons.forEach(addIcon);
+         container!.appendChild(globalThis.document.createElement('span'));
+         libX.ui.makeIcons(container!);
+         };
+      if (container)
+         addIcons();
+      libX.dom.onClick(libX.social.share, '#social-buttons i');
       return container;
       },
    };
@@ -952,14 +1016,15 @@ const libX = {
    form:       libXForm,
    social:     libXSocial,
    extra:      libXExtra,
-   initializeDna(): void {
-      globalThis[<GlobalKey>'dna'].registerInitializer(libX.ui.normalize);
-      globalThis[<GlobalKey>'dna'].registerInitializer(libX.ui.makeIcons);
-      },
    initialize(): void {
       globalThis.libX = libX;
-      if (globalThis[<GlobalKey>'dna'])
-         libX.initializeDna();
+      const initializeDna = () => {
+         const dna = globalThis[<GlobalKey>'dna'];
+         dna.registerInitializer(libX.ui.normalize);
+         dna.registerInitializer(libX.ui.makeIcons);
+         };
+      if ('dna' in globalThis)
+         initializeDna();
       const onReadySetup = () => {
          libX.ui.normalize();
          libX.ui.makeIcons();
@@ -970,7 +1035,7 @@ const libX = {
          libX.bubbleHelp.setup();
          libX.social.setup();
          libX.dom.onClick(libX.ui.revealSection,      '.reveal-button');
-         libX.dom.onTouchstart(libX.ui.revealSection, '.reveal-button');
+         libX.dom.onTouchStart(libX.ui.revealSection, '.reveal-button');
          libX.dom.onClick(libX.ui.popupClick,         '[data-href-popup]');
          libX.dom.onClick(libX.popupImage.show,       '[data-popup-image], .popup-image');
          };
