@@ -1,21 +1,12 @@
-//! web-ignition v1.7.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
-/// <reference types="node" />
-declare global {
-    interface JQuery {
-        id: (name?: string | number) => JQuery | string | undefined;
-        enable: (setOn?: boolean) => JQuery;
-        disable: (setOff?: boolean) => JQuery;
-        findAll: (selector: string) => JQuery;
-        forEach: (fn: LibXForEachCallback) => JQuery;
-    }
-}
+export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = {
     [key: string]: Json;
 };
 export type JsonData = JsonObject | Json[];
-export type LibXForEachCallback = (elem: JQuery, index: number) => void;
+export type LibXForEachCallback = (elem: Element, index: number) => void;
 export type LibXObject = {
     [key: string]: unknown;
 };
@@ -33,7 +24,6 @@ export type LibXCryptoHashSettings = {
     salt: string;
 };
 export type LibXCryptoHashOptions = Partial<LibXCryptoHashSettings>;
-export type LibXUiEnei = JQuery | HTMLElement | JQuery.EventBase | number;
 export type LibXCounterMap = {
     [counter: string]: number;
 };
@@ -44,11 +34,16 @@ export type LibXSocialButton = {
     y: number;
     link: string;
 };
+export type LibXEventListener = (elem: Element, event: Event, selector: string | null) => void;
+export type LibXOptionsEventsOn = Partial<LibXSettingsEventsOn>;
+export type LibXSettingsEventsOn = {
+    keyFilter: KeyboardEvent["key"] | null;
+    selector: string | null;
+};
 export type LibXMontageLoopSettings = {
-    container: string | JQuery;
     start: number | null;
-    intervalMs: number;
-    fadeMs: number;
+    intervalMsec: number;
+    fadeMsec: number;
 };
 export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 export type NavigatorUAData = {
@@ -73,33 +68,89 @@ declare global {
 }
 declare const libX: {
     version: string;
-    ui: {
-        plugin: {
-            id: (name?: string | number) => string | undefined | JQuery;
-            enable: (setOn?: boolean) => JQuery;
-            disable: (setOff?: boolean) => JQuery;
-            findAll: (selector: string) => JQuery;
-            forEach: (fn: LibXForEachCallback) => JQuery;
+    dom: {
+        migrate(elem: Element): Element;
+        stateDepot: {
+            [key: string]: unknown;
+            [key: number]: unknown;
+            [key: symbol]: unknown;
+        }[];
+        state(elem: Element): {
+            [key: string]: unknown;
+            [key: number]: unknown;
+            [key: symbol]: unknown;
         };
-        toElem(elemOrNodeOrEventOrIndex: LibXUiEnei, that?: JQuery): JQuery;
-        makeIcons(holder: JQuery): JQuery;
-        normalize(holder?: JQuery): JQuery;
-        displayAddr(): JQuery;
+        cloneState(clone: Element): Element;
+        removeState(elem: Element): Element;
+        select(selector: string): HTMLElement | null;
+        selectAll(selector: string): HTMLElement[];
+        hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean;
+        toggleClass(elem: Element, className: string, state?: boolean): Element;
+        replaceClass(elem: Element, oldName: string, newName: string): Element;
+        addClass<T extends HTMLCollection | Element[] | NodeListOf<Element>>(elems: T, className: string): T;
+        forEach<T_1 extends HTMLCollection>(elems: T_1, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T_1;
+        map<T_2>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T_2): T_2[];
+        filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[];
+        filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[];
+        filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[];
+        find(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null;
+        index(elem: Element): number;
+        indexOf(elems: NodeListOf<Element>, elem: Element): number;
+        findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number;
+        isElem(elem: unknown): boolean;
+        getAttrs(elem: Element): Attr[];
+        toElem(elemOrEvent: Element | Event): HTMLElement;
+        on(type: string, listener: LibXEventListener, options?: LibXOptionsEventsOn): void;
+        onClick(listener: LibXEventListener, selector?: string): void;
+        onChange(listener: LibXEventListener, selector?: string): void;
+        onInput(listener: LibXEventListener, selector?: string): void;
+        onKeyDown(listener: LibXEventListener, selector?: string): void;
+        onKeyUp(listener: LibXEventListener, selector?: string): void;
+        onEnterKey(listener: LibXEventListener, selector?: string): void;
+        onFocusIn(listener: LibXEventListener, selector?: string): void;
+        onFocusOut(listener: LibXEventListener, selector?: string): void;
+        onCut(listener: LibXEventListener, selector?: string): void;
+        onPaste(listener: LibXEventListener, selector?: string): void;
+        onTouchStart(listener: LibXEventListener, selector?: string): void;
+        onTouchEnd(listener: LibXEventListener, selector?: string): void;
+        onSubmit(listener: LibXEventListener, selector?: string): void;
+        onHoverIn(listener: LibXEventListener, selector: string): void;
+        onHoverOut(listener: LibXEventListener, selector: string): void;
+        onReady(callback: () => unknown, options?: {
+            quiet?: boolean;
+        }): DocumentReadyState | 'browserless';
+    };
+    ui: {
+        isHidden(elem: Element): boolean;
+        isVisible(elem: Element): boolean;
+        show(elem: Element): Element;
+        hide(elem: Element): Element;
+        toggle(elem: Element, display: boolean): Element;
+        fadeIn(elem: Element): Promise<Element>;
+        fadeOut(elem: Element): Promise<Element>;
+        slideFadeIn(elem: Element): Promise<Element>;
+        slideFadeOut(elem: Element): Promise<Element>;
+        slideFade(elem: Element, show: boolean): Promise<Element>;
+        smoothHeight(updateUI: () => unknown, options?: {
+            container?: Element;
+            transition?: number;
+        }): Promise<Element>;
+        makeIcons(container?: Element): Element;
+        normalize(container?: Element): Element;
+        displayAddr(container?: Element): Element;
         popup(url: string, options?: LibXUiPopupOptions): Window | null;
-        popupClick(event: JQuery.EventBase): Window | null;
-        revealSection(event: JQuery.EventBase): JQuery;
-        keepOnScreen(elem: JQuery, options?: LibXUiKeepOnScreenOptions): JQuery;
+        popupClick(elem: Element): Window | null;
+        revealSection(elem: Element): Element;
+        keepOnScreen(elem: Element, options?: LibXUiKeepOnScreenOptions): Element;
         autoDisableButtons(): void;
-        loadImageFadeIn(elem: JQuery, url: string, duration?: number): JQuery;
-        setupVideos(): JQuery;
-        setupForkMe(): JQuery;
+        loadImageFadeIn(elem: Element, url: string, duration?: number): Promise<Element>;
+        setupVideos(): void;
+        setupForkMe(): Element | null;
     };
     util: {
         cleanupEmail(email: string): string | null;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
-        details(thing: unknown): string;
-        debug(thing: unknown): void;
     };
     crypto: {
         hash(message: string, options?: LibXCryptoHashOptions): Promise<string>;
@@ -125,27 +176,27 @@ declare const libX: {
         msWindows(): boolean;
     };
     popupImage: {
-        show(event: JQuery.EventBase): void;
+        show(thumbnail: Element): Element;
     };
     animate: {
-        jiggleIt(elemOrEvent: JQuery | JQuery.EventBase): JQuery;
-        rollIn(holderOrElems: JQuery): NodeJS.Timeout;
-        montageLoop(optionsOrContainer?: LibXMontageLoopOptions | JQuery): JQuery;
+        jiggleIt(elemOrEvent: Element | Event): Promise<Element>;
+        rollIn(container: Element): Promise<Element>;
+        montageLoop(container: Element, options?: LibXMontageLoopOptions | Element): Element;
     };
     bubbleHelp: {
-        setup(holder?: JQuery): JQuery;
+        setup(container?: Element): Element;
     };
     form: {
-        perfect(): JQuery;
+        perfect(): Element | null;
     };
     social: {
         buttons: LibXSocialButton[];
-        share(elem: JQuery): Window | null;
-        setup(): JQuery;
+        share(elem: Element): Window | null;
+        setup(): Element | null;
     };
     extra: {
         blogger(websiteUrl: string): void;
-        gTags(scriptTag: string): void;
+        gTags(scriptTag: HTMLScriptElement): void;
     };
     initialize(): void;
 };

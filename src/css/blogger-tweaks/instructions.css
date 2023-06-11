@@ -22,7 +22,6 @@
     <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.cdnVersion.highlightjs}}/build/styles/docco.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@{{pkg.dependencies.hljs-enhance|version}}/hljs-enhance.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/blogger-tweaks.min.css' rel='stylesheet'>
-    <script src='https://cdn.jsdelivr.net/npm/jquery@3.7/dist/jquery.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.cdnVersion.highlightjs}}/build/highlight.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.cdnVersion.highlightjs}}/build/languages/http.min.js'></script>
     <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@{{pkg.dependencies.hljs-enhance|version}}/hljs-enhance.js'></script>
