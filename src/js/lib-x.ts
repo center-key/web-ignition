@@ -245,7 +245,10 @@ const libXDom = {
          };
       globalThis.document.addEventListener('pointerover', delegator);
       },
-   onReady(callback: () => unknown, options?: { quiet?: boolean }): DocumentReadyState | 'browserless' {
+   onReady(callback: (...args: unknown[]) => unknown, options?: { quiet?: boolean }): DocumentReadyState | 'browserless' {
+      // Calls the specified function once the web page is loaded and ready.
+      // Example (execute myApp.setup() as soon as the DOM is interactive):
+      //    libX.dom.onReady(myApp.setup);
       const state = globalThis.document ? globalThis.document.readyState : 'browserless';
       if (state === 'browserless' && !options?.quiet)
          console.log(new Date().toISOString(), 'Callback run in browserless context');
