@@ -1,4 +1,4 @@
-//! web-ignition v2.0.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -116,7 +116,7 @@ declare const libX: {
         onSubmit(listener: LibXEventListener, selector?: string): void;
         onHoverIn(listener: LibXEventListener, selector: string): void;
         onHoverOut(listener: LibXEventListener, selector: string): void;
-        onReady(callback: () => unknown, options?: {
+        onReady(callback: (...args: unknown[]) => unknown, options?: {
             quiet?: boolean;
         }): DocumentReadyState | 'browserless';
     };

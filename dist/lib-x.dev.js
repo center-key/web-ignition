@@ -1,4 +1,4 @@
-//! web-ignition v2.0.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     migrate(elem) {
@@ -822,7 +822,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.0.0',
+    version: '2.0.1',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
