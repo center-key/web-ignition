@@ -1,4 +1,4 @@
-//! web-ignition v2.0.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     migrate(elem) {
@@ -27,6 +27,28 @@ const libXDom = {
             copy(clone);
         libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
         return clone;
+    },
+    create(tag, options) {
+        const elem = globalThis.document.createElement(tag);
+        if (options === null || options === void 0 ? void 0 : options.id)
+            elem.id = options.id;
+        if (options === null || options === void 0 ? void 0 : options.class)
+            elem.classList.add(options.class);
+        if (options === null || options === void 0 ? void 0 : options.href)
+            elem.href = options.href;
+        if (options === null || options === void 0 ? void 0 : options.html)
+            elem.innerHTML = options.html;
+        if (options === null || options === void 0 ? void 0 : options.name)
+            elem.name = options.name;
+        if (options === null || options === void 0 ? void 0 : options.src)
+            elem.src = options.src;
+        if (options === null || options === void 0 ? void 0 : options.text)
+            elem.textContent = options.text;
+        if (options === null || options === void 0 ? void 0 : options.type)
+            elem.type = options.type;
+        if (options === null || options === void 0 ? void 0 : options.subTags)
+            options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
+        return elem;
     },
     removeState(elem) {
         const data = elem.dataset;
@@ -497,9 +519,9 @@ const libXUi = {
         const forkMe = globalThis.document.getElementById('fork-me');
         const wrap = () => {
             const header = forkMe.parentElement;
-            const container = globalThis.document.createElement('div');
+            const container = libX.dom.create('div');
             container.id = 'fork-me-container';
-            const icon = globalThis.document.createElement('i');
+            const icon = libX.dom.create('i');
             icon.dataset.brand = 'github';
             icon.dataset.href = forkMe.href;
             container.appendChild(forkMe);
@@ -610,11 +632,10 @@ const libXPopupImage = {
             thumbnail.nextElementSibling.remove();
         const data = thumbnail.dataset;
         const width = data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
-        const popupLayer = globalThis.document.createElement('div');
-        const popupImg = globalThis.document.createElement('img');
-        const closeIcon = globalThis.document.createElement('i');
-        popupLayer.classList.add('popup-image-layer');
-        popupImg.src = (_b = data.popupImage) !== null && _b !== void 0 ? _b : thumbnail.src;
+        const src = (_b = data.popupImage) !== null && _b !== void 0 ? _b : thumbnail.src;
+        const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
+        const popupImg = libX.dom.create('img', { src: src });
+        const closeIcon = libX.dom.create('i');
         popupImg.style.maxWidth = Math.min(width, globalThis.window.innerWidth - gap) + 'px';
         closeIcon.dataset.icon = 'times';
         libX.ui.makeIcons(closeIcon);
@@ -702,8 +723,8 @@ const libXBubbleHelp = {
         container = libX.dom.migrate(container);
         const hi = (target) => {
             const init = () => {
-                const bubbleWrap = globalThis.document.createElement('span');
-                const bubblePointer = globalThis.document.createElement('span');
+                const bubbleWrap = libX.dom.create('span');
+                const bubblePointer = libX.dom.create('span');
                 bubbleWrap.classList.add('bubble-wrap');
                 bubblePointer.classList.add('bubble-pointer');
                 bubblePointer.innerHTML = '&#9660;';
@@ -739,10 +760,7 @@ const libXForm = {
     perfect() {
         const form = globalThis.document.querySelector('form.perfect:not([action])');
         const backupField = () => {
-            const elem = globalThis.document.createElement('input');
-            elem.type = 'hidden';
-            elem.name = 'version';
-            return elem;
+            return libX.dom.create('input', { type: 'hidden', name: 'version' });
         };
         const configure = () => {
             const elem = form;
@@ -777,14 +795,14 @@ const libXSocial = {
     setup() {
         const container = globalThis.document.getElementById('social-buttons');
         const addIcons = () => {
-            const span = globalThis.document.createElement('span');
+            const span = libX.dom.create('span');
             const addIcon = (button) => {
-                const icon = globalThis.document.createElement('i');
+                const icon = libX.dom.create('i');
                 icon.dataset.brand = button.icon;
                 span.appendChild(icon);
             };
             libX.social.buttons.forEach(addIcon);
-            container.appendChild(globalThis.document.createElement('span'));
+            container.appendChild(span);
             libX.ui.makeIcons(container);
         };
         if (container)
@@ -822,7 +840,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.0.1',
+    version: '2.0.2',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
