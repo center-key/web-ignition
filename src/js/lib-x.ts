@@ -77,6 +77,29 @@ const libXDom = {
       libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
       return clone;
       },
+   create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, src?: string, text?: string, type?: string }): HTMLElementTagNameMap[K] {
+      const elem = globalThis.document.createElement(tag);
+      if (options?.id)
+         elem.id = options.id;
+      if (options?.class)
+         elem.classList.add(options.class);
+      if (options?.href)
+         (<HTMLAnchorElement>elem).href = options.href;
+      if (options?.html)
+         elem.innerHTML = options.html;
+      if (options?.name)
+         (<HTMLInputElement>elem).name = options.name;
+      if (options?.src)
+         (<HTMLImageElement>elem).src = options.src;
+      if (options?.text)
+         elem.textContent = options.text;
+      if (options?.type)
+         (<HTMLInputElement>elem).type = options.type;
+      if (options?.subTags)
+         options.subTags.forEach(
+            subTag => elem.appendChild(globalThis.document.createElement(subTag)));
+      return elem;
+      },
    removeState(elem: Element): Element {
       const data = (<HTMLElement>elem).dataset;
       if (data.libXState)
@@ -605,9 +628,9 @@ const libXUi = {
       const forkMe = <HTMLAnchorElement>globalThis.document.getElementById('fork-me');
       const wrap = () => {
          const header =    forkMe!.parentElement!;
-         const container = globalThis.document.createElement('div');
+         const container = libX.dom.create('div');
          container.id =    'fork-me-container';
-         const icon =      globalThis.document.createElement('i');
+         const icon =      libX.dom.create('i');
          icon.dataset.brand = 'github';
          icon.dataset.href =  forkMe.href;
          container.appendChild(forkMe);
@@ -739,11 +762,10 @@ const libXPopupImage = {
          thumbnail.nextElementSibling.remove();
       const data =       (<HTMLElement>thumbnail).dataset;
       const width =      data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
-      const popupLayer = globalThis.document.createElement('div');
-      const popupImg =   globalThis.document.createElement('img');
-      const closeIcon =  globalThis.document.createElement('i');
-      popupLayer.classList.add('popup-image-layer');
-      popupImg.src = data.popupImage ?? (<HTMLImageElement>thumbnail).src;
+      const src =        data.popupImage ?? (<HTMLImageElement>thumbnail).src;
+      const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
+      const popupImg =   libX.dom.create('img', { src: src });
+      const closeIcon =  libX.dom.create('i');
       popupImg.style.maxWidth = Math.min(width, globalThis.window.innerWidth - gap) + 'px';
       closeIcon.dataset.icon = 'times';
       libX.ui.makeIcons(closeIcon);
@@ -864,8 +886,8 @@ const libXBubbleHelp = {
             //       <span class=bubble-pointer>▼</span>
             //    </span>
             // </button>
-            const bubbleWrap =    globalThis.document.createElement('span');
-            const bubblePointer = globalThis.document.createElement('span');
+            const bubbleWrap =    libX.dom.create('span');
+            const bubblePointer = libX.dom.create('span');
             bubbleWrap.classList.add('bubble-wrap');
             bubblePointer.classList.add('bubble-pointer');
             bubblePointer.innerHTML = '&#9660;';  //black down-pointing triangle: ▼
@@ -904,10 +926,7 @@ const libXForm = {
    perfect(): Element | null {
       const form =        globalThis.document.querySelector('form.perfect:not([action])');
       const backupField = (): HTMLElement => {
-         const elem = globalThis.document.createElement('input');
-         elem.type = 'hidden';
-         elem.name = 'version';
-         return elem;
+         return libX.dom.create('input', { type: 'hidden', name: 'version' });
          };
       const configure =   () => {
          const elem =    <HTMLFormElement>form;
@@ -953,14 +972,14 @@ const libXSocial = {
       // </div>
       const container = globalThis.document.getElementById('social-buttons');
       const addIcons = () => {
-         const span = globalThis.document.createElement('span');
+         const span = libX.dom.create('span');
          const addIcon = (button: LibXSocialButton) => {
-            const icon = globalThis.document.createElement('i');
+            const icon = libX.dom.create('i');
             icon.dataset.brand = button.icon;
             span.appendChild(icon);
             };
          libX.social.buttons.forEach(addIcon);
-         container!.appendChild(globalThis.document.createElement('span'));
+         container!.appendChild(span);
          libX.ui.makeIcons(container!);
          };
       if (container)
