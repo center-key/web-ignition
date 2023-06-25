@@ -77,7 +77,7 @@ const libXDom = {
       libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
       return clone;
       },
-   create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, src?: string, text?: string, type?: string }): HTMLElementTagNameMap[K] {
+   create<K extends keyof HTMLElementTagNameMap | string>(tag: K, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
          elem.id = options.id;
@@ -89,6 +89,8 @@ const libXDom = {
          elem.innerHTML = options.html;
       if (options?.name)
          (<HTMLInputElement>elem).name = options.name;
+      if (options?.rel)
+         (<HTMLLinkElement>elem).rel = options.rel;
       if (options?.src)
          (<HTMLImageElement>elem).src = options.src;
       if (options?.text)
@@ -98,7 +100,7 @@ const libXDom = {
       if (options?.subTags)
          options.subTags.forEach(
             subTag => elem.appendChild(globalThis.document.createElement(subTag)));
-      return elem;
+      return <K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement>elem;
       },
    removeState(elem: Element): Element {
       const data = (<HTMLElement>elem).dataset;
