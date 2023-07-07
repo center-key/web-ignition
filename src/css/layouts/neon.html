@@ -26,7 +26,6 @@
          elem.innerHTML = elem.innerHTML.replace(/\n {12}/g, '\n').trim();
       const trimCodeBlocks = () =>
          globalThis.document.querySelectorAll('figure >pre >code').forEach(trimCodeBlock);
-      libX.dom.onReady(trimCodeBlocks);
    </script>
 </head>
 <body>

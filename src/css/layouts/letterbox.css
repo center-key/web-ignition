@@ -55,22 +55,25 @@ main >section:first-child >div {
    padding: 0px 0px;
    margin: 10px auto;
    }
-main >section:first-child .box {
+main >section:first-child #social-buttons {
+   margin: 30px auto 5px auto;
+   }
+main >section .box,  /* deprecated */
+main >section .display-box {
    display: inline-block;
    font-size: 0.9rem;
    border: 1px solid darkgray;
    border-radius: 0.1rem;
-   padding: 5px 20px;
-   margin: 5px 0px;
-   }
-main >section:first-child #social-buttons {
-   margin: 30px auto 5px auto;
+   padding: 15px 35px 20px 35px;
    }
 main >section+section {
    max-width: 100%;
    width: 800px;
    padding: 40px;
    margin: 0px auto 30px auto;
+   }
+main >section >figure {
+   margin-bottom: 30px;
    }
 main >section >figure.video-container {
    margin-bottom: 0px;

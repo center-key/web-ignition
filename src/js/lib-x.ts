@@ -607,8 +607,8 @@ const libXUi = {
       },
    setupVideos(): void {
       // <figure class=video-container>
-      //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI></iframe>
-      //    <figcaption>Optional semantic tag not actually visible</figcaption>
+      //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI allow=fullscreen></iframe>
+      //    <figcaption>Video Title (hidden)</figcaption>
       // </figure>
       const makeClickable = (elem: Element) => {
          const src = elem.querySelector('iframe')?.src ?? '';
@@ -616,9 +616,7 @@ const libXUi = {
          (<HTMLElement>elem).dataset.href = url;
          elem.classList.add('external-site');
          };
-      const allowFullScreen = (iframe: Element) => iframe.setAttribute('allow', 'fullscreen')
       globalThis.document.querySelectorAll('figure.video-container-link').forEach(makeClickable);
-      globalThis.document.querySelectorAll('figure.video-container >iframe').forEach(allowFullScreen);
       return;
       },
    setupForkMe(): Element | null {
@@ -629,10 +627,10 @@ const libXUi = {
       //          <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
       const forkMe = <HTMLAnchorElement>globalThis.document.getElementById('fork-me');
       const wrap = () => {
-         const header =    forkMe!.parentElement!;
-         const container = libX.dom.create('div');
-         container.id =    'fork-me-container';
-         const icon =      libX.dom.create('i');
+         const header =       forkMe!.parentElement!;
+         const container =    libX.dom.create('div');
+         container.id =       'fork-me-container';
+         const icon =         libX.dom.create('i');
          icon.dataset.brand = 'github';
          icon.dataset.href =  forkMe.href;
          container.appendChild(forkMe);
@@ -898,13 +896,11 @@ const libXBubbleHelp = {
             target.appendChild(bubbleWrap);
             target.classList.add('bubble-help-initialized');
             };
-         console.log('hi:', target);
          if (!target.classList.contains('bubble-help-initialized'))
             init();
          globalThis.window.requestAnimationFrame(() => target.classList.add('bubble-help-show'));
          };
       const bye = (target: Element) => {
-         console.log('bye:', target);
          const delayFadeOut = 200;
          globalThis.setTimeout(() => target.classList.remove('bubble-help-show'), delayFadeOut);
          };
@@ -930,7 +926,7 @@ const libXForm = {
       const backupField = (): HTMLElement => {
          return libX.dom.create('input', { type: 'hidden', name: 'version' });
          };
-      const configure =   () => {
+      const configure = () => {
          const elem =    <HTMLFormElement>form;
          const version = elem.dataset.version || '';
          const extra =   version + String.fromCharCode(46, 112) + 'hp';
@@ -954,7 +950,6 @@ const libXSocial = {
       { title: 'Twitter',  icon: 'twitter',     x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
       { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
-      { title: 'Digg',     icon: 'digg',        x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
       { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
       ],
    share(elem: Element): Window | null {

@@ -59,9 +59,6 @@
          "@typescript-eslint/no-non-null-assertion": "off"
       }
    },
-   "cdnVersion": {
-      "highlightjs": "11.8"
-   },
    "runScriptsConfig": {
       "clean": [
          "rimraf build dist"
@@ -100,21 +97,21 @@
    },
    "dependencies": {
       "dna-engine": "~3.0",
-      "fetch-json": "~3.1",
+      "fetch-json": "~3.2",
       "highlight.js": "~11.8",
       "hljs-enhance": "~2.0"
    },
    "devDependencies": {
       "@fortawesome/fontawesome-free": "~6.4",
-      "@types/node": "~20.3",
-      "@typescript-eslint/eslint-plugin": "~5.60",
-      "@typescript-eslint/parser": "~5.60",
+      "@types/node": "~20.4",
+      "@typescript-eslint/eslint-plugin": "~5.61",
+      "@typescript-eslint/parser": "~5.61",
       "add-dist-header": "~1.1",
       "assert-deep-strict-equal": "~1.1",
       "copy-file-util": "~1.1",
       "copy-folder-util": "~1.1",
       "csso-cli": "~4.0",
-      "eslint": "~8.43",
+      "eslint": "~8.44",
       "esm-to-plain-js": "~1.1",
       "jshint": "~2.13",
       "less": "~4.1",
