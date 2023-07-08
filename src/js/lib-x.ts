@@ -581,22 +581,24 @@ const libXUi = {
       // Usage:
       //    libX.ui.loadImageFadeIn(elem, 'https://example.com/elephants.jpg');
       const fadeTransition = duration ?? 600;
-      const goalElem = <HTMLElement>elem;
-      goalElem.style.transition = `all 0ms`;
-      goalElem.style.opacity =    '0';
+      const style =          (<HTMLElement>elem).style;
+      style.transition =     `all 0ms`;
+      style.opacity =        '0';
+      if (globalThis.getComputedStyle(elem).display === 'none')
+         style.display = 'block';
       const load = (done: (elem: Element) => void) => {
          const cleanup = () => {
-            goalElem.style.removeProperty('transition');
-            goalElem.style.removeProperty('opacity');
+            style.removeProperty('transition');
+            style.removeProperty('opacity');
             done(elem);
             };
          const handleImgage = () => {
-            if (goalElem.matches('img'))
-               (<HTMLImageElement>goalElem).src = url;
+            if (elem.matches('img'))
+               (<HTMLImageElement>elem).src = url;
             else
-               goalElem.style.backgroundImage = 'url("' + url + '")';
-            goalElem.style.transition = `all ${fadeTransition}ms`;
-            goalElem.style.opacity =    '1';
+               style.backgroundImage = 'url("' + url + '")';
+            style.transition = `all ${fadeTransition}ms`;
+            style.opacity =    '1';
             globalThis.setTimeout(cleanup, fadeTransition + 100);
             };
          const img = new Image();

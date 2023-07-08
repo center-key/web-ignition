@@ -12,6 +12,7 @@
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4/css/all.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.0/dist/dna-engine.css>
    <link rel=stylesheet href=../../dist/reset.min.css>
+   <script defer src=https://cdn.jsdelivr.net/npm/fetch-json@3.2/dist/fetch-json.min.js></script>
    <script defer src=https://cdn.jsdelivr.net/npm/dna-engine@3.0/dist/dna-engine.min.js></script>
    <script defer src=../../dist/lib-x.min.js></script>
    <script>globalThis.onerror = () => globalThis.document.body.style.background = 'pink';</script>
@@ -45,6 +46,13 @@
          libX.crypto.hash('My secret').then(hash => hash === expectedHash || throwBadHash(hash));
          globalThis.document.querySelectorAll('.montage-loop').forEach(
             holder => libX.animate.montageLoop(holder, { intervalMsec: 5000 }));
+         };
+      const loadImage = (button) => {
+         const img = button.parentElement.nextElementSibling;
+         const handle = (data) =>
+            libX.ui.loadImageFadeIn(img, data.image, 5000).then(() => button.disabled = false);
+         img.parentElement.dataset.imageReuested = String(Date.now());
+         fetchJson.get('https://yesno.wtf/api').then(handle);
          };
       const handleHash = (container) => (hash) => container.querySelector('output').textContent = hash;
       const hashIt = (elem) => libX.crypto.hash(libX.dom.migrate(elem).value)
@@ -101,6 +109,11 @@
          <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/001-small.png alt=montage>
          <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/004-small.png alt=montage>
          <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/019-small.png alt=montage>
+      </aside>
+      <aside style="width: 150px; background-color: white; border: none; padding: 0px;">
+         <p><button data-on-click=loadImage>Load</button></p>
+         <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxIiBoZWlnaHQ9IjEiPjwvc3ZnPg=="
+            alt=placeholder>
       </aside>
       <p class=display-addr data-name=sales data-domain=ibm.com></p>
       <hr>
