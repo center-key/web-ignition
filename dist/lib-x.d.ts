@@ -1,4 +1,4 @@
-//! web-ignition v2.0.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -81,17 +81,18 @@ declare const libX: {
             [key: symbol]: unknown;
         };
         cloneState(clone: Element): Element;
-        create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: {
+        create<K extends string>(tag: K, options?: {
             id?: string;
             subTags?: string[];
             class?: string;
             href?: string;
             html?: string;
             name?: string;
+            rel?: string;
             src?: string;
             text?: string;
             type?: string;
-        }): HTMLElementTagNameMap[K];
+        }): K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement;
         removeState(elem: Element): Element;
         select(selector: string): HTMLElement | null;
         selectAll(selector: string): HTMLElement[];

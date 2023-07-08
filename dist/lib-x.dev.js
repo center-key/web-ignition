@@ -1,4 +1,4 @@
-//! web-ignition v2.0.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     migrate(elem) {
@@ -40,6 +40,8 @@ const libXDom = {
             elem.innerHTML = options.html;
         if (options === null || options === void 0 ? void 0 : options.name)
             elem.name = options.name;
+        if (options === null || options === void 0 ? void 0 : options.rel)
+            elem.rel = options.rel;
         if (options === null || options === void 0 ? void 0 : options.src)
             elem.src = options.src;
         if (options === null || options === void 0 ? void 0 : options.text)
@@ -478,22 +480,24 @@ const libXUi = {
     },
     loadImageFadeIn(elem, url, duration) {
         const fadeTransition = duration !== null && duration !== void 0 ? duration : 600;
-        const goalElem = elem;
-        goalElem.style.transition = `all 0ms`;
-        goalElem.style.opacity = '0';
+        const style = elem.style;
+        style.transition = `all 0ms`;
+        style.opacity = '0';
+        if (globalThis.getComputedStyle(elem).display === 'none')
+            style.display = 'block';
         const load = (done) => {
             const cleanup = () => {
-                goalElem.style.removeProperty('transition');
-                goalElem.style.removeProperty('opacity');
+                style.removeProperty('transition');
+                style.removeProperty('opacity');
                 done(elem);
             };
             const handleImgage = () => {
-                if (goalElem.matches('img'))
-                    goalElem.src = url;
+                if (elem.matches('img'))
+                    elem.src = url;
                 else
-                    goalElem.style.backgroundImage = 'url("' + url + '")';
-                goalElem.style.transition = `all ${fadeTransition}ms`;
-                goalElem.style.opacity = '1';
+                    style.backgroundImage = 'url("' + url + '")';
+                style.transition = `all ${fadeTransition}ms`;
+                style.opacity = '1';
                 globalThis.setTimeout(cleanup, fadeTransition + 100);
             };
             const img = new Image();
@@ -510,9 +514,7 @@ const libXUi = {
             elem.dataset.href = url;
             elem.classList.add('external-site');
         };
-        const allowFullScreen = (iframe) => iframe.setAttribute('allow', 'fullscreen');
         globalThis.document.querySelectorAll('figure.video-container-link').forEach(makeClickable);
-        globalThis.document.querySelectorAll('figure.video-container >iframe').forEach(allowFullScreen);
         return;
     },
     setupForkMe() {
@@ -733,13 +735,11 @@ const libXBubbleHelp = {
                 target.appendChild(bubbleWrap);
                 target.classList.add('bubble-help-initialized');
             };
-            console.log('hi:', target);
             if (!target.classList.contains('bubble-help-initialized'))
                 init();
             globalThis.window.requestAnimationFrame(() => target.classList.add('bubble-help-show'));
         };
         const bye = (target) => {
-            console.log('bye:', target);
             const delayFadeOut = 200;
             globalThis.setTimeout(() => target.classList.remove('bubble-help-show'), delayFadeOut);
         };
@@ -782,7 +782,6 @@ const libXSocial = {
         { title: 'Twitter', icon: 'twitter', x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
         { title: 'Facebook', icon: 'facebook-f', x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
         { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
-        { title: 'Digg', icon: 'digg', x: 985, y: 700, link: 'https://digg.com/submit?url=${url}' },
         { title: 'Reddit', icon: 'reddit', x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
     ],
     share(elem) {
@@ -840,7 +839,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.0.2',
+    version: '2.0.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
