@@ -55,8 +55,8 @@
          fetchJson.get('https://yesno.wtf/api').then(handle);
          };
       const handleHash = (container) => (hash) => container.querySelector('output').textContent = hash;
-      const hashIt = (elem) => libX.crypto.hash(libX.dom.migrate(elem).value)
-         .then(handleHash(libX.dom.migrate(elem).closest('div')));
+      const hashIt = (elem) => libX.crypto.hash(elem.value)
+         .then(handleHash(elem.closest('div')));
    </script>
 </head>
 <body>

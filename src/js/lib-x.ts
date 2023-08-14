@@ -44,13 +44,6 @@ declare global { var hljsEnhance: { setup: () => void } }  //eslint-disable-line
 declare global { var libX:        LibX }                   //eslint-disable-line no-var
 
 const libXDom = {
-   migrate(elem: Element): Element {
-      if (!libX.dom.isElem(elem) || elem.constructor.name === 'HTMLDocument')
-         console.log(Date.now(), typeof elem, elem?.constructor?.name, elem);
-      elem = elem.constructor.name === 'ce' ? (<Element[]><unknown>elem)[0]! : elem;
-      elem = elem.constructor.name === 'HTMLDocument' ? globalThis.document.body : elem;
-      return elem;
-      },
    stateDepot: <{ [key: string | number | symbol]: unknown }[]>[],
    state(elem: Element) {
       // Returns an object associated with the element that can be used to store values.
@@ -482,7 +475,6 @@ const libXUi = {
       //    <i data-attr-data-icon=~~icon~~></i>
       // Note:
       //    LibX detects dna-engine and automatically runs: dna.registerInitializer(libX.ui.makeIcons))
-      container = libX.dom.migrate(container);
       const iconify = (isBrand: boolean) => (icon: Element) => {
          const data = (<HTMLElement>icon).dataset;
          icon.classList.add('font-icon');
@@ -496,15 +488,11 @@ const libXUi = {
       return container;
       },
    normalize(container: Element = globalThis.document.body): Element {
-      container = libX.dom.migrate(container);
-      const rawInput = (elem: Element) => {
-         elem.setAttribute('autocorrect', 'off');
-         elem.setAttribute('spellcheck',  'false');
-         };
+      const rawInput =      (elem: Element) => (<HTMLInputElement>elem).spellcheck = false;
       const makeImageLink = (elem: Element) => elem.closest('a')!.classList.add('image-link');
-      const openInNewTab =  (elem: Element) =>  elem.setAttribute('target', '_blank');
-      container.querySelectorAll('button:not([type])').forEach(elem => elem.setAttribute('type', 'button'));
-      container.querySelectorAll('input:not([type])').forEach(elem =>  elem.setAttribute('type', 'text'));
+      const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';
+      container.querySelectorAll('button:not([type])').forEach(elem => (<HTMLButtonElement>elem).type = 'button');
+      container.querySelectorAll('input:not([type])').forEach(elem =>  (<HTMLInputElement>elem).type = 'text');
       container.querySelectorAll('input[type=email]').forEach(rawInput);
       container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);
       if (!libX.browser.userAgentData().mobile)
@@ -792,7 +780,6 @@ const libXAnimate = {
       //    libX.animate.jiggleIt(elem);
       // Usage in dna-engine:
       //    <img src=logo.svg data-on-click=libX.animate.jiggleIt alt=logo>
-      elemOrEvent = elemOrEvent.constructor.name === 'ce' ? (<Element[]><unknown>elemOrEvent)[0]! : elemOrEvent;  //see: libX.dom.migrate
       const elem = libX.dom.toElem(elemOrEvent);
       const animatation = 'jiggle-it 200ms 3';  //keyframes duration iterations
       const style =       (<HTMLElement>elem).style;
@@ -844,7 +831,6 @@ const libXAnimate = {
       //    libX.animate.montageLoop(elem);
       // Usage with dna-engine (default options):
       //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
-      container = libX.dom.migrate(container);
       const defaults = {
          start:        null,   //random
          intervalMsec: 10000,  //10 seconds between transitions
@@ -878,7 +864,6 @@ const libXBubbleHelp = {
    // Usage with dna-engine:
    //    dna.registerInitializer(libX.bubbleHelp.setup);
    setup(container: Element = globalThis.document.body): Element {
-      container = libX.dom.migrate(container);
       const hi = (target: Element) => {
          const init = () => {
             // <button class=bubble-help-hover>
@@ -1002,10 +987,10 @@ const libXExtra = {
          };
       const ready = () => {
          console.log(Date.now(), 'loading...');
-         if (globalThis.document.querySelectorAll('#header h1').length)  //takes about 1 second for page to load
+         if (globalThis.document.querySelector('#header h1'))  //takes about a second or so for page to load
             onArticleLoad();
          else
-            globalThis.setTimeout(ready, 250);
+            globalThis.setTimeout(ready, 500);
          };
       ready();
       globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
