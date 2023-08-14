@@ -106,7 +106,7 @@ customizeBlogger() {
       -e "s|.TWITTER-USERNAME.|DemPilafian|g" \
       dist/blogger-tweaks.min.css > build/blogger-tweaks-custom.css
    pwd
-   ls -lo build/blogger-tweaks-custom.css
+   ls -o build/blogger-tweaks-custom.css
    echo
    }
 

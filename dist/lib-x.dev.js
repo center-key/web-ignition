@@ -1,14 +1,6 @@
-//! web-ignition v2.0.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
-    migrate(elem) {
-        var _a;
-        if (!libX.dom.isElem(elem) || elem.constructor.name === 'HTMLDocument')
-            console.log(Date.now(), typeof elem, (_a = elem === null || elem === void 0 ? void 0 : elem.constructor) === null || _a === void 0 ? void 0 : _a.name, elem);
-        elem = elem.constructor.name === 'ce' ? elem[0] : elem;
-        elem = elem.constructor.name === 'HTMLDocument' ? globalThis.document.body : elem;
-        return elem;
-    },
     stateDepot: [],
     state(elem) {
         const data = elem.dataset;
@@ -20,7 +12,7 @@ const libXDom = {
     cloneState(clone) {
         const copy = (elem) => {
             const data = elem.dataset;
-            const newState = Object.assign({}, libX.dom.stateDepot[Number(data.libXState)]);
+            const newState = { ...libX.dom.stateDepot[Number(data.libXState)] };
             data.libXState = String(libX.dom.stateDepot.push(newState) - 1);
         };
         if (clone.classList.contains('libx-state'))
@@ -30,25 +22,25 @@ const libXDom = {
     },
     create(tag, options) {
         const elem = globalThis.document.createElement(tag);
-        if (options === null || options === void 0 ? void 0 : options.id)
+        if (options?.id)
             elem.id = options.id;
-        if (options === null || options === void 0 ? void 0 : options.class)
+        if (options?.class)
             elem.classList.add(options.class);
-        if (options === null || options === void 0 ? void 0 : options.href)
+        if (options?.href)
             elem.href = options.href;
-        if (options === null || options === void 0 ? void 0 : options.html)
+        if (options?.html)
             elem.innerHTML = options.html;
-        if (options === null || options === void 0 ? void 0 : options.name)
+        if (options?.name)
             elem.name = options.name;
-        if (options === null || options === void 0 ? void 0 : options.rel)
+        if (options?.rel)
             elem.rel = options.rel;
-        if (options === null || options === void 0 ? void 0 : options.src)
+        if (options?.src)
             elem.src = options.src;
-        if (options === null || options === void 0 ? void 0 : options.text)
+        if (options?.text)
             elem.textContent = options.text;
-        if (options === null || options === void 0 ? void 0 : options.type)
+        if (options?.type)
             elem.type = options.type;
-        if (options === null || options === void 0 ? void 0 : options.subTags)
+        if (options?.subTags)
             options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
         return elem;
     },
@@ -102,8 +94,7 @@ const libXDom = {
         return classNames.length === 1 ? filtered : libX.dom.filterByClass(filtered, ...classNames.splice(1));
     },
     find(elems, fn) {
-        var _a;
-        return (_a = Array.prototype.find.call(elems, fn)) !== null && _a !== void 0 ? _a : null;
+        return Array.prototype.find.call(elems, fn) ?? null;
     },
     index(elem) {
         let index = 0;
@@ -131,7 +122,7 @@ const libXDom = {
     },
     on(type, listener, options) {
         const defaults = { keyFilter: null, selector: null };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         const noFilter = !settings.keyFilter;
         const noSelector = !settings.selector;
         const delegator = (event) => {
@@ -143,49 +134,48 @@ const libXDom = {
         globalThis.document.addEventListener(type, delegator);
     },
     onClick(listener, selector) {
-        libX.dom.on('click', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('click', listener, { selector: selector ?? null });
     },
     onChange(listener, selector) {
-        libX.dom.on('change', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('change', listener, { selector: selector ?? null });
     },
     onInput(listener, selector) {
-        libX.dom.on('input', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('input', listener, { selector: selector ?? null });
     },
     onKeyDown(listener, selector) {
-        libX.dom.on('keydown', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('keydown', listener, { selector: selector ?? null });
     },
     onKeyUp(listener, selector) {
-        libX.dom.on('keyup', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('keyup', listener, { selector: selector ?? null });
     },
     onEnterKey(listener, selector) {
-        libX.dom.on('keyup', listener, { selector: selector !== null && selector !== void 0 ? selector : null, keyFilter: 'Enter' });
+        libX.dom.on('keyup', listener, { selector: selector ?? null, keyFilter: 'Enter' });
     },
     onFocusIn(listener, selector) {
-        libX.dom.on('focusin', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('focusin', listener, { selector: selector ?? null });
     },
     onFocusOut(listener, selector) {
-        libX.dom.on('focusin', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('focusin', listener, { selector: selector ?? null });
     },
     onCut(listener, selector) {
-        libX.dom.on('cut', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('cut', listener, { selector: selector ?? null });
     },
     onPaste(listener, selector) {
-        libX.dom.on('paste', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('paste', listener, { selector: selector ?? null });
     },
     onTouchStart(listener, selector) {
-        libX.dom.on('touchstart', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('touchstart', listener, { selector: selector ?? null });
     },
     onTouchEnd(listener, selector) {
-        libX.dom.on('touchend', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('touchend', listener, { selector: selector ?? null });
     },
     onSubmit(listener, selector) {
-        libX.dom.on('submit', listener, { selector: selector !== null && selector !== void 0 ? selector : null });
+        libX.dom.on('submit', listener, { selector: selector ?? null });
     },
     onHoverIn(listener, selector) {
         let ready = true;
         const delegator = (event) => {
-            var _a;
-            const target = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest(selector);
+            const target = event.target?.closest(selector);
             if (target !== null && ready)
                 listener(target, event, selector);
             ready = target === null;
@@ -196,9 +186,8 @@ const libXDom = {
         let ready = false;
         let prevTarget = null;
         const delegator = (event) => {
-            var _a;
-            const target = (_a = event.target) === null || _a === void 0 ? void 0 : _a.closest(selector);
-            prevTarget = target !== null && target !== void 0 ? target : prevTarget;
+            const target = event.target?.closest(selector);
+            prevTarget = target ?? prevTarget;
             if (target === null && ready)
                 listener(prevTarget, event, selector);
             ready = target !== null;
@@ -207,7 +196,7 @@ const libXDom = {
     },
     onReady(callback, options) {
         const state = globalThis.document ? globalThis.document.readyState : 'browserless';
-        if (state === 'browserless' && !(options === null || options === void 0 ? void 0 : options.quiet))
+        if (state === 'browserless' && !options?.quiet)
             console.log(new Date().toISOString(), 'Callback run in browserless context');
         if (['complete', 'browserless'].includes(state))
             callback();
@@ -360,7 +349,7 @@ const libXUi = {
     },
     smoothHeight(updateUI, options) {
         const defaults = { container: globalThis.document.body, transition: 1000 };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         const container = settings.container;
         const style = container.style;
         const setBaseline = () => {
@@ -398,7 +387,6 @@ const libXUi = {
         return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), delay));
     },
     makeIcons(container = globalThis.document.body) {
-        container = libX.dom.migrate(container);
         const iconify = (isBrand) => (icon) => {
             const data = icon.dataset;
             icon.classList.add('font-icon');
@@ -412,15 +400,11 @@ const libXUi = {
         return container;
     },
     normalize(container = globalThis.document.body) {
-        container = libX.dom.migrate(container);
-        const rawInput = (elem) => {
-            elem.setAttribute('autocorrect', 'off');
-            elem.setAttribute('spellcheck', 'false');
-        };
+        const rawInput = (elem) => elem.spellcheck = false;
         const makeImageLink = (elem) => elem.closest('a').classList.add('image-link');
-        const openInNewTab = (elem) => elem.setAttribute('target', '_blank');
-        container.querySelectorAll('button:not([type])').forEach(elem => elem.setAttribute('type', 'button'));
-        container.querySelectorAll('input:not([type])').forEach(elem => elem.setAttribute('type', 'text'));
+        const openInNewTab = (elem) => elem.target = '_blank';
+        container.querySelectorAll('button:not([type])').forEach(elem => elem.type = 'button');
+        container.querySelectorAll('input:not([type])').forEach(elem => elem.type = 'text');
         container.querySelectorAll('input[type=email]').forEach(rawInput);
         container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);
         if (!libX.browser.userAgentData().mobile)
@@ -435,15 +419,14 @@ const libXUi = {
     },
     popup(url, options) {
         const defaults = { width: 600, height: 400 };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
         return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
     },
     popupClick(elem) {
-        var _a, _b;
         const data = elem.dataset;
-        const width = Number((_a = data.width) !== null && _a !== void 0 ? _a : '600');
-        const height = Number((_b = data.height) !== null && _b !== void 0 ? _b : '400');
+        const width = Number(data.width ?? '600');
+        const height = Number(data.height ?? '400');
         return libX.ui.popup(data.hrefPopup, { width, height });
     },
     revealSection(elem) {
@@ -455,7 +438,7 @@ const libXUi = {
     },
     keepOnScreen(elem, options) {
         const defaults = { padding: 10 };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         const getPixels = (style) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
         const pad = settings.padding;
         const client = elem.getBoundingClientRect();
@@ -479,7 +462,7 @@ const libXUi = {
         libX.dom.onClick(disableButton, 'button:not([type=submit],[data-href],[data-href-popup])');
     },
     loadImageFadeIn(elem, url, duration) {
-        const fadeTransition = duration !== null && duration !== void 0 ? duration : 600;
+        const fadeTransition = duration ?? 600;
         const style = elem.style;
         style.transition = `all 0ms`;
         style.opacity = '0';
@@ -508,8 +491,7 @@ const libXUi = {
     },
     setupVideos() {
         const makeClickable = (elem) => {
-            var _a, _b;
-            const src = (_b = (_a = elem.querySelector('iframe')) === null || _a === void 0 ? void 0 : _a.src) !== null && _b !== void 0 ? _b : '';
+            const src = elem.querySelector('iframe')?.src ?? '';
             const url = src.replace('//www.youtube.com/embed', '//youtu.be');
             elem.dataset.href = url;
             elem.classList.add('external-site');
@@ -548,7 +530,7 @@ const libXUtil = {
 const libXCrypto = {
     hash(message, options) {
         const defaults = { algorithm: 'SHA-256', salt: '' };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         const byteArray = new TextEncoder().encode(message + settings.salt);
         const toHex = (byte) => byte.toString(16).padStart(2, '0').slice(-2);
         const handleDigest = (digest) => Array.from(new Uint8Array(digest)).map(toHex).join('');
@@ -596,22 +578,20 @@ const libXCounter = {
 };
 const libXBrowser = {
     userAgentData() {
-        var _a;
         const polyfill = () => {
-            var _a, _b, _c, _d, _e;
-            const brandEntry = (_b = (_a = globalThis.navigator.userAgent.split(' ').pop()) === null || _a === void 0 ? void 0 : _a.split('/')) !== null && _b !== void 0 ? _b : [];
+            const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
             const hasTouch = !!navigator.maxTouchPoints;
             const platform = globalThis.navigator.platform;
             const mac = hasTouch ? 'iOS' : 'macOS';
             const platforms = { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
             return {
-                brands: [{ brand: (_c = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[0]) !== null && _c !== void 0 ? _c : '', version: (_d = brandEntry === null || brandEntry === void 0 ? void 0 : brandEntry[1]) !== null && _d !== void 0 ? _d : '' }],
+                brands: [{ brand: brandEntry?.[0] ?? '', version: brandEntry?.[1] ?? '' }],
                 mobile: hasTouch || /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
-                platform: (_e = platforms[platform]) !== null && _e !== void 0 ? _e : platform,
+                platform: platforms[platform] ?? platform,
             };
         };
         const navigatorUAData = globalThis.navigator['userAgentData'];
-        return (_a = navigatorUAData) !== null && _a !== void 0 ? _a : polyfill();
+        return navigatorUAData ?? polyfill();
     },
     iOS() {
         return libX.browser.userAgentData().platform === 'iOS';
@@ -625,16 +605,15 @@ const libXBrowser = {
 };
 const libXPopupImage = {
     show(thumbnail) {
-        var _a, _b;
         const defaultPopupWidth = 1000;
         const gap = 30;
         thumbnail.classList.add('popup-image');
         thumbnail.parentElement.style.position = 'relative';
-        if ((_a = thumbnail.nextElementSibling) === null || _a === void 0 ? void 0 : _a.classList.contains(('popup-image-layer')))
+        if (thumbnail.nextElementSibling?.classList.contains(('popup-image-layer')))
             thumbnail.nextElementSibling.remove();
         const data = thumbnail.dataset;
         const width = data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
-        const src = (_b = data.popupImage) !== null && _b !== void 0 ? _b : thumbnail.src;
+        const src = data.popupImage ?? thumbnail.src;
         const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
         const popupImg = libX.dom.create('img', { src: src });
         const closeIcon = libX.dom.create('i');
@@ -657,7 +636,6 @@ const libXPopupImage = {
 };
 const libXAnimate = {
     jiggleIt(elemOrEvent) {
-        elemOrEvent = elemOrEvent.constructor.name === 'ce' ? elemOrEvent[0] : elemOrEvent;
         const elem = libX.dom.toElem(elemOrEvent);
         const animatation = 'jiggle-it 200ms 3';
         const style = elem.style;
@@ -694,20 +672,18 @@ const libXAnimate = {
         return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
     },
     montageLoop(container, options) {
-        var _a;
-        container = libX.dom.migrate(container);
         const defaults = {
             start: null,
             intervalMsec: 10000,
             fadeMsec: 3000,
         };
-        const settings = Object.assign(Object.assign({}, defaults), options);
+        const settings = { ...defaults, ...options };
         container.classList.add('montage-loop');
         if (!container.children.length)
             console.error('[montage-loop] No images found:', container);
         const transition = `all ${settings.fadeMsec}ms`;
         libX.dom.forEach(container.children, img => img.style.transition = transition);
-        const start = ((_a = settings.start) !== null && _a !== void 0 ? _a : Date.now()) % container.children.length;
+        const start = (settings.start ?? Date.now()) % container.children.length;
         container.children[start].classList.add('current');
         const nextImage = () => {
             libX.dom.forEach(container.children, img => img.classList.remove('previous'));
@@ -722,7 +698,6 @@ const libXAnimate = {
 };
 const libXBubbleHelp = {
     setup(container = globalThis.document.body) {
-        container = libX.dom.migrate(container);
         const hi = (target) => {
             const init = () => {
                 const bubbleWrap = libX.dom.create('span');
@@ -822,10 +797,10 @@ const libXExtra = {
         };
         const ready = () => {
             console.log(Date.now(), 'loading...');
-            if (globalThis.document.querySelectorAll('#header h1').length)
+            if (globalThis.document.querySelector('#header h1'))
                 onArticleLoad();
             else
-                globalThis.setTimeout(ready, 250);
+                globalThis.setTimeout(ready, 500);
         };
         ready();
         globalThis.setTimeout(libX.ui.normalize, 2000);
@@ -839,7 +814,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.0.3',
+    version: '2.0.4',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
