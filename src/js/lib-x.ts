@@ -1029,11 +1029,9 @@ const libX = {
          dna.registerInitializer(libX.ui.normalize);
          dna.registerInitializer(libX.ui.makeIcons);
          };
-      if ('dna' in globalThis)
-         initializeDna();
       const onReadySetup = () => {
-         libX.ui.normalize();
-         libX.ui.makeIcons();
+         if ('dna' in globalThis)
+            initializeDna();
          libX.ui.setupForkMe();
          libX.ui.displayAddr();
          libX.ui.setupVideos();
