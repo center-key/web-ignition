@@ -1,4 +1,4 @@
-//! web-ignition v2.0.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -814,7 +814,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.0.4',
+    version: '2.0.5',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
@@ -835,11 +835,9 @@ const libX = {
             dna.registerInitializer(libX.ui.normalize);
             dna.registerInitializer(libX.ui.makeIcons);
         };
-        if ('dna' in globalThis)
-            initializeDna();
         const onReadySetup = () => {
-            libX.ui.normalize();
-            libX.ui.makeIcons();
+            if ('dna' in globalThis)
+                initializeDna();
             libX.ui.setupForkMe();
             libX.ui.displayAddr();
             libX.ui.setupVideos();
