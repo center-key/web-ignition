@@ -4,6 +4,7 @@
 // MIT License                          //
 //////////////////////////////////////////
 
+// Types
 export type GlobalKey =  keyof typeof globalThis;
 export type Json =       string | number | boolean | null | undefined | JsonObject | Json[];
 export type JsonObject = { [key: string]: Json };
@@ -1026,12 +1027,14 @@ const libX = {
       globalThis.libX = libX;
       const initializeDna = () => {
          const dna = globalThis[<GlobalKey>'dna'];
-         dna.registerInitializer(libX.ui.normalize);
-         dna.registerInitializer(libX.ui.makeIcons);
+         dna.registerInitializer(libX.ui.normalize, { onDomReady: false });
+         dna.registerInitializer(libX.ui.makeIcons, { onDomReady: false });
          };
+      if ('dna' in globalThis)
+         initializeDna();
       const onReadySetup = () => {
-         if ('dna' in globalThis)
-            initializeDna();
+         libX.ui.normalize();
+         libX.ui.makeIcons();
          libX.ui.setupForkMe();
          libX.ui.displayAddr();
          libX.ui.setupVideos();
