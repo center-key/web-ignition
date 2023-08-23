@@ -12,15 +12,11 @@ export type JsonData =   JsonObject | Json[];
 export type LibXForEachCallback =        (elem: Element, index: number) => void;
 export type LibXObject =                 { [key: string]: unknown };
 export type LibXUiPopupSettings =        { width: number, height: number };
-export type LibXUiPopupOptions =         Partial<LibXUiPopupSettings>;
 export type LibXUiKeepOnScreenSettings = { padding: number };
-export type LibXUiKeepOnScreenOptions =  Partial<LibXUiKeepOnScreenSettings>;
 export type LibXCryptoHashSettings =     { algorithm: string, salt: string };
-export type LibXCryptoHashOptions =      Partial<LibXCryptoHashSettings>;
 export type LibXCounterMap =             { [counter: string]: number };
 export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
 export type LibXEventListener =          (elem: Element, event: Event, selector: string | null) => void;
-export type LibXOptionsEventsOn =        Partial<LibXSettingsEventsOn>;
 export type LibXSettingsEventsOn = {
    keyFilter:  KeyboardEvent["key"] | null,
    selector:   string | null,
@@ -30,7 +26,6 @@ export type LibXMontageLoopSettings = {
    intervalMsec: number,         //milliseconds between transitions    (default: 10,000)
    fadeMsec:     number,         //milliseconds to complete transition (default: 3,000)
    };
-export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 export type NavigatorUAData = {
    readonly brands: {
       brand:   string,  //examples: "Chromium", "Google Chrome"
@@ -189,7 +184,7 @@ const libXDom = {
       //    titleElem.addEventListener('click', addBorder);
       return <HTMLElement>(libX.dom.isElem(elemOrEvent) ? elemOrEvent : (<Event>elemOrEvent).target);
       },
-   on(type: string, listener: LibXEventListener, options?: LibXOptionsEventsOn) {
+   on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>) {
       // See types: https://developer.mozilla.org/en-US/docs/Web/Events
       const defaults = { keyFilter: null, selector: null };
       const settings = { ...defaults, ...options };
@@ -509,7 +504,7 @@ const libXUi = {
       libX.dom.forEach(container.getElementsByClassName('display-addr'), display);
       return container;
       },
-   popup(url: string, options?: LibXUiPopupOptions): Window | null {
+   popup(url: string, options?: Partial<LibXUiPopupSettings>): Window | null {
       const defaults = { width: 600, height: 400 };
       const settings = { ...defaults, ...options };
       const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
@@ -533,7 +528,7 @@ const libXUi = {
       libX.ui.slideFadeIn(target!);
       return button;
       },
-   keepOnScreen(elem: Element, options?: LibXUiKeepOnScreenOptions): Element {
+   keepOnScreen(elem: Element, options?: Partial<LibXUiKeepOnScreenSettings>): Element {
       // Moves element if it is off screen so that it becomes visible (element must be
       // position: absolute with top/left).
       // Usage:
@@ -651,7 +646,7 @@ const libXUtil = {
    };
 
 const libXCrypto = {
-   hash(message: string, options?: LibXCryptoHashOptions): Promise<string> {
+   hash(message: string, options?: Partial<LibXCryptoHashSettings>): Promise<string> {
       // Usage:
       //    libX.crypto.hash('password1').then(handleHashString);
       const defaults = { algorithm: 'SHA-256', salt: '' };
@@ -822,7 +817,7 @@ const libXAnimate = {
       const total = startDelay + fadeDelay * container.children.length - fadeDelay + fadeTransition;
       return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
       },
-   montageLoop(container: Element, options?: LibXMontageLoopOptions | Element): Element {
+   montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings> | Element): Element {
       // <figure class=montage-loop>
       //    <img src=image1.jpg>
       //    <img src=image2.jpg>
