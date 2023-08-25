@@ -1,4 +1,4 @@
-//! web-ignition v2.0.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -14,16 +14,13 @@ export type LibXUiPopupSettings = {
     width: number;
     height: number;
 };
-export type LibXUiPopupOptions = Partial<LibXUiPopupSettings>;
 export type LibXUiKeepOnScreenSettings = {
     padding: number;
 };
-export type LibXUiKeepOnScreenOptions = Partial<LibXUiKeepOnScreenSettings>;
 export type LibXCryptoHashSettings = {
     algorithm: string;
     salt: string;
 };
-export type LibXCryptoHashOptions = Partial<LibXCryptoHashSettings>;
 export type LibXCounterMap = {
     [counter: string]: number;
 };
@@ -35,7 +32,6 @@ export type LibXSocialButton = {
     link: string;
 };
 export type LibXEventListener = (elem: Element, event: Event, selector: string | null) => void;
-export type LibXOptionsEventsOn = Partial<LibXSettingsEventsOn>;
 export type LibXSettingsEventsOn = {
     keyFilter: KeyboardEvent["key"] | null;
     selector: string | null;
@@ -45,7 +41,6 @@ export type LibXMontageLoopSettings = {
     intervalMsec: number;
     fadeMsec: number;
 };
-export type LibXMontageLoopOptions = Partial<LibXMontageLoopSettings>;
 export type NavigatorUAData = {
     readonly brands: {
         brand: string;
@@ -111,7 +106,7 @@ declare const libX: {
         isElem(elem: unknown): boolean;
         getAttrs(elem: Element): Attr[];
         toElem(elemOrEvent: Element | Event): HTMLElement;
-        on(type: string, listener: LibXEventListener, options?: LibXOptionsEventsOn): void;
+        on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>): void;
         onClick(listener: LibXEventListener, selector?: string): void;
         onChange(listener: LibXEventListener, selector?: string): void;
         onInput(listener: LibXEventListener, selector?: string): void;
@@ -149,10 +144,10 @@ declare const libX: {
         makeIcons(container?: Element): Element;
         normalize(container?: Element): Element;
         displayAddr(container?: Element): Element;
-        popup(url: string, options?: LibXUiPopupOptions): Window | null;
+        popup(url: string, options?: Partial<LibXUiPopupSettings>): Window | null;
         popupClick(elem: Element): Window | null;
         revealSection(elem: Element): Element;
-        keepOnScreen(elem: Element, options?: LibXUiKeepOnScreenOptions): Element;
+        keepOnScreen(elem: Element, options?: Partial<LibXUiKeepOnScreenSettings>): Element;
         autoDisableButtons(): void;
         loadImageFadeIn(elem: Element, url: string, duration?: number): Promise<Element>;
         setupVideos(): void;
@@ -164,7 +159,7 @@ declare const libX: {
         removeWhitespace(text: string): string;
     };
     crypto: {
-        hash(message: string, options?: LibXCryptoHashOptions): Promise<string>;
+        hash(message: string, options?: Partial<LibXCryptoHashSettings>): Promise<string>;
     };
     storage: {
         dbSave(key: string, obj: LibXObject): LibXObject;
@@ -192,7 +187,7 @@ declare const libX: {
     animate: {
         jiggleIt(elemOrEvent: Element | Event): Promise<Element>;
         rollIn(container: Element): Promise<Element>;
-        montageLoop(container: Element, options?: LibXMontageLoopOptions | Element): Element;
+        montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings> | Element): Element;
     };
     bubbleHelp: {
         setup(container?: Element): Element;
