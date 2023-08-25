@@ -490,7 +490,7 @@ const libXUi = {
       container.querySelectorAll('button:not([type])').forEach(elem => (<HTMLButtonElement>elem).type = 'button');
       container.querySelectorAll('input:not([type])').forEach(elem =>  (<HTMLInputElement>elem).type = 'text');
       container.querySelectorAll('input[type=email]').forEach(rawInput);
-      container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);
+      container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);  //note: run makeIcons() before normalize()
       if (!libX.browser.userAgentData().mobile)
          container.querySelectorAll('a.external-site, .external-site a').forEach(openInNewTab);
       return container;
@@ -1022,14 +1022,14 @@ const libX = {
       globalThis.libX = libX;
       const initializeDna = () => {
          const dna = globalThis[<GlobalKey>'dna'];
-         dna.registerInitializer(libX.ui.normalize, { onDomReady: false });
          dna.registerInitializer(libX.ui.makeIcons, { onDomReady: false });
+         dna.registerInitializer(libX.ui.normalize, { onDomReady: false });
          };
       if ('dna' in globalThis)
          initializeDna();
       const onReadySetup = () => {
-         libX.ui.normalize();
          libX.ui.makeIcons();
+         libX.ui.normalize();
          libX.ui.setupForkMe();
          libX.ui.displayAddr();
          libX.ui.setupVideos();
