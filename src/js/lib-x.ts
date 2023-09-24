@@ -238,6 +238,8 @@ const libXDom = {
       libX.dom.on('submit', listener, { selector: selector ?? null });
       },
    onHoverIn(listener: LibXEventListener, selector: string) {
+      // Calls the listener function when the pointer devices moves over any of the elements
+      // matching the selector.
       let ready = true;
       const delegator = (event: Event) => {
          const target = <Element>(<Element>event.target)?.closest(selector);
@@ -248,6 +250,8 @@ const libXDom = {
       globalThis.document.addEventListener('pointerover', delegator);
       },
    onHoverOut(listener: LibXEventListener, selector: string) {
+      // Calls the listener function when the pointer devices moves off any of the elements
+      // matching the selector.
       let ready = false;
       let prevTarget: Element | null = null;
       const delegator = (event: Event) => {
