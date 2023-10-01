@@ -35,6 +35,8 @@ export type NavigatorUAData = {
    readonly platform: string;  //examples: "macOS", "Windows"
    };
 export type LibX = typeof libX;
+type Blogger = { ui: () => { addListener: (type: string, listener: () => void) => void, Lc: { wb: string[] } } };
+declare global { var blogger:     Blogger }                //eslint-disable-line no-var
 declare global { var dataLayer:   unknown[] }              //eslint-disable-line no-var
 declare global { var hljsEnhance: { setup: () => void } }  //eslint-disable-line no-var
 declare global { var libX:        LibX }                   //eslint-disable-line no-var
@@ -979,21 +981,15 @@ const libXExtra = {
       // Setup Blogger's Dynamic Views (sidebar)
       console.log('Setup for:', websiteUrl);
       const onArticleLoad = () => {
+         //console.log('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
          const title = libX.dom.select('h1.entry-title')!.textContent!.trim();
-         console.log('Article: %c' + title, 'font-weight: bold; color: purple;');
+         console.log('Article: %c' + title, 'font-weight: bold; color: turquoise;');
          libX.dom.select('#header >.header-bar h3')!.dataset.href = websiteUrl;
          libX.ui.normalize();
          globalThis.hljsEnhance.setup();
          };
-      const ready = () => {
-         console.log(Date.now(), 'loading...');
-         if (globalThis.document.querySelector('#header h1'))  //takes about a second or so for page to load
-            onArticleLoad();
-         else
-            globalThis.setTimeout(ready, 500);
-         };
-      ready();
-      globalThis.setTimeout(libX.ui.normalize, 2000);  //hack to workaround Blogger js errors
+      const delayed = () => globalThis.setTimeout(onArticleLoad, 2000);  //hack to let page load
+      globalThis.blogger.ui().addListener('updated', delayed);
       },
    gTags(scriptTag: HTMLScriptElement): void {
       // Google Tracking
