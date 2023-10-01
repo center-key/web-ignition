@@ -1,4 +1,4 @@
-//! web-ignition v2.0.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.0.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -50,6 +50,17 @@ export type NavigatorUAData = {
     readonly platform: string;
 };
 export type LibX = typeof libX;
+type Blogger = {
+    ui: () => {
+        addListener: (type: string, listener: () => void) => void;
+        Lc: {
+            wb: string[];
+        };
+    };
+};
+declare global {
+    var blogger: Blogger;
+}
 declare global {
     var dataLayer: unknown[];
 }

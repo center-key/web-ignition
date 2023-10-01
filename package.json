@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "2.0.7",
+   "version": "2.0.8",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",
@@ -74,7 +74,7 @@
          "lessc src/css/blogger-tweaks/style.less build/step3/blogger-tweaks.css",
          "replacer src/css/blogger-tweaks/instructions.css build/step4 --regex=/{{apos}}{{gt}}$/gm --replacement={{apos}}/{{gt}}",
          "csso build/step3/blogger-tweaks.css --output build/step4/blogger-tweaks.min.css",
-         "replacer build/step4 --ext=.css build/step5 --pkg --concat=blogger-tweaks.min.css"
+         "replacer build/step4 --ext=.css build/step5 --concat=blogger-tweaks.min.css"
       ],
       "build": [
          "tsc",
@@ -82,7 +82,7 @@
          "copy-file src/css/reset-color-overrides.css --folder build/step2",
          "csso build/step1/reset.css --output build/step2/core-reset.min.css",
          "replacer build/step2 --ext=.css build/step5 --concat=reset.min.css",
-         "replacer src/css/layouts --ext=.css build/step5/layouts --pkg",
+         "replacer src/css/layouts --ext=.css build/step5/layouts",
          "copy-folder build/step0 build/step5",
          "esm-to-plain-js build/step0/lib-x.js build/step5/lib-x.dev.js",
          "uglifyjs build/step5/lib-x.dev.js --output build/step5/lib-x.min.js",
@@ -106,7 +106,7 @@
    },
    "devDependencies": {
       "@fortawesome/fontawesome-free": "~6.4",
-      "@types/node": "~20.6",
+      "@types/node": "~20.8",
       "@typescript-eslint/eslint-plugin": "~6.7",
       "@typescript-eslint/parser": "~6.7",
       "add-dist-header": "~1.3",
