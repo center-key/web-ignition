@@ -979,7 +979,7 @@ const libXSocial = {
 const libXExtra = {
    blogger(websiteUrl: string) {
       // Setup Blogger's Dynamic Views (sidebar)
-      console.log('Setup for:', websiteUrl);
+      console.log('Blog associated with:', websiteUrl);
       const onArticleLoad = () => {
          //console.log('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
          const title = libX.dom.select('h1.entry-title')!.textContent!.trim();
@@ -988,8 +988,9 @@ const libXExtra = {
          libX.ui.normalize();
          globalThis.hljsEnhance.setup();
          };
-      const delayed = () => globalThis.setTimeout(onArticleLoad, 2000);  //hack to let page load
-      globalThis.blogger.ui().addListener('updated', delayed);
+      const delayed1 = () => globalThis.setTimeout(onArticleLoad, 800);   //hack to let page load
+      const delayed2 = () => globalThis.setTimeout(onArticleLoad, 2000);  //2nd try to make sure
+      globalThis.blogger.ui().addListener('updated', () => (delayed1(), delayed2()));
       },
    gTags(scriptTag: HTMLScriptElement): void {
       // Google Tracking
