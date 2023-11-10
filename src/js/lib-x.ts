@@ -936,7 +936,7 @@ const libXSocial = {
    // Usage:
    //    <div id=social-buttons></div>
    buttons: <LibXSocialButton[]>[
-      { title: 'Twitter',  icon: 'twitter',     x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
+      { title: 'Twitter',  icon: 'x-twitter',   x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
       { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
       { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
@@ -952,7 +952,7 @@ const libXSocial = {
    setup(): Element | null {
       // <div id=social-buttons>
       //    <span>
-      //       <i class=font-icon data-brand=twitter></i>
+      //       <i class=font-icon data-brand=x-twitter></i>
       //       ...
       //    </span>
       // </div>
