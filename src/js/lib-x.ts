@@ -599,7 +599,7 @@ const libXUi = {
       },
    setupVideos(): void {
       // <figure class=video-container>
-      //    <iframe src=https://www.youtube.com/embed/jMOZOI-UkNI allow=fullscreen></iframe>
+      //    <iframe src=https://www.youtube.com/embed/1CrYAFZPdAg allow=fullscreen></iframe>
       //    <figcaption>Video Title (hidden)</figcaption>
       // </figure>
       const makeClickable = (elem: Element) => {
