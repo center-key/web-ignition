@@ -1,4 +1,4 @@
-//! web-ignition v2.1.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.1.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -795,9 +795,9 @@ const libXExtra = {
             libX.ui.normalize();
             globalThis.hljsEnhance.setup();
         };
-        const delayed1 = () => globalThis.setTimeout(onArticleLoad, 800);
-        const delayed2 = () => globalThis.setTimeout(onArticleLoad, 2000);
-        globalThis.blogger.ui().addListener('updated', () => (delayed1(), delayed2()));
+        const delayed = (delay) => globalThis.setTimeout(onArticleLoad, delay);
+        globalThis.blogger.ui().addListener('updated', () => delayed(800));
+        globalThis.blogger.ui().addListener('updated', () => delayed(2000));
     },
     gTags(scriptTag) {
         const trackingID = scriptTag.src.split('=')[1];
@@ -808,7 +808,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.1.0',
+    version: '2.1.1',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
