@@ -988,9 +988,9 @@ const libXExtra = {
          libX.ui.normalize();
          globalThis.hljsEnhance.setup();
          };
-      const delayed1 = () => globalThis.setTimeout(onArticleLoad, 800);   //hack to let page load
-      const delayed2 = () => globalThis.setTimeout(onArticleLoad, 2000);  //2nd try to make sure
-      globalThis.blogger.ui().addListener('updated', () => (delayed1(), delayed2()));
+      const delayed = (delay: number) => globalThis.setTimeout(onArticleLoad, delay);
+      globalThis.blogger.ui().addListener('updated', () => delayed(800));   //hack to let page load
+      globalThis.blogger.ui().addListener('updated', () => delayed(2000));  //2nd try to make sure
       },
    gTags(scriptTag: HTMLScriptElement): void {
       // Google Tracking
