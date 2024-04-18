@@ -1005,7 +1005,7 @@ const libXExtra = {
    };
 
 const libX = {
-   version:    '{{pkg.version}}',
+   version:    '{{package.version}}',
    dom:        libXDom,
    ui:         libXUi,
    util:       libXUtil,

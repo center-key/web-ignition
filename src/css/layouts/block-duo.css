@@ -1,10 +1,10 @@
 /*
 Block Duo layout -- Two big columns followed by a single footer
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@{{pkg.dependencies.dna-engine|version}}/dist/dna-engine.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@{{pkg.dependencies.dna-engine|version}}/dist/panel-nav.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/layouts/block-duo.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@{{package.dependencies.dna-engine|version}}/dist/dna-engine.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@{{package.dependencies.dna-engine|version}}/dist/panel-nav.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/layouts/block-duo.css>
    <style>
       main >section:nth-child(1) { color: white;     background-color: steelblue; }
       main >section:nth-child(2) { color: gainsboro; background-color: black; }

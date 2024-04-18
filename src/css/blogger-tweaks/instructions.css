@@ -18,15 +18,15 @@
     <meta content='Picture lead'                property='og:image:alt'>
     <link href='[BOOKMARK-URL]' rel='icon'>
     <link href='[MOBILE-HOME-SCREEN-URL]' rel='apple-touch-icon'>
-    <link href='https://cdn.jsdelivr.net/npm/dna-engine@{{pkg.dependencies.dna-engine|version}}/dist/dna-engine.css' rel='stylesheet'>
-    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.dependencies.highlight-js|version}}/build/styles/docco.min.css' rel='stylesheet'>
-    <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@{{pkg.dependencies.hljs-enhance|version}}/hljs-enhance.css' rel='stylesheet'>
-    <link href='https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/blogger-tweaks.min.css' rel='stylesheet'>
-    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.dependencies.highlight-js|version}}/build/highlight.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{pkg.dependencies.highlight-js|version}}/build/languages/http.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@{{pkg.dependencies.hljs-enhance|version}}/hljs-enhance.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/dna-engine@{{pkg.dependencies.dna-engine|version}}/dist/dna-engine.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/lib-x.min.js'></script>
+    <link href='https://cdn.jsdelivr.net/npm/dna-engine@{{package.dependencies.dna-engine|version}}/dist/dna-engine.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/styles/docco.min.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@{{package.dependencies.hljs-enhance|version}}/hljs-enhance.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/blogger-tweaks.min.css' rel='stylesheet'>
+    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/highlight.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/languages/http.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/hljs-enhance@{{package.dependencies.hljs-enhance|version}}/hljs-enhance.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/dna-engine@{{package.dependencies.dna-engine|version}}/dist/dna-engine.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/lib-x.min.js'></script>
     <script>libX.extra.blogger('[AUTHORS-URL]');</script>
     <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 */

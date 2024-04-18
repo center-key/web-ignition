@@ -1,8 +1,8 @@
 /*
 Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{pkg.version|minor-version}}/dist/layouts/letterbox.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/layouts/letterbox.css>
    <style>
       html { background-image: url(background.jpg); }
    </style>
