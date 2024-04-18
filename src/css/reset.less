@@ -58,7 +58,6 @@ h1+h2 { font-weight: lighter; text-shadow: 0px 0px 0.2em white; margin: -0.2em 0
 quoteblock:before { content: open-quote; }
 quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
-[title] { cursor: help; }
 
 // Links
 a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 400ms; }
@@ -339,10 +338,10 @@ body >header >#fork-me-container {  //dynamically added wrapper element
       pointer-events: auto;
       }
    }
-@media (max-width: 667px) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
+.MobileMode({
    body >header >#fork-me-container >a#fork-me { display: none }
    body >header >#fork-me-container >i.font-icon { display: block }
-   }
+   });
 
 // Social buttons
 #social-buttons span i.font-icon {
@@ -375,7 +374,7 @@ img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -
 img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
 img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
 
-// Montage Loop
+// Montage loop
 .montage-loop {
    position: relative;
    }
@@ -399,8 +398,8 @@ img.popup-image + .popup-image-layer img { display: block; width: auto; height: 
 // Customizations
 .dna-panels .dna-panel::after { content: ""; display: block; clear: both; }
 
-// Mobile devices
-@media (max-width: 667px) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
+// Responsive design
+.MobileMode({
    h1 { font-size: 2.0rem; }
    h1+h2 { font-size: 1.3rem; }
    main section aside,
@@ -410,4 +409,9 @@ img.popup-image + .popup-image-layer img { display: block; width: auto; height: 
    body >footer { flex-direction: column; padding: 20px 2px; }
    body >footer >div { text-align: center !important; }
    body >footer >*:not(:last-child) { margin-bottom: 15px; }
+   });
+.MobileMode(@lessRules) {
+   @media (max-width: 667px) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
+      @lessRules();
+      }
    }
