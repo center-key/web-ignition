@@ -1,4 +1,4 @@
-/*! web-ignition v2.1.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.1.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -170,7 +170,7 @@ body >footer {
 body >footer a {
    color: silver;
    }
-body >footer >div:nth-child(n):not(:nth-child(-n)) { /* specificity hack */
+body >footer >div:nth-child(n):not(:nth-child(-n)) {  /* specificity hack */
    text-align: center;
    margin: 5px 0px;
    }
