@@ -651,6 +651,29 @@ const libXUtil = {
       },
    };
 
+const libXNav = {
+   setupLinkMenu() {
+      // Link Menu HTML example:
+      //    <nav id=link-menu>
+      //       <a href=.>Home</a>
+      //       <a href=about>About</a>
+      //    </nav>
+      const linkMenu = globalThis.document.getElementById('link-menu');
+      const setCurrentPage = () => {
+         const pageName = globalThis.location.pathname
+            .replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
+         const active =        linkMenu!.querySelector(`a[href$="${pageName}"]`);
+         const isDefaultPage = /(\/|index\.[a-z]*)$/.test(globalThis.location.href);
+         const onHomePage =    linkMenu!.children[0]!.getAttribute('href') === '.' && isDefaultPage;
+         const current =       onHomePage ? linkMenu!.firstElementChild : active;
+         current?.classList.add('current');
+         }
+      if (linkMenu)
+         setCurrentPage();
+      return linkMenu;
+      },
+   };
+
 const libXCrypto = {
    hash(message: string, options?: Partial<LibXCryptoHashSettings>): Promise<string> {
       // Usage:
@@ -1009,6 +1032,7 @@ const libX = {
    dom:        libXDom,
    ui:         libXUi,
    util:       libXUtil,
+   nav:        libXNav,
    crypto:     libXCrypto,
    storage:    libXStorage,
    counter:    libXCounter,
@@ -1034,6 +1058,7 @@ const libX = {
          libX.ui.setupForkMe();
          libX.ui.displayAddr();
          libX.ui.setupVideos();
+         libX.nav.setupLinkMenu();
          libX.form.perfect();
          libX.bubbleHelp.setup();
          libX.social.setup();

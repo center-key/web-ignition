@@ -410,8 +410,6 @@ img.popup-image + .popup-image-layer img { display: block; width: auto; height: 
    body >footer >div { text-align: center !important; }
    body >footer >*:not(:last-child) { margin-bottom: 15px; }
    });
-.MobileMode(@lessRules) {
-   @media (max-width: 667px) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
-      @lessRules();
-      }
+.MobileMode(@lessRules) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
+   @media (max-width: 667px) { @lessRules(); }
    }
