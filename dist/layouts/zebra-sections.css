@@ -1,4 +1,4 @@
-/*! web-ignition v2.1.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.1.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -113,6 +113,9 @@ main >section:first-child {
 main >section:nth-child(even) {
    background-color: whitesmoke;
    }
+main >section:last-child {
+   padding-bottom: 50px;
+   }
 main >section >h2 {
    font-size: 1.6rem;
    margin-top: -8px;
@@ -144,6 +147,12 @@ main >section >ul {
    max-width: 600px;
    text-align: left;
    }
+main >section >figure {
+   padding: 0px 10px;
+   }
+main >section >figure img {
+   max-height: 600px;
+   }
 main >section figure {
    display: inline-block;
    min-width: auto;
@@ -161,11 +170,23 @@ main >section figure img.popup-image:hover {
 main >section figure figcaption {
    font-style: italic;
    }
+main >section >blockquote {
+   font-style: italic;
+   }
+main >section >blockquote cite {
+   display: block;
+   font-size: 0.8rem;
+   font-weight: 100;
+   font-style: normal;
+   }
 body >footer {
    flex-direction: column;
    text-align: center;
    color: silver;
    background-color: black;
+   }
+body >footer >div {
+   padding: 5px 0px;
    }
 body >footer a {
    color: silver;
@@ -181,6 +202,17 @@ body >footer i[data-icon],
 body >footer i[data-brand] {
    font-size: 1.6rem;
    margin: 0px 5px;
+   }
+
+/* Mobile devices */
+@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
+   body >header img {
+      bottom: -50px;
+      width: 100px;
+      }
+   main >section:first-child {
+      padding-top: 80px;
+      }
    }
 /******************************************************************************/
 

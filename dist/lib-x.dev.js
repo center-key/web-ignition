@@ -1,4 +1,4 @@
-//! web-ignition v2.1.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.1.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -527,6 +527,23 @@ const libXUtil = {
         return text.replace(/\s/g, '');
     },
 };
+const libXNav = {
+    setupLinkMenu() {
+        const linkMenu = globalThis.document.getElementById('link-menu');
+        const setCurrentPage = () => {
+            const pageName = globalThis.location.pathname
+                .replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
+            const active = linkMenu.querySelector(`a[href$="${pageName}"]`);
+            const isDefaultPage = /(\/|index\.[a-z]*)$/.test(globalThis.location.href);
+            const onHomePage = linkMenu.children[0].getAttribute('href') === '.' && isDefaultPage;
+            const current = onHomePage ? linkMenu.firstElementChild : active;
+            current?.classList.add('current');
+        };
+        if (linkMenu)
+            setCurrentPage();
+        return linkMenu;
+    },
+};
 const libXCrypto = {
     hash(message, options) {
         const defaults = { algorithm: 'SHA-256', salt: '' };
@@ -808,10 +825,11 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.1.2',
+    version: '2.1.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
+    nav: libXNav,
     crypto: libXCrypto,
     storage: libXStorage,
     counter: libXCounter,
@@ -837,6 +855,7 @@ const libX = {
             libX.ui.setupForkMe();
             libX.ui.displayAddr();
             libX.ui.setupVideos();
+            libX.nav.setupLinkMenu();
             libX.form.perfect();
             libX.bubbleHelp.setup();
             libX.social.setup();

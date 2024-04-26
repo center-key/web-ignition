@@ -1,4 +1,4 @@
-//! web-ignition v2.1.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.1.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -168,6 +168,9 @@ declare const libX: {
         cleanupEmail(email: string): string | null;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
+    };
+    nav: {
+        setupLinkMenu(): HTMLElement | null;
     };
     crypto: {
         hash(message: string, options?: Partial<LibXCryptoHashSettings>): Promise<string>;
