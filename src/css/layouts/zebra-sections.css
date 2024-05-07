@@ -145,17 +145,14 @@ main >section >ul {
    max-width: 600px;
    text-align: left;
    }
-main >section >figure {
-   padding: 0px 10px;
-   }
 main >section >figure img {
-   max-height: 600px;
+   max-height: 550px;
    }
 main >section figure {
    display: inline-block;
    min-width: auto;
    vertical-align: top;
-   padding: 0px 20px;
+   padding: 0px 10px;
    }
 main >section figure img.popup-image {
    height: 120px;
