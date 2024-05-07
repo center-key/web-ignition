@@ -13,10 +13,10 @@ KISS!
 ## Use
 Load from the [jsdelivr.com CDN](https://www.jsdelivr.com/package/npm/web-ignition):
 ```html
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.1/dist/dna-engine.css>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/dna-engine.css>
 <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.1/dist/reset.min.css>
 ...
-<script src=https://cdn.jsdelivr.net/npm/dna-engine@3.1/dist/dna-engine.min.js></script>
+<script src=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/dna-engine.min.js></script>
 <script src=https://cdn.jsdelivr.net/npm/web-ignition@2.1/dist/lib-x.min.js></script>
 ```
 
