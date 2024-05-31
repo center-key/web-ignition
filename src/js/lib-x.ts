@@ -216,7 +216,7 @@ const libXDom = {
       libX.dom.on('keyup', listener, { selector: selector ?? null });
       },
    onEnterKey(listener: LibXEventListener, selector?: string) {
-      libX.dom.on('keyup', listener, { selector: selector ?? null, keyFilter: 'Enter' });
+      libX.dom.on('keypress', listener, { selector: selector ?? null, keyFilter: 'Enter' });
       },
    onFocusIn(listener: LibXEventListener, selector?: string) {
       libX.dom.on('focusin', listener, { selector: selector ?? null });
@@ -932,8 +932,8 @@ const libXBubbleHelp = {
    };
 
 const libXForm = {
-   // <form class=perfect data-version=21>
    perfect(): Element | null {
+      // <form class=perfect data-version=21>
       const form =        globalThis.document.querySelector('form.perfect:not([action])');
       const backupField = (): HTMLElement => {
          return libX.dom.create('input', { type: 'hidden', name: 'version' });
@@ -1052,6 +1052,7 @@ const libX = {
          };
       if ('dna' in globalThis)
          initializeDna();
+      const blockFormSubmit = (elem: Element, event: Event) => event.preventDefault();
       const onReadySetup = () => {
          libX.ui.makeIcons();
          libX.ui.normalize();
@@ -1066,6 +1067,7 @@ const libX = {
          libX.dom.onTouchStart(libX.ui.revealSection, '.reveal-button');
          libX.dom.onClick(libX.ui.popupClick,         '[data-href-popup]');
          libX.dom.onClick(libX.popupImage.show,       '[data-popup-image], .popup-image');
+         libX.dom.onEnterKey(blockFormSubmit,         'form input');
          };
       libX.dom.onReady(onReadySetup);
       },
