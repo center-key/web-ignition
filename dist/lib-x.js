@@ -1,4 +1,4 @@
-//! web-ignition v2.1.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.1.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -149,7 +149,7 @@ const libXDom = {
         libX.dom.on('keyup', listener, { selector: selector ?? null });
     },
     onEnterKey(listener, selector) {
-        libX.dom.on('keyup', listener, { selector: selector ?? null, keyFilter: 'Enter' });
+        libX.dom.on('keypress', listener, { selector: selector ?? null, keyFilter: 'Enter' });
     },
     onFocusIn(listener, selector) {
         libX.dom.on('focusin', listener, { selector: selector ?? null });
@@ -825,7 +825,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.1.4',
+    version: '2.1.5',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
@@ -849,6 +849,7 @@ const libX = {
         };
         if ('dna' in globalThis)
             initializeDna();
+        const blockFormSubmit = (elem, event) => event.preventDefault();
         const onReadySetup = () => {
             libX.ui.makeIcons();
             libX.ui.normalize();
@@ -863,6 +864,7 @@ const libX = {
             libX.dom.onTouchStart(libX.ui.revealSection, '.reveal-button');
             libX.dom.onClick(libX.ui.popupClick, '[data-href-popup]');
             libX.dom.onClick(libX.popupImage.show, '[data-popup-image], .popup-image');
+            libX.dom.onEnterKey(blockFormSubmit, 'form input');
         };
         libX.dom.onReady(onReadySetup);
     },
