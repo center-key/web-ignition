@@ -494,6 +494,7 @@ const libXUi = {
       const makeImageLink = (elem: Element) => elem.closest('a')!.classList.add('image-link');
       const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';
       container.querySelectorAll('button:not([type])').forEach(elem => (<HTMLButtonElement>elem).type = 'button');
+      container.querySelectorAll('button:not([tabindex])').forEach(elem => (<HTMLButtonElement>elem).tabIndex = 0);  //enable focus on tab
       container.querySelectorAll('input:not([type])').forEach(elem =>  (<HTMLInputElement>elem).type = 'text');
       container.querySelectorAll('input[type=email]').forEach(rawInput);
       container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);  //note: run makeIcons() before normalize()
@@ -1067,7 +1068,7 @@ const libX = {
          libX.dom.onTouchStart(libX.ui.revealSection, '.reveal-button');
          libX.dom.onClick(libX.ui.popupClick,         '[data-href-popup]');
          libX.dom.onClick(libX.popupImage.show,       '[data-popup-image], .popup-image');
-         libX.dom.onEnterKey(blockFormSubmit,         'form input');
+         libX.dom.onEnterKey(blockFormSubmit,         'form input:not([type=password])');
          };
       libX.dom.onReady(onReadySetup);
       },

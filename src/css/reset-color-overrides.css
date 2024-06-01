@@ -12,7 +12,7 @@ a:hover { background-color: steelblue; outline-color: steelblue; }
 
 /* Flat button color */
 button { background-color: cornflowerblue; }
-button:hover:not(:disabled) { background-color: royalblue; }
+button:hover:not(:disabled), button:focus { background-color: royalblue; }
 
 /* Reveal action color */
 .reveal-button { color: darkseagreen; }
