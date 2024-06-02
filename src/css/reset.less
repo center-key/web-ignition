@@ -60,13 +60,13 @@ quoteblock:after  { content: close-quote; }
 i.font-icon { font-size: 1.5em; }
 
 // Links
-a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 400ms; }
+a         { color: dimgray; text-decoration: none; border-bottom: 1px dotted; outline: 2px solid transparent; transition: all 500ms; }
 a:visited { color: darkgray; }
 a:hover   { color: white; }
 a[title]  { cursor: pointer; }
-a img,       a i.font-icon       { opacity: 0.9; transition: all 400ms; }
+a img,       a i.font-icon       { opacity: 0.9; transition: all 500ms; }
 a img:hover, a i.font-icon:hover { opacity: 1.0; }
-a figure figcaption { text-align: center; transition: all 400ms; }
+a figure figcaption { text-align: center; transition: all 500ms; }
 a figure:hover figcaption { color: black; }
 .plain a, a.plain, a.image-link, nav a { border-bottom: none; }
 .plain a:visited, a.plain:visited, a.image-link:visited, nav a:visited { color: inherit; }
@@ -74,39 +74,95 @@ a figure:hover figcaption { color: black; }
 .plain a img, a.plain img, a img.plain { opacity: 1 }
 
 // Forms and input controls
-form, fieldset { max-width: 25em; }
-fieldset { padding: 0px; border: none; }
-form >fieldset:first-child { border: 1px solid silver; border-radius: 5px; padding: 0.8rem 1rem 0rem 1rem; margin-bottom: 1.5rem; }
-form >fieldset:first-child >legend { font-size: 1.1em; font-weight: bold; border: 1px solid silver; border-radius: 1000px; padding: 0.3em 1.0em; }
-label { display: block; }
+form, fieldset, label { display: block; max-width: 25em; margin-bottom: 1em; }
+label:has(input[type=checkbox],input[type=radio]) { margin-bottom: 0.1em; }
 label >span:first-child { display: block; }
 input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-size: 1.1em; }
 input, textarea { background-color: mintcream; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
-input:not([type=checkbox]):not([type=radio]), textarea { -webkit-appearance: none; }  //ios inner shadow
 select { font-size: 1.1em; }
-input[type=number] { font-family: menlo, consolas, monospace; text-align: right; }
-input[type=checkbox], input[type=radio] { width: auto; margin: 0px 0.5em 0.2em 1.5em; }
-label:last-of-type input { margin-bottom: 1em; }
-textarea { height: 4.1em; }  //3 lines
-input, select, textarea { margin: 0px 0px 1em 0px; }
-input[type=range] { height: 0.7em; padding: 0px; margin: 0.5em 0px 1em 0px; cursor: grab; }
+textarea { height: 4.1em; }  //display 3 lines
+input[type=checkbox], input[type=radio] { width: auto; margin: 0.0em 0.5em 0.2em 1.5em; }
+input[type=range] { appearance: none; height: 1.2em; padding: 0px; cursor: grab; }
 input[type=range]:active { cursor: grabbing; }
 button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
-button, input, select, optgroup, option, textarea { transition: all 400ms; }
+button, input, select, optgroup, option, textarea { transition: all 500ms; }
 *:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-form p:last-child, fieldset p:last-child { text-align: right; }
-form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }
 input:out-of-range { background-color: pink; }
+form nav, fieldset nav { text-align: right; margin-bottom: 1em; }
+form nav button, fieldset nav button { margin-left: 0.5em; }
+form p:last-child, fieldset p:last-child { text-align: right; }                 //deprecated in favor of <nav>
+form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }  //deprecated in favor of <nav>
 
 // Flat buttons
-button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 400ms; }
+button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 500ms; }
 button i.font-icon { font-size: 1.2em; vertical-align: top; padding-right: 0.4em; }
 button:disabled    { background-color: silver; }
+
+// Drop-down selectors
+//    <label>
+//       <span>Color:</span>
+//       <select>
+//          <option>Plum</option>
+///         <option>Pink</option>
+//       </select>
+//    </label>
+label:has(select) {
+   position: relative;
+   text-align: left;
+   padding: 0px;
+   &::after {
+      content: "\276F";  //arrow: "❯" (Heavy Right-Pointing Angle Quotation Mark Ornament)
+      position: absolute;
+      right: 0.4em;
+      bottom: 0.03em;
+      font-size: 1.5em;
+      transform: rotate(90deg);  //point down
+      pointer-events: none;
+      }
+   span {
+      }
+   select {
+      appearance: none;
+      color: black;
+      background-color: mintcream;
+      border: 1px solid silver;
+      padding: 0.3em 2.0em 0.3em 0.5em;
+      margin: 0px;
+      &:focus {
+         background-color: honeydew;
+         }
+      &:invalid {
+         color: firebrick;
+         }
+      }
+   }
+
+// Fieldsets (unless for checkbox or radio buttons)
+//    <fieldset>
+//       <legend>Survey</legend>
+//       <lable><span>Name:</span><input></label>
+//    </fieldset>
+fieldset {
+   border: none;
+   padding: 0px;
+   &:not(:has(>label>input[type=checkbox],>label>input[type=radio])) {
+      border: 1px solid silver;
+      border-radius: 5px;
+      padding: 0.8em 1.0em 0.0em 1.0em;
+      >legend {
+         font-size: 1.1em;
+         font-weight: bold;
+         border: 1px solid silver;
+         border-radius: 1000px;
+         padding: 0.3em 1.0em;
+         }
+      }
+   }
 
 // Tables
 table { border-collapse: collapse; border-spacing: 0px; margin: 0px auto 20px auto; }
 table caption { caption-side: bottom; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 0.4rem; }
-table tr { border-bottom: 1px solid steelblue; transition: all 400ms; }
+table tr { border-bottom: 1px solid steelblue; transition: all 500ms; }
 table thead tr { border-bottom-width: 3px; }
 table tbody tr:hover { background-color: aliceblue; }
 table tbody tr th[colspan] { font-size: 0.8rem; font-weight: normal; text-align: center; text-transform: uppercase; color: white; background-color: steelblue; padding: 3px 0px; }
@@ -137,12 +193,12 @@ table.data-box tbody tr th[colspan] { background-color: darkgray; }
 .hide-me             { display: none; visibility: hidden; padding: 0px; margin: 0px; opacity: 0; z-index: -10000; }
 .float-endgame:after { content: " "; display: table; clear: both; }
 .separator:after     { content: "|"; padding: 0px 5px; }
-.hover-glow          { transition: all 400ms; }
+.hover-glow          { transition: all 500ms; }
 .hover-glow:hover    { box-shadow: 0px 0px 0.2em deepskyblue; }
 .box-glow            { box-shadow: 0px 0px 2em deepskyblue; }
 .centered-flow-box   { display: flex; flex-wrap: wrap; justify-content: center; }
 .bullseye            { display: flex; justify-content: center; align-items: center; }
-.framed img, img.framed             { border: 3px solid silver; border-radius: 2px; transition: all 400ms; }
+.framed img, img.framed             { border: 3px solid silver; border-radius: 2px; transition: all 500ms; }
 .framed img:hover, img.framed:hover { border-color: dimgray; }
 .modal-layer { display: none; position: fixed; top: 0px; left: 0px; width: 100%; height: 100vh; text-align: center; }
 ul.simple-text { list-style-type: none; padding: 0px; }
@@ -170,7 +226,7 @@ figure.video-container-link {
    border: 10px solid silver;
    margin: 0px 0px 20px 0px;
    overflow: hidden;
-   transition: all 400ms;
+   transition: all 500ms;
    &:hover {
       border-color: gray;
       }
@@ -217,26 +273,26 @@ figure.video-container-link {
 // PERFECT style
 form.perfect { max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 20px; margin: 0px auto 20px auto; }
 form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: -20px -20px 20px -20px; clear: none; }
-form.perfect fieldset { border: none; padding: 0px; margin: 0px; }
-form.perfect label { display: block; text-align: left; }
-form.perfect input:not([type=checkbox]):not([type=radio]), form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px 0px 15px 0px; -webkit-appearance: none; }
+form.perfect fieldset { border: none; padding: 0px; margin-bottom: 1em; }
+form.perfect label { display: block; text-align: left; margin-bottom: 1em; }
+form.perfect input:not([type=checkbox]):not([type=radio]), form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px; }
 form.perfect input[type=checkbox], form.perfect input[type=radio] { font-size: 1.2rem; margin: 0px 0.5em 0.2em 1.5em; }
 form.perfect label:last-of-type input { margin-bottom: 20px; }
 form.perfect select { font-size: 1.2rem; }
 form.perfect textarea { height: 4.1em; }
 form.perfect input, form.perfect textarea { box-sizing: border-box; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
-form.perfect p { display: flex; justify-content: space-between; align-items: flex-end; margin: 0px; }
-form.perfect p button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; margin-bottom: 0px; cursor: pointer; transition: all 400ms; }
-form.perfect p button:hover:not(:disabled), form.perfect p button:focus { background-color: black; }
-form.perfect p span { font-size: 0.6rem; color: gray; }
-form.perfect p span a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
+form.perfect nav { display: flex; justify-content: space-between; align-items: flex-end; margin: 0px; }
+form.perfect nav button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; margin-bottom: 0px; cursor: pointer; transition: all 500ms; }
+form.perfect nav button:hover:not(:disabled), form.perfect p button:focus { background-color: black; }
+form.perfect nav small { font-size: 0.6rem; color: gray; }
+form.perfect nav small a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
 
 // JavaScript libraries
-.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 400ms; cursor: pointer; }
+.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 500ms; cursor: pointer; }
 .reveal-button:hover { color: white; border-color: transparent; }
 .reveal-target       { display: none; margin-bottom: 20px; }
 [data-href-popup] { cursor: pointer; }
-i.font-icon[data-href], i.font-icon[data-click] { opacity: 0.9; transition: all 400ms; }
+i.font-icon[data-href], i.font-icon[data-click] { opacity: 0.9; transition: all 500ms; }
 i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
 .json-key     { color: brown; }
 .json-value   { color: navy; }
@@ -320,7 +376,7 @@ body >header >#fork-me-container {  //dynamically added wrapper element
       border: 1px solid dimgray;
       transform: rotate(45deg);
       margin: 60px -50px 0px 0px;
-      transition: all 400ms;
+      transition: all 500ms;
       pointer-events: auto;
       &:hover {
          color: white;
@@ -356,7 +412,7 @@ body >header >#fork-me-container {  //dynamically added wrapper element
    background-color: white;
    border: 1px solid silver;
    border-radius: 0.2em;
-   transition: all 400ms;
+   transition: all 500ms;
    &:not(:last-child) {
       margin-right: 8px;
       }
@@ -367,10 +423,10 @@ body >header >#fork-me-container {  //dynamically added wrapper element
    }
 
 // Popup image
-img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 400ms; cursor: pointer; }
+img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 500ms; cursor: pointer; }
 img.popup-image:hover, img[data-popup-image]:hover { opacity: 1 }
 img.popup-image + .popup-image-layer { position: absolute; top: 10px; left: 10px; background-color: white; z-index: 5000; opacity: 0; }
-img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 400ms; }
+img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 500ms; }
 img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
 img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
 

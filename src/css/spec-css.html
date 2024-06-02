@@ -227,14 +227,14 @@
                <textarea>The earth is flat.</textarea>
             </label>
 
-            <fieldset>
-               <legend>Car:</legend>
+            <label>
+               <span>New Car:</span>
                <select>
-                  <option value=volvo>Volvo</option>
+                  <option value=volvo>Tesla</option>
                   <option value=saab disabled>Saab</option>
                   <option value=audi>Audi</option>
                </select>
-            </fieldset>
+            </label>
 
             <fieldset>
                <legend>Colors:</legend>
@@ -242,11 +242,6 @@
                <label><input type=checkbox value=blue disabled>Blue</label>
                <label><input type=checkbox value=green>Green</label>
             </fieldset>
-
-            <label>
-               <span>Upload:</span>
-               <input type=file>
-            </label>
 
             <fieldset>
                <legend>Speed:</legend>
@@ -275,10 +270,15 @@
                <input type=password placeholder="Enter your password">
             </label>
 
-            <p>
+            <label>
+               <span>Upload:</span>
+               <input type=file>
+            </label>
+
+            <nav>
                <button><i data-icon=times></i>Cancel</button>
                <button disabled><i data-icon=cloud-download-alt></i>Save</button>
-            </p>
+            </nav>
 
          </fieldset>
       </form>
@@ -304,10 +304,10 @@
             <span>Email:</span>
             <input name=email placeholder="Enter your email">
          </label>
-         <p>
-            <span>Powered by <a href=https://centerkey.com/php>PERFECT</a></span>
-            <button type=submit>Submit</button>
-         </p>
+         <nav>
+            <small>Powered by <a href=https://centerkey.com/php>PERFECT</a></small>
+            <button type=submit>Send</button>
+         </nav>
       </form>
 
       <p>All fields are optional.</p>
