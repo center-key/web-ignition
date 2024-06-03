@@ -1,12 +1,12 @@
-/*! web-ignition v2.1.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Neon layout -- For hackers and space junkies
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.1/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.1/dist/layouts/neon.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.2/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.2/dist/layouts/neon.css>
    ...
-   <script src=https://cdn.jsdelivr.net/npm/web-ignition@2.1/dist/layouts/neon.min.js></script>
+   <script src=https://cdn.jsdelivr.net/npm/web-ignition@2.2/dist/layouts/neon.min.js></script>
 HTML (<body>):
    header
       h1, h2, h3, h4
@@ -179,15 +179,15 @@ body >footer p {
 
 /* Flat button color */
 button { background-color: fuchsia; }
-button:hover:not(:disabled) { background-color: red; }
+button:hover:not(:disabled), button:focus { background-color: red; }
 
 /* Reveal action color */
 .reveal-button { color: fuchsia; }
 .reveal-button:hover { background-color: fuchsia; }
 
 /* PERFECT colors */
-form.perfect { background-color: black; border-color: aqua; }           /* outer color */
-form.perfect h2 { color: black; background-color: aqua; }               /* outer color */
+form.perfect { background-color: black; border-color: aqua; }         /* outer color */
+form.perfect h2 { color: black; background-color: aqua; }             /* outer color */
 form.perfect label span { color: aqua; }
 form.perfect input, form.perfect textarea { background-color: white; }  /* input fields */
-form.perfect p button:hover:not(:disabled) { background-color: lime; }
+form.perfect p button:hover:not(:disabled), form.perfect p button:focus { background-color: lime; }

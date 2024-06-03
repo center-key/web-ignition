@@ -1,4 +1,4 @@
-//! web-ignition v2.1.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];

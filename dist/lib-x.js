@@ -1,4 +1,4 @@
-//! web-ignition v2.1.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -404,6 +404,7 @@ const libXUi = {
         const makeImageLink = (elem) => elem.closest('a').classList.add('image-link');
         const openInNewTab = (elem) => elem.target = '_blank';
         container.querySelectorAll('button:not([type])').forEach(elem => elem.type = 'button');
+        container.querySelectorAll('button:not([tabindex])').forEach(elem => elem.tabIndex = 0);
         container.querySelectorAll('input:not([type])').forEach(elem => elem.type = 'text');
         container.querySelectorAll('input[type=email]').forEach(rawInput);
         container.querySelectorAll('a img, a i.font-icon').forEach(makeImageLink);
@@ -825,7 +826,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.1.5',
+    version: '2.2.0',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
@@ -864,7 +865,7 @@ const libX = {
             libX.dom.onTouchStart(libX.ui.revealSection, '.reveal-button');
             libX.dom.onClick(libX.ui.popupClick, '[data-href-popup]');
             libX.dom.onClick(libX.popupImage.show, '[data-popup-image], .popup-image');
-            libX.dom.onEnterKey(blockFormSubmit, 'form input');
+            libX.dom.onEnterKey(blockFormSubmit, 'form input:not([type=password])');
         };
         libX.dom.onReady(onReadySetup);
     },
