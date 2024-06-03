@@ -75,13 +75,14 @@ a figure:hover figcaption { color: black; }
 
 // Forms and input controls
 form, fieldset, label { display: block; max-width: 25em; margin-bottom: 1em; }
-label:has(input[type=checkbox],input[type=radio]) { margin-bottom: 0.1em; }
 label >span:first-child { display: block; }
 input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-size: 1.1em; }
 input, textarea { background-color: mintcream; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
 select { font-size: 1.1em; }
 textarea { height: 4.1em; }  //display 3 lines
-input[type=checkbox], input[type=radio] { width: auto; margin: 0.0em 0.5em 0.2em 1.5em; }
+label:has(input[type=checkbox],input[type=radio]) { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
+label:has(input:disabled)::target-text { opacity: 0.5; }
+input[type=checkbox], input[type=radio] { width: auto; margin-right: 0.3em; }
 input[type=range] { appearance: none; height: 1.2em; padding: 0px; cursor: grab; }
 input[type=range]:active { cursor: grabbing; }
 button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
@@ -90,8 +91,6 @@ button, input, select, optgroup, option, textarea { transition: all 500ms; }
 input:out-of-range { background-color: pink; }
 form nav, fieldset nav { text-align: right; margin-bottom: 1em; }
 form nav button, fieldset nav button { margin-left: 0.5em; }
-form p:last-child, fieldset p:last-child { text-align: right; }                 //deprecated in favor of <nav>
-form p:last-child button, fieldset p:last-child button { margin-left: 0.5em; }  //deprecated in favor of <nav>
 
 // Flat buttons
 button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 500ms; }
@@ -271,19 +270,28 @@ figure.video-container-link {
    }
 
 // PERFECT style
-form.perfect { max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 20px; margin: 0px auto 20px auto; }
-form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: -20px -20px 20px -20px; clear: none; }
-form.perfect fieldset { border: none; padding: 0px; margin-bottom: 1em; }
-form.perfect label { display: block; text-align: left; margin-bottom: 1em; }
-form.perfect input:not([type=checkbox]):not([type=radio]), form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px; }
-form.perfect input[type=checkbox], form.perfect input[type=radio] { font-size: 1.2rem; margin: 0px 0.5em 0.2em 1.5em; }
-form.perfect label:last-of-type input { margin-bottom: 20px; }
-form.perfect select { font-size: 1.2rem; }
+//    <form class=perfect>
+//       <h2>Title</h2>
+//       <label><span>Label:</span><input></label>
+//       <nav>
+//          <small>Powered by <a href=https://centerkey.com/php>PERFECT</a></small>
+//          <button type=submit>Send</button>
+//       </nav>
+//    </form>
+form.perfect { display: flex; flex-direction: column; max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 0px; margin: 0px auto 20px auto; }
+form.perfect >* { margin: 0px 20px 20px 20px }
+form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: 0px 0px 20px 0px; }
+form.perfect label { display: block; font-size: 1.0rem; text-align: left; margin-bottom: 20px; }
+form.perfect input, form.perfect select, form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px; }
 form.perfect textarea { height: 4.1em; }
 form.perfect input, form.perfect textarea { box-sizing: border-box; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
-form.perfect nav { display: flex; justify-content: space-between; align-items: flex-end; margin: 0px; }
-form.perfect nav button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; margin-bottom: 0px; cursor: pointer; transition: all 500ms; }
-form.perfect nav button:hover:not(:disabled), form.perfect p button:focus { background-color: black; }
+form.perfect fieldset { border: none; padding: 0px; }
+form.perfect fieldset legend { font-size: 1.0em; }
+form.perfect fieldset label { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
+form.perfect fieldset label input { width: auto; margin-right: 0.3em; }
+form.perfect nav { display: flex; justify-content: space-between; align-items: flex-end; }
+form.perfect nav button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; cursor: pointer; transition: all 500ms; }
+form.perfect nav button:hover:not(:disabled), form.perfect nav button:focus { background-color: black; }
 form.perfect nav small { font-size: 0.6rem; color: gray; }
 form.perfect nav small a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
 
