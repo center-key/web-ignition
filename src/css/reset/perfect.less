@@ -1,0 +1,25 @@
+// PERFECT style
+//    <form class=perfect>
+//       <h2>Title</h2>
+//       <label><span>Label:</span><input></label>
+//       <nav>
+//          <small>Powered by <a href=https://centerkey.com/php>PERFECT</a></small>
+//          <button type=submit>Send</button>
+//       </nav>
+//    </form>
+form.perfect { display: flex; flex-direction: column; max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 0px; margin: 0px auto 20px auto; }
+form.perfect >* { margin: 0px 20px 20px 20px }
+form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: 0px 0px 20px 0px; }
+form.perfect label { display: block; font-size: 1.0rem; text-align: left; margin-bottom: 20px; }
+form.perfect input, form.perfect select, form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px; }
+form.perfect textarea { height: 4.1em; }
+form.perfect input, form.perfect textarea { box-sizing: border-box; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
+form.perfect fieldset { border: none; padding: 0px; }
+form.perfect fieldset legend { font-size: 1.0em; }
+form.perfect fieldset label { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
+form.perfect fieldset label input { width: auto; margin-right: 0.3em; }
+form.perfect nav { display: flex; justify-content: space-between; align-items: flex-end; }
+form.perfect nav button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; cursor: pointer; transition: all 500ms; }
+form.perfect nav button:hover:not(:disabled), form.perfect nav button:focus { background-color: black; }
+form.perfect nav small { font-size: 0.6rem; color: gray; }
+form.perfect nav small a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }

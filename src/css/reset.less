@@ -4,6 +4,8 @@
 /* MIT License                 */
 /*******************************/
 
+@import "reset/utility-box";
+
 // Special font
 @import url(https://fonts.googleapis.com/css?family=Chango);
 
@@ -77,7 +79,7 @@ a figure:hover figcaption { color: black; }
 form, fieldset, label { display: block; max-width: 25em; margin-bottom: 1em; }
 label >span:first-child { display: block; }
 input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-size: 1.1em; }
-input, textarea { background-color: mintcream; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
+input, textarea { border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
 select { font-size: 1.1em; }
 textarea { height: 4.1em; }  //display 3 lines
 label:has(input[type=checkbox],input[type=radio]) { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
@@ -91,6 +93,9 @@ button, input, select, optgroup, option, textarea { transition: all 500ms; }
 input:out-of-range { background-color: pink; }
 form nav, fieldset nav { text-align: right; margin-bottom: 1em; }
 form nav button, fieldset nav button { margin-left: 0.5em; }
+
+// Form colors
+input, textarea { background-color: mintcream; }
 
 // Flat buttons
 button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 500ms; }
@@ -110,7 +115,7 @@ label:has(select) {
    text-align: left;
    padding: 0px;
    &::after {
-      content: "\276F";  //arrow: "❯" (Heavy Right-Pointing Angle Quotation Mark Ornament)
+      content: @symbolAngleRight;  //character: ❯
       position: absolute;
       right: 0.4em;
       bottom: 0.03em;
@@ -269,31 +274,7 @@ figure.video-container-link {
       }
    }
 
-// PERFECT style
-//    <form class=perfect>
-//       <h2>Title</h2>
-//       <label><span>Label:</span><input></label>
-//       <nav>
-//          <small>Powered by <a href=https://centerkey.com/php>PERFECT</a></small>
-//          <button type=submit>Send</button>
-//       </nav>
-//    </form>
-form.perfect { display: flex; flex-direction: column; max-width: 25em; background-color: whitesmoke; color: dimgray; border: 1px solid; border-radius: 2px; padding: 0px; margin: 0px auto 20px auto; }
-form.perfect >* { margin: 0px 20px 20px 20px }
-form.perfect h2 { font-size: 1.2rem; text-align: center; color: white; padding: 0.3em; margin: 0px 0px 20px 0px; }
-form.perfect label { display: block; font-size: 1.0rem; text-align: left; margin-bottom: 20px; }
-form.perfect input, form.perfect select, form.perfect textarea { width: 100%; max-width: 100%; font-size: 1.2rem; margin: 0px; }
-form.perfect textarea { height: 4.1em; }
-form.perfect input, form.perfect textarea { box-sizing: border-box; border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
-form.perfect fieldset { border: none; padding: 0px; }
-form.perfect fieldset legend { font-size: 1.0em; }
-form.perfect fieldset label { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
-form.perfect fieldset label input { width: auto; margin-right: 0.3em; }
-form.perfect nav { display: flex; justify-content: space-between; align-items: flex-end; }
-form.perfect nav button { font-size: 1.1rem; font-weight: bold; color: white; background-color: dimgray; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; cursor: pointer; transition: all 500ms; }
-form.perfect nav button:hover:not(:disabled), form.perfect nav button:focus { background-color: black; }
-form.perfect nav small { font-size: 0.6rem; color: gray; }
-form.perfect nav small a { color: gray; background-color: transparent; text-decoration: none; border: none; outline: none; }
+@import "reset/perfect";
 
 // JavaScript libraries
 .reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 500ms; cursor: pointer; }
