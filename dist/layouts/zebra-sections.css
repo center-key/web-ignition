@@ -1,4 +1,4 @@
-/*! web-ignition v2.2.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -20,7 +20,10 @@ HTML (<body>):
       section
          h2
             img
+         p
          div
+            blockquote
+               cite
    footer
 */
 body {
@@ -138,9 +141,31 @@ main >section >div {  /* centered flow box */
    display: flex;
    flex-wrap: wrap;
    justify-content: center;
+   column-gap: 40px;
+   row-gap: 20px;
    }
-main >section >div >* {
-   margin: 0px 20px 20px 20px;
+main >section >div >blockquote {
+   display: block;
+   width: 100%;
+   font-size: 1.2rem;
+   font-style: italic;
+   text-align: left;
+   border: 1px solid silver;
+   padding: 10px 25px;
+   margin: 0px;
+   }
+main >section >div >blockquote >cite {
+   display: block;
+   font-size: 0.8rem;
+   font-weight: 100;
+   font-style: normal;
+   letter-spacing: 0.05em;
+   text-align: right;
+   padding-top: 5px;
+   }
+main >section >div >blockquote >cite::before {
+   content: "\2014";  /* character: — (em dash) */
+   margin-right: 0.4em;
    }
 main >section >ul {
    width: 80%;
@@ -167,10 +192,13 @@ main >section figure img.popup-image:hover {
 main >section figure figcaption {
    font-style: italic;
    }
-main >section >blockquote {
+main >section code {
+   white-space: normal;
+   }
+main >section >blockquote {       /* deprecated */
    font-style: italic;
    }
-main >section >blockquote cite {
+main >section >blockquote cite {  /* deprecated */
    display: block;
    font-size: 0.8rem;
    font-weight: 100;
