@@ -161,6 +161,9 @@ main >section >div >blockquote >cite {
    text-align: right;
    padding-top: 5px;
    }
+main >section >div >blockquote >figure {
+   margin-bottom: 0px;
+   }
 main >section >div >blockquote >cite::before {
    content: "\2014";  /* character: — (em dash) */
    margin-right: 0.4em;
@@ -178,6 +181,9 @@ main >section figure {
    min-width: auto;
    vertical-align: top;
    padding: 0px 10px;
+   }
+main >section >figure {
+   display: block;
    }
 main >section figure img.popup-image {
    height: 120px;
