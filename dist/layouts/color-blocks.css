@@ -1,4 +1,4 @@
-/*! web-ignition v2.2.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Color Blocks layout -- Two columns of colorful blocks
@@ -46,7 +46,11 @@ body >header {
 main {
    display: flex;
    min-height: 300px;
+   padding-bottom: 10px;
    margin: 0px -5px;
+   }
+main >div {
+   margin-bottom: 10px;
    }
 main >div:nth-child(1) {
    flex: 0 0 65%;  /* wide 1st column */
@@ -60,7 +64,7 @@ main >div:first-child:last-child {
 main >div >section {
    border-width: 2px;
    border-style: solid;
-   padding: 10px;
+   padding: 10px 10px 20px 10px;
    margin: 0px 5px 10px 5px;
    }
 main >div >section h2 {
@@ -68,7 +72,7 @@ main >div >section h2 {
    font-size: 1.2rem;
    color: white;
    padding: 3px 8px;
-   margin: -10px -10px 10px -10px;
+   margin: -10px -10px 15px -10px;
    }
 main >div >section h2 i.font-icon {
    position: absolute;
@@ -103,6 +107,7 @@ main >div >section >fieldset {
    margin-bottom: 1em;
    }
 main >div >section >fieldset >legend {
+   font-weight: normal;
    border: 1px solid;
    border-color: inherit;
    border-radius: 2px;

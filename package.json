@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "2.2.1",
+   "version": "2.2.2",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",
@@ -102,7 +102,7 @@
       "hljs-enhance": "~2.0"
    },
    "devDependencies": {
-      "@eslint/js": "~9.4",
+      "@eslint/js": "~9.5",
       "@fortawesome/fontawesome-free": "~6.5",
       "@types/node": "~20.14",
       "add-dist-header": "~1.4",
@@ -119,8 +119,8 @@
       "rimraf": "~5.0",
       "run-scripts-util": "~1.2",
       "typescript": "~5.4",
-      "typescript-eslint": "~7.12",
-      "uglify-js": "~3.17",
+      "typescript-eslint": "~7.13",
+      "uglify-js": "~3.18",
       "w3c-html-validator": "~1.8"
    }
 }
