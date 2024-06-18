@@ -18,6 +18,11 @@ body, h1, h2, h3, h4, h5, h6, p, figure, nav ul, nav ul li { padding: 0px; margi
 h1, h2, h3, h4, h5, h6 { letter-spacing: 0.04em; margin-bottom: 0.2em; }
 section, header, figure { margin-bottom: 20px; }
 p, ul, ol { margin-bottom: 0.9em; }
+section, figure, p, ul, ol {
+   &:last-child {
+      margin-bottom: 0px;
+      }
+   }
 ul, ol { margin-top: 2px; }
 ul li, ol li { font-size: 0.9em; padding-left: 1.2em; text-indent: -1.3em; }
 nav ul { list-style-type: none; }
@@ -76,7 +81,14 @@ a figure:hover figcaption { color: black; }
 .plain a img, a.plain img, a img.plain { opacity: 1 }
 
 // Forms and input controls
-form, fieldset, label { display: block; max-width: 25em; margin-bottom: 1em; }
+form, fieldset, label {
+   display: block;
+   max-width: 25em;
+   margin-bottom: 1em;
+   &:last-child {
+      margin-bottom: 0px;
+      }
+   }
 label >span:first-child { display: block; }
 input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-size: 1.1em; }
 input, textarea { border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
@@ -89,9 +101,10 @@ input[type=range] { appearance: none; height: 1.2em; padding: 0px; cursor: grab;
 input[type=range]:active { cursor: grabbing; }
 button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
 button, input, select, optgroup, option, textarea { transition: all 500ms; }
-*:disabled { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
+*:disabled { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
 input:out-of-range { background-color: pink; }
 form nav, fieldset nav { text-align: right; margin-bottom: 1em; }
+form nav:last-child, fieldset nav:last-child { margin-bottom: 0px; }
 form nav button, fieldset nav button { margin-left: 0.5em; }
 
 // Form colors
@@ -147,19 +160,25 @@ label:has(select) {
 //       <lable><span>Name:</span><input></label>
 //    </fieldset>
 fieldset {
-   border: none;
-   padding: 0px;
-   &:not(:has(>label>input[type=checkbox],>label>input[type=radio])) {
-      border: 1px solid silver;
-      border-radius: 5px;
-      padding: 0.8em 1.0em 0.0em 1.0em;
+   border: 1px solid silver;
+   border-radius: 5px;
+   padding: 0.8em 1.0em;
+   &:has(>label>input[type=checkbox],>label>input[type=radio]) {
+      border: none;
+      padding: 0px;
       >legend {
-         font-size: 1.1em;
-         font-weight: bold;
-         border: 1px solid silver;
-         border-radius: 1000px;
-         padding: 0.3em 1.0em;
+         font-size: 1em;
+         font-weight: normal;
+         border: none;
+         padding: 0px;
          }
+      }
+   >legend {
+      font-size: 1.1em;
+      font-weight: bold;
+      border: 1px solid silver;
+      border-radius: 1000px;
+      padding: 0.3em 1.0em;
       }
    }
 
@@ -171,7 +190,7 @@ table thead tr { border-bottom-width: 3px; }
 table tbody tr:hover { background-color: aliceblue; }
 table tbody tr th[colspan] { font-size: 0.8rem; font-weight: normal; text-align: center; text-transform: uppercase; color: white; background-color: steelblue; padding: 3px 0px; }
 table tbody tr td { font-size: 0.9rem; vertical-align: top; text-align: center; }
-table tbody tr td.num { text-align: right; }
+table tbody tr td.num { text-align: right; }  //DEPRECATED
 table th, table td { padding: 6px 15px; }
 table.data-box { background-color: aliceblue; border: 3px solid gainsboro; }
 table.data-box tr { border: none; }
@@ -184,6 +203,7 @@ table.data-box tbody tr th[colspan] { background-color: darkgray; }
 .plain-tables table tbody td { text-align: left; }
 .plain-tables table tbody tr:hover { background-color: transparent; }
 @media (max-width: 667px) { table th, table td { padding: 6px 6px; } }
+@import "reset/tables";
 
 // Flex columns
 .flex-columns    { display: flex; margin-bottom: 20px; }
