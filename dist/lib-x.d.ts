@@ -1,4 +1,4 @@
-//! web-ignition v2.2.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -86,6 +86,12 @@ declare const libX: {
             [key: symbol]: unknown;
         };
         cloneState(clone: Element): Element;
+        componentState(elem: Element): {
+            [key: string]: unknown;
+            [key: number]: unknown;
+            [key: symbol]: unknown;
+        };
+        removeState(elem: Element): Element;
         create<K extends string>(tag: K, options?: {
             id?: string;
             subTags?: string[];
@@ -98,7 +104,6 @@ declare const libX: {
             text?: string;
             type?: string;
         }): K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement;
-        removeState(elem: Element): Element;
         select(selector: string): HTMLElement | null;
         selectAll(selector: string): HTMLElement[];
         hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean;
@@ -163,11 +168,13 @@ declare const libX: {
         loadImageFadeIn(elem: Element, url: string, duration?: number): Promise<Element>;
         setupVideos(): void;
         setupForkMe(): Element | null;
+        getComponent(elem: Element): Element | null;
     };
     util: {
         cleanupEmail(email: string): string | null;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
+        assert(ok: boolean | unknown, message: string, info: unknown): void;
     };
     nav: {
         setupLinkMenu(): HTMLElement | null;

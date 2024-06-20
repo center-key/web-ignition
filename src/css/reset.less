@@ -95,7 +95,7 @@ input, textarea { border: 1px solid silver; border-radius: 5px; padding: 0.3em; 
 select { font-size: 1.1em; }
 textarea { height: 4.1em; }  //display 3 lines
 label:has(input[type=checkbox],input[type=radio]) { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
-label:has(input:disabled)::target-text { opacity: 0.5; }
+label:has(:disabled) { opacity: 0.7; }
 input[type=checkbox], input[type=radio] { width: auto; margin-right: 0.3em; }
 input[type=range] { appearance: none; height: 1.2em; padding: 0px; cursor: grab; }
 input[type=range]:active { cursor: grabbing; }
@@ -190,7 +190,6 @@ table thead tr { border-bottom-width: 3px; }
 table tbody tr:hover { background-color: aliceblue; }
 table tbody tr th[colspan] { font-size: 0.8rem; font-weight: normal; text-align: center; text-transform: uppercase; color: white; background-color: steelblue; padding: 3px 0px; }
 table tbody tr td { font-size: 0.9rem; vertical-align: top; text-align: center; }
-table tbody tr td.num { text-align: right; }  //DEPRECATED
 table th, table td { padding: 6px 15px; }
 table.data-box { background-color: aliceblue; border: 3px solid gainsboro; }
 table.data-box tr { border: none; }

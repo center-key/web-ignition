@@ -1,4 +1,4 @@
-/*! web-ignition v2.2.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
@@ -60,7 +60,6 @@ main >section:first-child >div {
 main >section:first-child #social-buttons {
    margin: 30px auto 5px auto;
    }
-main >section .box,  /* deprecated */
 main >section .display-box {
    display: inline-block;
    font-size: 0.9rem;

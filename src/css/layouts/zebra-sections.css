@@ -182,9 +182,6 @@ main >section figure {
    vertical-align: top;
    padding: 0px 10px;
    }
-main >section >figure {
-   display: block;
-   }
 main >section figure img.popup-image {
    height: 120px;
    max-width: none;
@@ -198,15 +195,6 @@ main >section figure figcaption {
    }
 main >section code {
    white-space: normal;
-   }
-main >section >blockquote {       /* deprecated */
-   font-style: italic;
-   }
-main >section >blockquote cite {  /* deprecated */
-   display: block;
-   font-size: 0.8rem;
-   font-weight: 100;
-   font-style: normal;
    }
 body >footer {
    flex-direction: column;

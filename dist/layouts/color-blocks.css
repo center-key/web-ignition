@@ -1,4 +1,4 @@
-/*! web-ignition v2.2.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Color Blocks layout -- Two columns of colorful blocks
@@ -107,6 +107,7 @@ main >div >section >fieldset {
    margin-bottom: 1em;
    }
 main >div >section >fieldset >legend {
+   font-size: 1rem;
    font-weight: normal;
    border: 1px solid;
    border-color: inherit;

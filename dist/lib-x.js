@@ -1,4 +1,4 @@
-//! web-ignition v2.2.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -19,6 +19,17 @@ const libXDom = {
             copy(clone);
         libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
         return clone;
+    },
+    componentState(elem) {
+        const component = libX.ui.getComponent(elem);
+        libX.util.assert(component, 'Component not found for element', elem);
+        return libX.dom.state(component);
+    },
+    removeState(elem) {
+        const data = elem.dataset;
+        if (data.libXState)
+            libX.dom.stateDepot[Number(data.libXState)] = {};
+        return elem;
     },
     create(tag, options) {
         const elem = globalThis.document.createElement(tag);
@@ -42,12 +53,6 @@ const libXDom = {
             elem.type = options.type;
         if (options?.subTags)
             options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
-        return elem;
-    },
-    removeState(elem) {
-        const data = elem.dataset;
-        if (data.libXState)
-            libX.dom.stateDepot[Number(data.libXState)] = {};
         return elem;
     },
     select(selector) {
@@ -515,6 +520,9 @@ const libXUi = {
         };
         return forkMe ? wrap() : null;
     },
+    getComponent(elem) {
+        return elem?.closest('[data-component]') ?? null;
+    },
 };
 const libXUtil = {
     cleanupEmail(email) {
@@ -526,6 +534,11 @@ const libXUtil = {
     },
     removeWhitespace(text) {
         return text.replace(/\s/g, '');
+    },
+    assert(ok, message, info) {
+        const quoteStr = (info) => typeof info === 'string' ? `"${info}"` : String(info);
+        if (!ok)
+            throw Error(`[dna-engine] ${message} --> ${quoteStr(info)}`);
     },
 };
 const libXNav = {
@@ -826,7 +839,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.2.2',
+    version: '2.2.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,

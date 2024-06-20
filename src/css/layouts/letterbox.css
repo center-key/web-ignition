@@ -58,7 +58,6 @@ main >section:first-child >div {
 main >section:first-child #social-buttons {
    margin: 30px auto 5px auto;
    }
-main >section .box,  /* deprecated */
 main >section .display-box {
    display: inline-block;
    font-size: 0.9rem;
