@@ -68,6 +68,17 @@ const libXDom = {
       libX.dom.forEach(clone.getElementsByClassName('libx-state'), copy);
       return clone;
       },
+   componentState(elem: Element) {
+      const component = libX.ui.getComponent(elem);
+      libX.util.assert(component, 'Component not found for element', elem);
+      return libX.dom.state(component!);
+      },
+   removeState(elem: Element): Element {
+      const data = (<HTMLElement>elem).dataset;
+      if (data.libXState)
+         libX.dom.stateDepot[Number(data.libXState)] = {};
+      return elem;
+      },
    create<K extends keyof HTMLElementTagNameMap | string>(tag: K, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
@@ -92,12 +103,6 @@ const libXDom = {
          options.subTags.forEach(
             subTag => elem.appendChild(globalThis.document.createElement(subTag)));
       return <K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement>elem;
-      },
-   removeState(elem: Element): Element {
-      const data = (<HTMLElement>elem).dataset;
-      if (data.libXState)
-         libX.dom.stateDepot[Number(data.libXState)] = {};
-      return elem;
       },
    select(selector: string): HTMLElement | null {
       return globalThis.document.body.querySelector(selector);
@@ -632,6 +637,11 @@ const libXUi = {
          };
       return forkMe ? wrap() : null;
       },
+   getComponent(elem: Element): Element | null {
+      // Returns the component (container element with a <code>data-component</code> attribute) to
+      // which the element belongs.
+      return elem?.closest('[data-component]') ?? null;
+      },
    };
 
 const libXUtil = {
@@ -649,6 +659,12 @@ const libXUtil = {
       // Usage:
       //    libX.util.removeWhitespace('a b \t\n c') === 'abc';
       return text.replace(/\s/g, '');
+      },
+   assert(ok: boolean | unknown, message: string, info: unknown): void {
+      // Oops, file a tps report.
+      const quoteStr = (info: unknown) => typeof info === 'string' ? `"${info}"` : String(info);
+      if (!ok)
+         throw Error(`[dna-engine] ${message} --> ${quoteStr(info)}`);
       },
    };
 
