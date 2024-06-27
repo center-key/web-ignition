@@ -780,6 +780,9 @@ const libXBrowser = {
    msWindows(): boolean {
       return libX.browser.userAgentData().platform === 'Windows';
       },
+   darkModeRequested(): boolean {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+      },
    };
 
 const libXPopupImage = {
