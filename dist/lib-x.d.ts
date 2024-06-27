@@ -1,4 +1,4 @@
-//! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -76,9 +76,7 @@ declare const libX: {
     version: string;
     dom: {
         stateDepot: {
-            [key: string]: unknown;
-            [key: number]: unknown;
-            [key: symbol]: unknown;
+            [key: string | number | symbol]: unknown;
         }[];
         state(elem: Element): {
             [key: string]: unknown;
@@ -92,7 +90,7 @@ declare const libX: {
             [key: symbol]: unknown;
         };
         removeState(elem: Element): Element;
-        create<K extends string>(tag: K, options?: {
+        create<K extends keyof HTMLElementTagNameMap | string>(tag: K, options?: {
             id?: string;
             subTags?: string[];
             class?: string;
@@ -109,9 +107,9 @@ declare const libX: {
         hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean;
         toggleClass(elem: Element, className: string, state?: boolean): Element;
         replaceClass(elem: Element, oldName: string, newName: string): Element;
-        addClass<T extends HTMLCollection | Element[] | NodeListOf<Element>>(elems: T, className: string): T;
-        forEach<T_1 extends HTMLCollection>(elems: T_1, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T_1;
-        map<T_2>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T_2): T_2[];
+        addClass<T extends Element[] | HTMLCollection | NodeListOf<Element>>(elems: T, className: string): T;
+        forEach<T extends HTMLCollection>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T;
+        map<T>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T): T[];
         filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[];
         filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[];
         filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[];
@@ -140,7 +138,7 @@ declare const libX: {
         onHoverOut(listener: LibXEventListener, selector: string): void;
         onReady(callback: (...args: unknown[]) => unknown, options?: {
             quiet?: boolean;
-        }): DocumentReadyState | 'browserless';
+        }): DocumentReadyState | "browserless";
     };
     ui: {
         isHidden(elem: Element): boolean;
@@ -201,6 +199,7 @@ declare const libX: {
         iOS(): boolean;
         macOS(): boolean;
         msWindows(): boolean;
+        darkModeRequested(): boolean;
     };
     popupImage: {
         show(thumbnail: Element): Element;

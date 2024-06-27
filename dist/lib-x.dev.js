@@ -1,4 +1,4 @@
-//! web-ignition v2.2.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -633,6 +633,9 @@ const libXBrowser = {
     msWindows() {
         return libX.browser.userAgentData().platform === 'Windows';
     },
+    darkModeRequested() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    },
 };
 const libXPopupImage = {
     show(thumbnail) {
@@ -839,7 +842,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.2.3',
+    version: '2.2.4',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
