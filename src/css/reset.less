@@ -159,6 +159,7 @@ label:has(select) {
          color: firebrick;
          }
       }
+   &:has(select+span)::after { top: 0.1em; bottom: auto; }  //label text below drop-down
    }
 
 // Fieldsets (unless for checkbox or radio buttons)
