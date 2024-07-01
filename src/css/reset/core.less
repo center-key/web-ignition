@@ -1,0 +1,72 @@
+// Core
+
+@import "static/utility-box";
+
+* { box-sizing: border-box; }
+html { display: flex; flex-direction: column; height: 100%; min-height: 100%; }
+html { font-size: 115%; font-family: system-ui, geneva, tahoma, sans-serif; }  //override font-size percent to resize base font
+body { width: 100%; flex: 1; }
+body, h1, h2, h3, h4, h5, h6, p, figure, nav ul, nav ul li { padding: 0px; margin: 0px; }
+h1, h2, h3, h4, h5, h6 { letter-spacing: 0.04em; margin-bottom: 0.2em; }
+section, header, figure { margin-bottom: 20px; }
+p, ul, ol { margin-bottom: 0.9em; }
+section, figure, p, ul, ol {
+   &:last-child {
+      margin-bottom: 0px;
+      }
+   }
+ul, ol { margin-top: 2px; }
+ul li, ol li { font-size: 0.9em; padding-left: 1.2em; text-indent: -1.3em; }
+nav ul { list-style-type: none; }
+nav ul li { text-indent: 0px; }
+pre, code { font-family: menlo, consolas, monospace; font-style: normal; font-weight: bold; line-height: 1.3em; margin: 0px; }
+p code, ul code, ol code, figure figcaption code, p a, p span { white-space: nowrap; }
+p code { padding: 0px 3px; }
+figure { text-align: center; }
+figure img { max-width: 100%; max-height: 100%; }
+figcaption { font-weight: bold; padding: 3px 0px; }
+img { border: none; }
+hr { border: none; border-top: 1px solid silver; }
+sup, sub { font-size: 0.7rem; }
+iframe { border: none; }
+
+// Basic styling
+body { max-width: 900px; color: dimgray; padding: 40px 15px; margin: 0px auto; }
+body >header { text-align: center; }
+main { min-height: 300px; }
+header { margin-bottom: 20px; }
+aside { float: right; clear: right; font-size: 0.9rem; margin: 0px 0px 20px 20px; }
+aside.left { float: left; clear: left; margin: 0px 20px 20px 0px; }
+main section aside { max-width: 35%; background-color: whitesmoke; border: 1px solid silver; padding: 10px; }
+main section aside.simple { background-color: transparent; border: none; padding: 0px; }
+main section aside h2 { font-size: 1.1rem; }
+main section aside img { width: 100%; max-width: 100%; }
+main section aside p:last-child { margin-bottom: 0px; }
+section:after { content: " "; display: table; clear: both; }  //a section with an aside will self clear
+body >footer { display: flex; justify-content: space-between; align-items: center; clear: both; text-align: center; font-size: 0.9rem; color: darkgray; padding: 30px 0px; }
+body >footer >div { min-width: 20%; }  //centers middle child
+body >footer >div:first-child:last-child { width: 100%; }
+body >footer >div:first-child:not(:last-child) { text-align: left; }
+body >footer >div:last-child:not(:first-child) { text-align: right; }
+body >footer a img[alt=logo] { height: 50px; }
+h1 { font-size: 2.5rem; font-family: Chango, system-ui, sans-serif; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.2rem; }
+h4 { font-size: 0.9rem; font-weight: normal; text-transform: uppercase; letter-spacing: 0.14em; }
+h1+h2 { font-weight: lighter; text-shadow: 0px 0px 0.2em white; margin: -0.2em 0px 0.4em 0px; }
+quoteblock:before { content: open-quote; }
+quoteblock:after  { content: close-quote; }
+i.font-icon { font-size: 1.5em; }
+
+// Responsive design
+.MobileMode({
+   h1 { font-size: 2.0rem; }
+   h1+h2 { font-size: 1.3rem; }
+   main section aside,
+   main section aside.left { clear: both; float: none; max-width: none; text-align: center; margin: 0px 0px 20px 0px; }
+   main section aside img { width: auto; max-height: 200px }
+   body { padding: 20px 10px; }
+   body >footer { flex-direction: column; padding: 20px 2px; }
+   body >footer >div { text-align: center !important; }
+   body >footer >*:not(:last-child) { margin-bottom: 15px; }
+   });

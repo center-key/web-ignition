@@ -1,0 +1,116 @@
+// LibX
+
+@import "static/utility-box";
+
+.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 500ms; cursor: pointer; }
+.reveal-button:hover { color: white; border-color: transparent; }
+.reveal-target       { display: none; margin-bottom: 20px; }
+
+[data-href-popup] { cursor: pointer; }
+
+i.font-icon[data-href], i.font-icon[data-click] { opacity: 0.9; transition: all 500ms; }
+i.font-icon[data-href]:hover, i.font-icon[data-click]:hover { opacity: 1.0; }
+
+@keyframes jiggle-it {  //'jiggle-it 200ms 3'
+   0%  { transform: rotate(-10deg); }
+   50% { transform: rotate( 10deg); }
+   }
+
+// Bubble help
+//    <button class=bubble-help-hover>
+//       Hover over me
+//       <span class=bubble-wrap>
+//          <span class=bubble-help>Help!</span>
+//          <span class=bubble-pointer>▼</span>
+//       </span>
+//    </button>
+.bubble-help {
+   display: none;
+   }
+.bubble-help-hover {
+   position: relative;
+   &.bubble-help-show {
+      >.bubble-wrap {
+         opacity: 1;
+         }
+      }
+   >.bubble-wrap {
+      position: absolute;
+      top: 5px;  //let pointer slightly overlap hover target
+      left: 0px;
+      transform: translateY(-100%);  //sit directly on top of target
+      font-family: system-ui, sans-serif;
+      font-size: 0.8rem;
+      font-weight: bold;
+      pointer-events: none;
+      z-index: 200;
+      opacity: 0;
+      transition: opacity 600ms 300ms;  //300ms delay to prevent flicker
+      >.bubble-help {
+         display: block;
+         white-space: nowrap;
+         border-radius: 5px;
+         padding: 10px 20px;
+         }
+      >.bubble-pointer {
+         display: block;
+         font-size: 120%;
+         text-align: left;
+         padding-left: 12px;
+         margin-top: -0.4em;
+         }
+      }
+   }
+
+
+// Social buttons
+#social-buttons span i.font-icon {
+   display: inline-block;
+   width: 24px;
+   height: 24px;
+   line-height: 24px;
+   font-size: 18px;
+   vertical-align: top;
+   text-align: center;
+   color: dimgray;
+   background-color: white;
+   border: 1px solid silver;
+   border-radius: 0.2em;
+   transition: all 500ms;
+   &:not(:last-child) {
+      margin-right: 8px;
+      }
+   &:hover {
+      color: cornflowerblue;
+      box-shadow: 0px 0px 0.4em skyblue;
+      }
+   }
+
+// Popup image
+img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 500ms; cursor: pointer; }
+img.popup-image:hover, img[data-popup-image]:hover { opacity: 1 }
+img.popup-image + .popup-image-layer { position: absolute; top: 10px; left: 10px; background-color: white; z-index: 5000; opacity: 0; }
+img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 500ms; }
+img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
+img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
+
+// Montage loop
+.montage-loop {
+   position: relative;
+   }
+.montage-loop >img {
+   position: absolute;
+   display: block;
+   object-fit: cover;
+   width: 100%;
+   height: 100%;
+   opacity: 0;
+   }
+.montage-loop >img.previous {
+   opacity: 1;
+   z-index: 1000;
+   }
+.montage-loop >img.current {
+   opacity: 1;
+   z-index: 2000;
+   }

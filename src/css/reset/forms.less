@@ -1,0 +1,105 @@
+// Forms and Input Controls
+
+@import "static/utility-box";
+
+form, fieldset, label {
+   display: block;
+   max-width: 25em;
+   margin-bottom: 1em;
+   &:last-child {
+      margin-bottom: 0px;
+      }
+   }
+label >span:first-child { display: block; }
+input, textarea, select, fieldset >aside { width: 100%; max-width: 25em; font-size: 1.1em; }
+input, textarea { border: 1px solid silver; border-radius: 5px; padding: 0.3em; }
+select { font-size: 1.1em; }
+textarea { height: 4.1em; }  //display 3 lines
+label:has(input[type=checkbox],input[type=radio]) { display: flex; align-items: center; padding-left: 1.2em; margin-bottom: 0.1em; }
+label:has(:disabled) { opacity: 0.7; }
+input[type=checkbox], input[type=radio] { width: auto; margin-right: 0.3em; }
+input[type=range] { appearance: none; height: 1.2em; padding: 0px; cursor: grab; }
+input[type=range]:active { cursor: grabbing; }
+button, input[type=checkbox], input[type=radio], input[type=file], select { cursor: pointer; }
+button, input, select, optgroup, option, textarea { transition: all 500ms; }
+*:disabled { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+input:out-of-range { background-color: pink; }
+form nav, fieldset nav { text-align: right; margin-bottom: 1em; }
+form nav:last-child, fieldset nav:last-child { margin-bottom: 0px; }
+form nav button, fieldset nav button { margin-left: 0.5em; }
+
+// Form colors
+input, textarea { background-color: mintcream; }
+
+// Flat buttons
+button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 500ms; }
+button i.font-icon { font-size: 1.2em; vertical-align: top; padding-right: 0.4em; }
+button:disabled    { background-color: silver; }
+
+// Drop-down selectors
+//    <label>
+//       <span>Color:</span>
+//       <select>
+//          <option>Plum</option>
+///         <option>Pink</option>
+//       </select>
+//    </label>
+label:has(select) {
+   position: relative;
+   text-align: left;
+   padding: 0px;
+   &::after {
+      content: @symbolAngleRight;  //character: ❯
+      position: absolute;
+      top: 0.1em;  //assume no label text above drop-down
+      right: 0.4em;
+      font-size: 1.5em;
+      transform: rotate(90deg);  //point down
+      pointer-events: none;
+      }
+   span {
+      }
+   select {
+      appearance: none;
+      color: black;
+      background-color: mintcream;
+      border: 1px solid silver;
+      padding: 0.3em 2.0em 0.3em 0.5em;
+      margin: 0px;
+      &:focus {
+         background-color: honeydew;
+         }
+      &:invalid {
+         color: firebrick;
+         }
+      }
+   &:has(span+select)::after { top: auto; bottom: 0.03em; }  //label text above drop-down
+   }
+
+// Fieldsets (unless for checkbox or radio buttons)
+//    <fieldset>
+//       <legend>Survey</legend>
+//       <lable><span>Name:</span><input></label>
+//    </fieldset>
+fieldset {
+   border: 1px solid silver;
+   border-radius: 5px;
+   padding: 0.8em 1.0em;
+   &:has(>label>input[type=checkbox],>label>input[type=radio]) {
+      border: none;
+      padding: 0px;
+      >legend {
+         font-size: 1em;
+         font-weight: normal;
+         border: none;
+         padding: 0px;
+         }
+      }
+   >legend {
+      font-size: 1.1em;
+      font-weight: bold;
+      border: 1px solid silver;
+      border-radius: 1000px;
+      padding: 0.3em 1.0em;
+      }
+   }
