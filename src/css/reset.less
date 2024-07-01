@@ -137,8 +137,8 @@ label:has(select) {
    &::after {
       content: @symbolAngleRight;  //character: ❯
       position: absolute;
+      top: 0.1em;  //assume no label text above drop-down
       right: 0.4em;
-      bottom: 0.03em;
       font-size: 1.5em;
       transform: rotate(90deg);  //point down
       pointer-events: none;
@@ -159,7 +159,7 @@ label:has(select) {
          color: firebrick;
          }
       }
-   &:has(select+span)::after { top: 0.1em; bottom: auto; }  //label text below drop-down
+   &:has(span+select)::after { top: auto; bottom: 0.03em; }  //label text above drop-down
    }
 
 // Fieldsets (unless for checkbox or radio buttons)
