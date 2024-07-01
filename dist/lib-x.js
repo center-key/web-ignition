@@ -1,4 +1,4 @@
-//! web-ignition v2.2.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -842,7 +842,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.2.5',
+    version: '2.2.6',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
