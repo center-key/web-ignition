@@ -1,7 +1,7 @@
 {
    "name": "web-ignition",
    "description": "Start a fire",
-   "version": "2.2.6",
+   "version": "2.2.7",
    "license": "MIT",
    "type": "module",
    "module": "dist/lib-x.js",
@@ -98,12 +98,12 @@
    "dependencies": {
       "dna-engine": "~3.2",
       "fetch-json": "~3.3",
-      "highlight.js": "~11.9",
+      "highlight.js": "~11.10",
       "hljs-enhance": "~2.0"
    },
    "devDependencies": {
-      "@eslint/js": "~9.6",
-      "@fortawesome/fontawesome-free": "~6.5",
+      "@eslint/js": "~9.7",
+      "@fortawesome/fontawesome-free": "~6.6",
       "@types/node": "~20.14",
       "add-dist-header": "~1.4",
       "assert-deep-strict-equal": "~1.2",
@@ -114,13 +114,13 @@
       "esm-to-plain-js": "~1.1",
       "jshint": "~2.13",
       "less": "~4.2",
-      "mocha": "~10.5",
+      "mocha": "~10.6",
       "replacer-util": "~1.3",
-      "rimraf": "~5.0",
-      "run-scripts-util": "~1.2",
+      "rimraf": "~6.0",
+      "run-scripts-util": "~1.3",
       "typescript": "~5.5",
-      "typescript-eslint": "~7.14",
-      "uglify-js": "~3.18",
+      "typescript-eslint": "~7.16",
+      "uglify-js": "~3.19",
       "w3c-html-validator": "~1.8"
    }
 }

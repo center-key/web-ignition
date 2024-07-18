@@ -1,13 +1,25 @@
-// Forms
+// Utilities Classes
 
 @import "static/utility-box";
 
 // Flex columns
-.flex-columns    { display: flex; margin-bottom: 20px; }
-.flex-columns >* { flex: 1; padding: 0px 15px; margin-bottom: 20px; }
-.flex-columns >*:first-child { padding-left: 0px; }
-.flex-columns >*:last-child  { padding-right: 0px; }
-.MobileMode({ .flex-columns { flex-direction: column; } .flex-columns >* { padding: 0px; } });
+.flex-columns {
+   display: flex;
+   .MobileMode({ flex-direction: column; });
+   margin-bottom: 20px;
+   >* {
+      flex: 1;
+      padding: 0px 15px;
+      .MobileMode({ padding: 0px; });
+      margin-bottom: 20px;
+      &:first-child {
+         padding-left: 0px;
+         }
+      &:last-child {
+         padding-right: 0px;
+         }
+      }
+   }
 
 // Utilities (substitute for mixins on web pages without less)
 .keep-together       { white-space: nowrap; }
