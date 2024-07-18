@@ -97,7 +97,7 @@ body >header img {  /* floating avatar */
 main >section {
    text-align: center;
    background-color: white;
-   padding: 50px 0px;
+   padding: 50px 0px 60px 0px;
    margin-bottom: 0px;
    }
 main >section[data-background] {
@@ -131,7 +131,10 @@ main >section >* {
    max-width: 800px;
    min-width: 250px;
    padding: 0px 10px;
-   margin: 0px auto 20px auto;
+   margin: 0px auto 30px auto;
+   }
+main >section >*:last-child {
+   margin-bottom: 0px;
    }
 main >section >div {  /* centered flow box */
    display: flex;
