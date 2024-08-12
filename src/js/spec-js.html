@@ -42,7 +42,7 @@
          actual.textContent =   JSON.stringify(libX.counter.list());
          expected.textContent = JSON.stringify({ default: 2, x: 100 });
          const expectedHash = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
-         const throwBadHash = (hash) => globalThis.setTimeout(() => { throw Error('Bad hash: ' + hash); });
+         const throwBadHash = (hash) => globalThis.setTimeout(() => { throw new Error('Bad hash: ' + hash); });
          libX.crypto.hash('My secret').then(hash => hash === expectedHash || throwBadHash(hash));
          globalThis.document.querySelectorAll('.montage-loop').forEach(
             holder => libX.animate.montageLoop(holder, { intervalMsec: 5000 }));
@@ -170,7 +170,9 @@
          <label>
             <span>Hash:</span>
             <input data-on-smart-update=hashIt placeholder="Enter your secret">
-            <a href=https://emn178.github.io/online-tools/sha256.html class=external-site><i data-icon=info></i></a>
+            <a href=https://emn178.github.io/online-tools/sha256.html class=external-site>
+               <i data-icon=circle-info></i>
+            </a>
          </label>
          <pre><output>&nbsp;</output></pre>
       </div>

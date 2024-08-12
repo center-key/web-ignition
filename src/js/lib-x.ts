@@ -79,7 +79,7 @@ const libXDom = {
          libX.dom.stateDepot[Number(data.libXState)] = {};
       return elem;
       },
-   create<K extends keyof HTMLElementTagNameMap | string>(tag: K, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
+   createCustom(tag: string, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
          elem.id = options.id;
@@ -102,7 +102,32 @@ const libXDom = {
       if (options?.subTags)
          options.subTags.forEach(
             subTag => elem.appendChild(globalThis.document.createElement(subTag)));
-      return <K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement>elem;
+      return elem;
+      },
+   create(tag: keyof HTMLElementTagNameMap, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
+      const elem = globalThis.document.createElement(tag);
+      if (options?.id)
+         elem.id = options.id;
+      if (options?.class)
+         elem.classList.add(options.class);
+      if (options?.href)
+         (<HTMLAnchorElement>elem).href = options.href;
+      if (options?.html)
+         elem.innerHTML = options.html;
+      if (options?.name)
+         (<HTMLInputElement>elem).name = options.name;
+      if (options?.rel)
+         (<HTMLLinkElement>elem).rel = options.rel;
+      if (options?.src)
+         (<HTMLImageElement>elem).src = options.src;
+      if (options?.text)
+         elem.textContent = options.text;
+      if (options?.type)
+         (<HTMLInputElement>elem).type = options.type;
+      if (options?.subTags)
+         options.subTags.forEach(
+            subTag => elem.appendChild(globalThis.document.createElement(subTag)));
+      return elem;
       },
    select(selector: string): HTMLElement | null {
       return globalThis.document.body.querySelector(selector);
@@ -112,7 +137,8 @@ const libXDom = {
       },
    hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean {
       // Returns true if any of the elements in the given list have the specified class.
-      return Array.prototype.some.call(elems, elem => elem.classList.contains(className));
+      const elemHas = (elem: Element) => elem.classList.contains(className);
+      return Array.prototype.some.call(elems, elemHas);
       },
    toggleClass(elem: Element, className: string, state?: boolean): Element {
       // Adds or removes an element class.
@@ -130,7 +156,8 @@ const libXDom = {
       },
    addClass<T extends Element[] | HTMLCollection | NodeListOf<Element>>(elems: T, className: string): T {
       // Adds the specified class to each of the elements in the given list.
-      Array.prototype.forEach.call(elems, elem => elem.classList.add(className));
+      const addToElem = (elem: Element) => elem.classList.add(className);
+      Array.prototype.forEach.call(elems, addToElem);
       return elems;
       },
    forEach<T extends HTMLCollection>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T {
@@ -144,21 +171,22 @@ const libXDom = {
       },
    filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[] {
       // Filters a list of elements.
-      return Array.prototype.filter.call(elems, fn);
+      return Array.prototype.filter.call(elems, fn);  //eslint-disable-line
       },
    filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[] {
       // Returns direct child elements filtered by the specified selector.
-      return Array.prototype.filter.call(elems, elem => elem.matches(selector));
+      const elemMatches = (elem: Element) => elem.matches(selector);
+      return <Element[]>Array.prototype.filter.call(elems, elemMatches);
       },
    filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[] {
       // Returns direct child elements filtered by one or more class names.
       const hasClass = (elem: Element) => elem.classList.contains(classNames[0]!);
-      const filtered = Array.prototype.filter.call(elems, hasClass);
+      const filtered = <Element[]>Array.prototype.filter.call(elems, hasClass);
       return classNames.length === 1 ? filtered : libX.dom.filterByClass(filtered, ...classNames.splice(1));
       },
    find(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null {
       // Finds the first element that satisfies the given condition.
-      return Array.prototype.find.call(elems, fn) ?? null;
+      return <Element | undefined>Array.prototype.find.call(elems, fn) ?? null;
       },
    index(elem: Element): number {
       // Returns the index of element within its container (relative to all its sibling elements).
@@ -176,12 +204,13 @@ const libXDom = {
       },
    findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number {
       // Returns the location of the first matching element within an array of elements.
-      return Array.prototype.findIndex.call(elems, (elem) => elem.matches(selector));
+      const elemMatches = (elem: Element) => elem.matches(selector);
+      return Array.prototype.findIndex.call(elems, elemMatches);
       },
    isElem(elem: unknown): boolean {
       return !!elem && typeof elem === 'object' && !!(<Element>elem).nodeName;
       },
-   getAttrs(elem: Element): Attr[] {
+   getAttrs(elem?: Element): Attr[] {
       // Returns the attributes of the element in a regular array.
       return elem ? Object.values(elem.attributes) : [];
       },
@@ -192,14 +221,15 @@ const libXDom = {
       return <HTMLElement>(libX.dom.isElem(elemOrEvent) ? elemOrEvent : (<Event>elemOrEvent).target);
       },
    on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>) {
-      // See types: https://developer.mozilla.org/en-US/docs/Web/Events
-      const defaults = { keyFilter: null, selector: null };
-      const settings = { ...defaults, ...options };
+      // type ->      https://developer.mozilla.org/en-US/docs/Web/Events
+      // keyFilter -> https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
+      const defaults =   { keyFilter: null, selector: null };
+      const settings =   { ...defaults, ...options };
       const noFilter =   !settings.keyFilter;
       const noSelector = !settings.selector;
       const delegator = (event: Event) => {
-         const target = <Element>event.target;
-         const elem =   !target || noSelector ? target : <Element>target.closest(settings.selector!);
+         const target = <Element | null>event.target;
+         const elem =   !target || noSelector ? target : target.closest(settings.selector!);
          if (elem && (noFilter || settings.keyFilter === (<KeyboardEvent>event).key))
             listener(elem, event, settings.selector);
          };
@@ -249,10 +279,11 @@ const libXDom = {
       // matching the selector.
       let ready = true;
       const delegator = (event: Event) => {
-         const target = <Element>(<Element>event.target)?.closest(selector);
-         if (target !== null && ready)
-            listener(target, event, selector);
-         ready = target === null;
+         const target = <Element | null>event.target;
+         const elem =   target?.closest(selector);
+         if (elem && ready)
+            listener(elem, event, selector);
+         ready = elem === null;
          };
       globalThis.document.addEventListener('pointerover', delegator);
       },
@@ -262,11 +293,12 @@ const libXDom = {
       let ready = false;
       let prevTarget: Element | null = null;
       const delegator = (event: Event) => {
-         const target = <Element>(<Element>event.target)?.closest(selector);
-         prevTarget = target ?? prevTarget;
-         if (target === null && ready)
+         const target = <Element | null>event.target;
+         const elem =   target?.closest(selector);
+         prevTarget = elem ?? prevTarget;
+         if (elem === null && ready)
             listener(prevTarget!, event, selector);
-         ready = target !== null;
+         ready = elem !== null;
          };
       globalThis.document.addEventListener('pointerover', delegator);
       },
@@ -274,8 +306,9 @@ const libXDom = {
       // Calls the specified function once the web page is loaded and ready.
       // Example (execute myApp.setup() as soon as the DOM is interactive):
       //    libX.dom.onReady(myApp.setup);
-      const state = globalThis.document ? globalThis.document.readyState : 'browserless';
-      if (state === 'browserless' && !options?.quiet)
+      const browserless = <boolean>!globalThis.document;
+      const state =       browserless ? 'browserless' : globalThis.document.readyState;
+      if (browserless && !options?.quiet)
          console.log(new Date().toISOString(), 'Callback run in browserless context');
       if (['complete', 'browserless'].includes(state))
          callback();
@@ -484,12 +517,13 @@ const libXUi = {
       //    LibX detects dna-engine and automatically runs: dna.registerInitializer(libX.ui.makeIcons))
       const iconify = (isBrand: boolean) => (icon: Element) => {
          const data = (<HTMLElement>icon).dataset;
+         const name = isBrand ? data.brand! : data.icon!;
          icon.classList.add('font-icon');
          icon.classList.add(isBrand ? 'fab' : 'fas');
-         icon.classList.add('fa-' + (isBrand ? data.brand : data.icon));
+         icon.classList.add('fa-' + name);
          };
-      container.matches('i[data-icon]') &&  iconify(false)(container);
-      container.matches('i[data-brand]') && iconify(true)(container);
+      if (container.matches('i[data-icon]'))  iconify(false)(container);
+      if (container.matches('i[data-brand]')) iconify(true)(container);
       container.querySelectorAll('i[data-icon]').forEach(iconify(false));
       container.querySelectorAll('i[data-brand]').forEach(iconify(true));
       return container;
@@ -510,16 +544,16 @@ const libXUi = {
    displayAddr(container: Element = globalThis.document.body): Element {
       // Usage:
       //    <p class=display-addr data-name=sales data-domain=ibm.com></p>
-      const display = (elem: Element) =>
-         elem.innerHTML = (<HTMLElement>elem).dataset.name + '<span>' + String.fromCharCode(64) +
-            (<HTMLElement>elem).dataset.domain + '</span>';
+      const build = (elem: Element, data: DOMStringMap) =>
+         `${data.name}<span>${String.fromCharCode(64)}${data.domain}</span>`;
+      const display = (elem: Element) => elem.innerHTML = build(elem, (<HTMLElement>elem).dataset);
       libX.dom.forEach(container.getElementsByClassName('display-addr'), display);
       return container;
       },
    popup(url: string, options?: Partial<LibXUiPopupSettings>): Window | null {
-      const defaults = { width: 600, height: 400 };
-      const settings = { ...defaults, ...options };
-      const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
+      const defaults =   { width: 600, height: 400 };
+      const settings =   { ...defaults, ...options };
+      const dimensions = `left=200,top=100,width=${settings.width},height=${settings.height}`;
       return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
       },
    popupClick(elem: Element): Window | null {
@@ -535,7 +569,8 @@ const libXUi = {
       //    <div class=reveal-button data-reveal=more>More...</div>
       //    <div class=reveal-target data-reveal=more>Surprise!</div>
       const button =     <HTMLElement>elem.closest('.reveal-button');
-      const findTarget = () => libX.dom.select('.reveal-target[data-reveal="' + button.dataset.reveal + '"]');
+      const selector =   `.reveal-target[data-reveal="${button.dataset.reveal}"]`;
+      const findTarget = () => libX.dom.select(selector);
       const target =     button.dataset.reveal ? findTarget() : button.nextElementSibling;
       libX.ui.slideFadeIn(target!);
       return button;
@@ -623,21 +658,21 @@ const libXUi = {
       //    <body>
       //       <header>
       //          <a id=fork-me href=https://github.com/org/proj>Fork me on GitHub</a>
-      const forkMe = <HTMLAnchorElement>globalThis.document.getElementById('fork-me');
+      const forkMe = globalThis.document.getElementById('fork-me');
       const wrap = () => {
          const header =       forkMe!.parentElement!;
          const container =    libX.dom.create('div');
          container.id =       'fork-me-container';
          const icon =         libX.dom.create('i');
          icon.dataset.brand = 'github';
-         icon.dataset.href =  forkMe.href;
-         container.appendChild(forkMe);
+         icon.dataset.href =  (<HTMLAnchorElement>forkMe).href;
+         container.appendChild(forkMe!);
          container.appendChild(libX.ui.makeIcons(icon));
          return header.appendChild(container);
          };
       return forkMe ? wrap() : null;
       },
-   getComponent(elem: Element): Element | null {
+   getComponent(elem?: Element): Element | null {
       // Returns the component (container element with a <code>data-component</code> attribute) to
       // which the element belongs.
       return elem?.closest('[data-component]') ?? null;
@@ -660,11 +695,11 @@ const libXUtil = {
       //    libX.util.removeWhitespace('a b \t\n c') === 'abc';
       return text.replace(/\s/g, '');
       },
-   assert(ok: boolean | unknown, message: string, info: unknown): void {
-      // Oops, file a tps report.
+   assert(ok: unknown, message: string, info: unknown): void {
+      // Oops, file a tps report if "ok" is falsey.
       const quoteStr = (info: unknown) => typeof info === 'string' ? `"${info}"` : String(info);
       if (!ok)
-         throw Error(`[dna-engine] ${message} --> ${quoteStr(info)}`);
+        throw new Error(`[web-ignition] ${message} --> ${quoteStr(info)}`);
       },
    };
 
@@ -715,7 +750,8 @@ const libXStorage = {
    dbRead(key: string): LibXObject {
       // Usage:
       //    const profile = libX.storage.dbSave('profile');
-      return globalThis.localStorage[key] === undefined ? {} : JSON.parse(globalThis.localStorage[key]);
+      const value = <string | undefined>globalThis.sessionStorage[key];
+      return value ? <LibXObject>JSON.parse(value) : {};
       },
    sessionSave(key: string, obj: LibXObject): LibXObject {
       // Usage:
@@ -726,18 +762,19 @@ const libXStorage = {
    sessionRead(key: string): LibXObject {
       // Usage:
       //    const editorSettings = libX.storage.sessionSave('editor-settings');
-      return globalThis.sessionStorage[key] === undefined ? {} : JSON.parse(globalThis.sessionStorage[key]);
+      const value = <string | undefined>globalThis.sessionStorage[key];
+      return value ? <LibXObject>JSON.parse(value) : {};
       },
    };
 
 const libXCounter = {
    key: 'counters',
    list(): LibXCounterMap {
-      const counters = sessionStorage[libX.counter.key];
-      return counters ? JSON.parse(counters) : {};
+      const counters = <string | undefined>sessionStorage[libX.counter.key];
+      return counters ? <LibXCounterMap>JSON.parse(counters) : {};
       },
    get(name = 'default'): number {
-      const counters = <LibXCounterMap>libX.counter.list();
+      const counters = libX.counter.list();
       return counters[name] || 0;
       },
    set(count = 0, name = 'default'): number {
@@ -759,17 +796,18 @@ const libXBrowser = {
       const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
-         const platform =   <keyof typeof platforms>globalThis.navigator.platform;
+         const platform =   globalThis.navigator.platform;
          const mac =        hasTouch ? 'iOS' : 'macOS';
-         const platforms =  { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
+         const platforms: { [platform: string]: string} =
+            { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
          return {
-            brands:   [{ brand: brandEntry?.[0] ?? '', version: brandEntry?.[1] ?? '' }],
+            brands:   [{ brand: brandEntry[0] ?? '', version: brandEntry[1] ?? '' }],
             mobile:   hasTouch || /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
             platform: platforms[platform] ?? platform,
             };
          };
-      const navigatorUAData = <unknown>globalThis.navigator[<keyof Navigator>'userAgentData'];
-      return <NavigatorUAData>navigatorUAData ?? polyfill();
+      const uaData = <unknown>globalThis.navigator[<keyof Navigator>'userAgentData'];
+      return <NavigatorUAData>(uaData ?? polyfill());
       },
    iOS(): boolean {
       return libX.browser.userAgentData().platform === 'iOS';
@@ -797,11 +835,12 @@ const libXPopupImage = {
          thumbnail.nextElementSibling.remove();
       const data =       (<HTMLElement>thumbnail).dataset;
       const width =      data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
+      const maxWidth =   Math.min(width, globalThis.window.innerWidth - gap);
       const src =        data.popupImage ?? (<HTMLImageElement>thumbnail).src;
       const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
       const popupImg =   libX.dom.create('img', { src: src });
       const closeIcon =  libX.dom.create('i');
-      popupImg.style.maxWidth = Math.min(width, globalThis.window.innerWidth - gap) + 'px';
+      popupImg.style.maxWidth = String(maxWidth) + 'px';
       closeIcon.dataset.icon = 'times';
       libX.ui.makeIcons(closeIcon);
       popupLayer.appendChild(popupImg);
@@ -825,10 +864,10 @@ const libXAnimate = {
       //    libX.animate.jiggleIt(elem);
       // Usage in dna-engine:
       //    <img src=logo.svg data-on-click=libX.animate.jiggleIt alt=logo>
-      const elem = libX.dom.toElem(elemOrEvent);
+      const elem =        libX.dom.toElem(elemOrEvent);
       const animatation = 'jiggle-it 200ms 3';  //keyframes duration iterations
-      const style =       (<HTMLElement>elem).style;
-      style.animation = 'none';
+      const style =       elem.style;
+      style.animation =   'none';
       globalThis.requestAnimationFrame(() => style.animation = animatation);
       const cleanup = () => {
          style.removeProperty('animation');
@@ -1035,16 +1074,6 @@ const libXExtra = {
       globalThis.blogger.ui().addListener('updated', () => delayed(800));   //hack to let page load
       globalThis.blogger.ui().addListener('updated', () => delayed(2000));  //2nd try to make sure
       },
-   gTags(scriptTag: HTMLScriptElement): void {
-      // Google Tracking
-      // Usage:
-      //    <script src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID" async data-on-load=libX.extra.gTags></script>
-      const trackingID = scriptTag.src.split('=')[1];
-      globalThis.dataLayer = globalThis.dataLayer || [];
-      function gtag(...args: unknown[]) { globalThis.dataLayer.push(args); }
-      gtag('js', new Date());
-      gtag('config', trackingID);
-      },
    };
 
 const libX = {
@@ -1066,7 +1095,10 @@ const libX = {
    initialize(): void {
       globalThis.libX = libX;
       const initializeDna = () => {
-         const dna = globalThis[<GlobalKey>'dna'];
+         type DnaFn =      (container?: Element) => Element;
+         type DnaOptions = { onDomReady: boolean };
+         type Dna =        { registerInitializer: (fn: DnaFn, options: DnaOptions) => void };
+         const dna = <Dna>globalThis[<GlobalKey>'dna'];
          dna.registerInitializer(libX.ui.makeIcons, { onDomReady: false });
          dna.registerInitializer(libX.ui.normalize, { onDomReady: false });
          };
