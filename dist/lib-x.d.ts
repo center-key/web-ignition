@@ -1,4 +1,4 @@
-//! web-ignition v2.2.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -90,7 +90,7 @@ declare const libX: {
             [key: symbol]: unknown;
         };
         removeState(elem: Element): Element;
-        create<K extends keyof HTMLElementTagNameMap | string>(tag: K, options?: {
+        createCustom(tag: string, options?: {
             id?: string;
             subTags?: string[];
             class?: string;
@@ -101,7 +101,19 @@ declare const libX: {
             src?: string;
             text?: string;
             type?: string;
-        }): K extends keyof HTMLElementTagNameMap ? HTMLElementTagNameMap[K] : HTMLElement;
+        }): HTMLElement;
+        create(tag: keyof HTMLElementTagNameMap, options?: {
+            id?: string;
+            subTags?: string[];
+            class?: string;
+            href?: string;
+            html?: string;
+            name?: string;
+            rel?: string;
+            src?: string;
+            text?: string;
+            type?: string;
+        }): HTMLElement | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement | HTMLAnchorElement | HTMLScriptElement | HTMLEmbedElement | HTMLFormElement | HTMLHeadElement | HTMLAreaElement | HTMLObjectElement | HTMLLinkElement | HTMLMapElement | HTMLInputElement | HTMLBaseElement | HTMLTimeElement | HTMLDataElement | HTMLProgressElement | HTMLTrackElement | HTMLSourceElement | HTMLButtonElement | HTMLAudioElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLFieldSetElement | HTMLHeadingElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLSelectElement | HTMLSlotElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTitleElement | HTMLTableRowElement | HTMLUListElement;
         select(selector: string): HTMLElement | null;
         selectAll(selector: string): HTMLElement[];
         hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean;
@@ -118,7 +130,7 @@ declare const libX: {
         indexOf(elems: NodeListOf<Element>, elem: Element): number;
         findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number;
         isElem(elem: unknown): boolean;
-        getAttrs(elem: Element): Attr[];
+        getAttrs(elem?: Element): Attr[];
         toElem(elemOrEvent: Element | Event): HTMLElement;
         on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>): void;
         onClick(listener: LibXEventListener, selector?: string): void;
@@ -166,13 +178,13 @@ declare const libX: {
         loadImageFadeIn(elem: Element, url: string, duration?: number): Promise<Element>;
         setupVideos(): void;
         setupForkMe(): Element | null;
-        getComponent(elem: Element): Element | null;
+        getComponent(elem?: Element): Element | null;
     };
     util: {
         cleanupEmail(email: string): string | null;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
-        assert(ok: boolean | unknown, message: string, info: unknown): void;
+        assert(ok: unknown, message: string, info: unknown): void;
     };
     nav: {
         setupLinkMenu(): HTMLElement | null;
@@ -222,7 +234,6 @@ declare const libX: {
     };
     extra: {
         blogger(websiteUrl: string): void;
-        gTags(scriptTag: HTMLScriptElement): void;
     };
     initialize(): void;
 };

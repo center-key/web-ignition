@@ -1,4 +1,4 @@
-/*! web-ignition v2.2.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.2.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -8,11 +8,11 @@ Usage:
    <style>
       body >header nav a { color: white; text-shadow: 0px 0px 0.6em black; }
       body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
-      body >header { background-image: url(bkgnd.jpg); }
+      body >header { background-image: url(background-banner.jpg); }
       body main >section[data-background=cat] { background-image: url(cat.jpg); }
    </style>
 HTML (<body>):
-   header
+   header.responsive-avatar
       nav
          a.current
       h1, h2, h4, img[alt=avatar]
@@ -226,12 +226,14 @@ body >footer i[data-brand] {
 
 /* Mobile devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
-   body >header img {
-      bottom: -50px;
-      width: 100px;
-      }
-   main >section:first-child {
-      padding-top: 80px;
+   body >header.responsive-avatar {
+      img {
+         bottom: -50px;
+         width: 100px;
+         }
+      &+main >section:first-child {
+         padding-top: 80px;
+         }
       }
    }
 /******************************************************************************/

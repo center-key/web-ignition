@@ -1,4 +1,4 @@
-//! web-ignition v2.2.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -29,6 +29,30 @@ const libXDom = {
         const data = elem.dataset;
         if (data.libXState)
             libX.dom.stateDepot[Number(data.libXState)] = {};
+        return elem;
+    },
+    createCustom(tag, options) {
+        const elem = globalThis.document.createElement(tag);
+        if (options?.id)
+            elem.id = options.id;
+        if (options?.class)
+            elem.classList.add(options.class);
+        if (options?.href)
+            elem.href = options.href;
+        if (options?.html)
+            elem.innerHTML = options.html;
+        if (options?.name)
+            elem.name = options.name;
+        if (options?.rel)
+            elem.rel = options.rel;
+        if (options?.src)
+            elem.src = options.src;
+        if (options?.text)
+            elem.textContent = options.text;
+        if (options?.type)
+            elem.type = options.type;
+        if (options?.subTags)
+            options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
         return elem;
     },
     create(tag, options) {
@@ -62,7 +86,8 @@ const libXDom = {
         return [...globalThis.document.body.querySelectorAll(selector)];
     },
     hasClass(elems, className) {
-        return Array.prototype.some.call(elems, elem => elem.classList.contains(className));
+        const elemHas = (elem) => elem.classList.contains(className);
+        return Array.prototype.some.call(elems, elemHas);
     },
     toggleClass(elem, className, state) {
         if (state === undefined ? !elem.classList.contains(className) : state)
@@ -77,7 +102,8 @@ const libXDom = {
         return elem;
     },
     addClass(elems, className) {
-        Array.prototype.forEach.call(elems, elem => elem.classList.add(className));
+        const addToElem = (elem) => elem.classList.add(className);
+        Array.prototype.forEach.call(elems, addToElem);
         return elems;
     },
     forEach(elems, fn) {
@@ -91,7 +117,8 @@ const libXDom = {
         return Array.prototype.filter.call(elems, fn);
     },
     filterBySelector(elems, selector) {
-        return Array.prototype.filter.call(elems, elem => elem.matches(selector));
+        const elemMatches = (elem) => elem.matches(selector);
+        return Array.prototype.filter.call(elems, elemMatches);
     },
     filterByClass(elems, ...classNames) {
         const hasClass = (elem) => elem.classList.contains(classNames[0]);
@@ -114,7 +141,8 @@ const libXDom = {
         return Array.prototype.indexOf.call(elems, elem);
     },
     findIndex(elems, selector) {
-        return Array.prototype.findIndex.call(elems, (elem) => elem.matches(selector));
+        const elemMatches = (elem) => elem.matches(selector);
+        return Array.prototype.findIndex.call(elems, elemMatches);
     },
     isElem(elem) {
         return !!elem && typeof elem === 'object' && !!elem.nodeName;
@@ -180,10 +208,11 @@ const libXDom = {
     onHoverIn(listener, selector) {
         let ready = true;
         const delegator = (event) => {
-            const target = event.target?.closest(selector);
-            if (target !== null && ready)
-                listener(target, event, selector);
-            ready = target === null;
+            const target = event.target;
+            const elem = target?.closest(selector);
+            if (elem && ready)
+                listener(elem, event, selector);
+            ready = elem === null;
         };
         globalThis.document.addEventListener('pointerover', delegator);
     },
@@ -191,17 +220,19 @@ const libXDom = {
         let ready = false;
         let prevTarget = null;
         const delegator = (event) => {
-            const target = event.target?.closest(selector);
-            prevTarget = target ?? prevTarget;
-            if (target === null && ready)
+            const target = event.target;
+            const elem = target?.closest(selector);
+            prevTarget = elem ?? prevTarget;
+            if (elem === null && ready)
                 listener(prevTarget, event, selector);
-            ready = target !== null;
+            ready = elem !== null;
         };
         globalThis.document.addEventListener('pointerover', delegator);
     },
     onReady(callback, options) {
-        const state = globalThis.document ? globalThis.document.readyState : 'browserless';
-        if (state === 'browserless' && !options?.quiet)
+        const browserless = !globalThis.document;
+        const state = browserless ? 'browserless' : globalThis.document.readyState;
+        if (browserless && !options?.quiet)
             console.log(new Date().toISOString(), 'Callback run in browserless context');
         if (['complete', 'browserless'].includes(state))
             callback();
@@ -394,12 +425,15 @@ const libXUi = {
     makeIcons(container = globalThis.document.body) {
         const iconify = (isBrand) => (icon) => {
             const data = icon.dataset;
+            const name = isBrand ? data.brand : data.icon;
             icon.classList.add('font-icon');
             icon.classList.add(isBrand ? 'fab' : 'fas');
-            icon.classList.add('fa-' + (isBrand ? data.brand : data.icon));
+            icon.classList.add('fa-' + name);
         };
-        container.matches('i[data-icon]') && iconify(false)(container);
-        container.matches('i[data-brand]') && iconify(true)(container);
+        if (container.matches('i[data-icon]'))
+            iconify(false)(container);
+        if (container.matches('i[data-brand]'))
+            iconify(true)(container);
         container.querySelectorAll('i[data-icon]').forEach(iconify(false));
         container.querySelectorAll('i[data-brand]').forEach(iconify(true));
         return container;
@@ -418,15 +452,15 @@ const libXUi = {
         return container;
     },
     displayAddr(container = globalThis.document.body) {
-        const display = (elem) => elem.innerHTML = elem.dataset.name + '<span>' + String.fromCharCode(64) +
-            elem.dataset.domain + '</span>';
+        const build = (elem, data) => `${data.name}<span>${String.fromCharCode(64)}${data.domain}</span>`;
+        const display = (elem) => elem.innerHTML = build(elem, elem.dataset);
         libX.dom.forEach(container.getElementsByClassName('display-addr'), display);
         return container;
     },
     popup(url, options) {
         const defaults = { width: 600, height: 400 };
         const settings = { ...defaults, ...options };
-        const dimensions = 'left=200,top=100,width=' + settings.width + ',height=' + settings.height;
+        const dimensions = `left=200,top=100,width=${settings.width},height=${settings.height}`;
         return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
     },
     popupClick(elem) {
@@ -437,7 +471,8 @@ const libXUi = {
     },
     revealSection(elem) {
         const button = elem.closest('.reveal-button');
-        const findTarget = () => libX.dom.select('.reveal-target[data-reveal="' + button.dataset.reveal + '"]');
+        const selector = `.reveal-target[data-reveal="${button.dataset.reveal}"]`;
+        const findTarget = () => libX.dom.select(selector);
         const target = button.dataset.reveal ? findTarget() : button.nextElementSibling;
         libX.ui.slideFadeIn(target);
         return button;
@@ -538,7 +573,7 @@ const libXUtil = {
     assert(ok, message, info) {
         const quoteStr = (info) => typeof info === 'string' ? `"${info}"` : String(info);
         if (!ok)
-            throw Error(`[dna-engine] ${message} --> ${quoteStr(info)}`);
+            throw new Error(`[web-ignition] ${message} --> ${quoteStr(info)}`);
     },
 };
 const libXNav = {
@@ -574,14 +609,16 @@ const libXStorage = {
         return libX.storage.dbRead(key);
     },
     dbRead(key) {
-        return globalThis.localStorage[key] === undefined ? {} : JSON.parse(globalThis.localStorage[key]);
+        const value = globalThis.sessionStorage[key];
+        return value ? JSON.parse(value) : {};
     },
     sessionSave(key, obj) {
         globalThis.sessionStorage[key] = JSON.stringify(obj);
         return libX.storage.sessionRead(key);
     },
     sessionRead(key) {
-        return globalThis.sessionStorage[key] === undefined ? {} : JSON.parse(globalThis.sessionStorage[key]);
+        const value = globalThis.sessionStorage[key];
+        return value ? JSON.parse(value) : {};
     },
 };
 const libXCounter = {
@@ -616,13 +653,13 @@ const libXBrowser = {
             const mac = hasTouch ? 'iOS' : 'macOS';
             const platforms = { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
             return {
-                brands: [{ brand: brandEntry?.[0] ?? '', version: brandEntry?.[1] ?? '' }],
+                brands: [{ brand: brandEntry[0] ?? '', version: brandEntry[1] ?? '' }],
                 mobile: hasTouch || /Android|iPhone|iPad|Mobi/i.test(globalThis.navigator.userAgent),
                 platform: platforms[platform] ?? platform,
             };
         };
-        const navigatorUAData = globalThis.navigator['userAgentData'];
-        return navigatorUAData ?? polyfill();
+        const uaData = globalThis.navigator['userAgentData'];
+        return (uaData ?? polyfill());
     },
     iOS() {
         return libX.browser.userAgentData().platform === 'iOS';
@@ -647,11 +684,12 @@ const libXPopupImage = {
             thumbnail.nextElementSibling.remove();
         const data = thumbnail.dataset;
         const width = data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
+        const maxWidth = Math.min(width, globalThis.window.innerWidth - gap);
         const src = data.popupImage ?? thumbnail.src;
         const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
         const popupImg = libX.dom.create('img', { src: src });
         const closeIcon = libX.dom.create('i');
-        popupImg.style.maxWidth = Math.min(width, globalThis.window.innerWidth - gap) + 'px';
+        popupImg.style.maxWidth = String(maxWidth) + 'px';
         closeIcon.dataset.icon = 'times';
         libX.ui.makeIcons(closeIcon);
         popupLayer.appendChild(popupImg);
@@ -833,16 +871,9 @@ const libXExtra = {
         globalThis.blogger.ui().addListener('updated', () => delayed(800));
         globalThis.blogger.ui().addListener('updated', () => delayed(2000));
     },
-    gTags(scriptTag) {
-        const trackingID = scriptTag.src.split('=')[1];
-        globalThis.dataLayer = globalThis.dataLayer || [];
-        function gtag(...args) { globalThis.dataLayer.push(args); }
-        gtag('js', new Date());
-        gtag('config', trackingID);
-    },
 };
 const libX = {
-    version: '2.2.7',
+    version: '2.2.8',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
