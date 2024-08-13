@@ -708,16 +708,17 @@ const libXNav = {
       // Link Menu HTML example:
       //    <nav id=link-menu>
       //       <a href=.>Home</a>
+      //       <a href=support class=current>Support</a>
       //       <a href=about>About</a>
       //    </nav>
       const linkMenu = globalThis.document.getElementById('link-menu');
       const setCurrentPage = () => {
-         const pageName = globalThis.location.pathname
-            .replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
-         const active =        linkMenu!.querySelector(`a[href$="${pageName}"]`);
-         const isDefaultPage = /(\/|index\.[a-z]*)$/.test(globalThis.location.href);
-         const onHomePage =    linkMenu!.children[0]!.getAttribute('href') === '.' && isDefaultPage;
-         const current =       onHomePage ? linkMenu!.firstElementChild : active;
+         const path =     globalThis.location.pathname;
+         const pageName = path.replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
+         const active =   linkMenu!.querySelector(`a[href$="${pageName}"]`);
+         const isIndex =  path.endsWith('/') || /index\.[a-z]*$/.test(path);
+         const isHome =   linkMenu!.children[0]!.getAttribute('href') === '.' && isIndex;
+         const current =  isHome ? linkMenu!.firstElementChild : active;
          current?.classList.add('current');
          }
       if (linkMenu)
