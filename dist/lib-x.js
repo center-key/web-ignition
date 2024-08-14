@@ -1,4 +1,4 @@
-//! web-ignition v2.2.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.2.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -580,12 +580,12 @@ const libXNav = {
     setupLinkMenu() {
         const linkMenu = globalThis.document.getElementById('link-menu');
         const setCurrentPage = () => {
-            const pageName = globalThis.location.pathname
-                .replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
+            const path = globalThis.location.pathname;
+            const pageName = path.replace(/index.[a-z]*$/, '').replace(/\/$/, '').replace(/.*\//, '');
             const active = linkMenu.querySelector(`a[href$="${pageName}"]`);
-            const isDefaultPage = /(\/|index\.[a-z]*)$/.test(globalThis.location.href);
-            const onHomePage = linkMenu.children[0].getAttribute('href') === '.' && isDefaultPage;
-            const current = onHomePage ? linkMenu.firstElementChild : active;
+            const isIndex = path.endsWith('/') || /index\.[a-z]*$/.test(path);
+            const isHome = linkMenu.children[0].getAttribute('href') === '.' && isIndex;
+            const current = isHome ? linkMenu.firstElementChild : active;
             current?.classList.add('current');
         };
         if (linkMenu)
@@ -873,7 +873,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.2.8',
+    version: '2.2.9',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
