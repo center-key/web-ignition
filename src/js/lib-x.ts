@@ -531,7 +531,7 @@ const libXUi = {
    normalize(container: Element = globalThis.document.body): Element {
       const rawInput =      (elem: Element) => (<HTMLInputElement>elem).spellcheck = false;
       const makeImageLink = (elem: Element) => elem.closest('a')!.classList.add('image-link');
-      const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';
+      const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';  //eslint-disable-line
       container.querySelectorAll('button:not([type])').forEach(elem => (<HTMLButtonElement>elem).type = 'button');
       container.querySelectorAll('button:not([tabindex])').forEach(elem => (<HTMLButtonElement>elem).tabIndex = 0);  //enable focus on tab
       container.querySelectorAll('input:not([type])').forEach(elem =>  (<HTMLInputElement>elem).type = 'text');
@@ -797,7 +797,7 @@ const libXBrowser = {
       const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
-         const platform =   globalThis.navigator.platform;
+         const platform =   globalThis.navigator.platform;  //eslint-disable-line
          const mac =        hasTouch ? 'iOS' : 'macOS';
          const platforms: { [platform: string]: string} =
             { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
