@@ -921,7 +921,7 @@ const libXAnimate = {
          intervalMsec: 10000,  //10 seconds between transitions
          fadeMsec:     3000,   //3 seconds to complete transition
          };
-      const settings = { ...defaults, ...options };
+      const settings = { ...defaults, ...options };  //eslint-disable-line @typescript-eslint/no-misused-spread
       container.classList.add('montage-loop');
       if (!container.children.length)
          console.error('[montage-loop] No images found:', container);
