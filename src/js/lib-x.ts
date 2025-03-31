@@ -18,8 +18,9 @@ export type LibXCounterMap =             { [counter: string]: number };
 export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
 export type LibXEventListener =          (elem: Element, event: Event, selector: string | null) => void;
 export type LibXSettingsEventsOn = {
-   keyFilter:  KeyboardEvent["key"] | null,
-   selector:   string | null,
+   keyFilter: KeyboardEvent["key"] | null,  //examples: "enter", "escape", "a", "b"
+   selector:  string | null,                //only allow events on elements matching selector
+   container: Element | null,               //only allow events on elements within container
    };
 export type LibXMontageLoopSettings = {
    start:        number | null,  //index of first image to show        (default: nulll for random)
@@ -223,14 +224,17 @@ const libXDom = {
    on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>) {
       // type ->      https://developer.mozilla.org/en-US/docs/Web/Events
       // keyFilter -> https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
-      const defaults =   { keyFilter: null, selector: null };
-      const settings =   { ...defaults, ...options };
-      const noFilter =   !settings.keyFilter;
-      const noSelector = !settings.selector;
+      const defaults =    { keyFilter: null, selector: null };
+      const settings =    { ...defaults, ...options };
+      const noFilter =    !settings.keyFilter;
+      const noSelector =  !settings.selector;
+      const noContainer = !settings.container;
       const delegator = (event: Event) => {
-         const target = <Element | null>event.target;
-         const elem =   !target || noSelector ? target : target.closest(settings.selector!);
-         if (elem && (noFilter || settings.keyFilter === (<KeyboardEvent>event).key))
+         const target =       <Element | null>event.target;
+         const elem =         !target || noSelector ? target : target.closest(settings.selector!);
+         const expectedKey =  () => noFilter || settings.keyFilter === (<KeyboardEvent>event).key;
+         const expectedElem = () => noContainer || settings.container!.contains(target);
+         if (elem && expectedKey() && expectedElem())
             listener(elem, event, settings.selector);
          };
       globalThis.document.addEventListener(type, delegator);
@@ -991,6 +995,32 @@ const libXBubbleHelp = {
       },
    };
 
+const libXMarbleChecklist = {
+   // <ol class=marble-checklist data-on-load=libX.marbleChecklist.setup>
+   //    <li id=dog>     <p>Walk dog</p>      <label><input type=checkbox><b></b></label></li>
+   //    <li id=cilantro><p>Avoid cilantro</p><label><input type=checkbox><b></b></label></li>
+   //    <li id=nap>     <p>Take nap</p>      <label><input type=checkbox><b></b></label></li>
+   // </ol>
+   setup(checklistElem: Element) {
+      // Set checklist task items according to previously saved values.
+      type Checklist = { [id: string]: boolean } | null;
+      const checklist =   <Checklist>JSON.parse(globalThis.localStorage.getItem('marble-checklist')!);
+      const checkboxes =  <HTMLInputElement[]>[...checklistElem.querySelectorAll('input[type=checkbox]')];
+      const getId =       (checkbox: HTMLInputElement) => checkbox.closest('li')!.id;
+      const setCheckbox = (checkbox: HTMLInputElement) => checkbox.checked = !!checklist![getId(checkbox)];
+      if (checklist)
+         checkboxes.forEach(setCheckbox);
+      const saveChecklist = () => {
+         // Record current status of checklist tasks to Local Storage.
+         const toEntryPair = (checkbox: HTMLInputElement) => [getId(checkbox), checkbox.checked];
+         const checklist =   <Checklist>Object.fromEntries(checkboxes.map(toEntryPair));
+         globalThis.localStorage.setItem('marble-checklist', JSON.stringify(checklist));
+         };
+      const eventOptions = { container: checklistElem, selector: 'input[type=checkbox]' };
+      libX.dom.on('click', saveChecklist, eventOptions);
+      },
+   };
+
 const libXForm = {
    perfect(): Element | null {
       // <form class=perfect data-version=21>
@@ -1078,21 +1108,22 @@ const libXExtra = {
    };
 
 const libX = {
-   version:    '{{package.version}}',
-   dom:        libXDom,
-   ui:         libXUi,
-   util:       libXUtil,
-   nav:        libXNav,
-   crypto:     libXCrypto,
-   storage:    libXStorage,
-   counter:    libXCounter,
-   browser:    libXBrowser,
-   popupImage: libXPopupImage,
-   animate:    libXAnimate,
-   bubbleHelp: libXBubbleHelp,
-   form:       libXForm,
-   social:     libXSocial,
-   extra:      libXExtra,
+   version:         '{{package.version}}',
+   dom:             libXDom,
+   ui:              libXUi,
+   util:            libXUtil,
+   nav:             libXNav,
+   crypto:          libXCrypto,
+   storage:         libXStorage,
+   counter:         libXCounter,
+   browser:         libXBrowser,
+   popupImage:      libXPopupImage,
+   animate:         libXAnimate,
+   bubbleHelp:      libXBubbleHelp,
+   marbleChecklist: libXMarbleChecklist,
+   form:            libXForm,
+   social:          libXSocial,
+   extra:           libXExtra,
    initialize(): void {
       globalThis.libX = libX;
       const initializeDna = () => {
