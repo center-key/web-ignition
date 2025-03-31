@@ -1,4 +1,4 @@
-//! web-ignition v2.3.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.3.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -35,6 +35,7 @@ export type LibXEventListener = (elem: Element, event: Event, selector: string |
 export type LibXSettingsEventsOn = {
     keyFilter: KeyboardEvent["key"] | null;
     selector: string | null;
+    container: Element | null;
 };
 export type LibXMontageLoopSettings = {
     start: number | null;
@@ -223,6 +224,9 @@ declare const libX: {
     };
     bubbleHelp: {
         setup(container?: Element): Element;
+    };
+    marbleChecklist: {
+        setup(checklistElem: Element): void;
     };
     form: {
         perfect(): Element | null;

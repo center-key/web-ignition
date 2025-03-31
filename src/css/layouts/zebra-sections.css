@@ -76,7 +76,7 @@ body >header h2 {
    position: relative;
    color: whitesmoke;
    text-align: center;
-   text-shadow: 0px 0px 0.2em dimgray;
+   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
    }
 body >header h2 {
    font-size: 1.1rem;

@@ -1,4 +1,4 @@
-//! web-ignition v2.3.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.3.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -158,10 +158,13 @@ const libXDom = {
         const settings = { ...defaults, ...options };
         const noFilter = !settings.keyFilter;
         const noSelector = !settings.selector;
+        const noContainer = !settings.container;
         const delegator = (event) => {
             const target = event.target;
             const elem = !target || noSelector ? target : target.closest(settings.selector);
-            if (elem && (noFilter || settings.keyFilter === event.key))
+            const expectedKey = () => noFilter || settings.keyFilter === event.key;
+            const expectedElem = () => noContainer || settings.container.contains(target);
+            if (elem && expectedKey() && expectedElem())
                 listener(elem, event, settings.selector);
         };
         globalThis.document.addEventListener(type, delegator);
@@ -803,6 +806,23 @@ const libXBubbleHelp = {
         return container;
     },
 };
+const libXMarbleChecklist = {
+    setup(checklistElem) {
+        const checklist = JSON.parse(globalThis.localStorage.getItem('marble-checklist'));
+        const checkboxes = [...checklistElem.querySelectorAll('input[type=checkbox]')];
+        const getId = (checkbox) => checkbox.closest('li').id;
+        const setCheckbox = (checkbox) => checkbox.checked = !!checklist[getId(checkbox)];
+        if (checklist)
+            checkboxes.forEach(setCheckbox);
+        const saveChecklist = () => {
+            const toEntryPair = (checkbox) => [getId(checkbox), checkbox.checked];
+            const checklist = Object.fromEntries(checkboxes.map(toEntryPair));
+            globalThis.localStorage.setItem('marble-checklist', JSON.stringify(checklist));
+        };
+        const eventOptions = { container: checklistElem, selector: 'input[type=checkbox]' };
+        libX.dom.on('click', saveChecklist, eventOptions);
+    },
+};
 const libXForm = {
     perfect() {
         const form = globalThis.document.querySelector('form.perfect:not([action])');
@@ -873,7 +893,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.3.0',
+    version: '2.3.1',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
@@ -885,6 +905,7 @@ const libX = {
     popupImage: libXPopupImage,
     animate: libXAnimate,
     bubbleHelp: libXBubbleHelp,
+    marbleChecklist: libXMarbleChecklist,
     form: libXForm,
     social: libXSocial,
     extra: libXExtra,
