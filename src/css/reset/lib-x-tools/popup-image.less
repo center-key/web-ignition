@@ -1,0 +1,10 @@
+// LibX Popup Image
+
+@import "../static/utility-box";
+
+img.popup-image, img[data-popup-image] { max-width: 120px; max-height: 120px; opacity: 0.9; transition: all 500ms; cursor: pointer; }
+img.popup-image:hover, img[data-popup-image]:hover { opacity: 1 }
+img.popup-image + .popup-image-layer { position: absolute; top: 10px; left: 10px; background-color: white; z-index: 5000; opacity: 0; }
+img.popup-image + .popup-image-layer i[data-icon] { position: absolute; right: -0.7em; top: -0.7em; width: 1.6em; height: 1.6em; font-size: 1.8rem; text-align: center; color: gray; background-color: silver; border-radius: 1000px; padding-top: 0.3em; transition: all 500ms; }
+img.popup-image + .popup-image-layer i[data-icon]:hover { color: white; }
+img.popup-image + .popup-image-layer img { display: block; width: auto; height: auto; border: 20px solid silver; }
