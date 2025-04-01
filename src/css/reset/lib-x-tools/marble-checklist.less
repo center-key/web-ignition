@@ -32,7 +32,7 @@ ol.marble-checklist {
          content: counter(item);
          .NumberedMarble();
          }
-      p {
+      p:first-child {  //pseudo-class added for stronger specificity
          .TaskDescription();
          }
       label {  //checkbox
@@ -59,8 +59,6 @@ ol.marble-checklist {
                .BigCheckbox();
                content: @symbolCheckmark;  //character: ✔
                color: white;
-               background-color: royalblue;
-               border-color: royalblue;
                opacity: 0;
                transition: opacity 500ms;
                }
