@@ -1,4 +1,4 @@
-//! web-ignition v2.3.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.3.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -154,7 +154,7 @@ const libXDom = {
         return (libX.dom.isElem(elemOrEvent) ? elemOrEvent : elemOrEvent.target);
     },
     on(type, listener, options) {
-        const defaults = { keyFilter: null, selector: null };
+        const defaults = { keyFilter: null, selector: null, container: null };
         const settings = { ...defaults, ...options };
         const noFilter = !settings.keyFilter;
         const noSelector = !settings.selector;
@@ -808,12 +808,22 @@ const libXBubbleHelp = {
 };
 const libXMarbleChecklist = {
     setup(checklistElem) {
-        const checklist = JSON.parse(globalThis.localStorage.getItem('marble-checklist'));
-        const checkboxes = [...checklistElem.querySelectorAll('input[type=checkbox]')];
+        const items = [...checklistElem.children];
         const getId = (checkbox) => checkbox.closest('li').id;
-        const setCheckbox = (checkbox) => checkbox.checked = !!checklist[getId(checkbox)];
-        if (checklist)
-            checkboxes.forEach(setCheckbox);
+        const addCheckboxElements = () => {
+            items.forEach(li => li.appendChild(libX.dom.create('label', { subTags: ['input', 'b'] })));
+            const boxes = [...checklistElem.querySelectorAll('input')];
+            boxes.forEach(box => box.type = 'checkbox');
+            return boxes;
+        };
+        const checkboxes = addCheckboxElements();
+        const restoreChecklist = () => {
+            const data = globalThis.localStorage.getItem('marble-checklist');
+            const checklist = !data ? null : JSON.parse(data);
+            if (checklist)
+                checkboxes.forEach(checkbox => checkbox.checked = !!checklist[getId(checkbox)]);
+        };
+        restoreChecklist();
         const saveChecklist = () => {
             const toEntryPair = (checkbox) => [getId(checkbox), checkbox.checked];
             const checklist = Object.fromEntries(checkboxes.map(toEntryPair));
@@ -893,7 +903,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.3.1',
+    version: '2.3.2',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
