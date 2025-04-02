@@ -80,7 +80,11 @@ const libXDom = {
          libX.dom.stateDepot[Number(data.libXState)] = {};
       return elem;
       },
-   createCustom(tag: string, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
+   createCustom(tag: string, options?:
+      { id?: string, subTags?: string[], class?: string, href?: string, html?: string,
+      name?: string, rel?: string, src?: string, text?: string, type?: string }) {
+      // libX.dom.create('a', { id: 'x', href: 'https://x.com', text: 'X' })
+      //    Returns: <a id=x href=https://x.com>X</a>
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
          elem.id = options.id;
@@ -224,7 +228,7 @@ const libXDom = {
    on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>) {
       // type ->      https://developer.mozilla.org/en-US/docs/Web/Events
       // keyFilter -> https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
-      const defaults =    { keyFilter: null, selector: null };
+      const defaults: LibXSettingsEventsOn = { keyFilter: null, selector: null, container: null };
       const settings =    { ...defaults, ...options };
       const noFilter =    !settings.keyFilter;
       const noSelector =  !settings.selector;
@@ -997,19 +1001,30 @@ const libXBubbleHelp = {
 
 const libXMarbleChecklist = {
    // <ol class=marble-checklist data-on-load=libX.marbleChecklist.setup>
-   //    <li id=dog>     <p>Walk dog</p>      <label><input type=checkbox><b></b></label></li>
-   //    <li id=cilantro><p>Avoid cilantro</p><label><input type=checkbox><b></b></label></li>
-   //    <li id=nap>     <p>Take nap</p>      <label><input type=checkbox><b></b></label></li>
+   //    <li id=dog>     <p>Walk dog</p></li>
+   //    <li id=cilantro><p>Avoid cilantro</p></li>
+   //    <li id=nap>     <p>Take nap</p></li>
    // </ol>
    setup(checklistElem: Element) {
-      // Set checklist task items according to previously saved values.
-      type Checklist = { [id: string]: boolean } | null;
-      const checklist =   <Checklist>JSON.parse(globalThis.localStorage.getItem('marble-checklist')!);
-      const checkboxes =  <HTMLInputElement[]>[...checklistElem.querySelectorAll('input[type=checkbox]')];
-      const getId =       (checkbox: HTMLInputElement) => checkbox.closest('li')!.id;
-      const setCheckbox = (checkbox: HTMLInputElement) => checkbox.checked = !!checklist![getId(checkbox)];
-      if (checklist)
-         checkboxes.forEach(setCheckbox);
+      type Checklist = { [id: string]: boolean };
+      const items = <HTMLLIElement[]>[...checklistElem.children];
+      const getId = (checkbox: HTMLInputElement) => checkbox.closest('li')!.id;
+      const addCheckboxElements = () => {
+         // Append <label><input type=checkbox><b></b></label> to each <li>
+         items.forEach(li => li.appendChild(libX.dom.create('label', { subTags: ['input', 'b'] })));
+         const boxes = [...checklistElem.querySelectorAll('input')];
+         boxes.forEach(box => box.type = 'checkbox');
+         return boxes;
+         };
+      const checkboxes = addCheckboxElements();
+      const restoreChecklist = () => {
+         // Set checklist task items according to previously saved values.
+         const data =      globalThis.localStorage.getItem('marble-checklist');
+         const checklist = !data ? null : <Checklist>JSON.parse(data);
+         if (checklist)
+            checkboxes.forEach(checkbox => checkbox.checked = !!checklist[getId(checkbox)]);
+         };
+      restoreChecklist();
       const saveChecklist = () => {
          // Record current status of checklist tasks to Local Storage.
          const toEntryPair = (checkbox: HTMLInputElement) => [getId(checkbox), checkbox.checked];

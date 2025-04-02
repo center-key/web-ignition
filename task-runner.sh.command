@@ -155,10 +155,12 @@ openWebPage() {
    echo "Opening:"
    echo "   src/css/spec-css.html"
    echo "   src/js/spec-js.html"
+   echo "   src/js/spec-video.html"
    echo "   src/css/layouts.html"
    sleep 2
    open src/css/spec-css.html
    open src/js/spec-js.html
+   open src/js/spec-video.html
    open src/css/layouts.html
    echo
    }
