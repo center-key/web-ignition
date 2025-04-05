@@ -20,11 +20,12 @@
    <link rel=stylesheet       href=zebra-sections.css>
    <style>
       /* Zebra Sections Layout -- customize colors */
-      body >header nav a { color: white; text-shadow: 0px 0px 0.6em black; }
+      body >header nav a { color: white; }
       body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
       body >header { background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/006-large.jpg); }
       body main >section[data-background=purple] { background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/024-large.jpg); }
    </style>
+   <style>main >section >*:hover { outline: 1px dotted plum; }</style>
    <script defer src=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/dna-engine.min.js></script>
    <script defer src=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/lib-x.min.js></script>
 </head>
@@ -46,23 +47,29 @@
 
    <section>
       <h2>Section header (h2)</h2>
-      <h3>Section subheader (h3)</h3>
-      <p>
+      <cite>Author byline</cite>
+      <div>
          Bacon ipsum dolor amet spare ribs venison shoulder pork cupim turkey shankle tri-tip jowl ground round bacon leberkas swine.
-      </p>
-      <p>
+      </div>
+      <div>
          Shank biltong landjaeger bacon, leberkas cow pork brisket tri-tip chuck jowl. Shank ham meatloaf, drumstick boudin chicken hamburger pig ribeye kielbasa chuck kevin leberkas swine. Shank pork loin strip steak ball tip porchetta landjaeger.
-      </p>
+      </div>
    </section>
 
    <section>
       <h2>Random 1</h2>
-      <p>Stuff goes here.</p>
+      <h3>Section subheader (h3)</h3>
+      <div>Stuff goes here.</div>
    </section>
 
    <section>
-      <h2>Random 2</h2>
-      <p>Stuff goes here.</p>
+      <h2><i data-icon=thumbs-up></i>Random 2<img src=https://centerkey.com/graphics/bookmark.png alt=avatar></h2>
+      <p>Paragraphs are "ragged-right" aligned.</p>
+      <p>
+         Paragraphs are "ragged-right" aligned.&nbsp; Paragraphs are "ragged-right" aligned.&nbsp;
+         Paragraphs are "ragged-right" aligned.&nbsp; Paragraphs are "ragged-right" aligned.&nbsp;
+         Paragraphs are "ragged-right" aligned.&nbsp; Paragraphs are "ragged-right" aligned.&nbsp;
+      </p>
    </section>
 
    <section>
@@ -100,12 +107,37 @@
          <figcaption>Dragon</figcaption>
       </figure>
       <p>
-         Stuff goes in a paragraph. Stuff goes in a paragraph. Stuff goes in a paragraph.
-         Stuff goes in a paragraph. Stuff goes in a paragraph. Stuff goes in a paragraph.
+         Stuff goes in a paragraph.&nbsp; Stuff goes in a paragraph.&nbsp; Stuff goes in a paragraph.&nbsp;
+         Stuff goes in a paragraph.&nbsp; Stuff goes in a paragraph.&nbsp; Stuff goes in a paragraph.&nbsp;
       </p>
       <div>
-         More stuff goes here. More stuff goes here. More stuff goes here. More stuff goes here.
-         More stuff goes here. More stuff goes here. More stuff goes here. More stuff goes here.
+         <header>Unordered List</header>
+         <ul>
+            <li>Item Ghost</li><li>Item American Bison</li><li><i data-icon=dragon></i>Item Dragon</li>
+         </ul>
+      </div>
+      <div>
+         <header>Ordered List</header>
+         <ol>
+            <li><i data-icon=ghost></i>Item Ghost</li><li>Item American Bison (also commonly known as the American Buffalo and standing up to 2 meters tall)</li><li><i data-icon=dragon></i>Item Dragon</li>
+         </ol>
+      </div>
+      <div>
+         <header>Menu of Lines</header>
+         <menu>
+            <li>Item Ghost</li><li>Item American Bison</li><li><i data-icon=dragon></i>Item Dragon</li>
+         </menu>
+      </div>
+      <h2>Marble Checklist</h2>
+      <ol class=marble-checklist data-on-load=libX.marbleChecklist.setup>
+         <li id=dog>     <p>Walk dog</p></li>
+         <li id=cilantro><p>Avoid cilantro</p></li>
+         <li id=nap>     <p>Take nap</p></li>
+      </ol>
+      <div>
+         More stuff goes here if needed.&nbsp; More stuff goes here if needed.&nbsp;
+         More stuff goes here if needed.&nbsp; More stuff goes here if needed.&nbsp;
+         More stuff goes here if needed.&nbsp; More stuff goes here if needed.&nbsp;
       </div>
       <div>
          <blockquote>
@@ -136,11 +168,12 @@
             <button type=submit>Send</button>
          </nav>
       </form>
+      <div><span>Can you read this text over the background?</span></div>
    </section>
 
    <section>
       <h2>More Random</h2>
-      <p>Stuff goes here.</p>
+      <div>Stuff goes here.</div>
    </section>
 
 </main>

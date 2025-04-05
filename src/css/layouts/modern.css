@@ -80,7 +80,8 @@ body >header >nav >a.current {
    border-color: black;
    cursor: default;
    }
-main { position: relative;
+main {
+   position: relative;
    width: 100%;
    max-width: 800px;
    padding: 0px 10px;
