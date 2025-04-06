@@ -1,4 +1,4 @@
-/*! web-ignition v2.3.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -6,7 +6,7 @@ Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/zebra-sections.css>
    <style>
-      body >header nav a { color: white; text-shadow: 0px 0px 0.6em black; }
+      body >header nav a { color: white; }
       body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
       body >header { background-image: url(background-banner.jpg); }
       body main >section[data-background=cat] { background-image: url(cat.jpg); }
@@ -20,10 +20,11 @@ HTML (<body>):
       section
          h2
             img
-         p
+         cite  //author byline or date modified notice
          div
             blockquote
                cite
+         p  //paragraphs are left-aligned
    footer
 */
 body {
@@ -34,6 +35,7 @@ body {
 body >header {
    position: relative;
    height: 300px;
+   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
    background: no-repeat center center;
    background-size: cover;
    background-color: gainsboro;  /* fallback while image is loading */
@@ -78,7 +80,6 @@ body >header h2 {
    position: relative;
    color: whitesmoke;
    text-align: center;
-   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
    }
 body >header h2 {
    font-size: 1.1rem;
@@ -105,11 +106,14 @@ main >section {
 main >section[data-background] {
    background: center center / cover no-repeat;
    }
-main >section[data-background] >h2,
-main >section[data-background] >h3,
-main >section[data-background] >p {
+main >section[data-background] {
    color: white;
-   text-shadow: 0px 0px 0.4em black;
+   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
+   }
+main >section[data-background] form,
+main >section[data-background] table {
+   color: dimgray;
+   text-shadow: none;
    }
 main >section:first-child {
    padding-top: 140px;
@@ -122,9 +126,22 @@ main >section >h2 {
    margin-top: -8px;
    margin-bottom: 20px;
    }
+main >section >h2 >i.font-icon {
+   font-size: 1em;
+   padding-right: 0.4em;
+   }
 main >section >h2 img {
-   height: 0.9em;
-   margin-left: 5px;
+   height: 0.8em;
+   padding: 0em 0.5em;
+   }
+main >section >h2+cite {
+   font-style: normal;
+   font-size: 0.7rem;
+   display: block;
+   margin-top: -10px;
+   }
+main >section >h3 {
+   margin-bottom: 20px;
    }
 main >section >h4 {
    margin-bottom: 5px;
@@ -138,13 +155,6 @@ main >section >* {
 main >section >*:last-child {
    margin-bottom: 0px;
    }
-main >section >div {  /* centered flow box */
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   column-gap: 40px;
-   row-gap: 20px;
-   }
 main >section >div >blockquote {
    display: block;
    width: 100%;
@@ -153,7 +163,7 @@ main >section >div >blockquote {
    text-align: left;
    border: 1px solid silver;
    padding: 10px 25px;
-   margin: 0px;
+   margin: 0px 0px 20px 0px;
    }
 main >section >div >blockquote >cite {
    display: block;
@@ -171,19 +181,57 @@ main >section >div >blockquote >cite::before {
    content: "\2014";  /* character: — (em dash) */
    margin-right: 0.4em;
    }
-main >section >ul {
+main >section >p {
+   text-align: left;
+   }
+main >section >div:has(>ul, >ol, >menu) {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
    width: 80%;
    max-width: 600px;
+   padding-bottom: 10px;
+   }
+main >section >div:has(>ul, >ol, >menu) >header {
+   font-size: 1.4rem;
+   font-weight: bold;
+   margin-bottom: 15px;
+   }
+main >section >div >ul,
+main >section >div >ol {
    text-align: left;
+   }
+main >section >div >menu {
+   list-style: none;
+   padding: 0px;
+   margin: 0px;
+   }
+main >section >div:has(>ul, >ol, >menu) >* >li {
+   font-size: 1.1rem;
+   margin-bottom: 10px;
+   }
+main >section >div:has(>ul, >ol, >menu) >* >li i.font-icon {
+   font-size: 1.1rem;
+   text-align: center;
+   padding: 0px 6px 0px 28px;
+   }
+main >section >div >menu >li i.font-icon {
+   padding-left: 0px;
+   }
+main >section >form {
+   display: flex;
+   flex-direction: column;
+   background-color: gainsboro;
+   padding: 35px 40px;
+   margin: 0px 10px 30px 10px;
+   }
+main >section >form >header {
+   font-size: 1.4rem;
+   font-weight: bold;
+   margin: -15px 0px 15px 0px;
    }
 main >section >figure img {
    max-height: 550px;
-   }
-main >section figure {
-   display: inline-block;
-   min-width: auto;
-   vertical-align: top;
-   padding: 0px 10px;
    }
 main >section figure img.popup-image {
    height: 120px;
@@ -196,6 +244,7 @@ main >section figure img.popup-image:hover {
 main >section figure figcaption {
    font-style: italic;
    }
+main >section a,
 main >section code {
    white-space: normal;
    }
@@ -224,6 +273,11 @@ body >footer i[data-brand] {
    margin: 0px 5px;
    }
 
+/* Inegration */
+body >main >section >ol.marble-checklist {
+   padding: 0px 10px;
+   }
+
 /* Mobile devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
    body >header.responsive-avatar {
@@ -239,5 +293,5 @@ body >footer i[data-brand] {
 /******************************************************************************/
 
 /* Zebra Sections layout -- customize colors */
-body >header nav a { color: white; text-shadow: 0px 0px 0.6em black; }
+body >header nav a { color: white; }
 body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }

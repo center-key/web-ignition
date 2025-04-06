@@ -161,7 +161,7 @@ main >section >div >blockquote {
    text-align: left;
    border: 1px solid silver;
    padding: 10px 25px;
-   margin: 0px;
+   margin: 0px 0px 20px 0px;
    }
 main >section >div >blockquote >cite {
    display: block;
@@ -215,6 +215,18 @@ main >section >div:has(>ul, >ol, >menu) >* >li i.font-icon {
    }
 main >section >div >menu >li i.font-icon {
    padding-left: 0px;
+   }
+main >section >form {
+   display: flex;
+   flex-direction: column;
+   background-color: gainsboro;
+   padding: 35px 40px;
+   margin: 0px 10px 30px 10px;
+   }
+main >section >form >header {
+   font-size: 1.4rem;
+   font-weight: bold;
+   margin: -15px 0px 15px 0px;
    }
 main >section >figure img {
    max-height: 550px;

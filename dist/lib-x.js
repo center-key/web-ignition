@@ -1,4 +1,4 @@
-//! web-ignition v2.3.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.3.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -808,6 +808,7 @@ const libXBubbleHelp = {
 };
 const libXMarbleChecklist = {
     setup(checklistElem) {
+        const dbName = 'marble-checklist' + (checklistElem.id ? '-' + checklistElem.id : '');
         const items = [...checklistElem.children];
         const getId = (checkbox) => checkbox.closest('li').id;
         const addCheckboxElements = () => {
@@ -818,7 +819,7 @@ const libXMarbleChecklist = {
         };
         const checkboxes = addCheckboxElements();
         const restoreChecklist = () => {
-            const data = globalThis.localStorage.getItem('marble-checklist');
+            const data = globalThis.localStorage.getItem(dbName);
             const checklist = !data ? null : JSON.parse(data);
             if (checklist)
                 checkboxes.forEach(checkbox => checkbox.checked = !!checklist[getId(checkbox)]);
@@ -827,7 +828,7 @@ const libXMarbleChecklist = {
         const saveChecklist = () => {
             const toEntryPair = (checkbox) => [getId(checkbox), checkbox.checked];
             const checklist = Object.fromEntries(checkboxes.map(toEntryPair));
-            globalThis.localStorage.setItem('marble-checklist', JSON.stringify(checklist));
+            globalThis.localStorage.setItem(dbName, JSON.stringify(checklist));
         };
         const eventOptions = { container: checklistElem, selector: 'input[type=checkbox]' };
         libX.dom.on('click', saveChecklist, eventOptions);
@@ -903,7 +904,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.3.2',
+    version: '2.3.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
