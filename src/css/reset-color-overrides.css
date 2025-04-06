@@ -23,8 +23,8 @@ button:hover:not(:disabled), button:focus { background-color: royalblue; }
 .bubble-help-hover >.bubble-wrap >.bubble-pointer { color: crimson; }
 
 /* Marble Checklist */
-ol.marble-checklist >li::before { background-color: deepskyblue; }                                /* marble */
-ol.marble-checklist >li label b::after { background-color: royalblue; border-color: royalblue; }  /* checkbox */
+ol.marble-checklist >li::before { background-color: deepskyblue; }                                /* marbles */
+ol.marble-checklist >li label b::after { background-color: royalblue; border-color: royalblue; }  /* checkboxes */
 
 /* PERFECT Style Colors */
 form.perfect { border-color: seagreen; }                                    /* outer color */

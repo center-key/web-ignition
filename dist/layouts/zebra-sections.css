@@ -1,4 +1,4 @@
-/*! web-ignition v2.3.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -104,11 +104,9 @@ main >section {
    margin-bottom: 0px;
    }
 main >section[data-background] {
-   background: center center / cover no-repeat;
-   }
-main >section[data-background] {
    color: white;
    text-shadow: 0px 0px 0.8em var(--colorCharcoal);
+   background: center center / cover no-repeat;
    }
 main >section[data-background] form,
 main >section[data-background] table {
@@ -212,14 +210,13 @@ main >section >div:has(>ul, >ol, >menu) >* >li {
    }
 main >section >div:has(>ul, >ol, >menu) >* >li i.font-icon {
    font-size: 1.1rem;
-   text-align: center;
-   padding: 0px 6px 0px 28px;
+   padding-right: 10px;
    }
 main >section >div >menu >li i.font-icon {
    padding-left: 0px;
    }
 main >section >form {
-   display: flex;
+   display: inline-flex;
    flex-direction: column;
    background-color: gainsboro;
    padding: 35px 40px;
@@ -247,6 +244,10 @@ main >section figure figcaption {
 main >section a,
 main >section code {
    white-space: normal;
+   }
+main >section >footer {
+   font-size: 1.6em;
+   padding-top: 20px;
    }
 body >footer {
    flex-direction: column;
@@ -292,6 +293,16 @@ body >main >section >ol.marble-checklist {
    }
 /******************************************************************************/
 
-/* Zebra Sections layout -- customize colors */
-body >header nav a { color: white; }
-body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
+/* Zebra Sections layout -- customize header */
+body >header {
+   background-image: url();
+   }
+body >header nav#link-menu a,
+body >header nav#link-menu a.current,
+body >header nav#link-menu a:hover {
+   color: white;
+   }
+body >header nav#link-menu a.current,
+body >header nav#link-menu a:hover {
+   border-color: gold;
+   }
