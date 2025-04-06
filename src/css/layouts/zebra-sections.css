@@ -291,6 +291,16 @@ body >main >section >ol.marble-checklist {
    }
 /******************************************************************************/
 
-/* Zebra Sections layout -- customize colors */
-body >header nav a { color: white; }
-body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
+/* Zebra Sections layout -- customize header */
+body >header {
+   background-image: url();
+   }
+body >header nav#link-menu a,
+body >header nav#link-menu a.current,
+body >header nav#link-menu a:hover {
+   color: white;
+   }
+body >header nav#link-menu a.current,
+body >header nav#link-menu a:hover {
+   border-color: gold;
+   }

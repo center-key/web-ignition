@@ -19,11 +19,22 @@
    <link rel=stylesheet       href=../../../dist/reset.min.css>
    <link rel=stylesheet       href=zebra-sections.css>
    <style>
-      /* Zebra Sections Layout -- customize colors */
-      body >header nav a { color: white; }
-      body >header nav a.current, body >header nav a:hover { color: white; border-color: gold; }
-      body >header { background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/006-large.jpg); }
-      body main >section[data-background=purple] { background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/024-large.jpg); }
+      /* Zebra Sections layout -- customize header */
+      body >header {
+         background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/006-large.jpg);
+         }
+      body >header nav#link-menu a,
+      body >header nav#link-menu a.current,
+      body >header nav#link-menu a:hover {
+         color: white;
+         }
+      body >header nav#link-menu a.current,
+      body >header nav#link-menu a:hover {
+         border-color: gold;
+         }
+      body main >section[data-background=purple] {
+         background-image: url(https://pilafian.org/dem/gallery/colorful-thailand/~data~/portfolio/024-large.jpg);
+         }
    </style>
    <style>main >section >*:hover { outline: 1px dotted plum; }</style>
    <script defer src=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/dna-engine.min.js></script>
