@@ -1000,15 +1000,16 @@ const libXBubbleHelp = {
    };
 
 const libXMarbleChecklist = {
-   // <ol class=marble-checklist data-on-load=libX.marbleChecklist.setup>
+   // <ol id=todo-list class=marble-checklist data-on-load=libX.marbleChecklist.setup>
    //    <li id=dog>     <p>Walk dog</p></li>
    //    <li id=cilantro><p>Avoid cilantro</p></li>
    //    <li id=nap>     <p>Take nap</p></li>
    // </ol>
    setup(checklistElem: Element) {
       type Checklist = { [id: string]: boolean };
-      const items = <HTMLLIElement[]>[...checklistElem.children];
-      const getId = (checkbox: HTMLInputElement) => checkbox.closest('li')!.id;
+      const dbName = 'marble-checklist' + (checklistElem.id ? '-' + checklistElem.id : '');  //id is optional
+      const items =  <HTMLLIElement[]>[...checklistElem.children];
+      const getId =  (checkbox: HTMLInputElement) => checkbox.closest('li')!.id;
       const addCheckboxElements = () => {
          // Append <label><input type=checkbox><b></b></label> to each <li>
          items.forEach(li => li.appendChild(libX.dom.create('label', { subTags: ['input', 'b'] })));
@@ -1019,7 +1020,7 @@ const libXMarbleChecklist = {
       const checkboxes = addCheckboxElements();
       const restoreChecklist = () => {
          // Set checklist task items according to previously saved values.
-         const data =      globalThis.localStorage.getItem('marble-checklist');
+         const data =      globalThis.localStorage.getItem(dbName);
          const checklist = !data ? null : <Checklist>JSON.parse(data);
          if (checklist)
             checkboxes.forEach(checkbox => checkbox.checked = !!checklist[getId(checkbox)]);
@@ -1029,7 +1030,7 @@ const libXMarbleChecklist = {
          // Record current status of checklist tasks to Local Storage.
          const toEntryPair = (checkbox: HTMLInputElement) => [getId(checkbox), checkbox.checked];
          const checklist =   <Checklist>Object.fromEntries(checkboxes.map(toEntryPair));
-         globalThis.localStorage.setItem('marble-checklist', JSON.stringify(checklist));
+         globalThis.localStorage.setItem(dbName, JSON.stringify(checklist));
          };
       const eventOptions = { container: checklistElem, selector: 'input[type=checkbox]' };
       libX.dom.on('click', saveChecklist, eventOptions);
