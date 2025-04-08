@@ -102,7 +102,7 @@ customizeBlogger() {
    cd $projectHome
    sed \
       -e "s|.SHORT-BLOG-NAME.|One of Dem Blogs|g" \
-      -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark.png|g" \
+      -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark-icon.png|g" \
       -e "s|.MOBILE-HOME-SCREEN-URL.|https://centerkey.com/graphics/mobile-home-screen.png|g" \
       -e "s|.AUTHORS-URL.|https://centerkey.com/dem|g" \
       -e "s|.TWITTER-USERNAME.|DemPilafian|g" \
