@@ -1,0 +1,58 @@
+// Summary Details
+
+@import "static/utility-box";
+
+details {
+   margin-bottom: 10px;
+   }
+details >summary {
+   position: relative;
+   display: block;
+   font-size: 1.1rem;
+   font-weight: bold;
+   padding-left: 1.2em;
+   cursor: pointer;
+   }
+details >summary::marker {
+   color: transparent;
+   }
+details >summary::before {  //custom marker
+   font-weight: bold;
+   font-size: 1.1em;
+   position: absolute;
+   top: -0.1em;
+   left: 0.1em;
+   content: "\276F";  //heavy right-pointing angle character: ❯
+   transform: rotate(0deg);
+   transition: color 800ms, transform 800ms;
+   }
+details[open] >summary::before {
+   transform: rotate(90deg);
+   }
+details details {
+   margin-right: 30px;
+   margin-left: 30px;
+   }
+details details >summary {
+   font-size: 0.9rem;
+   margin-top: 10px;
+   }
+details::details-content {                           //all content
+   display: block;
+   max-height: 0px;
+   opacity: 0;
+   overflow: hidden;
+   transition: max-height 800ms, opacity 800ms;
+   }
+details[open]::details-content {                     //visible content
+   max-height: 70vh;
+   overflow: scroll;
+   opacity: 1;
+   }
+details:not(:has(details))::details-content {        //all readable (leaf node) content
+   border-radius: 10px;
+   }
+details[open]:not(:has(details))::details-content {  //visible readable (leaf node) content
+   padding: 20px 30px;
+   margin: 10px 0px 20px 0px;
+   }

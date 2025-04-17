@@ -6,23 +6,28 @@
 /* Copy into your CSS and adjust colors */
 /****************************************/
 
-/* Link Color */
+/* Link Colors */
 a { border-color: steelblue; }
 a:hover { background-color: steelblue; outline-color: steelblue; }
 
-/* Flat Button Color */
+/* Flat Button Colors */
 button { background-color: cornflowerblue; }
 button:hover:not(:disabled), button:focus { background-color: royalblue; }
 
-/* Reveal Action Color */
+/* Summary Details Colors */
+details >summary::before { color: inherit; }                                      /* collapsed marker color */
+details[open] >summary::before, details >summary:hover::before { color: black; }  /* expanded marker color */
+details:not(:has(details))::details-content { background-color: gainsboro; }      /* content box */
+
+/* Reveal Action Colors */
 .reveal-button { color: darkseagreen; }
 .reveal-button:hover { background-color: darkseagreen; }
 
-/* Bubble Help */
+/* Bubble Help Colors */
 .bubble-help-hover >.bubble-wrap >.bubble-help { color: white; background-color: crimson; }
 .bubble-help-hover >.bubble-wrap >.bubble-pointer { color: crimson; }
 
-/* Marble Checklist */
+/* Marble Checklist Colors */
 ol.marble-checklist >li::before { background-color: deepskyblue; }                                /* marbles */
 ol.marble-checklist >li label b::after { background-color: royalblue; border-color: royalblue; }  /* checkboxes */
 
