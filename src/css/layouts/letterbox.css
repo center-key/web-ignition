@@ -71,6 +71,9 @@ main >section+section {
    padding: 40px;
    margin: 0px auto 30px auto;
    }
+main >section >div >p >a {
+   white-space: normal;
+   }
 main >section >figure {
    margin-bottom: 30px;
    }
