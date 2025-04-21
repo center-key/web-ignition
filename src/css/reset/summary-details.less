@@ -1,8 +1,19 @@
 // Summary Details
 
+// <details open>
+//    <summary>Item 1</summary>
+//    <header>Text content above nested details.</header>
+//    <details>
+//       <summary>Subitem 1.1</summary>
+//       <p>Here are some Subitem 1.1 details.</p>
+//       <p>Here are more Subitem 1.1 details.</p>
+//    </details>
+// </details>
+
 @import "static/utility-box";
 
 details {
+   text-align: left;
    margin-bottom: 10px;
    }
 details >summary {
@@ -22,9 +33,9 @@ details >summary::before {  //custom marker
    position: absolute;
    top: -0.1em;
    left: 0.1em;
-   content: "\276F";  //heavy right-pointing angle character: ❯
+   content: @symbolAngleRight;  //character: ❯
    transform: rotate(0deg);
-   transition: color 800ms, transform 800ms;
+   transition: color 800ms, transform 400ms;
    }
 details[open] >summary::before {
    transform: rotate(90deg);
@@ -42,17 +53,20 @@ details::details-content {                           //all content
    max-height: 0px;
    opacity: 0;
    overflow: hidden;
-   transition: max-height 800ms, opacity 800ms;
+   transition: max-height 800ms, opacity 400ms;
+   //future --> content-visibility 800ms; transition-behavior: allow-discrete;
    }
 details[open]::details-content {                     //visible content
-   max-height: 70vh;
+   max-height: 200vh;  //future --> height: calc-size(auto, size);
    overflow: scroll;
    opacity: 1;
    }
-details:not(:has(details))::details-content {        //all readable (leaf node) content
+details >summary+header,                             //all text content
+details:not(:has(details))::details-content {
    border-radius: 10px;
    }
-details[open]:not(:has(details))::details-content {  //visible readable (leaf node) content
+details[open] >summary+header,                       //visible text content
+details[open]:not(:has(details))::details-content {
    padding: 20px 30px;
    margin: 10px 0px 20px 0px;
    }

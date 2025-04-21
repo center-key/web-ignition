@@ -104,7 +104,7 @@ main >section quotes-box >quote-list >blockquote cite {
    padding-top: 8px;
    }
 main >section quotes-box >quote-list >blockquote cite::before {
-   content: "\2014";  /* mdash */
+   content: "\2014";  /* character: — (em dash) */
    padding-right: 0.5em;
    }
 

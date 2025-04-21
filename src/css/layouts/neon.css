@@ -149,7 +149,7 @@ main >section blockquote >cite {
    letter-spacing: 0.1em;
    }
 main >section blockquote >cite::before {
-   content: "\2014";  /* mdash */
+   content: "\2014";  /* character: — (em dash) */
    padding-right: 0.4em;
    }
 

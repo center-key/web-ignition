@@ -15,9 +15,9 @@ button { background-color: cornflowerblue; }
 button:hover:not(:disabled), button:focus { background-color: royalblue; }
 
 /* Summary Details Colors */
-details >summary::before { color: inherit; }                                      /* collapsed marker color */
+details >summary::before { color: inherit; }  /* collapsed marker color */
 details[open] >summary::before, details >summary:hover::before { color: black; }  /* expanded marker color */
-details:not(:has(details))::details-content { background-color: gainsboro; }      /* content box */
+details >summary+header, details:not(:has(details))::details-content { background-color: gainsboro; }  /* content box */
 
 /* Reveal Action Colors */
 .reveal-button { color: darkseagreen; }

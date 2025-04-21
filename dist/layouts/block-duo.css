@@ -1,4 +1,4 @@
-/*! web-ignition v2.3.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Block Duo layout -- Two big columns followed by a single footer
@@ -106,7 +106,7 @@ main >section quotes-box >quote-list >blockquote cite {
    padding-top: 8px;
    }
 main >section quotes-box >quote-list >blockquote cite::before {
-   content: "\2014";  /* mdash */
+   content: "\2014";  /* character: — (em dash) */
    padding-right: 0.5em;
    }
 
