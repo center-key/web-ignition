@@ -15,41 +15,58 @@
 details {
    text-align: left;
    margin-bottom: 10px;
-   }
-details >summary {
-   position: relative;
-   display: block;
-   font-size: 1.1rem;
-   font-weight: bold;
-   padding-left: 1.2em;
-   cursor: pointer;
-   }
-details >summary::marker {
-   color: transparent;
-   }
-details >summary::before {  //custom marker
-   font-weight: bold;
-   font-size: 1.1em;
-   position: absolute;
-   top: -0.1em;
-   left: 0.1em;
-   content: @symbolAngleRight;  //character: ❯
-   transform: rotate(0deg);
-   transition: color 800ms, transform 400ms;
-   }
-details[open] >summary::before {
-   transform: rotate(90deg);
-   }
-details details {
-   margin-right: 30px;
-   margin-left: 30px;
-   }
-details details >summary {
-   font-size: 0.9rem;
-   margin-top: 10px;
-   }
-details details details >summary {
-   font-weight: normal;
+   >summary {
+      position: relative;
+      display: block;
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding-left: 1.2em;
+      cursor: pointer;
+      &:hover {
+
+      }
+      &::marker {
+         color: transparent;
+         }
+      &::before {  //custom marker
+         font-weight: bold;
+         font-size: 1.1em;
+         position: absolute;
+         top: -0.1em;
+         left: 0.1em;
+         content: @symbolAngleRight;  //character: ❯
+         transform: rotate(0deg);
+         transition: color 800ms, transform 400ms, text-shadow 800ms;
+         }
+      }
+   &[open] {
+      >summary {
+         &:hover::before {
+            text-shadow: none;
+            }
+         &::before {
+            transform: rotate(90deg);  //point down to expanded details
+            }
+         }
+      }
+   details {        //nested at least 1 level deep  (1.1)
+      margin-right: 30px;
+      margin-left: 30px;
+      >summary {
+         font-size: 0.9rem;
+         margin-top: 10px;
+         }
+      details {     //nested at least 2 levels deep (1.1.1)
+         >summary {
+            font-weight: normal;
+            }
+         details {  //nested at least 3 levels deep (1.1.1.1)
+            >summary {
+               font-style: italic;
+               }
+            }
+         }
+      }
    }
 details::details-content {                           //all content
    display: block;
