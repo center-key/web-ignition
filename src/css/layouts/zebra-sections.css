@@ -15,7 +15,7 @@ HTML (<body>):
          a.current
       h1, h2, h4, img[alt=avatar]
    main
-      section
+      section.night-mode[data-background=xyz]
          h2
             img
          cite  //author byline or date modified notice
@@ -116,6 +116,13 @@ main >section:first-child {
    }
 main >section:nth-child(even) {
    background-color: whitesmoke;
+   }
+main >section.night-mode {
+   color: white;
+   background-color: black;
+   }
+main >section.night-mode:last-child {
+   border-bottom: 5px solid white;
    }
 main >section:last-child:not(:has(footer)) {
    padding-bottom: 100px;
