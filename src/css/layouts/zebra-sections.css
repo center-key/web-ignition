@@ -117,13 +117,6 @@ main >section:first-child {
 main >section:nth-child(even) {
    background-color: whitesmoke;
    }
-main >section.night-mode {
-   color: white;
-   background-color: black;
-   }
-main >section.night-mode:last-child {
-   border-bottom: 5px solid white;
-   }
 main >section:last-child:not(:has(footer)) {
    padding-bottom: 100px;
    }
@@ -226,6 +219,7 @@ main >section >div >menu >li i.font-icon {
 main >section >form {
    display: inline-flex;
    flex-direction: column;
+   color: dimgray;
    background-color: gainsboro;
    padding: 35px 40px;
    margin: 0px 10px 30px 10px;
@@ -290,7 +284,27 @@ body >main >section >ol.marble-checklist {
    padding: 0px 10px;
    }
 
-/* Mobile devices */
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+   main >section {
+      color: white;
+      background-color: var(--colorTar);
+      }
+   main >section:nth-child(even) {
+      background-color: var(--colorCharcoal);
+      }
+   }
+
+/* Night Mode */
+main >section.night-mode {
+   color: white;
+   background-color: black;
+   }
+main >section.night-mode:last-child {
+   border-bottom: 5px solid silver;
+   }
+
+/* Mobile Devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
    body >header.responsive-avatar {
       img {
