@@ -14,7 +14,6 @@ table caption { caption-side: bottom; font-size: 0.7rem; font-weight: bold; text
 
 // Data Box
 table.data-box {
-   color: dimgray;
    background-color: aliceblue;
    border: 3px solid gainsboro;
    tr {
@@ -22,6 +21,7 @@ table.data-box {
       th, td {
          font-size: 0.9rem;
          text-align: left;
+         color: dimgray;
          padding: 4px 15px;
          }
       }
@@ -43,8 +43,7 @@ table.data-box {
             }
          }
       }
-   caption:not(.no-dark-mode) {
-      .DarkMode({ color: gainsboro; });
+   caption {
       }
    }
 

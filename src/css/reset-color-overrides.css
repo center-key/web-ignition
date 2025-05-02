@@ -14,9 +14,7 @@ a:hover { background-color: steelblue; outline-color: steelblue; }
 button { background-color: cornflowerblue; }
 button:hover:not(:disabled), button:focus { background-color: royalblue; }
 
-/* Summary Details Colors */
-*.no-dark-mode details >summary+header,
-*.no-dark-mode details:not(:has(details))::details-content,
+/* Details Summary Colors */
 details >summary+header,
 details:not(:has(details))::details-content {
    background-color: gainsboro;  /* content box (light) */
