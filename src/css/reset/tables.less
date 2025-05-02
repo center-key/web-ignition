@@ -5,7 +5,8 @@
 table { border-collapse: collapse; border-spacing: 0px; margin: 0px auto 20px auto; }
 table tr { border-bottom: 1px solid steelblue; transition: all 500ms; }
 table thead tr { border-bottom-width: 3px; }
-table tbody tr:hover { background-color: aliceblue; .DarkMode({ background-color: var(--colorSmoke); }); }
+table tbody tr:hover { background-color: aliceblue; }
+table:not(.no-dark-mode) tbody tr:hover { .DarkMode({ background-color: var(--colorSmoke); }); }
 table tbody tr th[colspan] { font-size: 0.8rem; font-weight: normal; text-align: center; text-transform: uppercase; color: white; background-color: steelblue; padding: 3px 0px; }
 table tbody tr td { font-size: 0.9rem; vertical-align: top; text-align: center; }
 table th, table td { padding: 6px 15px; .MobileMode({ padding: 6px 6px; }); }
@@ -42,8 +43,8 @@ table.data-box {
             }
          }
       }
-   caption {
-      .DarkMode({ color: white; });
+   caption:not(.no-dark-mode) {
+      .DarkMode({ color: gainsboro; });
       }
    }
 

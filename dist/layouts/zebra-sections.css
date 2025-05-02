@@ -1,4 +1,4 @@
-/*! web-ignition v2.3.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
@@ -17,7 +17,7 @@ HTML (<body>):
          a.current
       h1, h2, h4, img[alt=avatar]
    main
-      section
+      section.night-mode[data-background=xyz]
          h2
             img
          cite  //author byline or date modified notice
@@ -221,6 +221,7 @@ main >section >div >menu >li i.font-icon {
 main >section >form {
    display: inline-flex;
    flex-direction: column;
+   color: dimgray;
    background-color: gainsboro;
    padding: 35px 40px;
    margin: 0px 10px 30px 10px;
@@ -253,6 +254,7 @@ main >section >footer {
    padding-top: 20px;
    }
 main >section >footer.flip-icons {
+   letter-spacing: 0.1em;
    transform: scaleX(-1);
    }
 body >footer {
@@ -285,7 +287,27 @@ body >main >section >ol.marble-checklist {
    padding: 0px 10px;
    }
 
-/* Mobile devices */
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+   main >section {
+      color: gainsboro;
+      background-color: var(--colorTar);
+      }
+   main >section:nth-child(even) {
+      background-color: var(--colorCharcoal);
+      }
+   }
+
+/* Night Mode */
+main >section.night-mode {
+   color: gainsboro;
+   background-color: black;
+   }
+main:has(>section.night-mode:last-child)+footer {
+   background-color: var(--colorTar);
+   }
+
+/* Mobile Devices */
 @media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
    body >header.responsive-avatar {
       img {

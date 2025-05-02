@@ -252,6 +252,7 @@ main >section >footer {
    padding-top: 20px;
    }
 main >section >footer.flip-icons {
+   letter-spacing: 0.1em;
    transform: scaleX(-1);
    }
 body >footer {
@@ -287,7 +288,7 @@ body >main >section >ol.marble-checklist {
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
    main >section {
-      color: white;
+      color: gainsboro;
       background-color: var(--colorTar);
       }
    main >section:nth-child(even) {
@@ -297,11 +298,11 @@ body >main >section >ol.marble-checklist {
 
 /* Night Mode */
 main >section.night-mode {
-   color: white;
+   color: gainsboro;
    background-color: black;
    }
-main >section.night-mode:last-child {
-   border-bottom: 5px solid silver;
+main:has(>section.night-mode:last-child)+footer {
+   background-color: var(--colorTar);
    }
 
 /* Mobile Devices */

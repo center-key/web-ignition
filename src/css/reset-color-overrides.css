@@ -15,10 +15,18 @@ button { background-color: cornflowerblue; }
 button:hover:not(:disabled), button:focus { background-color: royalblue; }
 
 /* Summary Details Colors */
-details >summary::before { color: inherit; }  /* collapsed marker */
-details[open] >summary::before { color: black; }  /* expanded marker */
-details >summary:hover::before { color: black; text-shadow: 0px 0px 0.2em deepskyblue; }  /* hover on closed marker */
-details >summary+header, details:not(:has(details))::details-content { background-color: gainsboro; }  /* content box */
+*.no-dark-mode details >summary+header,
+*.no-dark-mode details:not(:has(details))::details-content,
+details >summary+header,
+details:not(:has(details))::details-content {
+   background-color: gainsboro;  /* content box (light) */
+   }
+@media (prefers-color-scheme: dark) {
+   details >summary+header,
+   details:not(:has(details))::details-content {
+      background-color: var(--colorSmoke);  /* content box (dark) */
+      }
+   }
 
 /* Reveal Action Colors */
 .reveal-button { color: darkseagreen; }

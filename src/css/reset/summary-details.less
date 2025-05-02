@@ -87,3 +87,23 @@ details[open]:not(:has(details))::details-content {
    padding: 20px 30px;
    margin: 10px 0px 20px 0px;
    }
+
+// Marker Color
+details >summary::before,
+*.no-dark-mode details >summary::before {
+   color: inherit;  //collapsed
+   }
+details[open] >summary::before,
+details >summary:hover::before,
+*.no-dark-mode details[open] >summary::before,
+*.no-dark-mode details >summary:hover::before {
+   color: black;  //expanded or hover
+   }
+details >summary:hover::before,
+*.no-dark-mode details >summary:hover::before {
+   text-shadow: 0px 0px 0.2em deepskyblue;  //hover on collapsed
+   }
+@media (prefers-color-scheme: dark) {
+   details[open] >summary::before,
+   details >summary:hover::before { color: white; }  //expanded or hover on collapsed
+   }
