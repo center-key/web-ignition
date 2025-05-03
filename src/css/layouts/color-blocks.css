@@ -1,5 +1,5 @@
 /*
-Color Blocks layout -- Two columns of colorful blocks
+Color Blocks Layout -- Two columns of colorful blocks
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/layouts/color-blocks.css>
@@ -36,6 +36,8 @@ HTML (<body>):
 */
 body {
    max-width: 1000px;
+   color: dimgray;
+   background-color: white;
    }
 body >header {
    text-align: left;
@@ -151,7 +153,7 @@ body >footer a:hover {
    }
 /******************************************************************************/
 
-/* Color Blocks layout -- customize colors */
+/* Color Blocks Layout -- customize colors */
 /* Block colors (2 columns * 3 blocks --> 6 colors) */
 main >div:nth-child(1) >section:nth-child(3n+1)    { border-color:     rosybrown; }
 main >div:nth-child(1) >section:nth-child(3n+1) h2 { background-color: rosybrown; }

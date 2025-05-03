@@ -1,5 +1,5 @@
 /*
-Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
+Letterbox Layout -- Edge-to-edge semi-opaque bar over cover background image
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/layouts/letterbox.css>
@@ -21,6 +21,8 @@ body {
    display: flex;
    max-width: none;
    align-items: center;
+   color: dimgray;
+   background-color: transparent;
    padding: 0px;
    margin: 0px;
    }
@@ -91,5 +93,5 @@ main >cite {
    }
 /******************************************************************************/
 
-/* Letterbox layout -- customize colors */
+/* Letterbox Layout -- customize colors */
 html { background-image: url(#); }

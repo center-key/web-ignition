@@ -1,5 +1,5 @@
 /*
-Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
+Zebra Sections Layout -- Edge-to-edge blocks with alternating background colors
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/layouts/zebra-sections.css>
@@ -319,7 +319,7 @@ main:has(>section.night-mode:last-child)+footer {
    }
 /******************************************************************************/
 
-/* Zebra Sections layout -- customize header */
+/* Zebra Sections Layout -- customize header */
 body >header {
    background-image: url();
    }

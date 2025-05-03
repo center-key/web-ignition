@@ -7,8 +7,9 @@
 /****************************************/
 
 /* Link Colors */
-a { border-color: steelblue; }
-a:hover { background-color: steelblue; outline-color: steelblue; }
+a         { color: inherit; border-color: steelblue; }
+a:visited { color: darkgray; }
+a:hover   { color: white; background-color: steelblue; outline-color: steelblue; }
 
 /* Flat Button Colors */
 button { background-color: cornflowerblue; }

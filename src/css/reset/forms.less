@@ -30,7 +30,7 @@ form nav:last-child, fieldset nav:last-child { margin-bottom: 0px; }
 form nav button, fieldset nav button { margin-left: 0.5em; }
 
 // Form colors
-input, textarea { background-color: mintcream; }
+input, textarea { background-color: mintcream; .DarkMode({ background-color: honeydew; }) }
 
 // Flat buttons
 button             { font-size: 1.1rem; font-weight: bold; white-space: nowrap; color: white; border: none; border-radius: 0.4em; padding: 0.6em 1.2em; outline: none; transition: all 500ms; }
@@ -55,6 +55,7 @@ label:has(select) {
       top: 0.1em;  //assume no label text above drop-down
       right: 0.4em;
       font-size: 1.5em;
+      color: dimgray;
       transform: rotate(90deg);  //point down
       pointer-events: none;
       }

@@ -2,6 +2,7 @@
 
 @import "static/utility-box";
 
+// Layout
 * { box-sizing: border-box; }
 html { display: flex; flex-direction: column; height: 100%; min-height: 100%; }
 html { font-size: 115%; font-family: system-ui, geneva, tahoma, sans-serif; }  //override font-size percent to resize base font
@@ -26,20 +27,20 @@ hr { border: none; border-top: 1px solid silver; }
 sup, sub { font-size: 0.7rem; }
 iframe { border: none; }
 
-// Basic styling
-body { max-width: 900px; color: dimgray; padding: 40px 15px; margin: 0px auto; }
+// Basic Styling
+body { max-width: 900px; padding: 40px 15px; margin: 0px auto; }
 body >header { text-align: center; }
 main { min-height: 300px; }
 header { margin-bottom: 20px; }
-aside { float: right; clear: right; font-size: 0.9rem; margin: 0px 0px 20px 20px; }
+aside { float: right; clear: right; font-size: 0.9rem; font-weight: 200; line-height: 1.3em; letter-spacing: 0.03em; margin: 0px 0px 20px 20px; }
 aside.left { float: left; clear: left; margin: 0px 20px 20px 0px; }
-main section aside { max-width: 35%; background-color: whitesmoke; border: 1px solid silver; padding: 10px; }
+main section aside { max-width: 35%; border: 1px solid silver; padding: 10px; }
 main section aside.simple { background-color: transparent; border: none; padding: 0px; }
 main section aside h2 { font-size: 1.1rem; }
 main section aside img { width: 100%; max-width: 100%; }
 main section aside p:last-child { margin-bottom: 0px; }
 section:after { content: " "; display: table; clear: both; }  //a section with an aside will self clear
-body >footer { display: flex; justify-content: space-between; align-items: center; clear: both; text-align: center; font-size: 0.9rem; color: darkgray; padding: 30px 0px; }
+body >footer { display: flex; justify-content: space-between; align-items: center; clear: both; text-align: center; font-size: 0.9rem; padding: 30px 0px; }
 body >footer >div { min-width: 20%; }  //centers middle child
 body >footer >div:first-child:last-child { width: 100%; }
 body >footer >div:first-child:not(:last-child) { text-align: left; }
@@ -51,6 +52,18 @@ h3 { font-size: 1.2rem; }
 h4 { font-size: 0.9rem; font-weight: normal; text-transform: uppercase; letter-spacing: 0.14em; }
 h1+h2 { font-weight: lighter; margin: -0.2em 0px 0.4em 0px; }
 i.font-icon { font-size: 1.5em; }
+
+// Colors
+body {
+   color: dimgray;          .DarkMode({ color: gainsboro });
+   background-color: white; .DarkMode({ background-color: var(--colorCharcoal); });
+   }
+main section aside {
+   background-color: whitesmoke; .DarkMode({ color: white; background-color: dimgray; });
+   }
+body >footer {
+   color: darkgray;
+   }
 
 // Responsive Design
 .MobileMode({
