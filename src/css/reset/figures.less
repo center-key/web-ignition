@@ -1,0 +1,37 @@
+// Figures
+
+@import "static/utility-box";
+
+// <figure data-picture-size=3>
+//    <img src=buffalo.jpg alt=buffalo>
+//    <figcaption>buffalo</figcaption>
+// </figure>
+img {
+   border: none;
+   }
+figure {
+   text-align: center;
+   padding: 0px;
+   margin: 0px;
+   img {
+      max-width: 100%;
+      max-height: 100%;
+      }
+   >figcaption {
+      font-weight: bold;
+      padding: 3px 0px;
+      >cite {
+         display: block;
+         font-size: small;
+         font-weight: 100;
+         }
+      }
+   &[data-picture-size="1"] { img { width: 100px; .MobileMode({ width:  75px; }); } }
+   &[data-picture-size="2"] { img { width: 200px; .MobileMode({ width: 150px; }); } }
+   &[data-picture-size="3"] { img { width: 300px; .MobileMode({ width: 225px; }); } }
+   &[data-picture-size="4"] { img { width: 400px; .MobileMode({ width: 300px; }); } }
+   &[data-picture-size="5"] { img { width: 500px; .MobileMode({ width: 375px; }); } }
+   &[data-picture-size="6"] { img { width: 600px; .MobileMode({ width: 450px; }); } }
+   &[data-picture-size="7"] { img { width: 700px; .MobileMode({ width: 525px; }); } }
+   &[data-picture-size="8"] { img { width: 800px; .MobileMode({ width: 600px; }); } }
+   }
