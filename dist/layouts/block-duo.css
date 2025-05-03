@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Block Duo layout -- Two big columns followed by a single footer
+Block Duo Layout -- Two big columns followed by a single footer
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/dna-engine.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.2/dist/panel-nav.css>
@@ -134,7 +134,7 @@ body >footer >p a i.font-icon {
    }
 /******************************************************************************/
 
-/* Block Duo layout -- customize colors */
+/* Block Duo Layout -- customize colors */
 main >section:nth-child(1) { color: white;     background-color: steelblue; }
 main >section:nth-child(2) { color: gainsboro; background-color: black; }
 nav.dna-menu[data-style=flat-tabs]                   { background-color: dimgray; }

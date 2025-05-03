@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Zebra Sections layout -- Edge-to-edge blocks with alternating background colors
+Zebra Sections Layout -- Edge-to-edge blocks with alternating background colors
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/zebra-sections.css>
@@ -321,7 +321,7 @@ main:has(>section.night-mode:last-child)+footer {
    }
 /******************************************************************************/
 
-/* Zebra Sections layout -- customize header */
+/* Zebra Sections Layout -- customize header */
 body >header {
    background-image: url();
    }

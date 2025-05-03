@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Vertical Bars layout -- traditional boring old-school webpage
+Vertical Bars Layout -- traditional boring old-school webpage
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/vertical-bars.css>
@@ -73,7 +73,7 @@ body >footer #social-buttons {
    }
 /******************************************************************************/
 
-/* Vertical Bars layout -- customize colors */
+/* Vertical Bars Layout -- customize colors */
 html { background-color: dimgray; }
 body { color: whitesmoke; background-color: black; border-color: firebrick; }  /* font, body, bars */
 body >header nav a { color: white; }

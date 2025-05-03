@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Modern layout -- Clean blog post page
+Modern Layout -- Clean blog post page
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/modern.css>
@@ -42,6 +42,7 @@ body {
    flex-direction: column;
    max-width: none;
    min-height: 100vh;
+   color: dimgray;
    background-color: white;
    padding: 0px;
    margin: 0px;
@@ -102,7 +103,7 @@ main >h1 {
    }
 main >div >article {
    border: 1px solid;
-   padding: 10px 10px 0px 10px;
+   padding: 10px 15px 15px 15px;
    margin-bottom: 25px;
    overflow-x: auto;
    }
@@ -183,6 +184,6 @@ body >footer >small {
    }
 /******************************************************************************/
 
-/* Modern layout -- customize colors */
+/* Modern Layout -- customize colors */
 main >div >article { background-color: aliceblue; border-color: steelblue; }
 main >div >article >h3 { color: steelblue; }

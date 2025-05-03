@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Color Slide layout -- Top to botttom color transition
+Color Slide Layout -- Top to botttom color transition
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/color-slide.css>
@@ -23,6 +23,7 @@ html {
 body {
    width: 900px;
    max-width: 95%;
+   color: dimgray;
    background-color: rgba(255, 255, 255, 0.9);
    padding: 20px 5%;
    }
@@ -48,5 +49,5 @@ body >header img {
    }
 /******************************************************************************/
 
-/* Color Slide layout -- customize colors */
+/* Color Slide Layout -- customize colors */
 html { background: linear-gradient(to bottom, gold, black); }

@@ -1,7 +1,7 @@
-/*! web-ignition v2.3.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.3.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
-Letterbox layout -- Edge-to-edge semi-opaque bar over cover background image
+Letterbox Layout -- Edge-to-edge semi-opaque bar over cover background image
 Usage:
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/letterbox.css>
@@ -23,6 +23,8 @@ body {
    display: flex;
    max-width: none;
    align-items: center;
+   color: dimgray;
+   background-color: transparent;
    padding: 0px;
    margin: 0px;
    }
@@ -93,5 +95,5 @@ main >cite {
    }
 /******************************************************************************/
 
-/* Letterbox layout -- customize colors */
+/* Letterbox Layout -- customize colors */
 html { background-image: url(#); }
