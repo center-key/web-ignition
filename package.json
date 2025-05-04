@@ -67,7 +67,8 @@
          "copy-folder build/step0                              build/step5",
          "esm-to-plain-js build/step0/lib-x.js                 build/step5/lib-x.dev.js",
          "uglifyjs build/step5/lib-x.dev.js           --output build/step5/lib-x.min.js",
-         "uglifyjs src/css/layouts/neon.js            --output build/step5/layouts/neon.min.js"
+         "uglifyjs src/css/layouts/neon.js            --output build/step5/layouts/neon.min.js",
+         "copy-file src/css/reset/static/utility-box.less --folder build/step5"
       ],
       "publish": [
          "add-dist-header build/step5 --recursive     dist",

@@ -17,6 +17,7 @@ describe('The "dist" folder', () => {
          'lib-x.js',
          'lib-x.min.js',
          'reset.min.css',
+         'utility-box.less',
          ];
       assertDeepStrictEqual(actual, expected);
       });
