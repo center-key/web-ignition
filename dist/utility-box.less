@@ -1,0 +1,79 @@
+//! web-ignition v2.3.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+
+// Add utility-box to your project:
+//    1) $ npm install --save-dev web-ignition copy-file-util
+//    2) package.json scripts -->
+//       "copy-file node_modules/web-ignition/dist/utility-box.less --folder src/css/static"
+//    3) Include in CSS LESS files --> @import "static/utility-box";
+
+// Dark Mode Colors
+@colorSmoke:    #444444;
+@colorGraphite: #303030;
+@colorCharcoal: #222222;
+@colorTar:      #161616;
+
+// Layers for z-index
+@layerDialogBox:     500;  //cream of the crop
+@layerModal:         400;  //screen overlays
+@layerFixedPosition: 300;  //sticky elements
+@layerNavigation:    200;  //notifications, menus, and drop-downs
+@layerHover:         100;  //tootips and other hover popups
+@layerBackground:   -100;  //bottom of the barrel
+
+// Character Entities
+@symbolAngleRight:   "\276F";  //character: ❯
+@symbolArrowDown:    "\21E9";  //character: ⇩
+@symbolArrowUp:      "\21E7";  //character: ⇧
+@symbolBallotXMark:  "\2718";  //character: ✘
+@symbolCheckmark:    "\2714";  //character: ✔
+@symbolEmDash:       "\2014";  //character: —
+@symbolTriangleDown: "\25BC";  //character: ▼
+@symbolTriangleUp:   "\25B2";  //character: ▲
+
+// Tools
+
+.MonospaceText() {
+   font-family: menlo, consolas, monospace;
+   font-weight: 700;
+   }
+
+.TextDarkShadow() {
+   text-shadow: 0px 0px 0.8em @colorCharcoal;
+   }
+
+.Bullseye() {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   }
+
+.CheckerboardBackground() {
+   // <figure class=checkerboard-background>
+   //    <img src=logo.svg alt=logo>
+   //    <figcaption>Logo</figcaption>
+   // </figure>
+   &:hover {
+      img {
+         background: black;
+         outline-width: 1px;  //extra space for a clean image crop
+         }
+      }
+   img {
+      background: conic-gradient(
+         lightgray 90deg,
+         darkgray 90deg 180deg,
+         lightgray 180deg 270deg,
+         darkgray 270deg
+         );
+      background-size: 15px 15px;
+      outline: 3px solid black;
+      }
+   }
+
+.DarkMode(@lessRules) {  //apply style if user has requested dark color themes
+   @media (prefers-color-scheme: dark) { @lessRules(); }
+   }
+
+.MobileMode(@lessRules) {  //selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower
+   @media (max-width: 667px) { @lessRules(); }
+   }
