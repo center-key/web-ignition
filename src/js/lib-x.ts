@@ -37,10 +37,10 @@ export type NavigatorUAData = {
    };
 export type LibX = typeof libX;
 type Blogger = { ui: () => { addListener: (type: string, listener: () => void) => void, Lc: { wb: string[] } } };
-declare global { var blogger:     Blogger }                //eslint-disable-line no-var
-declare global { var dataLayer:   unknown[] }              //eslint-disable-line no-var
-declare global { var hljsEnhance: { setup: () => void } }  //eslint-disable-line no-var
-declare global { var libX:        LibX }                   //eslint-disable-line no-var
+declare global { var blogger:     Blogger }
+declare global { var dataLayer:   unknown[] }
+declare global { var hljsEnhance: { setup: () => void } }
+declare global { var libX:        LibX }
 
 const libXDom = {
    stateDepot: <{ [key: string | number | symbol]: unknown }[]>[],
