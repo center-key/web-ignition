@@ -1,10 +1,10 @@
-/*! web-ignition v2.3.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Vertical Bars Layout -- traditional boring old-school webpage
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.3/dist/layouts/vertical-bars.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/layouts/vertical-bars.css>
    <style>
       html { background-color: dimgray; }
       body { color: whitesmoke; background-color: black; border-color: firebrick; }
@@ -67,7 +67,7 @@ body >footer #social-buttons {
    }
 
 /* Mobile devices */
-@media (max-width: 667px) {  /* selects iPhone 6/6s/7/8/SE2/SE3 landscape and anything narrower */
+@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
    body { border: none; padding: 5px 15px; }
    body >header h1 { font-size: 1.7rem; }
    }
