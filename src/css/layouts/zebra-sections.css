@@ -183,6 +183,19 @@ main >section >div >blockquote >cite::before {
 main >section >p {
    text-align: left;
    }
+main >section >div >nav {  /* grid of image links */
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   column-gap: 40px;
+   row-gap: 20px;
+   }
+main >section >div >nav[data-image-size="1"] img { height:  40px; }
+main >section >div >nav[data-image-size="2"] img { height:  60px; }
+main >section >div >nav[data-image-size="3"] img { height:  80px; }
+main >section >div >nav[data-image-size="4"] img { height: 100px; }
+main >section >div >nav[data-image-size="5"] img { height: 120px; }
 main >section >div:has(>ul, >ol, >menu) {
    display: flex;
    flex-direction: column;
@@ -191,7 +204,7 @@ main >section >div:has(>ul, >ol, >menu) {
    max-width: 600px;
    padding-bottom: 10px;
    }
-main >section >div:has(>ul, >ol, >menu) >header {
+main >section >div:has(>ul, >ol, >menu, >nav, >details) >header {
    font-size: 1.4rem;
    font-weight: bold;
    margin-bottom: 15px;
@@ -306,7 +319,7 @@ main:has(>section.night-mode:last-child)+footer {
    }
 
 /* Mobile Devices */
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    body >header.responsive-avatar {
       img {
          bottom: -50px;
