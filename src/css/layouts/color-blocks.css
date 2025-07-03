@@ -141,7 +141,7 @@ body >footer a:hover {
    outline: none;
    }
 /* Mobile devices */
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    body >header { text-align: center; }
    body >header >aside { float: none; margin: 0px; }
    body >header.forkable >aside { text-align: left; }

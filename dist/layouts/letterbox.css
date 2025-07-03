@@ -1,4 +1,4 @@
-/*! web-ignition v2.4.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Letterbox Layout -- Edge-to-edge semi-opaque bar over cover background image
@@ -90,7 +90,7 @@ main >cite {
    opacity: 0.6;
    }
 /* Mobile devices */
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    main >section+section { padding: 10px; }
    }
 /******************************************************************************/

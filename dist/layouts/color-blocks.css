@@ -1,4 +1,4 @@
-/*! web-ignition v2.4.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Color Blocks Layout -- Two columns of colorful blocks
@@ -143,7 +143,7 @@ body >footer a:hover {
    outline: none;
    }
 /* Mobile devices */
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    body >header { text-align: center; }
    body >header >aside { float: none; margin: 0px; }
    body >header.forkable >aside { text-align: left; }

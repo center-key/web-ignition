@@ -1,4 +1,4 @@
-/*! web-ignition v2.4.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Neon Layout -- For hackers and space junkies
@@ -166,7 +166,7 @@ body >footer p {
    }
 
 /* Mobile devices */
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    main >section >h2 + aside,
    main >section >h3 + aside {
       margin-top: 10px;

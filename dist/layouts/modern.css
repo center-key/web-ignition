@@ -1,4 +1,4 @@
-/*! web-ignition v2.4.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Modern Layout -- Clean blog post page
@@ -174,7 +174,7 @@ body >footer >div >address >p >span >a {
 body >footer >small {
    color: silver;
    }
-@media (max-width: 667px) {  /* mobile: selects iPhone SE (3rd gen) landscape and anything narrower */
+@media (max-width: 667px) {  /* selects iPhone SE (3rd gen) landscape and anything narrower */
    body >header { padding-top: 40px; }
    body >header >h2 { font-size: 1.2rem; }
    body >header >nav >a { margin: 0px 0px 5px 0px; }

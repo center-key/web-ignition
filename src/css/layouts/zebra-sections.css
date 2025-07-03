@@ -196,6 +196,11 @@ main >section >div >nav[data-image-size="2"] img { height:  60px; }
 main >section >div >nav[data-image-size="3"] img { height:  80px; }
 main >section >div >nav[data-image-size="4"] img { height: 100px; }
 main >section >div >nav[data-image-size="5"] img { height: 120px; }
+main >section >div >nav[data-figure-size="1"] figure { width: 100px; }
+main >section >div >nav[data-figure-size="2"] figure { width: 200px; }
+main >section >div >nav[data-figure-size="3"] figure { width: 300px; }
+main >section >div >nav[data-figure-size="4"] figure { width: 400px; }
+main >section >div >nav[data-figure-size="5"] figure { width: 500px; }
 main >section >div:has(>ul, >ol, >menu) {
    display: flex;
    flex-direction: column;
