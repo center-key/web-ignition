@@ -18,7 +18,7 @@
    <script>globalThis.onerror = () => globalThis.document.body.style.background = 'pink';</script>
    <script data-on-load=startup data-wait-for=libX>
       const startup = () => {
-         console.log('web-ignition v' + libX.version);
+         console.info('web-ignition v' + libX.version);
          libX.ui.autoDisableButtons();
          libX.animate.rollIn(globalThis.document.getElementById('roll-in-icons'));
          libX.animate.jiggleIt(globalThis.document.getElementById('fork-me'));

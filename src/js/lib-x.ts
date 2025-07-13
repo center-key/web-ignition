@@ -317,7 +317,7 @@ const libXDom = {
       const browserless = <boolean>!globalThis.document;
       const state =       browserless ? 'browserless' : globalThis.document.readyState;
       if (browserless && !options?.quiet)
-         console.log(new Date().toISOString(), 'Callback run in browserless context');
+         console.info(new Date().toISOString(), 'Callback run in browserless context');
       if (['complete', 'browserless'].includes(state))
          callback();
       else
@@ -1108,11 +1108,11 @@ const libXSocial = {
 const libXExtra = {
    blogger(websiteUrl: string) {
       // Setup Blogger's Dynamic Views (sidebar)
-      console.log('Blog associated with:', websiteUrl);
+      console.info('Blog associated with:', websiteUrl);
       const onArticleLoad = () => {
-         //console.log('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
+         //console.info('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
          const title = libX.dom.select('h1.entry-title')!.textContent!.trim();
-         console.log('Article: %c' + title, 'font-weight: bold; color: turquoise;');
+         console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
          libX.dom.select('#header >.header-bar h3')!.dataset.href = websiteUrl;
          libX.ui.normalize();
          globalThis.hljsEnhance.setup();
