@@ -312,16 +312,16 @@ const libXDom = {
       },
    onReady(callback: (...args: unknown[]) => unknown, options?: { quiet?: boolean }): DocumentReadyState | 'browserless' {
       // Calls the specified function once the web page is loaded and ready.
-      // Example (execute myApp.setup() as soon as the DOM is interactive):
+      // Example to execute myApp.setup() as soon as the DOM is interactive:
       //    libX.dom.onReady(myApp.setup);
       const browserless = <boolean>!globalThis.document;
-      const state =       browserless ? 'browserless' : globalThis.document.readyState;
+      const state =       browserless ? 'browserless' : globalThis.document.readyState;  //loading, interactive, complete
       if (browserless && !options?.quiet)
          console.info(new Date().toISOString(), 'Callback run in browserless context');
-      if (['complete', 'browserless'].includes(state))
-         callback();
+      if (state === 'loading')
+         globalThis.document.addEventListener('DOMContentLoaded', callback);
       else
-         globalThis.window.addEventListener('DOMContentLoaded', callback);
+         globalThis.setTimeout(callback);
       return state;
       },
    };

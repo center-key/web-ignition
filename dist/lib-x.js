@@ -1,4 +1,4 @@
-//! web-ignition v2.4.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -236,11 +236,11 @@ const libXDom = {
         const browserless = !globalThis.document;
         const state = browserless ? 'browserless' : globalThis.document.readyState;
         if (browserless && !options?.quiet)
-            console.log(new Date().toISOString(), 'Callback run in browserless context');
-        if (['complete', 'browserless'].includes(state))
-            callback();
+            console.info(new Date().toISOString(), 'Callback run in browserless context');
+        if (state === 'loading')
+            globalThis.document.addEventListener('DOMContentLoaded', callback);
         else
-            globalThis.window.addEventListener('DOMContentLoaded', callback);
+            globalThis.setTimeout(callback);
         return state;
     },
 };
@@ -890,10 +890,10 @@ const libXSocial = {
 };
 const libXExtra = {
     blogger(websiteUrl) {
-        console.log('Blog associated with:', websiteUrl);
+        console.info('Blog associated with:', websiteUrl);
         const onArticleLoad = () => {
             const title = libX.dom.select('h1.entry-title').textContent.trim();
-            console.log('Article: %c' + title, 'font-weight: bold; color: turquoise;');
+            console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
             libX.dom.select('#header >.header-bar h3').dataset.href = websiteUrl;
             libX.ui.normalize();
             globalThis.hljsEnhance.setup();
@@ -904,7 +904,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.1',
+    version: '2.4.2',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
