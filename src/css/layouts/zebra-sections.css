@@ -15,7 +15,7 @@ HTML (<body>):
          a.current
       h1, h2, h4, img[alt=avatar]
    main
-      section.night-mode[data-background=xyz]
+      section.night-mode[data-background=xyz]  //add [data-font=dark] if needed
          h2
             img
          cite  //author byline or date modified notice
@@ -102,9 +102,12 @@ main >section {
    margin-bottom: 0px;
    }
 main >section[data-background] {
-   color: white;
+   color: whitesmoke;
    text-shadow: 0px 0px 0.8em var(--colorCharcoal);
    background: center center / cover no-repeat;
+   }
+main >section[data-background][data-font=dark] {  /* useful for light background images */
+   color: var(--colorSmoke);
    }
 main >section[data-background] form,
 main >section[data-background] table {
