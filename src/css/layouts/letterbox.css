@@ -32,6 +32,7 @@ main {
    justify-content: center;
    width: 100%;
    text-align: center;
+   padding: 60px 0px;
    }
 main >section {
    background-color: rgba(255, 255, 255, 0.75);
@@ -41,7 +42,7 @@ main >section:first-child:last-of-type {
    }
 main >section:first-child {
    padding: 50px 10px;
-   margin: 60px 0px;
+   margin-bottom: 60px;
    }
 main >section:first-child h1 {
    font-size: 2.0rem;
@@ -84,7 +85,6 @@ main >section >figure.video-container {
    }
 main >cite {
    font-size: 0.9rem;
-   margin: 30px 0px;
    opacity: 0.6;
    }
 /* Mobile devices */
