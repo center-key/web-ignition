@@ -4,20 +4,20 @@
 
 .montage-loop {
    position: relative;
-   }
-.montage-loop >img {
-   position: absolute;
-   display: block;
-   object-fit: cover;
-   width: 100%;
-   height: 100%;
-   opacity: 0;
-   }
-.montage-loop >img.previous {
-   opacity: 1;
-   z-index: 1000;
-   }
-.montage-loop >img.current {
-   opacity: 1;
-   z-index: 2000;
+   >img {
+      position: absolute;
+      display: block;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      &.previous {
+         opacity: 1;
+         z-index: 1000;
+         }
+      &.current {
+         opacity: 1;
+         z-index: 2000;
+         }
+      }
    }

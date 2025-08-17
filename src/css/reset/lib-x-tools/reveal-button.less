@@ -2,6 +2,28 @@
 
 @import "../static/utility-box";
 
-.reveal-button       { display: inline-block; border: 1px solid; padding: 3px 10px; margin-bottom: 20px; transition: all 500ms; cursor: pointer; }
-.reveal-button:hover { color: white; border-color: transparent; }
-.reveal-target       { display: none; margin-bottom: 20px; }
+.reveal-button {
+   display: inline-block;
+   border: 1px solid;
+   border-radius: 5px;
+   padding: 3px 10px;
+   margin-bottom: 20px;
+   transition: all 500ms;
+   cursor: pointer;
+   &:hover {
+      color: white;
+      border-color: transparent;
+      }
+   &.reveal-expanded {
+      opacity: 0;
+      cursor: inherit;
+      pointer-events: none;
+      }
+   }
+.reveal-button+.reveal-target {
+   margin-top: -40px;
+   }
+.reveal-target {
+   display: none;
+   margin-bottom: 20px;
+   }
