@@ -259,7 +259,10 @@ const libXDom = {
       libX.dom.on('keyup', listener, { selector: selector ?? null });
       },
    onEnterKey(listener: LibXEventListener, selector?: string) {
-      libX.dom.on('keypress', listener, { selector: selector ?? null, keyFilter: 'Enter' });
+      const options =  { selector: selector ?? null, keyFilter: 'Enter' };
+      const register = () => libX.dom.on('keyup', listener, options);
+      const delay =    250;  //clear out possible enter key event from address bar
+      globalThis.setTimeout(register, delay);
       },
    onFocusIn(listener: LibXEventListener, selector?: string) {
       libX.dom.on('focusin', listener, { selector: selector ?? null });
@@ -580,6 +583,7 @@ const libXUi = {
       const selector =   `.reveal-target[data-reveal="${button.dataset.reveal}"]`;
       const findTarget = () => libX.dom.select(selector);
       const target =     button.dataset.reveal ? findTarget() : button.nextElementSibling;
+      button.classList.add('reveal-expanded');
       libX.ui.slideFadeIn(target!);
       return button;
       },
@@ -1111,7 +1115,8 @@ const libXExtra = {
       console.info('Blog associated with:', websiteUrl);
       const onArticleLoad = () => {
          //console.info('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
-         const title = libX.dom.select('h1.entry-title')!.textContent!.trim();
+         const elem =  libX.dom.select('h1.entry-title')!;
+         const title = String(<unknown>elem.textContent).trim();
          console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
          libX.dom.select('#header >.header-bar h3')!.dataset.href = websiteUrl;
          libX.ui.normalize();
