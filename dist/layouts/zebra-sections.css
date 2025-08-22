@@ -1,4 +1,4 @@
-/*! web-ignition v2.4.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.4.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Zebra Sections Layout -- Edge-to-edge blocks with alternating background colors
@@ -17,7 +17,7 @@ HTML (<body>):
          a.current
       h1, h2, h4, img[alt=avatar]
    main
-      section.night-mode[data-background=xyz]  //add [data-font=dark] if needed
+      section.night-mode[data-background=xyz]
          h2
             img
          cite  //author byline or date modified notice
@@ -35,7 +35,8 @@ body {
 body >header {
    position: relative;
    height: 300px;
-   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
+   -webkit-text-stroke: 2px var(--colorGraphite);
+   paint-order: stroke fill;
    background: no-repeat center center;
    background-size: cover;
    background-color: gainsboro;  /* fallback while image is loading */
@@ -73,6 +74,7 @@ body >header nav+h1 {
    padding-top: 40px;
    }
 body >header h1 {
+   -webkit-text-stroke-width: 10px;
    padding-top: 60px;
    }
 body >header h1,
@@ -82,7 +84,7 @@ body >header h2 {
    text-align: center;
    }
 body >header h2 {
-   font-size: 1.1rem;
+   font-size: 1.2rem;
    letter-spacing: 0.25em;
    text-transform: uppercase;
    }
@@ -104,17 +106,23 @@ main >section {
    margin-bottom: 0px;
    }
 main >section[data-background] {
-   color: whitesmoke;
-   text-shadow: 0px 0px 0.8em var(--colorCharcoal);
    background: center center / cover no-repeat;
    }
-main >section[data-background][data-font=dark] {  /* useful for light background images */
-   color: var(--colorSmoke);
+main >section[data-background] >h2 {
+   font-size: 2.0rem;
+   color: white;
+   -webkit-text-stroke: 5px var(--colorGraphite);
+   paint-order: stroke fill;
+   }
+main >section[data-background] >div >span {
+   font-size: 1.4rem;
+   color: white;
+   -webkit-text-stroke: 3px black;
+   paint-order: stroke fill;
    }
 main >section[data-background] form,
 main >section[data-background] table {
    color: dimgray;
-   text-shadow: none;
    }
 main >section:first-child {
    padding-top: 140px;
@@ -317,12 +325,18 @@ body >main >section >ol.marble-checklist {
    main >section:nth-child(even) {
       background-color: var(--colorCharcoal);
       }
+   main >section figure img.popup-image:hover {
+      border-color: white;
+      }
    }
 
 /* Night Mode */
 main >section.night-mode {
    color: gainsboro;
    background-color: black;
+   }
+main >section.night-mode figure img.popup-image:hover {
+   border-color: white;
    }
 main:has(>section.night-mode:last-child)+footer {
    background-color: var(--colorTar);

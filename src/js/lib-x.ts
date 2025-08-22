@@ -36,6 +36,7 @@ export type NavigatorUAData = {
    readonly platform: string;  //examples: "macOS", "Windows"
    };
 export type LibX = typeof libX;
+export type LibXElems = Element[] | HTMLCollection | NodeListOf<Element>;
 type Blogger = { ui: () => { addListener: (type: string, listener: () => void) => void, Lc: { wb: string[] } } };
 declare global { var blogger:     Blogger }
 declare global { var dataLayer:   unknown[] }
@@ -140,7 +141,7 @@ const libXDom = {
    selectAll(selector: string): HTMLElement[] {
       return <HTMLElement[]>[...globalThis.document.body.querySelectorAll(selector)];
       },
-   hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean {
+   hasClass(elems: LibXElems, className: string): boolean {
       // Returns true if any of the elements in the given list have the specified class.
       const elemHas = (elem: Element) => elem.classList.contains(className);
       return Array.prototype.some.call(elems, elemHas);
@@ -159,37 +160,44 @@ const libXDom = {
       elem.classList.add(newName);
       return elem;
       },
-   addClass<T extends Element[] | HTMLCollection | NodeListOf<Element>>(elems: T, className: string): T {
+   addClass<T extends LibXElems>(elems: T, className: string): T {
       // Adds the specified class to each of the elements in the given list.
       const addToElem = (elem: Element) => elem.classList.add(className);
       Array.prototype.forEach.call(elems, addToElem);
       return elems;
       },
-   forEach<T extends HTMLCollection>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T {
+   forEach<T extends LibXElems>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T {
       // Loops over the given list of elements to pass each element to the specified function.
       Array.prototype.forEach.call(elems, fn);
       return elems;
       },
-   map<T>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T): T[] {
+   map<T>(elems: LibXElems, fn: (elem: Element, index: number, elems: unknown[]) => T): T[] {
       // Loops over the given list of elements to pass each element to the specified function.
       return <T[]>Array.prototype.map.call(elems, fn);
       },
-   filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[] {
+   filter(elems: LibXElems, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[] {
       // Filters a list of elements.
       return Array.prototype.filter.call(elems, fn);  //eslint-disable-line
       },
-   filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[] {
+   filterBySelector(elems: LibXElems, selector: string): Element[] {
       // Returns direct child elements filtered by the specified selector.
       const elemMatches = (elem: Element) => elem.matches(selector);
       return <Element[]>Array.prototype.filter.call(elems, elemMatches);
       },
-   filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[] {
+   filterByClass(elems: LibXElems, ...classNames: string[]): Element[] {
       // Returns direct child elements filtered by one or more class names.
       const hasClass = (elem: Element) => elem.classList.contains(classNames[0]!);
       const filtered = <Element[]>Array.prototype.filter.call(elems, hasClass);
       return classNames.length === 1 ? filtered : libX.dom.filterByClass(filtered, ...classNames.splice(1));
       },
-   find(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null {
+   excludeByClass(elems: LibXElems, ...classNames: string[]): Element[] {
+      // Returns elements that do not have any of the given class names.
+      const lacksClass =  (elem: Element) => !elem.classList.contains(classNames[0]!);
+      const filtered =    <Element[]>Array.prototype.filter.call(elems, lacksClass);
+      const excludeMore = () => libX.dom.excludeByClass(filtered, ...classNames.splice(1));
+      return classNames.length === 1 ? filtered : excludeMore();
+      },
+   find(elems: LibXElems, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null {
       // Finds the first element that satisfies the given condition.
       return <Element | undefined>Array.prototype.find.call(elems, fn) ?? null;
       },
@@ -203,11 +211,11 @@ const libXDom = {
          }
       return index;
       },
-   indexOf(elems: NodeListOf<Element>, elem: Element): number {
+   indexOf(elems: LibXElems, elem: Element): number {
       // Returns the location an element within an array of elements.
       return Array.prototype.indexOf.call(elems, elem);
       },
-   findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number {
+   findIndex(elems: LibXElems, selector: string): number {
       // Returns the location of the first matching element within an array of elements.
       const elemMatches = (elem: Element) => elem.matches(selector);
       return Array.prototype.findIndex.call(elems, elemMatches);

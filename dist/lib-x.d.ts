@@ -1,4 +1,4 @@
-//! web-ignition v2.4.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -51,6 +51,7 @@ export type NavigatorUAData = {
     readonly platform: string;
 };
 export type LibX = typeof libX;
+export type LibXElems = Element[] | HTMLCollection | NodeListOf<Element>;
 type Blogger = {
     ui: () => {
         addListener: (type: string, listener: () => void) => void;
@@ -114,22 +115,23 @@ declare const libX: {
             src?: string;
             text?: string;
             type?: string;
-        }): HTMLElement | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement | HTMLAnchorElement | HTMLScriptElement | HTMLEmbedElement | HTMLFormElement | HTMLHeadElement | HTMLAreaElement | HTMLObjectElement | HTMLLinkElement | HTMLMapElement | HTMLInputElement | HTMLBaseElement | HTMLTimeElement | HTMLDataElement | HTMLProgressElement | HTMLTrackElement | HTMLSourceElement | HTMLButtonElement | HTMLAudioElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLFieldSetElement | HTMLHeadingElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLSelectElement | HTMLSlotElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTitleElement | HTMLTableRowElement | HTMLUListElement;
+        }): HTMLElement | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement | HTMLAnchorElement | HTMLScriptElement | HTMLEmbedElement | HTMLFormElement | HTMLHeadElement | HTMLAreaElement | HTMLObjectElement | HTMLLinkElement | HTMLMapElement | HTMLInputElement | HTMLBaseElement | HTMLDataElement | HTMLTimeElement | HTMLProgressElement | HTMLTrackElement | HTMLSourceElement | HTMLButtonElement | HTMLAudioElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLFieldSetElement | HTMLHeadingElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLSelectElement | HTMLSlotElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTitleElement | HTMLTableRowElement | HTMLUListElement;
         select(selector: string): HTMLElement | null;
         selectAll(selector: string): HTMLElement[];
-        hasClass(elems: Element[] | HTMLCollection | NodeListOf<Element>, className: string): boolean;
+        hasClass(elems: LibXElems, className: string): boolean;
         toggleClass(elem: Element, className: string, state?: boolean): Element;
         replaceClass(elem: Element, oldName: string, newName: string): Element;
-        addClass<T extends Element[] | HTMLCollection | NodeListOf<Element>>(elems: T, className: string): T;
-        forEach<T extends HTMLCollection>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T;
-        map<T>(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => T): T[];
-        filter(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[];
-        filterBySelector(elems: Element[] | HTMLCollection, selector: string): Element[];
-        filterByClass(elems: Element[] | HTMLCollection, ...classNames: string[]): Element[];
-        find(elems: HTMLCollection | NodeListOf<Element>, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null;
+        addClass<T extends LibXElems>(elems: T, className: string): T;
+        forEach<T extends LibXElems>(elems: T, fn: (elem: Element, index: number, elems: unknown[]) => unknown): T;
+        map<T>(elems: LibXElems, fn: (elem: Element, index: number, elems: unknown[]) => T): T[];
+        filter(elems: LibXElems, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[];
+        filterBySelector(elems: LibXElems, selector: string): Element[];
+        filterByClass(elems: LibXElems, ...classNames: string[]): Element[];
+        excludeByClass(elems: LibXElems, ...classNames: string[]): Element[];
+        find(elems: LibXElems, fn: (elem: Element, index?: number, elems?: unknown[]) => boolean): Element | null;
         index(elem: Element): number;
-        indexOf(elems: NodeListOf<Element>, elem: Element): number;
-        findIndex(elems: HTMLCollection | NodeListOf<Element>, selector: string): number;
+        indexOf(elems: LibXElems, elem: Element): number;
+        findIndex(elems: LibXElems, selector: string): number;
         isElem(elem: unknown): boolean;
         getAttrs(elem?: Element): Attr[];
         toElem(elemOrEvent: Element | Event): HTMLElement;

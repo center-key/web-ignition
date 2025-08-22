@@ -1,4 +1,4 @@
-//! web-ignition v2.4.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -125,6 +125,12 @@ const libXDom = {
         const filtered = Array.prototype.filter.call(elems, hasClass);
         return classNames.length === 1 ? filtered : libX.dom.filterByClass(filtered, ...classNames.splice(1));
     },
+    excludeByClass(elems, ...classNames) {
+        const lacksClass = (elem) => !elem.classList.contains(classNames[0]);
+        const filtered = Array.prototype.filter.call(elems, lacksClass);
+        const excludeMore = () => libX.dom.excludeByClass(filtered, ...classNames.splice(1));
+        return classNames.length === 1 ? filtered : excludeMore();
+    },
     find(elems, fn) {
         return Array.prototype.find.call(elems, fn) ?? null;
     },
@@ -185,7 +191,10 @@ const libXDom = {
         libX.dom.on('keyup', listener, { selector: selector ?? null });
     },
     onEnterKey(listener, selector) {
-        libX.dom.on('keypress', listener, { selector: selector ?? null, keyFilter: 'Enter' });
+        const options = { selector: selector ?? null, keyFilter: 'Enter' };
+        const register = () => libX.dom.on('keypress', listener, options);
+        const delay = 250;
+        globalThis.setTimeout(register, delay);
     },
     onFocusIn(listener, selector) {
         libX.dom.on('focusin', listener, { selector: selector ?? null });
@@ -234,14 +243,19 @@ const libXDom = {
     },
     onReady(callback, options) {
         const browserless = !globalThis.document;
-        const state = browserless ? 'browserless' : globalThis.document.readyState;
+        const state = () => browserless ? 'browserless' : globalThis.document.readyState;
+        const start = Date.now();
+        const maxWait = 7000;
+        const fnName = callback.name || 'anonymous';
+        const errMsg = () => `Exceeded maximum loading time of ${maxWait / 1000} seconds waiting for ${fnName}`;
         if (browserless && !options?.quiet)
             console.info(new Date().toISOString(), 'Callback run in browserless context');
-        if (state === 'loading')
-            globalThis.document.addEventListener('DOMContentLoaded', callback);
-        else
-            globalThis.setTimeout(callback);
-        return state;
+        const doCallback = () => {
+            libX.util.assert(Date.now() - start < maxWait, errMsg(), callback);
+            globalThis.setTimeout(state() === 'loading' ? () => doCallback() : callback);
+        };
+        doCallback();
+        return state();
     },
 };
 const libXUi = {
@@ -477,6 +491,7 @@ const libXUi = {
         const selector = `.reveal-target[data-reveal="${button.dataset.reveal}"]`;
         const findTarget = () => libX.dom.select(selector);
         const target = button.dataset.reveal ? findTarget() : button.nextElementSibling;
+        button.classList.add('reveal-expanded');
         libX.ui.slideFadeIn(target);
         return button;
     },
@@ -892,7 +907,8 @@ const libXExtra = {
     blogger(websiteUrl) {
         console.info('Blog associated with:', websiteUrl);
         const onArticleLoad = () => {
-            const title = libX.dom.select('h1.entry-title').textContent.trim();
+            const elem = libX.dom.select('h1.entry-title');
+            const title = String(elem.textContent).trim();
             console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
             libX.dom.select('#header >.header-bar h3').dataset.href = websiteUrl;
             libX.ui.normalize();
@@ -904,7 +920,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.2',
+    version: '2.4.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
