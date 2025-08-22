@@ -323,12 +323,18 @@ body >main >section >ol.marble-checklist {
    main >section:nth-child(even) {
       background-color: var(--colorCharcoal);
       }
+   main >section figure img.popup-image:hover {
+      border-color: white;
+      }
    }
 
 /* Night Mode */
 main >section.night-mode {
    color: gainsboro;
    background-color: black;
+   }
+main >section.night-mode figure img.popup-image:hover {
+   border-color: white;
    }
 main:has(>section.night-mode:last-child)+footer {
    background-color: var(--colorTar);

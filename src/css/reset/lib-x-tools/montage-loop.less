@@ -13,11 +13,11 @@
       opacity: 0;
       &.previous {
          opacity: 1;
-         z-index: 1000;
+         z-index: @layerHover;
          }
       &.current {
          opacity: 1;
-         z-index: 2000;
+         z-index: @layerHover + 1;
          }
       }
    }
