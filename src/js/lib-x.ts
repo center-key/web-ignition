@@ -260,7 +260,7 @@ const libXDom = {
       },
    onEnterKey(listener: LibXEventListener, selector?: string) {
       const options =  { selector: selector ?? null, keyFilter: 'Enter' };
-      const register = () => libX.dom.on('keyup', listener, options);
+      const register = () => libX.dom.on('keypress', listener, options);
       const delay =    250;  //clear out possible enter key event from address bar
       globalThis.setTimeout(register, delay);
       },
@@ -318,14 +318,20 @@ const libXDom = {
       // Example to execute myApp.setup() as soon as the DOM is interactive:
       //    libX.dom.onReady(myApp.setup);
       const browserless = <boolean>!globalThis.document;
-      const state =       browserless ? 'browserless' : globalThis.document.readyState;  //loading, interactive, complete
+      const state =       () => browserless ? 'browserless' : globalThis.document.readyState;  //loading, interactive, complete
+      const start =       Date.now();
+      const maxWait =     7000;  //7 seconds
+      const fnName =      callback.name || 'anonymous';
+      const errMsg = () =>
+         `Exceeded maximum loading time of ${maxWait/1000} seconds waiting for ${fnName}`;
       if (browserless && !options?.quiet)
          console.info(new Date().toISOString(), 'Callback run in browserless context');
-      if (state === 'loading')
-         globalThis.document.addEventListener('DOMContentLoaded', callback);
-      else
-         globalThis.setTimeout(callback);
-      return state;
+      const doCallback = () => {
+         libX.util.assert(Date.now() - start < maxWait, errMsg(), callback);
+         globalThis.setTimeout(state() === 'loading' ? () => doCallback() : callback);
+         }
+      doCallback();
+      return state();
       },
    };
 
