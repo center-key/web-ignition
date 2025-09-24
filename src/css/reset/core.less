@@ -28,12 +28,12 @@ main { min-height: 300px; }
 header { margin-bottom: 20px; }
 aside { float: right; clear: right; font-size: 0.9rem; font-weight: 200; line-height: 1.3em; letter-spacing: 0.03em; margin: 0px 0px 20px 20px; }
 aside.left { float: left; clear: left; margin: 0px 20px 20px 0px; }
+section:has(aside)::after { content: " "; display: table; clear: both; }
 main section aside { max-width: 35%; border: 1px solid silver; padding: 10px; }
 main section aside.simple { background-color: transparent; border: none; padding: 0px; }
 main section aside h2 { font-size: 1.1rem; }
 main section aside img { width: 100%; max-width: 100%; }
 main section aside p:last-child { margin-bottom: 0px; }
-section:after { content: " "; display: table; clear: both; }  //a section with an aside will self clear
 body >footer { display: flex; justify-content: space-between; align-items: center; clear: both; text-align: center; font-size: 0.9rem; padding: 30px 0px; }
 body >footer >div { min-width: 20%; }  //centers middle child
 body >footer >div:first-child:last-child { width: 100%; }

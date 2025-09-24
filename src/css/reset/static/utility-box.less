@@ -46,6 +46,11 @@
    align-items: center;
    }
 
+.TextBorder(@width: 3px) {
+   -webkit-text-stroke: @width var(--colorGraphite);
+   paint-order: stroke fill;
+   }
+
 .CheckerboardBackground() {
    // <figure class=checkerboard-background>
    //    <img src=logo.svg alt=logo>

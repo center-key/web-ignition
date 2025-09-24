@@ -104,7 +104,7 @@ customizeBlogger() {
       -e "s|.SHORT-BLOG-NAME.|One of Dem Blogs|g" \
       -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark-icon.png|g" \
       -e "s|.MOBILE-HOME-SCREEN-URL.|https://centerkey.com/graphics/mobile-home-screen.png|g" \
-      -e "s|.AUTHORS-URL.|https://centerkey.com/dem|g" \
+      -e "s|.AUTHORS-URL.|https://centerkey.com/pilaf|g" \
       -e "s|.TWITTER-USERNAME.|DemPilafian|g" \
       dist/blogger-tweaks.min.css > build/blogger-tweaks-custom.css
    pwd
@@ -131,7 +131,7 @@ publishWebFiles() {
    publish() {
       echo "Publishing:"
       echo $publishFolder
-      mkdir -p $publishFolder/layouts
+      mkdir -pv $publishFolder/layouts
       cp -v src/css/*.html src/js/*.html     $publishFolder
       cp -v src/css/layouts/*.html           $publishFolder/layouts
       cp -v src/css/blogger-tweaks/spec.html $publishFolder/blogger-tweaks.html

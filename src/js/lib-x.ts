@@ -658,9 +658,9 @@ const libXUi = {
             style.opacity =    '1';
             globalThis.setTimeout(cleanup, fadeTransition + 100);
             };
-         const img = new Image();
+         const img =  new Image();
          img.onload = handleImgage;
-         img.src = url;
+         img.src =    url;
          };
       return new Promise(resolve => load(resolve));
       },
