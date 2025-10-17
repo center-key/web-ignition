@@ -254,6 +254,9 @@ const libXDom = {
    onClick(listener: LibXEventListener, selector?: string) {
       libX.dom.on('click', listener, { selector: selector ?? null });
       },
+   onClickAddClass(selector: string, className: string) {
+      libX.dom.onClick((elem) => elem.classList.add(className), selector);
+      },
    onChange(listener: LibXEventListener, selector?: string) {
       libX.dom.on('change', listener, { selector: selector ?? null });
       },
