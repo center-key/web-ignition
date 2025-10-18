@@ -1,0 +1,24 @@
+// LibX Spoiler Blur
+
+@import "../static/utility-box";
+
+@grayStripes: repeating-linear-gradient(-45deg,
+   silver, silver 10px, gainsboro 10px, gainsboro 20px);
+
+.spoiler-blur {
+   position: relative;
+   &:not(.unblur) {
+      cursor: pointer;
+      }
+   &::before {
+      position: absolute;
+      content: "";
+      inset: 0;
+      background: @grayStripes;
+      opacity: 0;
+      transition: opacity 2s;
+      }
+   &:not(.unblur)::before {
+      opacity: 1;
+      }
+   }

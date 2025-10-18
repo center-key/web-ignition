@@ -1190,6 +1190,7 @@ const libX = {
          libX.dom.onClick(libX.ui.popupClick,         '[data-href-popup]');
          libX.dom.onClick(libX.popupImage.show,       '[data-popup-image], .popup-image');
          libX.dom.onEnterKey(blockFormSubmit,         'form input:not([type=password])');
+         libX.dom.onClickAddClass('.spoiler-blur', 'unblur');
          };
       libX.dom.onReady(onReadySetup);
       },

@@ -9,9 +9,10 @@
    <link rel=icon       href=https://centerkey.com/graphics/bookmark-icon.png>
    <link rel=preconnect href=https://fonts.googleapis.com>
    <link rel=preconnect href=https://fonts.gstatic.com crossorigin>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.0/css/all.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1/css/all.min.css>
    <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/dna-engine@3.3/dist/dna-engine.css>
    <link rel=stylesheet href=../../dist/reset.min.css>
+   <style>.spoiler-blur { display: inline-block; padding: 3px; }</style>
    <script defer src=https://cdn.jsdelivr.net/npm/fetch-json@3.3/dist/fetch-json.min.js></script>
    <script defer src=https://cdn.jsdelivr.net/npm/dna-engine@3.3/dist/dna-engine.min.js></script>
    <script defer src=../../dist/lib-x.min.js></script>
@@ -151,9 +152,10 @@
          </p>
       </div>
       <hr>
-      <p>On a Mac:  <code id=is-a-mac></code></p>
-      <p>Mobile:    <code id=is-mobile></code></p>
-      <p>thumbs-up: <i data-icon=thumbs-up></i></p>
+      <p>On a Mac:              <code id=is-a-mac></code></p>
+      <p>Mobile:                <code id=is-mobile></code></p>
+      <p>Spoiler Blur:          <span class=spoiler-blur><code>Occupy Mars</code> <i data-icon=rocket></i></span></p>
+      <p>Data Icon (thumbs-up): <i data-icon=thumbs-up></i></p>
       <p>Jiggle it:
          <i data-icon=glass-martini-alt data-on-click=libX.animate.jiggleIt></i>
          <i data-icon=flask             data-on-click=libX.animate.jiggleIt></i>
