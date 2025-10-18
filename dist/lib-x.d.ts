@@ -1,4 +1,4 @@
-//! web-ignition v2.4.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -137,6 +137,7 @@ declare const libX: {
         toElem(elemOrEvent: Element | Event): HTMLElement;
         on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>): void;
         onClick(listener: LibXEventListener, selector?: string): void;
+        onClickAddClass(selector: string, className: string): void;
         onChange(listener: LibXEventListener, selector?: string): void;
         onInput(listener: LibXEventListener, selector?: string): void;
         onKeyDown(listener: LibXEventListener, selector?: string): void;

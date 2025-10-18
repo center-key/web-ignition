@@ -1,4 +1,4 @@
-//! web-ignition v2.4.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -177,6 +177,9 @@ const libXDom = {
     },
     onClick(listener, selector) {
         libX.dom.on('click', listener, { selector: selector ?? null });
+    },
+    onClickAddClass(selector, className) {
+        libX.dom.onClick((elem) => elem.classList.add(className), selector);
     },
     onChange(listener, selector) {
         libX.dom.on('change', listener, { selector: selector ?? null });
@@ -920,7 +923,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.4',
+    version: '2.4.5',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
@@ -961,6 +964,7 @@ const libX = {
             libX.dom.onClick(libX.ui.popupClick, '[data-href-popup]');
             libX.dom.onClick(libX.popupImage.show, '[data-popup-image], .popup-image');
             libX.dom.onEnterKey(blockFormSubmit, 'form input:not([type=password])');
+            libX.dom.onClickAddClass('.spoiler-blur', 'unblur');
         };
         libX.dom.onReady(onReadySetup);
     },
