@@ -10,7 +10,7 @@
    "types": "dist/lib-x.d.ts",
    "exports": {
       ".": "./dist/lib-x.js",
-      "./": "./dist/"
+      "./*": "./dist/*"
    },
    "files": [
       "dist"
@@ -89,7 +89,7 @@
    "devDependencies": {
       "@eslint/js": "~9.38",
       "@fortawesome/fontawesome-free": "~7.1",
-      "@types/node": "~24.8",
+      "@types/node": "~24.9",
       "add-dist-header": "~1.5",
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.3",
