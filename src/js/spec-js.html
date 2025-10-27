@@ -55,7 +55,8 @@
          img.parentElement.dataset.imageReuested = String(Date.now());
          fetchJson.get('https://yesno.wtf/api').then(handle);
          };
-      const handleHash = (container) => (hash) => container.querySelector('output').textContent = hash;
+      const handleHash = (container) =>
+         (hash) => container.querySelector('output').textContent = hash;
       const hashIt = (elem) => libX.crypto.hash(elem.value)
          .then(handleHash(elem.closest('div')));
    </script>
@@ -177,7 +178,13 @@
             </a>
          </label>
          <pre><output>&nbsp;</output></pre>
+         <br>
       </div>
+      <p>
+         <span data-popup-image=../css/layouts/neon/wind-tunnel-nasagov.jpg data-popup-width=300>
+            🤖
+         </span>
+      </p>
       <aside class=simple>
          <img src=https://centerkey.com/mac/java/files/v3/graphics/screenshots/installer.png
             data-popup-image=https://centerkey.com/mac/java/files/v3/graphics/screenshots/installer.png alt=thumbnail>
