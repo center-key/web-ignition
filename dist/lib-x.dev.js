@@ -1,4 +1,4 @@
-//! web-ignition v2.4.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -700,15 +700,15 @@ const libXPopupImage = {
         const defaultPopupWidth = 1000;
         const gap = 30;
         thumbnail.classList.add('popup-image');
-        thumbnail.parentElement.style.position = 'relative';
+        thumbnail.parentElement.classList.add('popup-image-container');
         if (thumbnail.nextElementSibling?.classList.contains(('popup-image-layer')))
             thumbnail.nextElementSibling.remove();
         const data = thumbnail.dataset;
         const width = data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
         const maxWidth = Math.min(width, globalThis.window.innerWidth - gap);
         const src = data.popupImage ?? thumbnail.src;
-        const popupLayer = libX.dom.create('div', { class: 'popup-image-layer' });
-        const popupImg = libX.dom.create('img', { src: src });
+        const popupLayer = libX.dom.create('span', { class: 'popup-image-layer' });
+        const popupImg = libX.dom.create('img', { src });
         const closeIcon = libX.dom.create('i');
         popupImg.style.maxWidth = String(maxWidth) + 'px';
         closeIcon.dataset.icon = 'times';
@@ -923,7 +923,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.5',
+    version: '2.4.6',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
