@@ -16,8 +16,8 @@ HTML (<body>):
          h1
          h2
       p
-      quotes-box
-         quote-list
+      div.quotes-box
+         div
             blockquote
                cite
    footer
@@ -77,33 +77,33 @@ nav.dna-menu[data-style=flat-tabs] span {
    }
 
 /* Quotes box */
-main >section quotes-box {
+main >section div.quotes-box {
    display: block;
    min-height: 350px;
    padding: 20px 0px;
    border: 1px solid white;
    margin-top: 50px;
    }
-main >section quotes-box >p button {
+main >section div.quotes-box >p button {
    background-color: transparent;
    }
-main >section quotes-box >p button:hover {
+main >section div.quotes-box >p button:hover {
    background-color: transparent;
    }
-main >section quotes-box >p button i[data-icon] {
+main >section div.quotes-box >p button i[data-icon] {
    font-size: 2rem;
    }
-main >section quotes-box >quote-list >blockquote {
+main >section div.quotes-box >div >blockquote {
    font-weight: lighter;
    margin-bottom: 20px;
    }
-main >section quotes-box >quote-list >blockquote cite {
+main >section div.quotes-box >div >blockquote cite {
    display: block;
    font-size: 0.9rem;
    font-weight: bold;
    padding-top: 8px;
    }
-main >section quotes-box >quote-list >blockquote cite::before {
+main >section div.quotes-box >div >blockquote cite::before {
    content: "\2014";  /* character: — (em dash) */
    padding-right: 0.5em;
    }
