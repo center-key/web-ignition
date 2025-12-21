@@ -14,6 +14,7 @@ export type LibXObject =                 { [key: string]: unknown };
 export type LibXUiPopupSettings =        { width: number, height: number };
 export type LibXUiKeepOnScreenSettings = { padding: number };
 export type LibXCryptoHashSettings =     { algorithm: string, salt: string };
+export type LibXSmoothHeightSettings =   { container?: Element, transition?: number };
 export type LibXCounterMap =             { [counter: string]: number };
 export type LibXSocialButton =           { title: string, icon: string, x: number, y: number, link: string };
 export type LibXEventListener =          (elem: Element, event: Event, selector: string | null) => void;
@@ -236,7 +237,11 @@ const libXDom = {
    on(type: string, listener: LibXEventListener, options?: Partial<LibXSettingsEventsOn>) {
       // type ->      https://developer.mozilla.org/en-US/docs/Web/Events
       // keyFilter -> https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values
-      const defaults: LibXSettingsEventsOn = { keyFilter: null, selector: null, container: null };
+      const defaults: LibXSettingsEventsOn = {
+         keyFilter: null,
+         selector:  null,
+         container: null,
+         };
       const settings =    { ...defaults, ...options };
       const noFilter =    !settings.keyFilter;
       const noSelector =  !settings.selector;
@@ -493,13 +498,16 @@ const libXUi = {
    slideFade(elem: Element, show: boolean): Promise<Element> {
       return show ? libX.ui.slideFadeIn(elem) : libX.ui.slideFadeOut(elem);
       },
-   smoothHeight(updateUI: () => unknown, options?: { container?: Element, transition?: number }): Promise<Element> {
+   smoothHeight(updateUI: () => unknown, options?: Partial<LibXSmoothHeightSettings>): Promise<Element> {
       // Smoothly animates the height of a container element from a beginning height to a final
       // height.
-      const defaults = { container: globalThis.document.body, transition: 1000 };
-      const settings = { ...defaults, ...options };
-      const container = settings.container;
-      const style = (<HTMLElement>container).style;
+      const defaults: LibXSmoothHeightSettings = {
+         container:  globalThis.document.body,
+         transition: 1000,
+         };
+      const settings =  { ...defaults, ...options };
+      const container = settings.container!;
+      const style =     (<HTMLElement>container).style;
       const setBaseline = () => {
          const height = String(container.clientHeight) + 'px';
          style.minHeight = height;
@@ -531,7 +539,7 @@ const libXUi = {
       setBaseline();
       updateUI();
       animate();
-      const delay = settings.transition + 100;
+      const delay = settings.transition! + 100;
       return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), delay));
       },
    makeIcons(container: Element = globalThis.document.body): Element {
@@ -579,7 +587,10 @@ const libXUi = {
       return container;
       },
    popup(url: string, options?: Partial<LibXUiPopupSettings>): Window | null {
-      const defaults =   { width: 600, height: 400 };
+      const defaults: LibXUiPopupSettings = {
+         width:  600,
+         height: 400,
+         };
       const settings =   { ...defaults, ...options };
       const dimensions = `left=200,top=100,width=${settings.width},height=${settings.height}`;
       return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
@@ -609,8 +620,10 @@ const libXUi = {
       // position: absolute with top/left).
       // Usage:
       //    libX.ui.keepOnScreen(elem, { padding: 30 });
-      const defaults = { padding: 10 };
-      const settings = { ...defaults, ...options };
+      const defaults: LibXUiKeepOnScreenSettings = {
+         padding: 10,
+         };
+      const settings =  { ...defaults, ...options };
       const getPixels = (style: string) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
       const pad =       settings.padding;
       const client =    elem.getBoundingClientRect();
@@ -760,8 +773,11 @@ const libXCrypto = {
    hash(message: string, options?: Partial<LibXCryptoHashSettings>): Promise<string> {
       // Usage:
       //    libX.crypto.hash('password1').then(handleHashString);
-      const defaults = { algorithm: 'SHA-256', salt: '' };
-      const settings = { ...defaults, ...options };
+      const defaults: LibXCryptoHashSettings = {
+         algorithm: 'SHA-256',
+         salt:      '',
+         };
+      const settings =     { ...defaults, ...options };
       const byteArray =    new TextEncoder().encode(message + settings.salt);
       const toHex =        (byte: number) => byte.toString(16).padStart(2, '0').slice(-2);
       const handleDigest = (digest: ArrayBuffer): string =>
@@ -935,7 +951,7 @@ const libXAnimate = {
       const total = startDelay + fadeDelay * container.children.length - fadeDelay + fadeTransition;
       return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
       },
-   montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings> | Element): Element {
+   montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings>): Element {
       // <figure class=montage-loop>
       //    <img src=image1.jpg>
       //    <img src=image2.jpg>
@@ -945,12 +961,12 @@ const libXAnimate = {
       //    libX.animate.montageLoop(elem);
       // Usage with dna-engine (default options):
       //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
-      const defaults = {
+      const defaults: LibXMontageLoopSettings = {
          start:        null,   //random
          intervalMsec: 10000,  //10 seconds between transitions
          fadeMsec:     3000,   //3 seconds to complete transition
          };
-      const settings = { ...defaults, ...options };  //eslint-disable-line @typescript-eslint/no-misused-spread
+      const settings = { ...defaults, ...options };
       container.classList.add('montage-loop');
       if (!container.children.length)
          console.error('[montage-loop] No images found:', container);
