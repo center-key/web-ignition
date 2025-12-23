@@ -1,4 +1,4 @@
-//! web-ignition v2.4.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -32,28 +32,7 @@ const libXDom = {
         return elem;
     },
     createCustom(tag, options) {
-        const elem = globalThis.document.createElement(tag);
-        if (options?.id)
-            elem.id = options.id;
-        if (options?.class)
-            elem.classList.add(options.class);
-        if (options?.href)
-            elem.href = options.href;
-        if (options?.html)
-            elem.innerHTML = options.html;
-        if (options?.name)
-            elem.name = options.name;
-        if (options?.rel)
-            elem.rel = options.rel;
-        if (options?.src)
-            elem.src = options.src;
-        if (options?.text)
-            elem.textContent = options.text;
-        if (options?.type)
-            elem.type = options.type;
-        if (options?.subTags)
-            options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
-        return elem;
+        return libX.dom.create(tag, options);
     },
     create(tag, options) {
         const elem = globalThis.document.createElement(tag);
@@ -71,12 +50,17 @@ const libXDom = {
             elem.rel = options.rel;
         if (options?.src)
             elem.src = options.src;
+        if (options?.style)
+            Object.assign(elem.style, options.style);
         if (options?.text)
             elem.textContent = options.text;
+        if (options?.title)
+            elem.title = options.title;
         if (options?.type)
             elem.type = options.type;
+        const appendNewTag = (tag) => elem.appendChild(globalThis.document.createElement(tag));
         if (options?.subTags)
-            options.subTags.forEach(subTag => elem.appendChild(globalThis.document.createElement(subTag)));
+            options.subTags.forEach(appendNewTag);
         return elem;
     },
     select(selector) {
@@ -160,7 +144,11 @@ const libXDom = {
         return (libX.dom.isElem(elemOrEvent) ? elemOrEvent : elemOrEvent.target);
     },
     on(type, listener, options) {
-        const defaults = { keyFilter: null, selector: null, container: null };
+        const defaults = {
+            keyFilter: null,
+            selector: null,
+            container: null,
+        };
         const settings = { ...defaults, ...options };
         const noFilter = !settings.keyFilter;
         const noSelector = !settings.selector;
@@ -404,7 +392,10 @@ const libXUi = {
         return show ? libX.ui.slideFadeIn(elem) : libX.ui.slideFadeOut(elem);
     },
     smoothHeight(updateUI, options) {
-        const defaults = { container: globalThis.document.body, transition: 1000 };
+        const defaults = {
+            container: globalThis.document.body,
+            transition: 1000,
+        };
         const settings = { ...defaults, ...options };
         const container = settings.container;
         const style = container.style;
@@ -478,7 +469,10 @@ const libXUi = {
         return container;
     },
     popup(url, options) {
-        const defaults = { width: 600, height: 400 };
+        const defaults = {
+            width: 600,
+            height: 400,
+        };
         const settings = { ...defaults, ...options };
         const dimensions = `left=200,top=100,width=${settings.width},height=${settings.height}`;
         return globalThis.window.open(url, '_blank', dimensions + ',scrollbars,resizable,status');
@@ -499,7 +493,9 @@ const libXUi = {
         return button;
     },
     keepOnScreen(elem, options) {
-        const defaults = { padding: 10 };
+        const defaults = {
+            padding: 10,
+        };
         const settings = { ...defaults, ...options };
         const getPixels = (style) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
         const pad = settings.padding;
@@ -565,8 +561,7 @@ const libXUi = {
         const forkMe = globalThis.document.getElementById('fork-me');
         const wrap = () => {
             const header = forkMe.parentElement;
-            const container = libX.dom.create('div');
-            container.id = 'fork-me-container';
+            const container = libX.dom.create('div', { id: 'fork-me-container' });
             const icon = libX.dom.create('i');
             icon.dataset.brand = 'github';
             icon.dataset.href = forkMe.href;
@@ -616,7 +611,10 @@ const libXNav = {
 };
 const libXCrypto = {
     hash(message, options) {
-        const defaults = { algorithm: 'SHA-256', salt: '' };
+        const defaults = {
+            algorithm: 'SHA-256',
+            salt: '',
+        };
         const settings = { ...defaults, ...options };
         const byteArray = new TextEncoder().encode(message + settings.salt);
         const toHex = (byte) => byte.toString(16).padStart(2, '0').slice(-2);
@@ -774,16 +772,28 @@ const libXAnimate = {
         container.classList.add('montage-loop');
         if (!container.children.length)
             console.error('[montage-loop] No images found:', container);
-        const transition = `all ${settings.fadeMsec}ms`;
-        libX.dom.forEach(container.children, img => img.style.transition = transition);
+        const fade = `all ${settings.fadeMsec}ms`;
         const start = (settings.start ?? Date.now()) % container.children.length;
+        const first = container.children[start];
+        const getNext = (elem) => elem.nextElementSibling || container.firstElementChild;
+        const setFade = (elem) => elem.style.transition = fade;
+        const prepImg = (elem) => {
+            const src = elem.dataset.imgSrc;
+            const title = elem.title;
+            const swapInImg = () => elem.replaceWith(libX.dom.create('img', { src, title }));
+            if (elem.nodeName !== 'IMG')
+                swapInImg();
+        };
+        prepImg(getNext(first));
+        prepImg(first);
         container.children[start].classList.add('current');
         const nextImage = () => {
-            libX.dom.forEach(container.children, img => img.classList.remove('previous'));
-            const previous = container.getElementsByClassName('current')[0];
-            previous.classList.replace('current', 'previous');
-            const next = previous.nextElementSibling || container.firstElementChild;
+            libX.dom.forEach(container.children, setFade);
+            const current = container.querySelector('.current');
+            const next = getNext(current);
+            current.classList.remove('current');
             next.classList.add('current');
+            prepImg(getNext(next));
         };
         globalThis.setInterval(nextImage, settings.intervalMsec);
         return container;
@@ -923,7 +933,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.6',
+    version: '2.4.7',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,

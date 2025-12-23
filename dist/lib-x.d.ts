@@ -1,4 +1,4 @@
-//! web-ignition v2.4.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -21,6 +21,10 @@ export type LibXCryptoHashSettings = {
     algorithm: string;
     salt: string;
 };
+export type LibXSmoothHeightSettings = {
+    container?: Element;
+    transition?: number;
+};
 export type LibXCounterMap = {
     [counter: string]: number;
 };
@@ -42,6 +46,20 @@ export type LibXMontageLoopSettings = {
     intervalMsec: number;
     fadeMsec: number;
 };
+export type LibXDomCreateOptions = Partial<{
+    id: string;
+    subTags: (keyof HTMLElementTagNameMap)[];
+    class: string;
+    href: string;
+    html: string;
+    name: string;
+    rel: string;
+    src: string;
+    style: Partial<CSSStyleDeclaration>;
+    text: string;
+    title: string;
+    type: string;
+}>;
 export type NavigatorUAData = {
     readonly brands: {
         brand: string;
@@ -92,30 +110,8 @@ declare const libX: {
             [key: symbol]: unknown;
         };
         removeState(elem: Element): Element;
-        createCustom(tag: string, options?: {
-            id?: string;
-            subTags?: string[];
-            class?: string;
-            href?: string;
-            html?: string;
-            name?: string;
-            rel?: string;
-            src?: string;
-            text?: string;
-            type?: string;
-        }): HTMLElement;
-        create(tag: keyof HTMLElementTagNameMap, options?: {
-            id?: string;
-            subTags?: string[];
-            class?: string;
-            href?: string;
-            html?: string;
-            name?: string;
-            rel?: string;
-            src?: string;
-            text?: string;
-            type?: string;
-        }): HTMLElement | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement | HTMLAnchorElement | HTMLScriptElement | HTMLEmbedElement | HTMLFormElement | HTMLHeadElement | HTMLAreaElement | HTMLObjectElement | HTMLLinkElement | HTMLMapElement | HTMLInputElement | HTMLBaseElement | HTMLDataElement | HTMLTimeElement | HTMLProgressElement | HTMLTrackElement | HTMLSourceElement | HTMLButtonElement | HTMLAudioElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLFieldSetElement | HTMLHeadingElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLSelectElement | HTMLSlotElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTitleElement | HTMLTableRowElement | HTMLUListElement;
+        createCustom(tag: string, options?: LibXDomCreateOptions): HTMLElement | HTMLCanvasElement | HTMLImageElement | HTMLVideoElement | HTMLAnchorElement | HTMLScriptElement | HTMLEmbedElement | HTMLFormElement | HTMLHeadElement | HTMLAreaElement | HTMLObjectElement | HTMLLinkElement | HTMLMapElement | HTMLInputElement | HTMLBaseElement | HTMLDataElement | HTMLTimeElement | HTMLProgressElement | HTMLTrackElement | HTMLSourceElement | HTMLButtonElement | HTMLAudioElement | HTMLQuoteElement | HTMLBodyElement | HTMLBRElement | HTMLTableCaptionElement | HTMLTableColElement | HTMLDataListElement | HTMLModElement | HTMLDetailsElement | HTMLDialogElement | HTMLDivElement | HTMLDListElement | HTMLFieldSetElement | HTMLHeadingElement | HTMLHRElement | HTMLHtmlElement | HTMLIFrameElement | HTMLLabelElement | HTMLLegendElement | HTMLLIElement | HTMLMenuElement | HTMLMetaElement | HTMLMeterElement | HTMLOListElement | HTMLOptGroupElement | HTMLOptionElement | HTMLOutputElement | HTMLParagraphElement | HTMLPictureElement | HTMLPreElement | HTMLSelectElement | HTMLSlotElement | HTMLSpanElement | HTMLStyleElement | HTMLTableElement | HTMLTableSectionElement | HTMLTableCellElement | HTMLTemplateElement | HTMLTextAreaElement | HTMLTitleElement | HTMLTableRowElement | HTMLUListElement;
+        create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: LibXDomCreateOptions): HTMLElementTagNameMap[K];
         select(selector: string): HTMLElement | null;
         selectAll(selector: string): HTMLElement[];
         hasClass(elems: LibXElems, className: string): boolean;
@@ -167,10 +163,7 @@ declare const libX: {
         slideFadeIn(elem: Element): Promise<Element>;
         slideFadeOut(elem: Element): Promise<Element>;
         slideFade(elem: Element, show: boolean): Promise<Element>;
-        smoothHeight(updateUI: () => unknown, options?: {
-            container?: Element;
-            transition?: number;
-        }): Promise<Element>;
+        smoothHeight(updateUI: () => unknown, options?: Partial<LibXSmoothHeightSettings>): Promise<Element>;
         makeIcons(container?: Element): Element;
         normalize(container?: Element): Element;
         displayAddr(container?: Element): Element;
@@ -223,7 +216,7 @@ declare const libX: {
     animate: {
         jiggleIt(elemOrEvent: Element | Event): Promise<Element>;
         rollIn(container: Element): Promise<Element>;
-        montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings> | Element): Element;
+        montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings>): Element;
     };
     bubbleHelp: {
         setup(container?: Element): Element;
