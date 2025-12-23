@@ -45,8 +45,8 @@
          const expectedHash = '6926f2bf8bc542620db47571a88c1da761c976744ca554833c4baa917acd0e20';
          const throwBadHash = (hash) => globalThis.setTimeout(() => { throw new Error('Bad hash: ' + hash); });
          libX.crypto.hash('My secret').then(hash => hash === expectedHash || throwBadHash(hash));
-         globalThis.document.querySelectorAll('.montage-loop').forEach(
-            holder => libX.animate.montageLoop(holder, { intervalMsec: 5000 }));
+         const neonGalleryElem = globalThis.document.getElementById('neon-gallery');
+         libX.animate.montageLoop(neonGalleryElem, { intervalMsec: 5000 });
          };
       const loadImage = (button) => {
          const img = button.parentElement.nextElementSibling;
@@ -57,8 +57,8 @@
          };
       const handleHash = (container) =>
          (hash) => container.querySelector('output').textContent = hash;
-      const hashIt = (elem) => libX.crypto.hash(elem.value)
-         .then(handleHash(elem.closest('div')));
+      const hashIt =
+         (elem) => libX.crypto.hash(elem.value).then(handleHash(elem.closest('div')));
    </script>
 </head>
 <body>
@@ -103,20 +103,20 @@
          <code id=account-info-string></code>
       </div>
       <br>
-      <aside class=montage-loop style="width: 150px; height: 250px; padding: 0px;" title="Montage Loop">
-         <img src=../css/layouts/neon/ameba-cdcgov.jpg            alt=montage>
-         <img src=../css/layouts/neon/crystal-nihgov.jpg          alt=montage>
-         <img src=../css/layouts/neon/embryo-nihgov.jpg           alt=montage>
-         <img src=../css/layouts/neon/fruit-fly-science360gov.jpg alt=montage>
-         <img src=../css/layouts/neon/neuroscience-ucdavisedu.jpg alt=montage>
-         <img src=../css/layouts/neon/supernova-nasagov.jpg       alt=montage>
-         <img src=../css/layouts/neon/supernova-shock-lblgov.jpg  alt=montage>
-         <img src=../css/layouts/neon/wind-tunnel-nasagov.jpg     alt=montage>
+      <aside id=neon-gallery class=montage-loop style="width: 150px; height: 250px; padding: 0px;" title=Montage>
+         <span data-img-src=../css/layouts/neon/ameba-cdcgov.jpg></span>
+         <span data-img-src=../css/layouts/neon/crystal-nihgov.jpg></span>
+         <span data-img-src=../css/layouts/neon/embryo-nihgov.jpg></span>
+         <span data-img-src=../css/layouts/neon/fruit-fly-science360gov.jpg></span>
+         <span data-img-src=../css/layouts/neon/neuroscience-ucdavisedu.jpg></span>
+         <span data-img-src=../css/layouts/neon/supernova-nasagov.jpg></span>
+         <span data-img-src=../css/layouts/neon/supernova-shock-lblgov.jpg></span>
+         <span data-img-src=../css/layouts/neon/wind-tunnel-nasagov.jpg></span>
       </aside>
-      <aside data-on-load=libX.animate.montageLoop style="width: 150px; height: 100px; padding: 0px;" title="Automatic Montage Loop">
-         <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/001-small.png alt=montage>
-         <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/004-small.png alt=montage>
-         <img src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/019-small.png alt=montage>
+      <aside data-on-load=libX.animate.montageLoop style="width: 150px; height: 100px; padding: 0px;">
+         <span data-img-src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/001-small.png title=red></span>
+         <span data-img-src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/004-small.png title=gold></span>
+         <span data-img-src=https://centerkey.com/paradise-galleries/console-demo/~data~/portfolio/019-small.png title=purple></span>
       </aside>
       <aside style="width: 150px; background-color: transparent; border: none; padding: 0px;">
          <p><button data-on-click=loadImage>Load</button></p>

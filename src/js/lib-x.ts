@@ -28,6 +28,20 @@ export type LibXMontageLoopSettings = {
    intervalMsec: number,         //milliseconds between transitions    (default: 10,000)
    fadeMsec:     number,         //milliseconds to complete transition (default: 3,000)
    };
+export type LibXDomCreateOptions = Partial<{
+   id:      string,
+   subTags: (keyof HTMLElementTagNameMap)[],
+   class:   string,
+   href:    string,
+   html:    string,
+   name:    string,
+   rel:     string,
+   src:     string,
+   style:   Partial<CSSStyleDeclaration>,
+   text:    string,
+   title:   string,
+   type:    string,
+   }>;
 export type NavigatorUAData = {
    readonly brands: {
       brand:   string,  //examples: "Chromium", "Google Chrome"
@@ -82,10 +96,12 @@ const libXDom = {
          libX.dom.stateDepot[Number(data.libXState)] = {};
       return elem;
       },
-   createCustom(tag: string, options?:
-      { id?: string, subTags?: string[], class?: string, href?: string, html?: string,
-      name?: string, rel?: string, src?: string, text?: string, type?: string }) {
-      // libX.dom.create('a', { id: 'x', href: 'https://x.com', text: 'X' })
+   createCustom(tag: string, options?: LibXDomCreateOptions) {  //DEPRECATED
+      return libX.dom.create(<keyof HTMLElementTagNameMap>tag, options);
+      },
+   create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: LibXDomCreateOptions):
+      HTMLElementTagNameMap[K] {
+      // const elem = libX.dom.create('a', { id: 'x', href: 'https://x.com', text: 'X' });
       //    Returns: <a id=x href=https://x.com>X</a>
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
@@ -102,38 +118,18 @@ const libXDom = {
          (<HTMLLinkElement>elem).rel = options.rel;
       if (options?.src)
          (<HTMLImageElement>elem).src = options.src;
+      if (options?.style)
+         Object.assign(elem.style, options.style);
       if (options?.text)
          elem.textContent = options.text;
+      if (options?.title)
+         elem.title = options.title;
       if (options?.type)
          (<HTMLInputElement>elem).type = options.type;
+      const appendNewTag = (tag: keyof HTMLElementTagNameMap) =>
+         elem.appendChild(globalThis.document.createElement(tag));
       if (options?.subTags)
-         options.subTags.forEach(
-            subTag => elem.appendChild(globalThis.document.createElement(subTag)));
-      return elem;
-      },
-   create(tag: keyof HTMLElementTagNameMap, options?: { id?: string, subTags?: string[], class?: string, href?: string, html?: string, name?: string, rel?: string, src?: string, text?: string, type?: string }) {
-      const elem = globalThis.document.createElement(tag);
-      if (options?.id)
-         elem.id = options.id;
-      if (options?.class)
-         elem.classList.add(options.class);
-      if (options?.href)
-         (<HTMLAnchorElement>elem).href = options.href;
-      if (options?.html)
-         elem.innerHTML = options.html;
-      if (options?.name)
-         (<HTMLInputElement>elem).name = options.name;
-      if (options?.rel)
-         (<HTMLLinkElement>elem).rel = options.rel;
-      if (options?.src)
-         (<HTMLImageElement>elem).src = options.src;
-      if (options?.text)
-         elem.textContent = options.text;
-      if (options?.type)
-         (<HTMLInputElement>elem).type = options.type;
-      if (options?.subTags)
-         options.subTags.forEach(
-            subTag => elem.appendChild(globalThis.document.createElement(subTag)));
+         options.subTags.forEach(appendNewTag);
       return elem;
       },
    select(selector: string): HTMLElement | null {
@@ -703,8 +699,7 @@ const libXUi = {
       const forkMe = globalThis.document.getElementById('fork-me');
       const wrap = () => {
          const header =       forkMe!.parentElement!;
-         const container =    libX.dom.create('div');
-         container.id =       'fork-me-container';
+         const container =    libX.dom.create('div', { id: 'fork-me-container' });
          const icon =         libX.dom.create('i');
          icon.dataset.brand = 'github';
          icon.dataset.href =  (<HTMLAnchorElement>forkMe).href;
@@ -952,12 +947,13 @@ const libXAnimate = {
       return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
       },
    montageLoop(container: Element, options?: Partial<LibXMontageLoopSettings>): Element {
-      // <figure class=montage-loop>
-      //    <img src=image1.jpg>
-      //    <img src=image2.jpg>
-      //    <img src=image3.jpg>
+      // <figure id=my-gallery class=montage-loop>
+      //    <span data-img-src=image1.jpg title=one></span>
+      //    <span data-img-src=image2.jpg title=two></span>
+      //    <span data-img-src=image3.jpg title=three></span>
       // </figure>
       // Usage:
+      //    const elem = document.getElementById('my-gallery');
       //    libX.animate.montageLoop(elem);
       // Usage with dna-engine (default options):
       //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
@@ -970,16 +966,28 @@ const libXAnimate = {
       container.classList.add('montage-loop');
       if (!container.children.length)
          console.error('[montage-loop] No images found:', container);
-      const transition = `all ${settings.fadeMsec}ms`;
-      libX.dom.forEach(container.children, img => (<HTMLElement>img).style.transition = transition);
-      const start = (settings.start ?? Date.now()) % container.children.length;
+      const fade =    `all ${settings.fadeMsec}ms`;
+      const start =   (settings.start ?? Date.now()) % container.children.length;
+      const first =   container.children[start]!;
+      const getNext = (elem: Element) => elem.nextElementSibling || container.firstElementChild!;
+      const setFade = (elem: Element) => (<HTMLElement>elem).style.transition = fade;
+      const prepImg = (elem: Element) => {
+         const src =       (<HTMLElement>elem).dataset.imgSrc!;
+         const title =     (<HTMLElement>elem).title;
+         const swapInImg = () => elem.replaceWith(libX.dom.create('img', { src, title }));
+         if (elem.nodeName !== 'IMG')
+            swapInImg();
+         };
+      prepImg(getNext(first));
+      prepImg(first);
       container.children[start]!.classList.add('current');
       const nextImage = () => {
-         libX.dom.forEach(container.children, img => img.classList.remove('previous'));
-         const previous = container.getElementsByClassName('current')[0]!;
-         previous.classList.replace('current', 'previous');
-         const next = previous.nextElementSibling || container.firstElementChild!;
+         libX.dom.forEach(container.children, setFade);
+         const current = container.querySelector('.current')!;
+         const next =    getNext(current);
+         current.classList.remove('current');
          next.classList.add('current');
+         prepImg(getNext(next));
          };
       globalThis.setInterval(nextImage, settings.intervalMsec);
       return container;
