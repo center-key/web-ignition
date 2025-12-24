@@ -101,8 +101,9 @@ const libXDom = {
       },
    create<K extends keyof HTMLElementTagNameMap>(tag: K, options?: LibXDomCreateOptions):
       HTMLElementTagNameMap[K] {
-      // const elem = libX.dom.create('a', { id: 'x', href: 'https://x.com', text: 'X' });
-      //    Returns: <a id=x href=https://x.com>X</a>
+      // libX.dom.create('a', { id: 'x', href: 'https://x.com', text: 'X' })
+      // Returns:
+      //    <a id=x href=https://x.com>X</a>
       const elem = globalThis.document.createElement(tag);
       if (options?.id)
          elem.id = options.id;
@@ -126,8 +127,8 @@ const libXDom = {
          elem.title = options.title;
       if (options?.type)
          (<HTMLInputElement>elem).type = options.type;
-      const appendNewTag = (tag: keyof HTMLElementTagNameMap) =>
-         elem.appendChild(globalThis.document.createElement(tag));
+      const appendNewTag = (subtag: keyof HTMLElementTagNameMap) =>
+         elem.appendChild(globalThis.document.createElement(subtag));
       if (options?.subTags)
          options.subTags.forEach(appendNewTag);
       return elem;
@@ -956,11 +957,12 @@ const libXAnimate = {
       //    const elem = document.getElementById('my-gallery');
       //    libX.animate.montageLoop(elem);
       // Usage with dna-engine (default options):
-      //    <figure class=montage-loop data-on-load=libX.animate.montageLoop>
+      //    <figure class=montage-loop data-interval=5000 data-on-load=libX.animate.montageLoop>
+      const data = (<HTMLElement>container).dataset;
       const defaults: LibXMontageLoopSettings = {
-         start:        null,   //random
-         intervalMsec: 10000,  //10 seconds between transitions
-         fadeMsec:     3000,   //3 seconds to complete transition
+         start:        null,                            //random
+         intervalMsec: Number(data.interval) || 10000,  //10 seconds between transitions
+         fadeMsec:     Number(data.fade) || 3000,       //3 seconds to complete transition
          };
       const settings = { ...defaults, ...options };
       container.classList.add('montage-loop');

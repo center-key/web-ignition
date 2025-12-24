@@ -118,7 +118,7 @@ publishWebFiles() {
    # spec-js.html:
    #     <link rel=stylesheet href=../../dist/reset.min.css>
    #     <script defer src=../../dist/lib-x.min.js></script>
-   #     <img src=../css/layouts/neon/ameba-cdcgov.jpg alt=montage>
+   #     <span data-img-src=../css/layouts/neon/ameba-cdcgov.jpg>
    # layouts.html:
    #     <a href=layouts/block-duo.css>block-duo.css</a>
    # layouts/*.html:
