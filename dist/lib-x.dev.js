@@ -1,4 +1,4 @@
-//! web-ignition v2.4.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.4.8 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -58,7 +58,7 @@ const libXDom = {
             elem.title = options.title;
         if (options?.type)
             elem.type = options.type;
-        const appendNewTag = (tag) => elem.appendChild(globalThis.document.createElement(tag));
+        const appendNewTag = (subtag) => elem.appendChild(globalThis.document.createElement(subtag));
         if (options?.subTags)
             options.subTags.forEach(appendNewTag);
         return elem;
@@ -763,10 +763,11 @@ const libXAnimate = {
         return new Promise(resolve => globalThis.setTimeout(() => resolve(cleanup()), total + 100));
     },
     montageLoop(container, options) {
+        const data = container.dataset;
         const defaults = {
             start: null,
-            intervalMsec: 10000,
-            fadeMsec: 3000,
+            intervalMsec: Number(data.interval) || 10000,
+            fadeMsec: Number(data.fade) || 3000,
         };
         const settings = { ...defaults, ...options };
         container.classList.add('montage-loop');
@@ -933,7 +934,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.4.7',
+    version: '2.4.8',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
