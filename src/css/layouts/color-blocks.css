@@ -43,6 +43,10 @@ body >header {
    text-align: left;
    margin-bottom: 0px;
    }
+body table tbody tr:hover {
+   color: dimgray;
+   background-color: aliceblue;
+   }
 main {
    display: flex;
    min-height: 300px;
