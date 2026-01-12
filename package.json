@@ -78,7 +78,7 @@
    "scripts": {
       "pretest": "run-scripts clean lint blogger build publish",
       "test": "mocha spec",
-      "posttest": "html-validator src"
+      "posttest": "html-validator --default-rules src"
    },
    "dependencies": {
       "dna-engine": "~3.3",
