@@ -103,11 +103,11 @@ runSpecs() {
 customizeBlogger() {
    cd $projectHome
    sed \
-      -e "s|.SHORT-BLOG-NAME.|One of Dem Blogs|g" \
+      -e "s|.SHORT-BLOG-NAME.|pilafmon blog|g" \
       -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark-icon.png|g" \
       -e "s|.MOBILE-HOME-SCREEN-URL.|https://centerkey.com/graphics/mobile-home-screen.png|g" \
       -e "s|.AUTHORS-URL.|https://centerkey.com/pilaf|g" \
-      -e "s|.TWITTER-USERNAME.|DemPilafian|g" \
+      -e "s|.TWITTER-USERNAME.|pilafmon|g" \
       dist/blogger-tweaks.min.css > build/blogger-tweaks-custom.css
    pwd
    ls -o build/blogger-tweaks-custom.css

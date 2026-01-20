@@ -1,17 +1,17 @@
-/*! web-ignition v2.4.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Color Blocks Layout -- Two columns of colorful blocks
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/layouts/color-blocks.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.5/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.5/dist/layouts/color-blocks.css>
    <style>
       main >div:nth-child(1) >section:nth-child(3n+1)    { border-color:     rosybrown; }
       main >div:nth-child(1) >section:nth-child(3n+1) h2 { background-color: rosybrown; }
       main >div:nth-child(1) >section:nth-child(3n+2)    { border-color:     cadetblue; }
       main >div:nth-child(1) >section:nth-child(3n+2) h2 { background-color: cadetblue; }
-      main >div:nth-child(1) >section:nth-child(3n+3)    { border-color:     silver; }
-      main >div:nth-child(1) >section:nth-child(3n+3) h2 { background-color: silver; }
+      main >div:nth-child(1) >section:nth-child(3n+3)    { border-color:     darkgray; }
+      main >div:nth-child(1) >section:nth-child(3n+3) h2 { background-color: darkgray; }
       main >div:nth-child(2) >section:nth-child(3n+1)    { border-color:     lightslategray; }
       main >div:nth-child(2) >section:nth-child(3n+1) h2 { background-color: lightslategray; }
       main >div:nth-child(2) >section:nth-child(3n+2)    { border-color:     darkkhaki; }
@@ -132,7 +132,7 @@ main >div >section >fieldset >label input {
    }
 body >footer {
    color: whitesmoke;
-   background-color: silver;
+   background-color: darkgray;
    padding: 20px 20px;
    }
 body >footer a, body >footer a:visited {
@@ -165,8 +165,8 @@ main >div:nth-child(1) >section:nth-child(3n+1)    { border-color:     rosybrown
 main >div:nth-child(1) >section:nth-child(3n+1) h2 { background-color: rosybrown; }
 main >div:nth-child(1) >section:nth-child(3n+2)    { border-color:     cadetblue; }
 main >div:nth-child(1) >section:nth-child(3n+2) h2 { background-color: cadetblue; }
-main >div:nth-child(1) >section:nth-child(3n+3)    { border-color:     silver; }
-main >div:nth-child(1) >section:nth-child(3n+3) h2 { background-color: silver; }
+main >div:nth-child(1) >section:nth-child(3n+3)    { border-color:     darkgray; }
+main >div:nth-child(1) >section:nth-child(3n+3) h2 { background-color: darkgray; }
 main >div:nth-child(2) >section:nth-child(3n+1)    { border-color:     lightslategray; }
 main >div:nth-child(2) >section:nth-child(3n+1) h2 { background-color: lightslategray; }
 main >div:nth-child(2) >section:nth-child(3n+2)    { border-color:     darkkhaki; }

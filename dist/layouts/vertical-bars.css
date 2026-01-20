@@ -1,10 +1,10 @@
-/*! web-ignition v2.4.9 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
+/*! web-ignition v2.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License */
 
 /*
 Vertical Bars Layout -- traditional boring old-school webpage
 Usage:
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/reset.min.css>
-   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.4/dist/layouts/vertical-bars.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.5/dist/reset.min.css>
+   <link rel=stylesheet href=https://cdn.jsdelivr.net/npm/web-ignition@2.5/dist/layouts/vertical-bars.css>
    <style>
       html { background-color: dimgray; }
       body { color: whitesmoke; background-color: black; border-color: firebrick; }
