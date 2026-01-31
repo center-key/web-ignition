@@ -86,9 +86,12 @@ updateCdnVersion() {
    cd $projectHome
    echo "Update CDN version:"
    updateVersion="s|web-ignition@[.0-9]*|web-ignition@$minorVersion|"
+   ls                       README.md
    sed -i "" $updateVersion README.md
-   find src/css -name "*.html"
-   find src/css -name "*.html" | xargs sed -i "" $updateVersion
+   find spec            -name "spec-*.html"
+   find src/css/layouts -name "*.html"
+   find spec            -name "spec-*.html" | xargs sed -i "" $updateVersion
+   find src/css/layouts -name "*.html" |      xargs sed -i "" $updateVersion
    echo
    }
 
@@ -99,6 +102,10 @@ runSpecs() {
    echo
    }
 
+randomPages() {
+   cd $projectHome
+   npm run random-pages
+   }
 
 customizeBlogger() {
    cd $projectHome
@@ -116,11 +123,11 @@ customizeBlogger() {
 
 publishWebFiles() {
    # spec-js.html:
-   #     <link rel=stylesheet href=../../dist/reset.min.css>
-   #     <script defer src=../../dist/lib-x.min.js></script>
-   #     <span data-img-src=../css/layouts/neon/ameba-cdcgov.jpg>
-   # layouts.html:
-   #     <a href=layouts/block-duo.css>block-duo.css</a>
+   #     <link rel=stylesheet href=../dist/reset.min.css>
+   #     <script defer src=../dist/lib-x.min.js></script>
+   #     <span data-img-src=../src/css/layouts/neon/ameba-cdcgov.jpg>
+   # spec-layouts.html:
+   #     <a href=../src/css/layouts/block-duo.css>block-duo.css</a>
    # layouts/*.html:
    #     <link rel=stylesheet href=../../../dist/reset.min.css>
    #     <link rel=stylesheet href=neon.css>
@@ -134,16 +141,14 @@ publishWebFiles() {
       echo "Publishing:"
       echo $publishFolder
       mkdir -pv $publishFolder/layouts
-      cp -v src/css/*.html src/js/*.html     $publishFolder
-      cp -v src/css/layouts/*.html           $publishFolder/layouts
-      cp -v src/css/blogger-tweaks/spec.html $publishFolder/blogger-tweaks.html
+      cp -v spec/spec-*.html       $publishFolder
+      cp -v src/css/layouts/*.html $publishFolder/layouts
       sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/spec-*.html
       sed -E -i "" "s#[./]+/css#$cdnBase#g"                                $publishFolder/spec-*.html
-      sed -E -i "" "s#layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g"     $publishFolder/layouts.html
+      sed -E -i "" "s#../src/css/layouts/([a-z-]*)[.]css#$githubLayouts/\1.css#g" $publishFolder/spec-layouts.html
       sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/layouts/*.html
       sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
-      sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/blogger-tweaks.html
       test -x "$(which tree)" && tree $publishFolder
       ls -o $publishFolder
       echo "Published -> ${publishFolder/$webDocRoot/http://localhost}"
@@ -154,16 +159,19 @@ publishWebFiles() {
 
 openWebPage() {
    cd $projectHome
+   echo "To validate HTML:"
+   echo "   npm run validate-html"
+   echo
    echo "Opening:"
-   echo "   src/css/spec-css.html"
-   echo "   src/js/spec-js.html"
-   echo "   src/js/spec-video.html"
-   echo "   src/css/layouts.html"
+   echo "   spec/spec-css.html"
+   echo "   spec/spec-js.html"
+   echo "   spec/spec-video.html"
+   echo "   spec/spec-layouts.html"
    sleep 2
-   open src/css/spec-css.html
-   open src/js/spec-js.html
-   open src/js/spec-video.html
-   open src/css/layouts.html
+   open spec/spec-css.html
+   open spec/spec-js.html
+   open spec/spec-video.html
+   open spec/spec-layouts.html
    echo
    }
 

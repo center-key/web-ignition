@@ -59,37 +59,43 @@
       ],
       "build": [
          "tsc",
-         "lessc src/css/reset.less                             build/step1/reset.css",
-         "copy-file src/css/reset-color-overrides.css --folder build/step2",
-         "csso build/step1/reset.css                  --output build/step2/core-reset.min.css",
-         "replacer build/step2 --ext=.css                      build/step5 --concat=reset.min.css",
-         "replacer src/css/layouts --ext=.css                  build/step5/layouts",
-         "copy-folder build/step0                              build/step5",
-         "esm-to-plain-js build/step0/lib-x.js                 build/step5/lib-x.dev.js",
-         "uglifyjs build/step5/lib-x.dev.js           --output build/step5/lib-x.min.js",
-         "uglifyjs src/css/layouts/neon.js            --output build/step5/layouts/neon.min.js",
-         "copy-file src/css/reset/static/utility-box.less --folder build/step5"
+         "lessc src/css/reset.less                                 build/step1/reset.css",
+         "copy-file src/css/reset-color-overrides.css     --folder build/step2",
+         "csso build/step1/reset.css                      --output build/step2/core-reset.min.css",
+         "replacer build/step2 --ext=.css                          build/step5 --concat=reset.min.css",
+         "replacer src/css/layouts --ext=.css                      build/step5/layouts",
+         "copy-folder build/step0                                  build/step5",
+         "esm-to-plain-js build/step0/lib-x.js                     build/step5/lib-x.dev.js",
+         "uglifyjs build/step5/lib-x.dev.js               --output build/step5/lib-x.min.js",
+         "uglifyjs src/css/layouts/neon.js                --output build/step5/layouts/neon.min.js",
+         "copy-file src/css/reset/static/utility-box.less --folder build/step5",
+         "replacer src/alt-pages                                   build/alt-pages"
       ],
       "publish": [
          "add-dist-header build/step5 --recursive     dist",
          "copy-folder src/css/layouts/neon --ext=.jpg dist/layouts/neon"
+      ],
+      "alt-pages": [
+         "copy-file src/alt-pages/folder-listing.php --folder ../^gists/folder-listing.php",
+         "copy-file src/alt-pages/web-baseline.html  --filder ../^gists/web-baseline.html"
       ]
    },
    "scripts": {
       "pretest": "run-scripts clean lint blogger build publish",
       "test": "mocha spec",
-      "posttest": "html-validator --default-rules src"
+      "validate-html": "npm test && html-validator --default-rules spec build/alt-pages",
+      "alt-pages": "run-scripts build alt-pages"
    },
    "dependencies": {
       "dna-engine": "~3.3",
       "fetch-json": "~3.3",
       "highlight.js": "~11.11",
-      "hljs-enhance": "~2.0"
+      "hljs-enhance": "~2.1"
    },
    "devDependencies": {
       "@eslint/js": "~9.39",
       "@fortawesome/fontawesome-free": "~7.1",
-      "@types/node": "~25.0",
+      "@types/node": "~25.1",
       "add-dist-header": "~1.6",
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.3",
@@ -100,12 +106,12 @@
       "jshint": "~2.13",
       "less": "~4.5",
       "mocha": "~11.7",
-      "replacer-util": "~1.5",
+      "replacer-util": "~1.6",
       "rimraf": "~6.1",
       "run-scripts-util": "~1.3",
       "typescript": "~5.9",
-      "typescript-eslint": "~8.53",
+      "typescript-eslint": "~8.54",
       "uglify-js": "~3.19",
-      "w3c-html-validator": "~2.1"
+      "w3c-html-validator": "~2.2"
    }
 }
