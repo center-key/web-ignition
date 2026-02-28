@@ -544,10 +544,10 @@ const libXUi = {
       //    <i data-icon=home></i>
       // For dynamically created elements, initialize the element or parent element:
       //    libX.ui.makeIcons(container);
-      // Usage with dna-engine:
+      // Usage with dna-dom:
       //    <i data-attr-data-icon=~~icon~~></i>
       // Note:
-      //    LibX detects dna-engine and automatically runs: dna.registerInitializer(libX.ui.makeIcons))
+      //    LibX detects dna-dom and automatically runs: dna.registerInitializer(libX.ui.makeIcons))
       const iconify = (isBrand: boolean) => (icon: Element) => {
          const data = (<HTMLElement>icon).dataset;
          const name = isBrand ? data.brand! : data.icon!;
@@ -904,7 +904,7 @@ const libXAnimate = {
    jiggleIt(elemOrEvent: Element | Event): Promise<Element> {
       // Usage:
       //    libX.animate.jiggleIt(elem);
-      // Usage in dna-engine:
+      // Usage in dna-dom:
       //    <img src=logo.svg data-on-click=libX.animate.jiggleIt alt=logo>
       const elem =        libX.dom.toElem(elemOrEvent);
       const animatation = 'jiggle-it 200ms 3';  //keyframes duration iterations
@@ -920,7 +920,7 @@ const libXAnimate = {
    rollIn(container: Element): Promise<Element> {
       // Usage:
       //    libX.animate.rollIn(elem);
-      // Usage in dna-engine:
+      // Usage in dna-dom:
       //    <ul data-on-load=libX.animate.rollIn>
       const startDelay =     300;
       const fadeDelay =      1500;
@@ -956,7 +956,7 @@ const libXAnimate = {
       // Usage:
       //    const elem = document.getElementById('my-gallery');
       //    libX.animate.montageLoop(elem);
-      // Usage with dna-engine (default options):
+      // Usage with dna-dom (default options):
       //    <figure class=montage-loop data-interval=5000 data-on-load=libX.animate.montageLoop>
       const data = (<HTMLElement>container).dataset;
       const defaults: LibXMontageLoopSettings = {
@@ -1001,7 +1001,7 @@ const libXBubbleHelp = {
    //    <button>Hover over me<span class=bubble-help>Help!</span></button>
    // For dynamically created elements, also run:
    //    libX.bubbleHelp.setup(elem);
-   // Usage with dna-engine:
+   // Usage with dna-dom:
    //    dna.registerInitializer(libX.bubbleHelp.setup);
    setup(container: Element = globalThis.document.body): Element {
       const hi = (target: Element) => {
@@ -1112,7 +1112,7 @@ const libXSocial = {
    // Usage:
    //    <div id=social-buttons></div>
    buttons: <LibXSocialButton[]>[
-      { title: 'Twitter',  icon: 'x-twitter',   x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
+      { title: 'X',        icon: 'x-twitter',   x: 580, y: 350, link: 'https://x.com/share?text=${title}&url=${url}' },
       { title: 'Facebook', icon: 'facebook-f',  x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
       { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
       { title: 'Reddit',   icon: 'reddit',      x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },

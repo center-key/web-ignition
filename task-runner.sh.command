@@ -114,7 +114,7 @@ customizeBlogger() {
       -e "s|.BOOKMARK-URL.|https://centerkey.com/graphics/bookmark-icon.png|g" \
       -e "s|.MOBILE-HOME-SCREEN-URL.|https://centerkey.com/graphics/mobile-home-screen.png|g" \
       -e "s|.AUTHORS-URL.|https://centerkey.com/pilaf|g" \
-      -e "s|.TWITTER-USERNAME.|pilafmon|g" \
+      -e "s|.X-TWITTER-USERNAME.|pilafmon|g" \
       dist/blogger-tweaks.min.css > build/blogger-tweaks-custom.css
    pwd
    ls -o build/blogger-tweaks-custom.css

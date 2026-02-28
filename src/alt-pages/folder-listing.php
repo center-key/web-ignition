@@ -101,7 +101,7 @@
    <link rel=preconnect       href=https://fonts.gstatic.com crossorigin>
    <link rel=stylesheet       href=<?=$cdnBase?>/@fortawesome/fontawesome-free@{{package.devDependencies.-fortawesome-fontawesome-free|version}}/css/all.min.css>
    <link rel=stylesheet       href=<?=$cdnBase?>/web-ignition@{{package.version|minor-version}}/dist/reset.min.css>
-   <link rel=stylesheet       href=<?=$cdnBase?>/dna-engine@{{package.dependencies.dna-engine|version}}/dist/dna-engine.css>
+   <link rel=stylesheet       href=<?=$cdnBase?>/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.css>
    <style>
       body { color: dimgray; background-color: white; margin: 0px 20px; }
       main { min-height: auto; }
@@ -131,7 +131,7 @@
          }
    </style>
    <script defer src=<?=$cdnBase?>/web-ignition@{{package.version|minor-version}}/dist/lib-x.min.js></script>
-   <script defer src=<?=$cdnBase?>/dna-engine@{{package.dependencies.dna-engine|version}}/dist/dna-engine.min.js></script>
+   <script defer src=<?=$cdnBase?>/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.min.js></script>
    <script data-on-load=displayPath>
       const displayPath = () => {
          // Show the URL of the current folder.
