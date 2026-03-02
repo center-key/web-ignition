@@ -1,4 +1,4 @@
-//! web-ignition v2.5.0 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -886,7 +886,7 @@ const libXForm = {
 };
 const libXSocial = {
     buttons: [
-        { title: 'Twitter', icon: 'x-twitter', x: 580, y: 350, link: 'https://twitter.com/share?text=${title}&url=${url}' },
+        { title: 'X', icon: 'x-twitter', x: 580, y: 350, link: 'https://x.com/share?text=${title}&url=${url}' },
         { title: 'Facebook', icon: 'facebook-f', x: 580, y: 350, link: 'https://www.facebook.com/sharer.php?u=${url}' },
         { title: 'LinkedIn', icon: 'linkedin-in', x: 580, y: 350, link: 'https://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${title}' },
         { title: 'Reddit', icon: 'reddit', x: 600, y: 750, link: 'https://www.reddit.com/submit?url=${url}&title=${title}' },
@@ -934,7 +934,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.0',
+    version: '2.5.1',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
