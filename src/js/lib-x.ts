@@ -142,7 +142,7 @@ const libXDom = {
    hasClass(elems: LibXElems, className: string): boolean {
       // Returns true if any of the elements in the given list have the specified class.
       const elemHas = (elem: Element) => elem.classList.contains(className);
-      return Array.prototype.some.call(elems, elemHas);
+      return !!Array.prototype.some.call(elems, elemHas);
       },
    toggleClass(elem: Element, className: string, state?: boolean): Element {
       // Adds or removes an element class.
@@ -175,7 +175,7 @@ const libXDom = {
       },
    filter(elems: LibXElems, fn: (elem: Element, index: number, elems: unknown[]) => unknown): Element[] {
       // Filters a list of elements.
-      return Array.prototype.filter.call(elems, fn);  //eslint-disable-line
+      return <Element[]>Array.prototype.filter.call(elems, fn);
       },
    filterBySelector(elems: LibXElems, selector: string): Element[] {
       // Returns direct child elements filtered by the specified selector.
@@ -211,12 +211,12 @@ const libXDom = {
       },
    indexOf(elems: LibXElems, elem: Element): number {
       // Returns the location an element within an array of elements.
-      return Array.prototype.indexOf.call(elems, elem);
+      return Number(Array.prototype.indexOf.call(elems, elem));
       },
    findIndex(elems: LibXElems, selector: string): number {
       // Returns the location of the first matching element within an array of elements.
       const elemMatches = (elem: Element) => elem.matches(selector);
-      return Array.prototype.findIndex.call(elems, elemMatches);
+      return Number(Array.prototype.findIndex.call(elems, elemMatches));
       },
    isElem(elem: unknown): boolean {
       return !!elem && typeof elem === 'object' && !!(<Element>elem).nodeName;
@@ -564,7 +564,7 @@ const libXUi = {
    normalize(container: Element = globalThis.document.body): Element {
       const rawInput =      (elem: Element) => (<HTMLInputElement>elem).spellcheck = false;
       const makeImageLink = (elem: Element) => elem.closest('a')!.classList.add('image-link');
-      const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';  //eslint-disable-line
+      const openInNewTab =  (elem: Element) => (<HTMLLinkElement>elem).target = '_blank';  //eslint-disable-line @typescript-eslint/no-deprecated
       container.querySelectorAll('button:not([type])').forEach(elem => (<HTMLButtonElement>elem).type = 'button');
       container.querySelectorAll('button:not([tabindex])').forEach(elem => (<HTMLButtonElement>elem).tabIndex = 0);  //enable focus on tab
       container.querySelectorAll('input:not([type])').forEach(elem =>  (<HTMLInputElement>elem).type = 'text');
@@ -838,7 +838,7 @@ const libXBrowser = {
       const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
-         const platform =   globalThis.navigator.platform;  //eslint-disable-line
+         const platform =   globalThis.navigator.platform;  //eslint-disable-line @typescript-eslint/no-deprecated
          const mac =        hasTouch ? 'iOS' : 'macOS';
          const platforms: { [platform: string]: string} =
             { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };

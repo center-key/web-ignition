@@ -19,8 +19,8 @@ setupTools() {
    echo $banner
    echo $(echo $banner | sed s/./=/g)
    pwd
-   test -d .git || { echo "Project must be in a git repository."; exit; }
-   git restore dist/* &>/dev/null
+   [ -d .git ] || { echo "Project must be in a git repository."; exit; }
+   [ -d dist ] && git restore dist
    git pull --ff-only
    echo
    echo "Node.js:"
@@ -149,12 +149,12 @@ publishWebFiles() {
       sed -E -i "" "s#[./]+/dist#$cdnBase#g"                               $publishFolder/layouts/*.html
       sed -E -i "" "s#href=([a-z-]*)[.]css#href=$cdnBase/layouts/\1.css#g" $publishFolder/layouts/*.html
       sed -E -i "" "s#src=([a-z-]*)[.]js#src=$cdnBase/layouts/\1.min.js#g" $publishFolder/layouts/*.html
-      test -x "$(which tree)" && tree $publishFolder
+      [ -x "$(which tree)" ] && tree $publishFolder
       ls -o $publishFolder
       echo "Published -> ${publishFolder/$webDocRoot/http://localhost}"
       echo
       }
-   test -w $publishSite && publish
+   [ -w $publishSite ] && publish
    }
 
 openWebPage() {

@@ -283,7 +283,7 @@ main >section >footer {
    font-size: 1.8rem;
    padding-top: 20px;
    }
-main >section >footer.flip-icons {
+main >section .flip-icons {
    letter-spacing: 0.1em;
    transform: scaleX(-1);
    }
