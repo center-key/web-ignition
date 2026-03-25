@@ -1,4 +1,4 @@
-//! web-ignition v2.5.1 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -71,7 +71,7 @@ const libXDom = {
     },
     hasClass(elems, className) {
         const elemHas = (elem) => elem.classList.contains(className);
-        return Array.prototype.some.call(elems, elemHas);
+        return !!Array.prototype.some.call(elems, elemHas);
     },
     toggleClass(elem, className, state) {
         if (state === undefined ? !elem.classList.contains(className) : state)
@@ -128,11 +128,11 @@ const libXDom = {
         return index;
     },
     indexOf(elems, elem) {
-        return Array.prototype.indexOf.call(elems, elem);
+        return Number(Array.prototype.indexOf.call(elems, elem));
     },
     findIndex(elems, selector) {
         const elemMatches = (elem) => elem.matches(selector);
-        return Array.prototype.findIndex.call(elems, elemMatches);
+        return Number(Array.prototype.findIndex.call(elems, elemMatches));
     },
     isElem(elem) {
         return !!elem && typeof elem === 'object' && !!elem.nodeName;
@@ -934,7 +934,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.1',
+    version: '2.5.2',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
