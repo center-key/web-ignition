@@ -142,7 +142,7 @@ const libXDom = {
    hasClass(elems: LibXElems, className: string): boolean {
       // Returns true if any of the elements in the given list have the specified class.
       const elemHas = (elem: Element) => elem.classList.contains(className);
-      return !!Array.prototype.some.call(elems, elemHas);
+      return Array.prototype.some.call(elems, elemHas);
       },
    toggleClass(elem: Element, className: string, state?: boolean): Element {
       // Adds or removes an element class.
@@ -211,12 +211,12 @@ const libXDom = {
       },
    indexOf(elems: LibXElems, elem: Element): number {
       // Returns the location an element within an array of elements.
-      return Number(Array.prototype.indexOf.call(elems, elem));
+      return Array.prototype.indexOf.call(elems, elem);
       },
    findIndex(elems: LibXElems, selector: string): number {
       // Returns the location of the first matching element within an array of elements.
       const elemMatches = (elem: Element) => elem.matches(selector);
-      return Number(Array.prototype.findIndex.call(elems, elemMatches));
+      return Array.prototype.findIndex.call(elems, elemMatches);
       },
    isElem(elem: unknown): boolean {
       return !!elem && typeof elem === 'object' && !!(<Element>elem).nodeName;
@@ -656,7 +656,8 @@ const libXUi = {
       style.opacity =        '0';
       if (globalThis.getComputedStyle(elem).display === 'none')
          style.display = 'block';
-      const load = (done: (elem: Element) => void) => {
+      const load = (done: (returnElem: Element) => void) => {
+         console.log()
          const cleanup = () => {
             style.removeProperty('transition');
             style.removeProperty('opacity');
@@ -664,16 +665,16 @@ const libXUi = {
             };
          const handleImgage = () => {
             if (elem.matches('img'))
-               (<HTMLImageElement>elem).src = url;
+               (<HTMLImageElement>elem).src = url;  //eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
             else
                style.backgroundImage = 'url("' + url + '")';
             style.transition = `all ${fadeTransition}ms`;
             style.opacity =    '1';
             globalThis.setTimeout(cleanup, fadeTransition + 100);
             };
-         const img =  new Image();
-         img.onload = handleImgage;
-         img.src =    url;
+         const imgCache =  new Image();
+         imgCache.onload = handleImgage;
+         imgCache.src =    url;
          };
       return new Promise(resolve => load(resolve));
       },
@@ -838,7 +839,7 @@ const libXBrowser = {
       const polyfill = (): NavigatorUAData => {
          const brandEntry = globalThis.navigator.userAgent.split(' ').pop()?.split('/') ?? [];
          const hasTouch =   !!navigator.maxTouchPoints;
-         const platform =   globalThis.navigator.platform;  //eslint-disable-line @typescript-eslint/no-deprecated
+         const platform =   globalThis.navigator.platform;
          const mac =        hasTouch ? 'iOS' : 'macOS';
          const platforms: { [platform: string]: string} =
             { 'MacIntel': mac, 'Win32': 'Windows', 'iPhone': 'iOS', 'iPad': 'iOS' };
