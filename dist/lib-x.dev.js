@@ -1,4 +1,4 @@
-//! web-ignition v2.5.2 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -71,7 +71,7 @@ const libXDom = {
     },
     hasClass(elems, className) {
         const elemHas = (elem) => elem.classList.contains(className);
-        return !!Array.prototype.some.call(elems, elemHas);
+        return Array.prototype.some.call(elems, elemHas);
     },
     toggleClass(elem, className, state) {
         if (state === undefined ? !elem.classList.contains(className) : state)
@@ -128,11 +128,11 @@ const libXDom = {
         return index;
     },
     indexOf(elems, elem) {
-        return Number(Array.prototype.indexOf.call(elems, elem));
+        return Array.prototype.indexOf.call(elems, elem);
     },
     findIndex(elems, selector) {
         const elemMatches = (elem) => elem.matches(selector);
-        return Number(Array.prototype.findIndex.call(elems, elemMatches));
+        return Array.prototype.findIndex.call(elems, elemMatches);
     },
     isElem(elem) {
         return !!elem && typeof elem === 'object' && !!elem.nodeName;
@@ -541,9 +541,9 @@ const libXUi = {
                 style.opacity = '1';
                 globalThis.setTimeout(cleanup, fadeTransition + 100);
             };
-            const img = new Image();
-            img.onload = handleImgage;
-            img.src = url;
+            const imgCache = new Image();
+            imgCache.onload = handleImgage;
+            imgCache.src = url;
         };
         return new Promise(resolve => load(resolve));
     },
@@ -922,7 +922,7 @@ const libXExtra = {
         console.info('Blog associated with:', websiteUrl);
         const onArticleLoad = () => {
             const elem = libX.dom.select('h1.entry-title');
-            const title = String(elem.textContent).trim();
+            const title = elem.textContent.trim();
             console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
             libX.dom.select('#header >.header-bar h3').dataset.href = websiteUrl;
             libX.ui.normalize();
@@ -934,7 +934,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.2',
+    version: '2.5.3',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,

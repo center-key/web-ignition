@@ -657,7 +657,6 @@ const libXUi = {
       if (globalThis.getComputedStyle(elem).display === 'none')
          style.display = 'block';
       const load = (done: (returnElem: Element) => void) => {
-         console.log()
          const cleanup = () => {
             style.removeProperty('transition');
             style.removeProperty('opacity');
