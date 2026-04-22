@@ -1160,7 +1160,7 @@ const libXExtra = {
       const onArticleLoad = () => {
          //console.info('Event types:', Object.keys(globalThis.blogger.ui().Lc.wb));
          const elem =  libX.dom.select('h1.entry-title')!;
-         const title = String(<unknown>elem.textContent).trim();
+         const title = elem.textContent.trim();
          console.info('Article: %c' + title, 'font-weight: bold; color: turquoise;');
          libX.dom.select('#header >.header-bar h3')!.dataset.href = websiteUrl;
          libX.ui.normalize();
