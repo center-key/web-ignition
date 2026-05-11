@@ -728,6 +728,12 @@ const libXUtil = {
    isObj(thing: unknown): boolean {
       return !!thing && (<LibXObject>thing).constructor === Object;
       },
+   getUrlFolderName(url: string) {
+      // Usage:
+      //    libX.util.getUrlFolderName('https://example.com/zoo/ox/index.html') === 'ox';
+      const noFileExt = (segment: string) => !/\./.test(segment);
+      return new URL(url).pathname.split('/').filter(Boolean).filter(noFileExt).pop();
+      },
    removeWhitespace(text: string): string {
       // Usage:
       //    libX.util.removeWhitespace('a b \t\n c') === 'abc';
