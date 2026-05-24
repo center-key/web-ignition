@@ -725,25 +725,65 @@ const libXUtil = {
       email = email && email.replace(/\s/g, '').toLowerCase();
       return /.+@.+[.].+/.test(email) ? email : null;  //rudimentary format check
       },
+   toCamel(kebabStr: string): string {  //DEPRECATED
+      console.warn('DEPRECATED: Use libX.str.toCamel() instead.', kebabStr);
+      return libX.str.toCamel(kebabStr);
+      },
+   toKebab(camelStr: string): string {  //DEPRECATED
+      console.warn('DEPRECATED: Use libX.str.toKebab() instead.', camelStr);
+      return libX.str.toKebab(camelStr);
+      },
    isObj(thing: unknown): boolean {
       return !!thing && (<LibXObject>thing).constructor === Object;
       },
-   getUrlFolderName(url: string) {
-      // Usage:
-      //    libX.util.getUrlFolderName('https://example.com/zoo/ox/index.html') === 'ox';
-      const noFileExt = (segment: string) => !/\./.test(segment);
-      return new URL(url).pathname.split('/').filter(Boolean).filter(noFileExt).pop();
-      },
-   removeWhitespace(text: string): string {
-      // Usage:
-      //    libX.util.removeWhitespace('a b \t\n c') === 'abc';
-      return text.replace(/\s/g, '');
+   removeWhitespace(text: string): string {  //DEPRECATED
+      console.warn('DEPRECATED: Use libX.str.removeWhitespace() instead.', text);
+      return libX.str.removeWhitespace(text);
       },
    assert(ok: unknown, message: string, info: unknown): void {
       // Oops, file a tps report if "ok" is falsey.
       const quoteStr = (info: unknown) => typeof info === 'string' ? `"${info}"` : String(info);
       if (!ok)
         throw new Error(`[web-ignition] ${message} --> ${quoteStr(info)}`);
+      },
+   };
+
+const libXStr = {
+   printf(format: string, ...values: unknown[]): string {
+      // Builds a formatted string by replacing the format specifiers with the supplied arguments.
+      // Example:
+      //    libX.str.printf('Items in %s: %s', 'cart', 3) === 'Items in cart: 3';
+      const insertArg = (output: string, value: unknown) => output.replace(/%s/, String(value));
+      return <string>values.reduce(insertArg, format);  //eslint-disable-line @typescript-eslint/no-unnecessary-type-assertion
+      },
+   toCamel(kebabStr: string): string {
+      // Converts a kebab-case string (a code made of lowercase letters and dashes) to camelCase.
+      // Example:
+      //    libX.str.toCamel('ready-set-go') === 'readySetGo'
+      const hump = (match: string, letter: string): string => letter.toUpperCase();
+      return kebabStr ? kebabStr.replace(/-(.)/g, hump) : '';
+      },
+   toKebab(camelStr: string): string {
+      // Converts a camelCase string to kebab-case (a code made of lowercase letters and dashes).
+      // Example:
+      //    libX.str.toKebab('readySetGo') === 'ready-set-go'
+      const dash = (word: string) => '-' + word.toLowerCase();
+      return camelStr ? camelStr.replace(/([A-Z]+)/g, dash).replace(/\s|^-/g, '') : '';
+      },
+   removeWhitespace(text: string): string {
+      // Example:
+      //    libX.str.removeWhitespace('a b \t\n c   ') === 'abc';
+      return text ? text.trim().replace(/\s/g, '') : '';
+      },
+   };
+
+const libXUrl = {
+   getFolderName(url?: string) {
+      // Example:
+      //    libX.url.getFolderName('https://example.com/zoo/ox/index.html') === 'ox';
+      const pathname = url ? new URL(url).pathname : globalThis.window.location.pathname;
+      const isFolder = (segment: string) => !/\./.test(segment);
+      return pathname.split('/').filter(Boolean).filter(isFolder).pop();
       },
    };
 
@@ -1182,6 +1222,8 @@ const libX = {
    dom:             libXDom,
    ui:              libXUi,
    util:            libXUtil,
+   str:             libXStr,
+   url:             libXUrl,
    nav:             libXNav,
    crypto:          libXCrypto,
    storage:         libXStorage,
