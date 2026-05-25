@@ -1,4 +1,4 @@
-//! web-ignition v2.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -179,9 +179,20 @@ declare const libX: {
     };
     util: {
         cleanupEmail(email: string): string | null;
+        toCamel(kebabStr: string): string;
+        toKebab(camelStr: string): string;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
         assert(ok: unknown, message: string, info: unknown): void;
+    };
+    str: {
+        printf(format: string, ...values: unknown[]): string;
+        toCamel(kebabStr: string): string;
+        toKebab(camelStr: string): string;
+        removeWhitespace(text: string): string;
+    };
+    url: {
+        getFolderName(url?: string): string | undefined;
     };
     nav: {
         setupLinkMenu(): HTMLElement | null;

@@ -18,9 +18,9 @@
     <meta content='Picture lead'                property='og:image:alt'>
     <link href='[BOOKMARK-URL]' rel='icon'>
     <link href='[MOBILE-HOME-SCREEN-URL]' rel='apple-touch-icon'>
-    <link href='https://cdn.jsdelivr.net/npm/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/styles/docco.min.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/hljs-enhance@{{package.dependencies.hljs-enhance|version}}/dist/hljs-enhance.css' rel='stylesheet'>
+    <link href='https://cdn.jsdelivr.net/npm/dna-dom@{{package.dependencies.dna-dom|version}}/dist/dna-dom.css' rel='stylesheet'>
     <link href='https://cdn.jsdelivr.net/npm/web-ignition@{{package.version|minor-version}}/dist/blogger-tweaks.min.css' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/highlight.min.js'></script>
     <script src='https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@{{package.dependencies.highlight-js|version}}/build/languages/http.min.js'></script>

@@ -1,4 +1,4 @@
-//! web-ignition v2.5.3 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -580,16 +580,49 @@ const libXUtil = {
         email = email && email.replace(/\s/g, '').toLowerCase();
         return /.+@.+[.].+/.test(email) ? email : null;
     },
+    toCamel(kebabStr) {
+        console.warn('DEPRECATED: Use libX.str.toCamel() instead.', kebabStr);
+        return libX.str.toCamel(kebabStr);
+    },
+    toKebab(camelStr) {
+        console.warn('DEPRECATED: Use libX.str.toKebab() instead.', camelStr);
+        return libX.str.toKebab(camelStr);
+    },
     isObj(thing) {
         return !!thing && thing.constructor === Object;
     },
     removeWhitespace(text) {
-        return text.replace(/\s/g, '');
+        console.warn('DEPRECATED: Use libX.str.removeWhitespace() instead.', text);
+        return libX.str.removeWhitespace(text);
     },
     assert(ok, message, info) {
         const quoteStr = (info) => typeof info === 'string' ? `"${info}"` : String(info);
         if (!ok)
             throw new Error(`[web-ignition] ${message} --> ${quoteStr(info)}`);
+    },
+};
+const libXStr = {
+    printf(format, ...values) {
+        const insertArg = (output, value) => output.replace(/%s/, String(value));
+        return values.reduce(insertArg, format);
+    },
+    toCamel(kebabStr) {
+        const hump = (match, letter) => letter.toUpperCase();
+        return kebabStr ? kebabStr.replace(/-(.)/g, hump) : '';
+    },
+    toKebab(camelStr) {
+        const dash = (word) => '-' + word.toLowerCase();
+        return camelStr ? camelStr.replace(/([A-Z]+)/g, dash).replace(/\s|^-/g, '') : '';
+    },
+    removeWhitespace(text) {
+        return text ? text.trim().replace(/\s/g, '') : '';
+    },
+};
+const libXUrl = {
+    getFolderName(url) {
+        const pathname = url ? new URL(url).pathname : globalThis.window.location.pathname;
+        const isFolder = (segment) => !/\./.test(segment);
+        return pathname.split('/').filter(Boolean).filter(isFolder).pop();
     },
 };
 const libXNav = {
@@ -934,10 +967,12 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.3',
+    version: '2.5.4',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
+    str: libXStr,
+    url: libXUrl,
     nav: libXNav,
     crypto: libXCrypto,
     storage: libXStorage,
