@@ -778,12 +778,12 @@ const libXStr = {
    };
 
 const libXUrl = {
-   getFolderName(url?: string) {
+   getFolderName(url?: string): string | null {
       // Example:
       //    libX.url.getFolderName('https://example.com/zoo/ox/index.html') === 'ox';
       const pathname = url ? new URL(url).pathname : globalThis.window.location.pathname;
-      const isFolder = (segment: string) => !/\./.test(segment);
-      return pathname.split('/').filter(Boolean).filter(isFolder).pop();
+      const isFolder = (segment: string) => segment && !/\./.test(segment);
+      return url === '' ? null : pathname.split('/').filter(isFolder).pop()!;
       },
    };
 
