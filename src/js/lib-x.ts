@@ -767,8 +767,10 @@ const libXStr = {
       // Converts a camelCase string to kebab-case (a code made of lowercase letters and dashes).
       // Example:
       //    libX.str.toKebab('readySetGo') === 'ready-set-go'
-      const dash = (word: string) => '-' + word.toLowerCase();
-      return camelStr ? camelStr.replace(/([A-Z]+)/g, dash).replace(/\s|^-/g, '') : '';
+      const addDash = (word: string) => '-' + word.toLowerCase();
+      const kebab = () =>
+         camelStr.trim().replace(/([A-Z]+)/g, addDash).replace(/[-\s]+/g, '-').replace(/^-/, '');
+      return camelStr ? kebab() : '';
       },
    removeWhitespace(text: string): string {
       // Example:
