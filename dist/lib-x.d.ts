@@ -1,4 +1,4 @@
-//! web-ignition v2.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -192,7 +192,7 @@ declare const libX: {
         removeWhitespace(text: string): string;
     };
     url: {
-        getFolderName(url?: string): string | undefined;
+        getFolderName(url?: string): string | null;
     };
     nav: {
         setupLinkMenu(): HTMLElement | null;

@@ -1,4 +1,4 @@
-//! web-ignition v2.5.4 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -611,8 +611,9 @@ const libXStr = {
         return kebabStr ? kebabStr.replace(/-(.)/g, hump) : '';
     },
     toKebab(camelStr) {
-        const dash = (word) => '-' + word.toLowerCase();
-        return camelStr ? camelStr.replace(/([A-Z]+)/g, dash).replace(/\s|^-/g, '') : '';
+        const addDash = (word) => '-' + word.toLowerCase();
+        const kebab = () => camelStr.trim().replace(/([A-Z]+)/g, addDash).replace(/[-\s]+/g, '-').replace(/^-/, '');
+        return camelStr ? kebab() : '';
     },
     removeWhitespace(text) {
         return text ? text.trim().replace(/\s/g, '') : '';
@@ -621,8 +622,8 @@ const libXStr = {
 const libXUrl = {
     getFolderName(url) {
         const pathname = url ? new URL(url).pathname : globalThis.window.location.pathname;
-        const isFolder = (segment) => !/\./.test(segment);
-        return pathname.split('/').filter(Boolean).filter(isFolder).pop();
+        const isFolder = (segment) => segment && !/\./.test(segment);
+        return url === '' ? null : pathname.split('/').filter(isFolder).pop();
     },
 };
 const libXNav = {
@@ -967,7 +968,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.4',
+    version: '2.5.5',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
