@@ -52,8 +52,8 @@
          "eslint --max-warnings 0"
       ],
       "blogger": [
-         "lessc        src/css/blogger-tweaks/style.less            build/step3/blogger-tweaks.css",
          "replacer     src/css/blogger-tweaks/instructions.css      build/step4 --regex=/{{apos}}{{gt}}$/gm --replacement={{apos}}/{{gt}}",
+         "lessc        src/css/blogger-tweaks/style.less            build/step3/blogger-tweaks.css",
          "lightningcss build/step3/blogger-tweaks.css --output-file build/step4/blogger-tweaks.min.css --minify --bundle",
          "replacer     build/step4 --ext=.css                       build/step5 --concat=blogger-tweaks.min.css"
       ],
@@ -100,7 +100,7 @@
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.3",
       "copy-folder-util": "~1.2",
-      "eslint": "~10.4",
+      "eslint": "~10.5",
       "esm-to-plain-js": "~1.2",
       "jshint": "~2.13",
       "less": "~4.6",
@@ -110,7 +110,7 @@
       "rimraf": "~6.1",
       "run-scripts-util": "~1.3",
       "typescript": "~6.0",
-      "typescript-eslint": "~8.60",
+      "typescript-eslint": "~8.61",
       "uglify-js": "~3.19",
       "w3c-html-validator": "~2.2"
    }

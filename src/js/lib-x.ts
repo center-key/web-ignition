@@ -87,7 +87,7 @@ const libXDom = {
       },
    componentState(elem: Element) {
       const component = libX.ui.getComponent(elem);
-      libX.util.assert(component, 'Component not found for element', elem);
+      libX.util.assertOk(component, 'Component not found for element', elem);
       return libX.dom.state(component!);
       },
    removeState(elem: Element): Element {
@@ -340,7 +340,7 @@ const libXDom = {
       if (browserless && !options?.quiet)
          console.info(new Date().toISOString(), 'Callback run in browserless context');
       const doCallback = () => {
-         libX.util.assert(Date.now() - start < maxWait, errMsg(), callback);
+         libX.util.assertOk(Date.now() - start < maxWait, errMsg(), callback);
          globalThis.setTimeout(state() === 'loading' ? () => doCallback() : callback);
          }
       doCallback();
@@ -740,7 +740,7 @@ const libXUtil = {
       console.warn('DEPRECATED: Use libX.str.removeWhitespace() instead.', text);
       return libX.str.removeWhitespace(text);
       },
-   assert(ok: unknown, message: string, info: unknown): void {
+   assertOk(ok: unknown, message: string, info: unknown): void {
       // Oops, file a tps report if "ok" is falsey.
       const quoteStr = (info: unknown) => typeof info === 'string' ? `"${info}"` : String(info);
       if (!ok)
