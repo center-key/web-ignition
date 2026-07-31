@@ -7,10 +7,10 @@
 html { display: flex; flex-direction: column; height: 100%; min-height: 100%; }
 html { font-size: 115%; font-family: system-ui, geneva, tahoma, sans-serif; }  //override font-size percent to resize base font
 body { width: 100%; flex: 1; }
-body, h1, h2, h3, h4, h5, h6, p, menu { padding: 0px; margin: 0px; }
+body, h1, h2, h3, h4, h5, h6, p, menu, blockquote { padding: 0px; margin: 0px; }
 h1, h2, h3, h4, h5, h6 { letter-spacing: 0.04em; margin-bottom: 0.5em; }
 section, header, figure { margin-bottom: 20px; }
-p, ul, ol, menu { margin-bottom: 0.9em; }
+p, ul, ol, menu, blockquote { margin-bottom: 0.9em; }
 section, figure, p, ul, ol, menu { &:last-child { margin-bottom: 0px; } }
 menu { list-style: none; }
 ul, ol, menu { margin-top: 2px; }
@@ -46,6 +46,28 @@ h3 { font-size: 1.2rem; }
 h4 { font-size: 0.9rem; font-weight: normal; text-transform: uppercase; letter-spacing: 0.14em; }
 h1+h2 { font-weight: lighter; margin: -0.2em 0px 0.4em 0px; }
 i.font-icon { width: auto; font-size: 1.5em; }
+blockquote:has(>cite) {
+   display: block;
+   width: 100%;
+   font-size: 1.2rem;
+   font-style: normal;
+   text-align: left;
+   border: 1px solid;
+   padding: 10px 25px;
+   >cite {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: lighter;
+      font-style: italic;
+      text-align: right;
+      letter-spacing: 0.1em;
+      padding-top: 0.3em;
+      &::before {
+         content: @symbolEmDash;
+         padding-right: 0.3em;
+         }
+      }
+   }
 
 // Colors
 body {
