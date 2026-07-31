@@ -1,4 +1,4 @@
-//! web-ignition v2.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -22,7 +22,7 @@ const libXDom = {
     },
     componentState(elem) {
         const component = libX.ui.getComponent(elem);
-        libX.util.assert(component, 'Component not found for element', elem);
+        libX.util.assertOk(component, 'Component not found for element', elem);
         return libX.dom.state(component);
     },
     removeState(elem) {
@@ -242,7 +242,7 @@ const libXDom = {
         if (browserless && !options?.quiet)
             console.info(new Date().toISOString(), 'Callback run in browserless context');
         const doCallback = () => {
-            libX.util.assert(Date.now() - start < maxWait, errMsg(), callback);
+            libX.util.assertOk(Date.now() - start < maxWait, errMsg(), callback);
             globalThis.setTimeout(state() === 'loading' ? () => doCallback() : callback);
         };
         doCallback();
@@ -595,7 +595,7 @@ const libXUtil = {
         console.warn('DEPRECATED: Use libX.str.removeWhitespace() instead.', text);
         return libX.str.removeWhitespace(text);
     },
-    assert(ok, message, info) {
+    assertOk(ok, message, info) {
         const quoteStr = (info) => typeof info === 'string' ? `"${info}"` : String(info);
         if (!ok)
             throw new Error(`[web-ignition] ${message} --> ${quoteStr(info)}`);
@@ -968,7 +968,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.5',
+    version: '2.5.6',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,

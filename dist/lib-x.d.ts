@@ -1,4 +1,4 @@
-//! web-ignition v2.5.5 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 export type GlobalKey = keyof typeof globalThis;
 export type Json = string | number | boolean | null | undefined | JsonObject | Json[];
@@ -183,7 +183,7 @@ declare const libX: {
         toKebab(camelStr: string): string;
         isObj(thing: unknown): boolean;
         removeWhitespace(text: string): string;
-        assert(ok: unknown, message: string, info: unknown): void;
+        assertOk(ok: unknown, message: string, info: unknown): void;
     };
     str: {
         printf(format: string, ...values: unknown[]): string;
