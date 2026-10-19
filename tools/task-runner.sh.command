@@ -1,13 +1,14 @@
 #!/bin/bash
-###############
-# Task Runner #
-###############
+################
+# Task Runner  #
+# web-ignition #
+################
 
 # To make this file runnable:
-#     $ chmod +x *.sh.command
+#     $ chmod +x tools/*.sh.command
 
 banner="web-ignition"
-projectHome=$(cd $(dirname $0); pwd)
+projectHome=$(realpath $0/../..)
 pkgInstallHome=$(dirname $(dirname $(which httpd)))
 apacheCfg=$pkgInstallHome/etc/httpd
 apacheLog=$pkgInstallHome/var/log/httpd/error_log
@@ -18,6 +19,7 @@ setupTools() {
    echo
    echo $banner
    echo $(echo $banner | sed s/./=/g)
+   date
    pwd
    [ -d .git ] || { echo "Project must be in a git repository."; exit; }
    [ -d dist ] && git restore dist
