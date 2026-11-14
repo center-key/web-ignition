@@ -162,9 +162,6 @@ publishWebFiles() {
 
 openWebPage() {
    cd $projectHome
-   echo "To validate HTML:"
-   echo "   npm run validate-html"
-   echo
    echo "Opening:"
    echo "   spec/spec-css.html"
    echo "   spec/spec-js.html"
@@ -178,6 +175,15 @@ openWebPage() {
    echo
    }
 
+publicServiceMessages() {
+   echo "To validate HTML:"
+   echo "   $ npm run validate-html"
+   echo
+   echo "To update CDN links in gists:"
+   echo "   $ npm run alt-pages"
+   echo
+   }
+
 setupTools
 releaseInstructions
 updateCdnVersion
@@ -185,3 +191,4 @@ runSpecs
 customizeBlogger
 publishWebFiles
 openWebPage
+publicServiceMessages

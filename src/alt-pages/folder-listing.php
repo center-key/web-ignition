@@ -2,7 +2,7 @@
 <html lang=en>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 <!-- Folder Listing                                              -->
-<!-- v2.0.2 (October 4, 2025)                                    -->
+<!-- v2.1.0 (November 13, 2026)                                  -->
 <!-- A good looking replacement for Directory Listings:          -->
 <!--     Rename this file to "index.php" and copy it into a web  -->
 <!--     server directory to enable browsing on that directory.  -->
@@ -28,7 +28,7 @@
    function showFile($file) {
       // Don't display hidden files, php files, link files, or folders.
       $extension =  pathinfo($file, PATHINFO_EXTENSION);
-      $extOk =      !in_array($extension, array("php"));
+      $extOk =      !in_array($extension, ["php"]);
       $isLink =     str_ends_with($file, ".link.md");
       $ignoreFile = $file === "error_log";
       return !is_dir($file) && $file[0] !== "." && !$ignoreFile && $extOk && !$isLink;
@@ -36,13 +36,16 @@
 
    function fileIcon($fileExtension) {
       // Returns the name of the icon associated with the given file extension.
-      $fileTypes = array(
+      // Example:
+      //    fileIcon("png") --> "file-image"
+      $fileTypes = (object)[
          "avif" => "file-image",
          "gif" =>  "file-image",
          "htm" =>  "file-code",
          "html" => "file-code",
          "jpeg" => "file-image",
          "jpg" =>  "file-image",
+         "jxl" =>  "file-image",
          "md" =>   "file-pen",
          "mp3" =>  "file-audio",
          "pdf" =>  "file-pdf",
@@ -52,8 +55,8 @@
          "webp" => "file-image",
          "xml" =>  "file-code",
          "zip" =>  "file-zipper",
-         );
-      return array_key_exists($fileExtension, $fileTypes) ? $fileTypes[$fileExtension] : "file";
+         ];
+      return $fileTypes->$fileExtension ?? "file";
       }
 
    function toHtml($file) {

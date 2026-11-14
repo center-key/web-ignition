@@ -68,16 +68,16 @@
          "esm-to-plain-js build/step0/js/lib-x.js                        build/step5/lib-x.dev.js",
          "uglifyjs        build/step5/lib-x.dev.js              --output build/step5/lib-x.min.js",
          "uglifyjs        src/css/layouts/neon.js               --output build/step5/layouts/neon.min.js",
-         "copy-file       src/css/reset/static/utility-box.less --folder build/step5",
-         "replacer        src/alt-pages                                  build/alt-pages"
+         "copy-file       src/css/reset/static/utility-box.less --folder build/step5"
       ],
       "publish": [
          "add-dist-header build/step5 --recursive         dist",
          "copy-folder     src/css/layouts/neon --ext=.jpg dist/layouts/neon"
       ],
       "alt-pages": [
-         "copy-file src/alt-pages/folder-listing.php --folder ../^gists/folder-listing.php",
-         "copy-file src/alt-pages/web-baseline.html  --filder ../^gists/web-baseline.html"
+         "replacer src/alt-pages build/alt-pages",
+         "copy-file build/alt-pages/folder-listing.php --folder ../^gists/folder-listing.php",
+         "copy-file build/alt-pages/web-baseline.html  --folder ../^gists/web-baseline.html"
       ]
    },
    "scripts": {
@@ -100,7 +100,7 @@
       "assert-deep-strict-equal": "~1.2",
       "copy-file-util": "~1.3",
       "copy-folder-util": "~1.2",
-      "eslint": "~10.13",
+      "eslint": "~10.15",
       "esm-to-plain-js": "~1.2",
       "jshint": "~2.13",
       "less": "~4.9",
@@ -110,7 +110,7 @@
       "rimraf": "~6.1",
       "run-scripts-util": "~1.4",
       "typescript": "~6.0",
-      "typescript-eslint": "~8.71",
+      "typescript-eslint": "~8.72",
       "uglify-js": "~3.19",
       "w3c-html-validator": "~2.2"
    }
