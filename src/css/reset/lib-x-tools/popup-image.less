@@ -32,6 +32,8 @@ img[data-popup-image] {
       top: 10px;
       left: 10px;
       display: block;
+      width: fit-content;
+      height: fit-content;
       background-color: white;
       z-index: @layerModal;
       opacity: 0;
@@ -56,6 +58,8 @@ img[data-popup-image] {
          display: block;
          width: auto;
          height: auto;
+         max-width: 75vw;  //data-popup-width=350 --> max-width: min(75vw, 350px);
+         max-height: 75vh;
          background-color: white;
          border: 20px solid silver;
          }

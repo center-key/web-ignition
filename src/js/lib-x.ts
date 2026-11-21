@@ -618,7 +618,7 @@ const libXUi = {
       // Usage:
       //    libX.ui.keepOnScreen(elem, { padding: 30 });
       const defaults: LibXUiKeepOnScreenSettings = {
-         padding: 10,
+         padding: 25,
          };
       const settings =  { ...defaults, ...options };
       const getPixels = (style: string) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
@@ -917,25 +917,29 @@ const libXPopupImage = {
    // Usage (attributes "data-popup-image" and "data-popup-width" are optional):
    //    <img src=thumb.png data-popup-image=full.jpg data-popup-width=300 alt=thumbnail>
    show(thumbnail: Element): Element {
-      const defaultPopupWidth = 1000;
-      const gap =               30;
       thumbnail.classList.add('popup-image');
       thumbnail.parentElement!.classList.add('popup-image-container');
-      if (thumbnail.nextElementSibling?.classList.contains(('popup-image-layer')))
-         thumbnail.nextElementSibling.remove();
+      thumbnail.parentElement!.querySelector('span.popup-image-layer')?.remove();
       const data =       (<HTMLElement>thumbnail).dataset;
-      const width =      data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
-      const maxWidth =   Math.min(width, globalThis.window.innerWidth - gap);
       const src =        data.popupImage ?? (<HTMLImageElement>thumbnail).src;
       const popupLayer = libX.dom.create('span', { class: 'popup-image-layer' });
       const popupImg =   libX.dom.create('img',  { src });
       const closeIcon =  libX.dom.create('i');
-      popupImg.style.maxWidth = String(maxWidth) + 'px';
+      if (data.popupWidth)
+         popupImg.style.maxWidth = `min(75vw, ${data.popupWidth}px)`;
       closeIcon.dataset.icon = 'times';
       libX.ui.makeIcons(closeIcon);
       popupLayer.appendChild(popupImg);
       popupLayer.appendChild(closeIcon);
       thumbnail.after(popupLayer);
+      // Result:
+      //    <span class=popup-image-container>
+      //       <img class=popup-image src=thumb.png data-popup-image=screenshot.png alt=thumbnail>
+      //       <span class=popup-image-layer>
+      //          <img src=screenshot.png>
+      //          <i data-icon=times class=font-icon></i>
+      //       </span>
+      //    </span>
       libX.ui.fadeIn(popupLayer);
       libX.ui.keepOnScreen(popupLayer);
       const close = () => {
