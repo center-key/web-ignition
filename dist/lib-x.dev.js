@@ -1,4 +1,4 @@
-//! web-ignition v2.5.6 ~~ https://github.com/center-key/web-ignition ~~ MIT License
+//! web-ignition v2.5.7 ~~ https://github.com/center-key/web-ignition ~~ MIT License
 
 const libXDom = {
     stateDepot: [],
@@ -494,7 +494,7 @@ const libXUi = {
     },
     keepOnScreen(elem, options) {
         const defaults = {
-            padding: 10,
+            padding: 25,
         };
         const settings = { ...defaults, ...options };
         const getPixels = (style) => /px$/.test(style) ? Number(style.slice(0, -2)) : 0;
@@ -729,20 +729,16 @@ const libXBrowser = {
 };
 const libXPopupImage = {
     show(thumbnail) {
-        const defaultPopupWidth = 1000;
-        const gap = 30;
         thumbnail.classList.add('popup-image');
         thumbnail.parentElement.classList.add('popup-image-container');
-        if (thumbnail.nextElementSibling?.classList.contains(('popup-image-layer')))
-            thumbnail.nextElementSibling.remove();
+        thumbnail.parentElement.querySelector('span.popup-image-layer')?.remove();
         const data = thumbnail.dataset;
-        const width = data.popupWidth ? Number(data.popupWidth) : defaultPopupWidth;
-        const maxWidth = Math.min(width, globalThis.window.innerWidth - gap);
         const src = data.popupImage ?? thumbnail.src;
         const popupLayer = libX.dom.create('span', { class: 'popup-image-layer' });
         const popupImg = libX.dom.create('img', { src });
         const closeIcon = libX.dom.create('i');
-        popupImg.style.maxWidth = String(maxWidth) + 'px';
+        if (data.popupWidth)
+            popupImg.style.maxWidth = `min(75vw, ${data.popupWidth}px)`;
         closeIcon.dataset.icon = 'times';
         libX.ui.makeIcons(closeIcon);
         popupLayer.appendChild(popupImg);
@@ -968,7 +964,7 @@ const libXExtra = {
     },
 };
 const libX = {
-    version: '2.5.6',
+    version: '2.5.7',
     dom: libXDom,
     ui: libXUi,
     util: libXUtil,
